@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght=0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-brand-teal: #0097b2;
+  --color-brand-teal-hover: #007d94;
+  --color-brand-orange: #cb3421;
+  --color-brand-orange-hover: #a52313;
+  
+  --color-navy-dark: #eaf0f6;
+  --color-navy-slate: #f0f4f8;
+  --color-navy-medium: #ffffff;
+  --color-navy-light: #4a5c6e;
+  --color-navy-border: rgba(163, 177, 198, 0.3);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #eaf0f6;
+}
+
+/* Custom Neumorphism Soft UI shadows - extremely smooth & crisp as in reference image */
+.nm-flat {
+  background-color: #eaf0f6;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nm-emboss {
+  background-color: #eaf0f6;
+  box-shadow: 12px 12px 24px #cdd4db, -12px -12px 24px #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+}
+
+.nm-emboss-sm {
+  background-color: #eaf0f6;
+  box-shadow: 6px 6px 14px #cdd4db, -6px -6px 14px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.nm-emboss-lg {
+  background-color: #eaf0f6;
+  box-shadow: 18px 18px 36px #cdd4db, -18px -18px 36px #ffffff;
+  border: 2px solid rgba(255, 255, 255, 1);
+}
+
+.nm-deboss {
+  background-color: #eaf0f6;
+  box-shadow: inset 8px 8px 16px #cdd4db, inset -8px -8px 16px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.nm-deboss-sm {
+  background-color: #eaf0f6;
+  box-shadow: inset 4px 4px 10px #cdd4db, inset -4px -4px 10px #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Tactile Neumorphic interactive button styling */
+.nm-btn {
+  background-color: #eaf0f6;
+  box-shadow: 8px 8px 16px #cdd4db, -8px -8px 16px #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nm-btn:hover {
+  box-shadow: 4px 4px 10px #cdd4db, -4px -4px 10px #ffffff;
+  transform: translateY(-0.5px);
+}
+
+.nm-btn:active, .nm-btn-active {
+  box-shadow: inset 6px 6px 12px #cdd4db, inset -6px -6px 12px #ffffff;
+  transform: translateY(1px);
+}
+
+/* Interactive accent button with glowing border bevel */
+.nm-btn-accent {
+  background: linear-gradient(135deg, #0097b2 0%, #00b4d8 100%);
+  box-shadow: 8px 8px 18px rgba(205, 212, 219, 0.9), -8px -8px 18px #ffffff, inset 1px 1px 3px rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nm-btn-accent:hover {
+  box-shadow: 4px 4px 12px rgba(205, 212, 219, 0.95), -4px -4px 12px #ffffff;
+  transform: translateY(-0.5px);
+  filter: brightness(1.05);
+}
+
+.nm-btn-accent:active {
+  box-shadow: inset 4px 4px 12px rgba(0, 77, 90, 0.8), 1px 1px 3px #ffffff;
+}
+
+/* Input Fields - beautifully debossed */
+.nm-input {
+  background-color: #eaf0f6;
+  box-shadow: inset 6px 6px 14px #cdd4db, inset -6px -6px 14px #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  color: #2c3e50;
+  transition: all 0.2s ease;
+}
+
+.nm-input:focus {
+  outline: none;
+  box-shadow: inset 6px 6px 14px #cdd4db, inset -6px -6px 14px #ffffff, 0 0 0 3px rgba(0, 151, 178, 0.25);
+  border-color: rgba(0, 151, 178, 0.4);
+}
+
+/* Pulsing micro-LED accent indicators */
+@keyframes led-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 151, 178, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(0, 151, 178, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 151, 178, 0);
+  }
+}
+
+.nm-led-teal {
+  background-color: #0097b2;
+  animation: led-pulse 2s infinite;
+}
+
+@keyframes led-pulse-orange {
+  0% {
+    box-shadow: 0 0 0 0 rgba(203, 52, 33, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(203, 52, 33, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(203, 52, 33, 0);
+  }
+}
+
+.nm-led-orange {
+  background-color: #cb3421;
+  animation: led-pulse-orange 2s infinite;
+}
+
+/* Base style overrides */
+body {
+  font-family: var(--font-sans);
+  background-color: #eaf0f6;
+  color: #2c3e50;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar matching neumorphic theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #eaf0f6;
+  box-shadow: inset 2px 2px 5px #cdd4db, inset -2px -2px 5px #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #cdd4db;
+  border-radius: 5px;
+  border: 2px solid #eaf0f6;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0097b2;
+}
+
+/* Selection Highlight */
+::selection {
+  background: rgba(0, 151, 178, 0.2);
+  color: #007d94;
+}

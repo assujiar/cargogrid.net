@@ -1,0 +1,19 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">CargoGrid vertical logo</title>
+  <desc id="desc">CargoGrid OS vertical brand mark with logistics grid cube.</desc>
+  <rect width="320" height="320" rx="48" fill="#EEF2F6"/>
+  <g filter="url(#shadow)">
+    <rect x="86" y="34" width="148" height="148" rx="36" fill="#F8FAFC"/>
+    <path d="M160 62L210 91V149L160 178L110 149V91L160 62Z" stroke="#0F172A" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M160 62V120M160 120L210 91M160 120L110 91M160 120V178M160 178L110 149M160 178L210 149" stroke="#94A3B8" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M160 120L185 106V134L160 148L135 134V106L160 120Z" fill="#FF5E14" stroke="#FF5E14" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+  <text x="160" y="230" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="900" letter-spacing="-1.8" fill="#0F172A">Cargo<tspan fill="#0097B2">Grid</tspan></text>
+  <text x="160" y="260" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="4" fill="#64748B">OPERATING SYSTEM</text>
+  <defs>
+    <filter id="shadow" x="58" y="10" width="204" height="204" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="8" dy="8" stdDeviation="10" flood-color="#0F172A" flood-opacity="0.12"/>
+      <feDropShadow dx="-8" dy="-8" stdDeviation="10" flood-color="#FFFFFF" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+</svg>

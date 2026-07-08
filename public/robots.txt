@@ -152,4 +152,4 @@ Disallow: /api/
 # -------------------------------------------------------------
 # 3. XML Sitemap Location
 # -------------------------------------------------------------
-Sitemap: https://cargogrid.net/sitemap.xml
+Sitemap: https://cargogrid-ops.io/sitemap.xml

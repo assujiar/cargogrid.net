@@ -29,7 +29,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
   const [qualification, setQualification] = useState<"high" | "medium" | "standard">("standard");
   const [newInquiryId, setNewInquiryId] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Verify fields
@@ -58,9 +58,9 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
     // Retrieve active UTM tracking parameters
     const utm = getStoredUtmParams();
 
-    try {
-      // Save to Supabase with active language context and UTM attributes
-      const newInq = await addInquiry({
+    setTimeout(() => {
+      // Save to local persistent storage database with active language context and UTM attributes
+      const newInq = addInquiry({
         name: formData.name,
         company: formData.company,
         role: formData.role,
@@ -77,13 +77,9 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
         utmContent: utm.utmContent || undefined
       });
       setNewInquiryId(newInq.id);
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error("Failed to submit inquiry", error);
-      alert(isEn ? "Unable to submit your inquiry. Please try again." : "Gagal mengirim data inquiry. Silakan coba lagi.");
-    } finally {
       setIsSubmitting(false);
-    }
+      setIsSubmitted(true);
+    }, 1500);
   };
 
   return (
@@ -249,7 +245,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                         <input
                           type="tel"
                           required
-                          placeholder={isEn ? "e.g., +62812345678" : "Contoh: +62877 8898 0088"}
+                          placeholder={isEn ? "e.g., +62812345678" : "Contoh: 081234567890"}
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all font-mono bg-white"

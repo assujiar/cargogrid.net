@@ -46,12 +46,6 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  React.useEffect(() => {
-    if (!hash.startsWith("#questionnaire")) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [hash]);
-
   // SEO, SEM & AI-SEO Optimizations Engine
   React.useEffect(() => {
     const isEn = lang === 'en';
@@ -120,7 +114,7 @@ export default function App() {
           "logo": "https://cargogrid.com/logo.png",
           "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+62877 8898 0088",
+            "telephone": "+62-21-5088-0000",
             "contactType": "customer service",
             "areaServed": "ID",
             "availableLanguage": ["Indonesian", "English"]
@@ -179,7 +173,7 @@ export default function App() {
   }, [lang]);
 
   // Parse active route view
-  let view: 'landing' | 'problem' | 'flow' | 'modules' | 'use-cases' | 'calculator' | 'sandbox' | 'pricing' | 'faq' | 'audit-form' | 'questionnaire' | 'admin' | 'privacy' | 'terms' = 'landing';
+  let view: 'landing' | 'questionnaire' | 'admin' | 'privacy' | 'terms' = 'landing';
   if (hash.startsWith("#admin")) {
     view = 'admin';
   } else if (hash.startsWith("#questionnaire")) {
@@ -188,24 +182,6 @@ export default function App() {
     view = 'privacy';
   } else if (hash.startsWith("#terms")) {
     view = 'terms';
-  } else if (hash.startsWith("#problem")) {
-    view = 'problem';
-  } else if (hash.startsWith("#flow")) {
-    view = 'flow';
-  } else if (hash.startsWith("#modules")) {
-    view = 'modules';
-  } else if (hash.startsWith("#use-cases")) {
-    view = 'use-cases';
-  } else if (hash.startsWith("#roi-calculator")) {
-    view = 'calculator';
-  } else if (hash.startsWith("#sandbox")) {
-    view = 'sandbox';
-  } else if (hash.startsWith("#pricing")) {
-    view = 'pricing';
-  } else if (hash.startsWith("#faq")) {
-    view = 'faq';
-  } else if (hash.startsWith("#audit-form")) {
-    view = 'audit-form';
   }
 
   return (
@@ -235,35 +211,45 @@ export default function App() {
       ) : view === 'terms' ? (
         <LegalSection lang={lang} defaultTab="terms" />
       ) : (
-        /* Hash-routed marketing pages with lang support */
-        <main className="flex-1 relative z-10 pt-24" id={`page-${view}`}>
-          {view === 'problem' ? (
+        /* Structured SaaS landing page content with lang support */
+        <main className="flex-1 relative z-10" id="landing-page-main-flow">
+          <HeroSection lang={lang} />
+          
+          <div id="problem-area">
             <ProblemSection lang={lang} />
-          ) : view === 'flow' ? (
+          </div>
+
+          <div id="flow-area">
             <ConnectedFlowVisualizer lang={lang} />
-          ) : view === 'modules' ? (
+          </div>
+
+          <div id="modules-area">
             <ModulesSection lang={lang} />
-          ) : view === 'use-cases' ? (
+          </div>
+
+          <div id="use-cases-area">
             <IcpSelector lang={lang} />
-          ) : view === 'calculator' ? (
+          </div>
+
+          <div id="calculator-area">
             <DelayCalculator lang={lang} />
-          ) : view === 'sandbox' ? (
+          </div>
+
+          <div id="sandbox-area">
             <LiveDemoSandbox lang={lang} />
-          ) : view === 'pricing' ? (
-            <>
-              <PricingSection lang={lang} />
-              <FaqSection lang={lang} />
-            </>
-          ) : view === 'faq' ? (
+          </div>
+
+          <div id="pricing-area">
+            <PricingSection lang={lang} />
+          </div>
+
+          <div id="faq-area">
             <FaqSection lang={lang} />
-          ) : view === 'audit-form' ? (
+          </div>
+
+          <div id="lead-form-area">
             <LeadCaptureForm lang={lang} />
-          ) : (
-            <>
-              <HeroSection lang={lang} />
-              <LeadCaptureForm lang={lang} />
-            </>
-          )}
+          </div>
         </main>
       )}
 

@@ -150,27 +150,15 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [platform, setPlatform] = useState<Meeting['platform']>("Google Meet");
   const [adminNotes, setAdminNotes] = useState("");
   const [scheduleSuccess, setScheduleSuccess] = useState(false);
-  const [dataError, setDataError] = useState("");
 
   // Email Viewer Modal
   const [viewingEmail, setViewingEmail] = useState<EmailLog | null>(null);
 
-  // Load Supabase states
-  const loadData = async () => {
-    try {
-      setDataError("");
-      const [nextInquiries, nextEmails, nextMeetings] = await Promise.all([
-        getInquiries(),
-        getEmailLogs(),
-        getMeetings()
-      ]);
-      setInquiries(nextInquiries);
-      setEmails(nextEmails);
-      setMeetings(nextMeetings);
-    } catch (error) {
-      console.error("Failed to load Supabase dashboard data", error);
-      setDataError(lang === "en" ? "Unable to load Supabase data." : "Gagal memuat data Supabase.");
-    }
+  // Load storage states
+  const loadData = () => {
+    setInquiries(getInquiries());
+    setEmails(getEmailLogs());
+    setMeetings(getMeetings());
   };
 
   useEffect(() => {
@@ -182,17 +170,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
   // Update selected inquiry sub-states if selectedInquiry changes
   useEffect(() => {
-    let isMounted = true;
+    if (selectedInquiry) {
+      const q = getQuestionnaireByInquiryId(selectedInquiry.id);
+      setSelectedInquiryQuestionnaire(q || null);
 
-    const loadSelectedQuestionnaire = async () => {
-      if (!selectedInquiry) return;
-      try {
-        const q = await getQuestionnaireByInquiryId(selectedInquiry.id);
-        if (!isMounted) return;
-        setSelectedInquiryQuestionnaire(q || null);
-
-        // Auto fill schedule form based on preferences
-        if (q && q.preferredSlots && q.preferredSlots.length > 0) {
+      // Auto fill schedule form based on preferences
+      if (q && q.preferredSlots && q.preferredSlots.length > 0) {
         // Auto seed a simulated meeting link
         const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
         setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
@@ -202,27 +185,15 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
         setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
         setAdminNotes("");
       }
-        setScheduledDate("");
-        setScheduledTime("");
-        setPlatform("Google Meet");
-        setScheduleSuccess(false);
-      } catch (error) {
-        console.error("Failed to load selected questionnaire", error);
-        if (isMounted) {
-          setSelectedInquiryQuestionnaire(null);
-          setDataError(lang === "en" ? "Unable to load questionnaire details." : "Gagal memuat detail kuesioner.");
-        }
-      }
-    };
-
-    loadSelectedQuestionnaire();
-    return () => {
-      isMounted = false;
-    };
-  }, [selectedInquiry, lang]);
+      setScheduledDate("");
+      setScheduledTime("");
+      setPlatform("Google Meet");
+      setScheduleSuccess(false);
+    }
+  }, [selectedInquiry]);
 
   // Handle scheduling action
-  const handleConfirmMeeting = async (e: React.FormEvent) => {
+  const handleConfirmMeeting = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedInquiry) return;
 
@@ -236,30 +207,25 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       finalTime = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}T10:00:00+07:00`;
     }
 
-    try {
-      await scheduleMeeting(selectedInquiry.id, {
-        scheduledTime: finalTime,
-        meetingUrl,
-        platform,
-        adminNotes
-      });
+    scheduleMeeting(selectedInquiry.id, {
+      scheduledTime: finalTime,
+      meetingUrl,
+      platform,
+      adminNotes
+    });
 
-      setScheduleSuccess(true);
-      await loadData();
-      
-      // Refresh active selected inquiry view to update badge
-      const updatedInq = await getInquiry(selectedInquiry.id);
-      if (updatedInq) {
-        setSelectedInquiry(updatedInq);
-      }
-
-      setTimeout(() => {
-        setScheduleSuccess(false);
-      }, 4000);
-    } catch (error) {
-      console.error("Failed to schedule meeting", error);
-      setDataError(lang === "en" ? "Unable to schedule meeting." : "Gagal membuat jadwal meeting.");
+    setScheduleSuccess(true);
+    loadData();
+    
+    // Refresh active selected inquiry view to update badge
+    const updatedInq = getInquiry(selectedInquiry.id);
+    if (updatedInq) {
+      setSelectedInquiry(updatedInq);
     }
+
+    setTimeout(() => {
+      setScheduleSuccess(false);
+    }, 4000);
   };
 
   // Filter inquiries

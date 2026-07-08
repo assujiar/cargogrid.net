@@ -112,7 +112,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
 
                 <h3 className="font-display font-extrabold text-slate-900 mt-4 uppercase tracking-wider text-xs">D. Data Retention and Deletion Rights</h3>
                 <p>
-                  You retain full ownership of your data. You may export or request complete purging of your company account details, system audit records, and uploaded POD images at any time by contacting our Security & SLA Officer at <strong>service@cargogrid.net</strong>.
+                  You retain full ownership of your data. You may export or request complete purging of your company account details, system audit records, and uploaded POD images at any time by contacting our Security & SLA Officer at <strong>compliance@cargogrid-ops.io</strong>.
                 </p>
               </div>
 
@@ -149,7 +149,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
 
                 <h3 className="font-display font-extrabold text-slate-900 mt-4 uppercase tracking-wider text-xs">D. Hak Penghapusan dan Retensi Data</h3>
                 <p>
-                  Perusahaan Anda memegang hak milik mutlak atas seluruh data logistik. Anda berhak mengekspor file atau meminta penghapusan permanen atas seluruh profil perusahaan, data kuesioner, dan unggahan POD Anda dengan menghubungi bagian kepatuhan hukum kami di <strong>service@cargogrid.net</strong>.
+                  Perusahaan Anda memegang hak milik mutlak atas seluruh data logistik. Anda berhak mengekspor file atau meminta penghapusan permanen atas seluruh profil perusahaan, data kuesioner, dan unggahan POD Anda dengan menghubungi bagian kepatuhan hukum kami di <strong>compliance@cargogrid-ops.io</strong>.
                 </p>
               </div>
 
@@ -232,8 +232,8 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
         {/* Footer info inside legal */}
         <div className="mt-8 text-center text-xs text-slate-500 font-mono font-bold pb-12">
           {isEn 
-            ? "Need custom legal frameworks or enterprise cloud SLA agreements? Contact service@cargogrid.net" 
-            : "Butuh draf perjanjian legal khusus untuk korporasi Anda? Hubungi service@cargogrid.net"}
+            ? "Need custom legal frameworks or enterprise cloud SLA agreements? Contact compliance@cargogrid-ops.io" 
+            : "Butuh draf perjanjian legal khusus untuk korporasi Anda? Hubungi compliance@cargogrid-ops.io"}
         </div>
 
       </div>

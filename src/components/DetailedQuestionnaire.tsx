@@ -41,7 +41,6 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const [saveStatus, setSaveStatus] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
-  const [loadError, setLoadError] = useState<string>("");
 
   // Check language dynamically
   const isEn = lang === "en";
@@ -77,60 +76,35 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
   // Load inquiries list and specific questionnaire state
   useEffect(() => {
-    let isMounted = true;
+    const list = getInquiries();
+    setAvailableInquiries(list);
 
-    const loadInquiryState = async () => {
-      try {
-        setLoadError("");
-        const list = await getInquiries();
-        if (!isMounted) return;
-        setAvailableInquiries(list);
-
-        // Read ID from hash query string, e.g. #questionnaire?id=xyz
-        const hash = window.location.hash;
-        let id = initialInquiryId || "";
-        if (hash.includes("?id=")) {
-          id = hash.split("?id=")[1];
-        }
-        
-        if (id) {
-          setInquiryId(id);
-          const inq = await getInquiry(id);
-          if (!isMounted) return;
-          if (inq) {
-            setInquiry(inq);
-            setIsInvalidToken(false);
-          } else {
-            setIsInvalidToken(true);
-          }
-        } else {
-          setIsInvalidToken(true);
-        }
-      } catch (error) {
-        console.error("Failed to load inquiry", error);
-        if (isMounted) {
-          setLoadError(isEn ? "Unable to load Supabase data. Please try again." : "Gagal memuat data Supabase. Silakan coba lagi.");
-          setIsInvalidToken(true);
-        }
+    // Read ID from hash query string, e.g. #questionnaire?id=xyz
+    const hash = window.location.hash;
+    let id = initialInquiryId || "";
+    if (hash.includes("?id=")) {
+      id = hash.split("?id=")[1];
+    }
+    
+    if (id) {
+      setInquiryId(id);
+      const inq = getInquiry(id);
+      if (inq) {
+        setInquiry(inq);
+        setIsInvalidToken(false);
+      } else {
+        setIsInvalidToken(true);
       }
-    };
-
-    loadInquiryState();
-    return () => {
-      isMounted = false;
-    };
-  }, [initialInquiryId, window.location.hash, isEn]);
+    } else {
+      setIsInvalidToken(true);
+    }
+  }, [initialInquiryId, window.location.hash]);
 
   // Load existing questionnaire data if draft exists
   useEffect(() => {
-    let isMounted = true;
-
-    const loadQuestionnaire = async () => {
-      if (!inquiryId) return;
-      try {
-        const q = await getQuestionnaireByInquiryId(inquiryId);
-        if (!isMounted) return;
-        if (q) {
+    if (inquiryId) {
+      const q = getQuestionnaireByInquiryId(inquiryId);
+      if (q) {
         setCargoTypes(q.cargoTypes || []);
         setPrimaryRoutes(q.primaryRoutes || "");
         setFleetSize(q.fleetSize || "");
@@ -181,20 +155,9 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
         setStep(1);
         setIsDone(false);
-        }
-      } catch (error) {
-        console.error("Failed to load questionnaire", error);
-        if (isMounted) {
-          setLoadError(isEn ? "Unable to load questionnaire data." : "Gagal memuat data kuesioner.");
-        }
       }
-    };
-
-    loadQuestionnaire();
-    return () => {
-      isMounted = false;
-    };
-  }, [inquiryId, isEn]);
+    }
+  }, [inquiryId]);
 
   const handleLookupEmail = (e: React.FormEvent) => {
     e.preventDefault();
@@ -241,20 +204,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   };
 
   // Handle auto-save / manual draft save
-  const handleSaveDraft = async (stepOverride?: number) => {
+  const handleSaveDraft = (stepOverride?: number) => {
     if (!inquiryId) return;
     const currentStepNum = stepOverride !== undefined ? stepOverride : step;
     
-    try {
-      await saveQuestionnaireDraft(inquiryId, {
-        ...getPayload(),
-        currentStep: currentStepNum
-      });
-    } catch (error) {
-      console.error("Failed to save questionnaire draft", error);
-      setSaveStatus(isEn ? "Draft save failed. Please try again." : "Draft gagal tersimpan. Silakan coba lagi.");
-      return;
-    }
+    saveQuestionnaireDraft(inquiryId, {
+      ...getPayload(),
+      currentStep: currentStepNum
+    });
 
     const now = new Date();
     const timeStr = now.toLocaleTimeString(isEn ? "en-US" : "id-ID", { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -288,21 +245,19 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   };
 
   // Final Submit
-  const handleSubmitForm = async (e: React.FormEvent) => {
+  const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inquiryId) return;
 
     setIsSubmitting(true);
-    try {
-      await submitQuestionnaire(inquiryId, getPayload());
+    
+    // Simulate API delay
+    setTimeout(() => {
+      submitQuestionnaire(inquiryId, getPayload());
+      setIsSubmitting(false);
       setIsDone(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (error) {
-      console.error("Failed to submit questionnaire", error);
-      alert(isEn ? "Unable to submit questionnaire. Please try again." : "Gagal mengirim kuesioner. Silakan coba lagi.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 1500);
   };
 
   // Helper toggle arrays
@@ -1150,11 +1105,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center pt-4">
               <button
-                onClick={async () => {
+                onClick={() => {
                   setIsDone(false);
                   setStep(1);
                   if (inquiryId) {
-                    await saveQuestionnaireDraft(inquiryId, { ...getPayload(), isDraft: true, currentStep: 1 });
+                    saveQuestionnaireDraft(inquiryId, { ...getPayload(), isDraft: true, currentStep: 1 });
                   }
                 }}
                 className="px-5 py-2.5 nm-btn text-slate-600 text-xs font-bold rounded-xl cursor-pointer border-0"

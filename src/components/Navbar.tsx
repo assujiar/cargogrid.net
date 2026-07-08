@@ -28,18 +28,16 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
 
   const navLinks = isEn ? [
     { name: "Challenges", href: "#problem" },
-    { name: "Workflow", href: "#flow" },
-    { name: "Modules", href: "#modules" },
-    { name: "Use Cases", href: "#use-cases" },
-    { name: "Simulator", href: "#sandbox" },
-    { name: "Pricing & FAQ", href: "#pricing" },
+    { name: "System & Modules", href: "#flow" },
+    { name: "Simulator & ROI", href: "#sandbox" },
+    { name: "Plans & FAQ", href: "#pricing" },
+    { name: "Admin Portal", href: "#admin" },
   ] : [
     { name: "Tantangan", href: "#problem" },
-    { name: "Alur Kerja", href: "#flow" },
-    { name: "Modul", href: "#modules" },
-    { name: "Use Case", href: "#use-cases" },
-    { name: "Simulator", href: "#sandbox" },
+    { name: "Sistem & Modul", href: "#flow" },
+    { name: "Simulator & ROI", href: "#sandbox" },
     { name: "Paket & FAQ", href: "#pricing" },
+    { name: "Portal Admin", href: "#admin" },
   ];
 
   return (

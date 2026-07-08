@@ -1,33 +1,20 @@
-# CargoGrid OS
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-CargoGrid OS is a React/Vite landing page, questionnaire flow, and admin portal backed by Supabase.
+# Run and deploy your AI Studio app
+
+This contains everything you need to run your app locally.
+
+View your app in AI Studio: https://ai.studio/apps/c154037a-e8bc-46f4-8946-30eee9695e60
 
 ## Run Locally
 
-**Prerequisites:** Node.js and a Supabase project.
+**Prerequisites:**  Node.js
+
 
 1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Create a Supabase project and run `supabase_migration.sql` in the Supabase SQL Editor.
-3. Copy `.env.example` to `.env.local` and set:
-   ```bash
-   VITE_SUPABASE_URL="https://your-project-ref.supabase.co"
-   VITE_SUPABASE_ANON_KEY="your-supabase-anon-key"
-   APP_URL="http://localhost:3000"
-   ```
-4. Run the app:
-   ```bash
-   npm run dev
-   ```
-
-## Deploy to Vercel
-
-Set these environment variables in Vercel Project Settings before deploying:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-- `APP_URL`
-
-The browser app only needs the Supabase anon key. Do **not** expose a Supabase service-role key in Vercel frontend environment variables.
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

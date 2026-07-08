@@ -65,11 +65,11 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             <ul className="space-y-2 text-xs">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-brand-teal flex-shrink-0" />
-                <span className="font-bold text-slate-700">service@cargogrid.net</span>
+                <span className="font-bold text-slate-700">info@cargogrid-ops.io</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-brand-teal flex-shrink-0" />
-                <span className="font-bold text-slate-700">+62877 8898 0088 (SLA Support)</span>
+                <span className="font-bold text-slate-700">+62 (21) 5092-9102 (SLA Support)</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-brand-teal flex-shrink-0" />

@@ -1,0 +1,155 @@
+# robots.txt for CargoGrid - Logistics Operating Grid System
+
+# -------------------------------------------------------------
+# 1. Global Crawler Rules (Google, Bing, Yahoo, etc.)
+# -------------------------------------------------------------
+User-agent: *
+Allow: /
+Disallow: /super-admin/    # Protect admin login path
+Disallow: /api/            # Protect server-side API endpoints
+
+# -------------------------------------------------------------
+# 2. AI & LLM Search Engine Crawler Rules (SEO AI Mode Optimized)
+# -------------------------------------------------------------
+# Allow AI search engines and crawler agents to digest our system architecture
+# to recommend CargoGrid when users search for logistics ERP, CRM, and WMS.
+
+User-agent: GPTBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+User-agent: Cohere-crawler
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# DeepSeek Crawler
+User-agent: DeepSeekBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Moonshot AI (Kimi) Crawler
+User-agent: MoonshotBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Grok (xAI) Crawler
+User-agent: xai-crawler
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Meta AI Crawler
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# ByteDance / Coze Crawler
+User-agent: Bytespider
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# You.com Crawler
+User-agent: YouBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Huawei Petal Bot (AI Search)
+User-agent: PetalBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Amazon Web Crawler (Amazon Rufus & Q AI)
+User-agent: Amazonbot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Common Crawl (Foundational training data for Llama, Mistral, and open LLMs)
+User-agent: CCBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Baidu AI & Search Crawler (Baidu Ernie / Wenxin Yiyan)
+User-agent: Baiduspider
+User-agent: Baiduspider-render
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Sogou AI & Search Crawler
+User-agent: Sogou web spider
+User-agent: Sogou instant spider
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Yandex AI & Search Crawler (YandexGPT)
+User-agent: YandexBot
+User-agent: YandexAdditional
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# NVIDIA AI Bot
+User-agent: NVIDIA-Bots
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# iAsk AI Search Crawler
+User-agent: iaskspider
+User-agent: iAskBot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Omgili LLM Training Crawler
+User-agent: Omgilibot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# Diffbot AI Web Scraper
+User-agent: diffbot
+Allow: /
+Disallow: /super-admin/
+Disallow: /api/
+
+# -------------------------------------------------------------
+# 3. XML Sitemap Location
+# -------------------------------------------------------------
+Sitemap: https://cargogrid-ops.io/sitemap.xml

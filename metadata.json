@@ -1,0 +1,6 @@
+{
+  "name": "CargoGrid",
+  "description": "Connected Logistics ERP that unifies RFQ, quotation, shipment tracking, warehouse, POD, billing, accounting, and customer portal in one configurable system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

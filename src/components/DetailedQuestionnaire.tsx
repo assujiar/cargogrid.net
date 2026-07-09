@@ -47,6 +47,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const isEn = lang === "en";
 
   // Questionnaire form states
+  const [serviceTypes, setServiceTypes] = useState<string[]>([]);
   const [cargoTypes, setCargoTypes] = useState<string[]>([]);
   const [operationScope, setOperationScope] = useState<string>("");
   const [primaryRoutes, setPrimaryRoutes] = useState<string>("");
@@ -115,6 +116,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
       const loadQuestionnaire = async () => {
         const q = await getQuestionnaireByInquiryId(inquiryId);
         if (q) {
+        setServiceTypes(q.serviceTypes || []);
         setCargoTypes(q.cargoTypes || []);
         setOperationScope(q.operationScope || "");
         setPrimaryRoutes(q.primaryRoutes || "");
@@ -142,6 +144,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         setIsDone(!q.isDraft);
       } else {
         // Reset to default
+        setServiceTypes([]);
         setCargoTypes([]);
         setOperationScope("");
         setPrimaryRoutes("");
@@ -203,6 +206,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const getPayload = (): Partial<Questionnaire> => {
     return {
       inquiryId,
+      serviceTypes,
       cargoTypes,
       operationScope,
       primaryRoutes,
@@ -293,6 +297,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
       setCargoTypes(cargoTypes.filter(c => c !== type));
     } else {
       setCargoTypes([...cargoTypes, type]);
+    }
+  };
+
+  const toggleService = (type: string) => {
+    if (serviceTypes.includes(type)) {
+      setServiceTypes(serviceTypes.filter(s => s !== type));
+    } else {
+      setServiceTypes([...serviceTypes, type]);
     }
   };
 
@@ -505,21 +517,61 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       </p>
                     </div>
 
-                    {/* Cargo Types Checklist */}
+                    {/* Service Types Checklist */}
                     <div className="flex flex-col gap-2">
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
-                        {isEn ? "Main Cargo / Cargo Type*" : "Jenis Kargo / Muatan Utama*"}
+                        {isEn ? "Service Type (mode of transport/handling)*" : "Jenis Layanan (moda transportasi/penanganan)*"}
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {[
-                          { id: "FCL (Full Container)", en: "FCL (Full Container)" },
-                          { id: "LCL (Less Container)", en: "LCL (Less Container)" },
+                          { id: "Air Freight", en: "Air Freight" },
+                          { id: "Sea Freight - FCL", en: "Sea Freight - FCL" },
+                          { id: "Sea Freight - LCL", en: "Sea Freight - LCL" },
+                          { id: "Trucking - FTL", en: "Trucking - FTL" },
+                          { id: "Trucking - LTL", en: "Trucking - LTL" },
+                          { id: "Warehousing", en: "Warehousing" },
+                          { id: "Last-Mile / Kurir", en: "Last-Mile / Courier" },
+                          { id: "Multimodal / Door-to-Door", en: "Multimodal / Door-to-Door" }
+                        ].map((svcObj) => {
+                          const svc = svcObj.id;
+                          const label = isEn ? svcObj.en : svcObj.id;
+                          const checked = serviceTypes.includes(svc);
+                          return (
+                            <button
+                              type="button"
+                              key={svc}
+                              onClick={() => toggleService(svc)}
+                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                                checked
+                                  ? "nm-emboss bg-brand-teal text-white"
+                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 justify-between">
+                                <span>{label}</span>
+                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Commodity Types Checklist */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        {isEn ? "Commodity Type (goods being shipped)*" : "Jenis Komoditas (barang yang diangkut)*"}
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        {[
                           { id: "General Cargo / Box", en: "General Cargo / Box" },
-                          { id: "Reefer (Suhu Dingin)", en: "Reefer (Cold Chain)" },
                           { id: "Bulk Cargo (Curah)", en: "Bulk Cargo (Dry Bulk)" },
+                          { id: "Reefer (Suhu Dingin)", en: "Reefer (Cold Chain)" },
                           { id: "Dangerous Goods (B3)", en: "Dangerous Goods (Hazmat)" },
-                          { id: "Armada Truk Kecil", en: "Small Truck Fleets" },
-                          { id: "Cairan / Chemical", en: "Liquid / Chemical" }
+                          { id: "Cairan / Chemical", en: "Liquid / Chemical" },
+                          { id: "Oversized / Project Cargo", en: "Oversized / Project Cargo" },
+                          { id: "Perishables / FMCG", en: "Perishables / FMCG" },
+                          { id: "Livestock", en: "Livestock" }
                         ].map((cargoObj) => {
                           const cargo = cargoObj.id;
                           const label = isEn ? cargoObj.en : cargoObj.id;

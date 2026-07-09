@@ -750,7 +750,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                 <span className="font-mono text-[9px] font-black text-slate-400 block uppercase">1. PROFIL OPERASIONAL</span>
                                 <p className="font-bold text-slate-700">Cakupan: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.operationScope === "domestic" ? "Domestik Saja" : selectedInquiryQuestionnaire.operationScope === "international" ? "Internasional Saja" : selectedInquiryQuestionnaire.operationScope === "both" ? "Domestik & Internasional" : "-"}</span></p>
                                 <p className="font-bold text-slate-700">Rute: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.primaryRoutes || "-"}</span></p>
-                                <p className="font-bold text-slate-700">Kargo: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.cargoTypes || []).join(", ") || "-"}</span></p>
+                                <p className="font-bold text-slate-700">Layanan: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.serviceTypes || []).join(", ") || "-"}</span></p>
+                                <p className="font-bold text-slate-700">Komoditas: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.cargoTypes || []).join(", ") || "-"}</span></p>
                                 <p className="font-bold text-slate-700">Armada/Sub-vendor: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.fleetSize || "-"} / {selectedInquiryQuestionnaire.vendorCount || "-"}</span></p>
                                 {selectedInquiryQuestionnaire.totalExpectedUsers && (
                                   <p className="font-bold text-slate-700">Estimasi Pengguna: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.totalExpectedUsers}</span></p>

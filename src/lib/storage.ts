@@ -29,7 +29,8 @@ export interface Inquiry {
 export interface Questionnaire {
   inquiryId: string;
   // Section 1: Profil & Operasional Bisnis
-  cargoTypes: string[]; // e.g. ['FCL', 'LCL', 'Bulk', 'Reefer', 'General Cargo']
+  serviceTypes: string[]; // e.g. ['Air Freight', 'Sea Freight - FCL', 'Trucking - FTL', 'Warehousing']
+  cargoTypes: string[]; // Commodity types e.g. ['Bulk Cargo (Curah)', 'Reefer (Suhu Dingin)', 'General Cargo / Box']
   operationScope: string; // 'domestic' | 'international' | 'both'
   primaryRoutes: string;
   fleetSize: string;
@@ -473,7 +474,7 @@ type InquiryRow = {
 };
 
 type QuestionnaireRow = {
-  inquiry_id: string; cargo_types?: string[] | null; operation_scope?: string | null; primary_routes?: string | null; fleet_size?: string | null;
+  inquiry_id: string; service_types?: string[] | null; cargo_types?: string[] | null; operation_scope?: string | null; primary_routes?: string | null; fleet_size?: string | null;
   vendor_count?: string | null; pain_rfq_details?: string | null; pain_dispatch_details?: string | null;
   pain_tracking_details?: string | null; pain_billing_details?: string | null; desired_modules?: string[] | null;
   erp_system?: string | null; custom_requirements?: string | null; preferred_slots?: string[] | null; contact_notes?: string | null;
@@ -500,7 +501,7 @@ const toInquiry = (row: InquiryRow): Inquiry => ({
 });
 
 const toQuestionnaire = (row: QuestionnaireRow): Questionnaire => ({
-  inquiryId: row.inquiry_id, cargoTypes: row.cargo_types || [], operationScope: row.operation_scope || "",
+  inquiryId: row.inquiry_id, serviceTypes: row.service_types || [], cargoTypes: row.cargo_types || [], operationScope: row.operation_scope || "",
   primaryRoutes: row.primary_routes || "",
   fleetSize: row.fleet_size || "", vendorCount: row.vendor_count || "", painRfqDetails: row.pain_rfq_details || "",
   painDispatchDetails: row.pain_dispatch_details || "", painTrackingDetails: row.pain_tracking_details || "",
@@ -523,7 +524,7 @@ const toEmailLog = (row: EmailLogRow): EmailLog => ({
 });
 
 const toQuestionnaireRpcArgs = (inquiryId: string, qData: Partial<Questionnaire>, isDraft: boolean) => ({
-  p_inquiry_id: inquiryId, p_cargo_types: qData.cargoTypes || [], p_primary_routes: qData.primaryRoutes || "", p_fleet_size: qData.fleetSize || "",
+  p_inquiry_id: inquiryId, p_service_types: qData.serviceTypes || [], p_cargo_types: qData.cargoTypes || [], p_primary_routes: qData.primaryRoutes || "", p_fleet_size: qData.fleetSize || "",
   p_vendor_count: qData.vendorCount || "", p_pain_rfq_details: qData.painRfqDetails || "", p_pain_dispatch_details: qData.painDispatchDetails || "",
   p_pain_tracking_details: qData.painTrackingDetails || "", p_pain_billing_details: qData.painBillingDetails || "", p_desired_modules: qData.desiredModules || [],
   p_erp_system: qData.erpSystem || "None", p_custom_requirements: qData.customRequirements || "", p_preferred_slots: qData.preferredSlots || [],

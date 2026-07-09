@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS questionnaires (
     inquiry_id UUID UNIQUE NOT NULL REFERENCES inquiries(id) ON DELETE CASCADE,
 
     -- Kategori 1: Profil & Operasional Bisnis (JSON or flat columns for structure)
-    cargo_types TEXT[] DEFAULT '{}', -- Array of cargo types e.g. ['FCL', 'LCL', 'Bulk']
+    service_types TEXT[] DEFAULT '{}', -- Array of service/mode types e.g. ['Air Freight', 'Sea Freight - FCL', 'Trucking - FTL']
+    cargo_types TEXT[] DEFAULT '{}', -- Array of commodity types e.g. ['Bulk Cargo (Curah)', 'Reefer (Suhu Dingin)']
     operation_scope VARCHAR(50), -- 'domestic' | 'international' | 'both'
     primary_routes TEXT, -- Primary logistics corridors
     fleet_size VARCHAR(100), -- Size of trucking/carrier pool
@@ -76,9 +77,10 @@ CREATE TABLE IF NOT EXISTS questionnaires (
     current_step INTEGER DEFAULT 1 -- Keeps track of current screen step (1 to 4)
 );
 
--- Backfill guard: adds the column above for databases where 'questionnaires' was already
+-- Backfill guard: adds the columns above for databases where 'questionnaires' was already
 -- provisioned by an earlier version of this script (CREATE TABLE IF NOT EXISTS is a no-op then).
 ALTER TABLE questionnaires ADD COLUMN IF NOT EXISTS operation_scope VARCHAR(50);
+ALTER TABLE questionnaires ADD COLUMN IF NOT EXISTS service_types TEXT[] DEFAULT '{}';
 
 -- 3. Create 'meetings' Table
 -- Manages final scheduled meetings, platform selections, and digital invitations.
@@ -193,25 +195,25 @@ CREATE OR REPLACE FUNCTION public.upsert_questionnaire(
     p_desired_modules TEXT[], p_erp_system TEXT, p_custom_requirements TEXT, p_preferred_slots TEXT[], p_contact_notes TEXT,
     p_existing_customer_flow TEXT, p_business_process_sop TEXT, p_total_expected_users TEXT, p_roles_involved TEXT[],
     p_top_problem_impact TEXT, p_specific_requests TEXT, p_is_draft BOOLEAN, p_current_step INT, p_submitted_at TIMESTAMPTZ,
-    p_operation_scope TEXT DEFAULT ''
+    p_operation_scope TEXT DEFAULT '', p_service_types TEXT[] DEFAULT '{}'
 ) RETURNS questionnaires
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 DECLARE
     v_row questionnaires;
 BEGIN
     INSERT INTO questionnaires (
-        inquiry_id, cargo_types, operation_scope, primary_routes, fleet_size, vendor_count, pain_rfq_details, pain_dispatch_details,
+        inquiry_id, service_types, cargo_types, operation_scope, primary_routes, fleet_size, vendor_count, pain_rfq_details, pain_dispatch_details,
         pain_tracking_details, pain_billing_details, desired_modules, erp_system, custom_requirements, preferred_slots,
         contact_notes, existing_customer_flow, business_process_sop, total_expected_users, roles_involved,
         top_problem_impact, specific_requests, is_draft, current_step, last_saved_at, submitted_at
     ) VALUES (
-        p_inquiry_id, p_cargo_types, p_operation_scope, p_primary_routes, p_fleet_size, p_vendor_count, p_pain_rfq_details, p_pain_dispatch_details,
+        p_inquiry_id, p_service_types, p_cargo_types, p_operation_scope, p_primary_routes, p_fleet_size, p_vendor_count, p_pain_rfq_details, p_pain_dispatch_details,
         p_pain_tracking_details, p_pain_billing_details, p_desired_modules, p_erp_system, p_custom_requirements, p_preferred_slots,
         p_contact_notes, p_existing_customer_flow, p_business_process_sop, p_total_expected_users, p_roles_involved,
         p_top_problem_impact, p_specific_requests, p_is_draft, p_current_step, now(), p_submitted_at
     )
     ON CONFLICT (inquiry_id) DO UPDATE SET
-        cargo_types = excluded.cargo_types, operation_scope = excluded.operation_scope, primary_routes = excluded.primary_routes, fleet_size = excluded.fleet_size,
+        service_types = excluded.service_types, cargo_types = excluded.cargo_types, operation_scope = excluded.operation_scope, primary_routes = excluded.primary_routes, fleet_size = excluded.fleet_size,
         vendor_count = excluded.vendor_count, pain_rfq_details = excluded.pain_rfq_details, pain_dispatch_details = excluded.pain_dispatch_details,
         pain_tracking_details = excluded.pain_tracking_details, pain_billing_details = excluded.pain_billing_details,
         desired_modules = excluded.desired_modules, erp_system = excluded.erp_system, custom_requirements = excluded.custom_requirements,

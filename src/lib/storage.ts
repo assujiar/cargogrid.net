@@ -30,6 +30,7 @@ export interface Questionnaire {
   inquiryId: string;
   // Section 1: Profil & Operasional Bisnis
   cargoTypes: string[]; // e.g. ['FCL', 'LCL', 'Bulk', 'Reefer', 'General Cargo']
+  operationScope: string; // 'domestic' | 'international' | 'both'
   primaryRoutes: string;
   fleetSize: string;
   vendorCount: string;
@@ -402,6 +403,7 @@ export function getSektorLabel(key: string, lang: 'id' | 'en' = 'id'): string {
       '3pl': "3PL Warehouse",
       trucking: "Trucking Company",
       inhouse: "In-house Logistics (Shipper)",
+      courier: "Courier / Last-Mile Delivery",
       other: "Other"
     };
     return map[key] || key;
@@ -411,6 +413,7 @@ export function getSektorLabel(key: string, lang: 'id' | 'en' = 'id'): string {
       '3pl': "3PL Warehouse",
       trucking: "Trucking Company",
       inhouse: "In-house Logistics (Shipper)",
+      courier: "Kurir / Last-Mile Delivery",
       other: "Lainnya"
     };
     return map[key] || key;
@@ -470,7 +473,7 @@ type InquiryRow = {
 };
 
 type QuestionnaireRow = {
-  inquiry_id: string; cargo_types?: string[] | null; primary_routes?: string | null; fleet_size?: string | null;
+  inquiry_id: string; cargo_types?: string[] | null; operation_scope?: string | null; primary_routes?: string | null; fleet_size?: string | null;
   vendor_count?: string | null; pain_rfq_details?: string | null; pain_dispatch_details?: string | null;
   pain_tracking_details?: string | null; pain_billing_details?: string | null; desired_modules?: string[] | null;
   erp_system?: string | null; custom_requirements?: string | null; preferred_slots?: string[] | null; contact_notes?: string | null;
@@ -497,7 +500,8 @@ const toInquiry = (row: InquiryRow): Inquiry => ({
 });
 
 const toQuestionnaire = (row: QuestionnaireRow): Questionnaire => ({
-  inquiryId: row.inquiry_id, cargoTypes: row.cargo_types || [], primaryRoutes: row.primary_routes || "",
+  inquiryId: row.inquiry_id, cargoTypes: row.cargo_types || [], operationScope: row.operation_scope || "",
+  primaryRoutes: row.primary_routes || "",
   fleetSize: row.fleet_size || "", vendorCount: row.vendor_count || "", painRfqDetails: row.pain_rfq_details || "",
   painDispatchDetails: row.pain_dispatch_details || "", painTrackingDetails: row.pain_tracking_details || "",
   painBillingDetails: row.pain_billing_details || "", desiredModules: row.desired_modules || [], erpSystem: row.erp_system || "None",
@@ -526,7 +530,8 @@ const toQuestionnaireRpcArgs = (inquiryId: string, qData: Partial<Questionnaire>
   p_contact_notes: qData.contactNotes || "", p_existing_customer_flow: qData.existingCustomerFlow || "", p_business_process_sop: qData.businessProcessSop || "",
   p_total_expected_users: qData.totalExpectedUsers || "", p_roles_involved: qData.rolesInvolved || [], p_top_problem_impact: qData.topProblemImpact || "",
   p_specific_requests: qData.specificRequests || "", p_is_draft: isDraft, p_current_step: qData.currentStep || (isDraft ? 1 : 4),
-  p_submitted_at: isDraft ? qData.submittedAt || null : new Date().toISOString()
+  p_submitted_at: isDraft ? qData.submittedAt || null : new Date().toISOString(),
+  p_operation_scope: qData.operationScope || ""
 });
 
 function throwSupabaseError(error: unknown): never {

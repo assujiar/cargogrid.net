@@ -48,6 +48,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
   // Questionnaire form states
   const [cargoTypes, setCargoTypes] = useState<string[]>([]);
+  const [operationScope, setOperationScope] = useState<string>("");
   const [primaryRoutes, setPrimaryRoutes] = useState<string>("");
   const [fleetSize, setFleetSize] = useState<string>("");
   const [vendorCount, setVendorCount] = useState<string>("");
@@ -115,6 +116,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         const q = await getQuestionnaireByInquiryId(inquiryId);
         if (q) {
         setCargoTypes(q.cargoTypes || []);
+        setOperationScope(q.operationScope || "");
         setPrimaryRoutes(q.primaryRoutes || "");
         setFleetSize(q.fleetSize || "");
         setVendorCount(q.vendorCount || "");
@@ -141,6 +143,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
       } else {
         // Reset to default
         setCargoTypes([]);
+        setOperationScope("");
         setPrimaryRoutes("");
         setFleetSize("");
         setVendorCount("");
@@ -201,6 +204,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     return {
       inquiryId,
       cargoTypes,
+      operationScope,
       primaryRoutes,
       fleetSize,
       vendorCount,
@@ -533,6 +537,39 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             >
                               <div className="flex items-center gap-2 justify-between">
                                 <span>{label}</span>
+                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Operational Scope */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        {isEn ? "Operational Scope*" : "Cakupan Wilayah Operasional*"}
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {[
+                          { id: "domestic", labelId: "Domestik Saja", labelEn: "Domestic Only" },
+                          { id: "international", labelId: "Internasional Saja", labelEn: "International Only" },
+                          { id: "both", labelId: "Domestik & Internasional", labelEn: "Domestic & International" }
+                        ].map((scope) => {
+                          const checked = operationScope === scope.id;
+                          return (
+                            <button
+                              type="button"
+                              key={scope.id}
+                              onClick={() => setOperationScope(scope.id)}
+                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                                checked
+                                  ? "nm-emboss bg-brand-teal text-white"
+                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 justify-between">
+                                <span>{isEn ? scope.labelEn : scope.labelId}</span>
                                 {checked && <Check className="w-3.5 h-3.5 text-white" />}
                               </div>
                             </button>
@@ -1168,6 +1205,7 @@ function getSektorLabel(key: string): string {
     '3pl': "3PL Warehouse",
     trucking: "Trucking Company",
     inhouse: "In-house Logistics (Shipper)",
+    courier: "Kurir / Last-Mile Delivery",
     other: "Lainnya"
   };
   return map[key] || key;

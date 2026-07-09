@@ -530,7 +530,10 @@ const toQuestionnaireRow = (inquiryId: string, qData: Partial<Questionnaire>, is
 });
 
 function throwSupabaseError(error: unknown): never {
-  const message = error instanceof Error ? error.message : "Supabase request failed";
+  const message =
+    (error as { message?: string })?.message ||
+    (error instanceof Error ? error.message : undefined) ||
+    "Supabase request failed";
   throw new Error(message);
 }
 
@@ -556,8 +559,12 @@ export async function addInquiry(inquiryData: Omit<Inquiry, "id" | "status" | "c
   }).select("*").single();
   if (error) throwSupabaseError(error);
   const newInquiry = toInquiry(data as InquiryRow);
-  await addEmailLog(newInquiry.email, "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda", generateHtmlEmailTemplate("customer_welcome", { inquiry: newInquiry }), "customer_welcome");
-  await addEmailLog("service@cargogrid.net", `🚨 [CargoGrid ALERT] Inquiry Baru Masuk - ${newInquiry.company}`, generateHtmlEmailTemplate("admin_alert_new", { inquiry: newInquiry }), "admin_alert_new");
+  try {
+    await addEmailLog(newInquiry.email, "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda", generateHtmlEmailTemplate("customer_welcome", { inquiry: newInquiry }), "customer_welcome");
+    await addEmailLog("service@cargogrid.net", `🚨 [CargoGrid ALERT] Inquiry Baru Masuk - ${newInquiry.company}`, generateHtmlEmailTemplate("admin_alert_new", { inquiry: newInquiry }), "admin_alert_new");
+  } catch (err) {
+    console.warn("Email log recording failed (non-blocking):", err);
+  }
   return newInquiry;
 }
 
@@ -591,7 +598,11 @@ export async function submitQuestionnaire(inquiryId: string, qData: Partial<Ques
   const updated = toQuestionnaire(data as QuestionnaireRow);
   await updateInquiryStatus(inquiryId, "Kuesioner Selesai");
   const inquiry = await getInquiry(inquiryId);
-  if (inquiry) await addEmailLog("service@cargogrid.net", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, generateHtmlEmailTemplate("admin_alert_complete", { inquiry, questionnaire: updated }), "admin_alert_complete");
+  try {
+    if (inquiry) await addEmailLog("service@cargogrid.net", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, generateHtmlEmailTemplate("admin_alert_complete", { inquiry, questionnaire: updated }), "admin_alert_complete");
+  } catch (err) {
+    console.warn("Email log recording failed (non-blocking):", err);
+  }
   return updated;
 }
 
@@ -610,7 +621,11 @@ export async function scheduleMeeting(inquiryId: string, meetData: { scheduledTi
   const meeting = toMeeting(data as MeetingRow);
   await updateInquiryStatus(inquiryId, "Meeting Scheduled");
   const inquiry = await getInquiry(inquiryId);
-  if (inquiry) await addEmailLog(inquiry.email, `📅 [CargoGrid OS] Undangan Meeting Konfirmasi Audit Sistem - ${inquiry.company}`, generateHtmlEmailTemplate("customer_meeting", { inquiry, meeting }), "customer_meeting");
+  try {
+    if (inquiry) await addEmailLog(inquiry.email, `📅 [CargoGrid OS] Undangan Meeting Konfirmasi Audit Sistem - ${inquiry.company}`, generateHtmlEmailTemplate("customer_meeting", { inquiry, meeting }), "customer_meeting");
+  } catch (err) {
+    console.warn("Email log recording failed (non-blocking):", err);
+  }
   return meeting;
 }
 

@@ -133,9 +133,15 @@ WITH CHECK (true);
 
 -- --- Meetings Policies ---
 -- Allow customers to see their scheduled meeting details
-CREATE POLICY "Public: Allow view of meetings" 
-ON meetings FOR SELECT 
+CREATE POLICY "Public: Allow view of meetings"
+ON meetings FOR SELECT
 USING (true);
+
+-- --- Email Logs Policies ---
+-- Allow the public inquiry/questionnaire submission flow to record transactional email logs
+CREATE POLICY "Public: Allow email log insertion"
+ON email_logs FOR INSERT
+WITH CHECK (true);
 
 -- --- Admin Access Override Policy ---
 -- In production, restrict admin management to authenticated CargoGrid accounts.

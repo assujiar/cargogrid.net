@@ -59,7 +59,7 @@ export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
               id="hero-status-tag"
             >
               <span className="w-2.5 h-2.5 rounded-full nm-led-teal"></span>
-              <span>{isEn ? "Logistics Integration: Lead to Billing" : "Integrasi Logistik: Lead to Billing"}</span>
+              <span>{isEn ? "Logistics Integration: Request to Payment" : "Integrasi Logistik: Permintaan ke Pembayaran"}</span>
             </motion.div>
 
             {/* Main Headline (Editorial / Magazine Style - NO ITALIC) */}
@@ -74,9 +74,9 @@ export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             {/* Subheadline (Medium Slate - NO ITALIC) */}
             <p className="text-base sm:text-lg text-slate-600 font-semibold leading-relaxed max-w-2xl font-sans">
               {isEn ? (
-                <>Manage the entire operational chain from initial opportunity (Leads), pricing quotes, fleet execution, to financial reporting (Billing & Ledger) in one integrated platform. <span className="text-brand-orange font-extrabold">Stop wasting hours</span> on manual tasks in Excel and WhatsApp.</>
+                <>Manage the full operational flow from customer requests, pricing quotes, fleet execution, to billing and business reporting in one connected platform. <span className="text-brand-orange font-extrabold">Stop wasting hours</span> on manual tasks in Excel and WhatsApp.</>
               ) : (
-                <>Kelola seluruh rantai operasional mulai dari prospek awal (Lead), penawaran harga, eksekusi armada, hingga pembuatan laporan keuangan (Billing & Ledger) dalam satu platform terintegrasi. <span className="text-brand-orange font-extrabold">Hentikan pekerjaan manual</span> yang memakan waktu di Excel dan WhatsApp.</>
+                <>Kelola seluruh alur operasional mulai dari permintaan customer, penawaran harga, eksekusi armada, hingga tagihan dan laporan bisnis dalam satu platform terhubung. <span className="text-brand-orange font-extrabold">Hentikan pekerjaan manual</span> yang memakan waktu di Excel dan WhatsApp.</>
               )}
             </p>
 
@@ -115,7 +115,7 @@ export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-brand-teal" />
-                <span className="text-slate-600 font-bold">{isEn ? "No-Code ERP Customization" : "Tanpa Coding / No-Code ERP"}</span>
+                <span className="text-slate-600 font-bold">{isEn ? "Flexible Workflow Setup" : "Setup Workflow Fleksibel"}</span>
               </div>
             </div>
 
@@ -212,7 +212,7 @@ export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-slate-800">Lead RFQ #2026-90412</span>
+                      <span className="font-bold text-slate-800">Request #2026-90412</span>
                       <span className="text-[9px] font-mono text-brand-teal font-extrabold uppercase nm-emboss-sm px-2 py-0.5 rounded-full">{isEn ? "New" : "Baru"}</span>
                     </div>
                     <p className="text-[11px] text-slate-500 font-medium mt-0.5">

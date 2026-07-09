@@ -59,6 +59,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
     const utm = getStoredUtmParams();
 
     try {
+      // Save inquiry with active language context and UTM attributes
       // Save to Supabase with active language context and UTM attributes
       const newInq = await addInquiry({
         name: formData.name,
@@ -111,7 +112,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
             </h2>
             <p className="text-slate-600 text-sm font-semibold leading-relaxed">
               {isEn ? (
-                <>Get a comprehensive end-to-end workflow analysis from <strong className="text-slate-800 font-bold">RFQ to Billing</strong> (valued at Rp 5,000,000) for free with CargoGrid's Senior Logistics Consultants.</>
+                <>Get a comprehensive operational workflow review from <strong className="text-slate-800 font-bold">request to payment</strong> (valued at Rp 5,000,000) for free with CargoGrid's logistics consultants.</>
               ) : (
                 <>Dapatkan analisis komprehensif alur kerja dari <strong className="text-slate-800 font-bold">RFQ hingga Billing</strong> gratis senilai Rp 5.000.000 bersama Konsultan Logistik Senior CargoGrid.</>
               )}
@@ -125,7 +126,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                 </div>
                 <span>
                   {isEn 
-                    ? "DSO Leakage Mapping: We pin-point which workflow stages leak your profit margins." 
+                    ? "Margin Leakage Review: We identify where operational delays reduce profit." 
                     : "Pemetaan DSO Leakage: Kami tunjukkan di modul mana margin Anda bocor."}
                 </span>
               </div>
@@ -156,8 +157,8 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                 {isEn ? "Fast-Track Onboarding Route:" : "Jalur Onboarding Cepat:"}
               </span>
               {isEn 
-                ? "Estimated audit process and live system pilot delivered within 14 working days." 
-                : "Estimasi proses audit dan live pilot dalam waktu 14 hari kerja."}
+                ? "Estimated audit process and initial trial plan delivered within 14 working days." 
+                : "Estimasi proses audit dan uji coba awal dalam waktu 14 hari kerja."}
             </div>
           </div>
 
@@ -354,7 +355,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                       ) : (
                         <>
                           <ShieldCheck className="w-4 h-4 text-white" />
-                          <span>{isEn ? "Register Audit & Apply for Pilot" : "Daftar Audit & Ajukan Pilot Projek"}</span>
+                          <span>{isEn ? "Register Audit & Request Trial" : "Daftar Audit & Ajukan Uji Coba"}</span>
                         </>
                       )}
                     </motion.button>

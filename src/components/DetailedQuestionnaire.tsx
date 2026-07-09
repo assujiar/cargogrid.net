@@ -492,8 +492,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       </h3>
                       <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
                         {isEn 
-                          ? "This information helps us configure trial server architectures and volume pipelines to perfectly match your active routes."
-                          : "Informasi ini membantu kami mengkonfigurasi volume pipeline dan arsitektur server uji coba agar sesuai dengan rute logistik aktif Anda."}
+                          ? "This information helps us prepare a trial setup that matches your active routes and shipment volume."
+                          : "Informasi ini membantu kami menyiapkan konfigurasi uji coba yang sesuai dengan rute aktif dan volume pengiriman Anda."}
                       </p>
                     </div>
 
@@ -816,19 +816,19 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     <div>
                       <h3 className="font-display font-black text-lg text-slate-900 flex items-center gap-2">
                         <Layers className="w-5 h-5 text-brand-orange" />
-                        <span>{isEn ? "Category 3: Prioritized Module Solutions & ERP Integration" : "Kategori 3: Kebutuhan Solusi Modul & Integrasi ERP"}</span>
+                        <span>{isEn ? "Category 3: Priority Solutions & Current Tools" : "Kategori 3: Prioritas Solusi & Tools Saat Ini"}</span>
                       </h3>
                       <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
                         {isEn 
-                          ? "Select the CargoGrid system modules you want to prioritize during your 30-day trial period, and any custom API requirements."
-                          : "Pilih fungsionalitas modul sistem CargoGrid yang ingin Anda prioritaskan selama masa uji coba 30 hari, serta kebutuhan kustomisasi API."}
+                          ? "Select the CargoGrid capabilities you want to prioritize during your trial period, plus any tools you need to connect."
+                          : "Pilih kapabilitas CargoGrid yang ingin Anda prioritaskan selama masa uji coba, serta tools lain yang perlu dihubungkan."}
                       </p>
                     </div>
 
                     {/* Desired Modules Selection */}
                     <div className="flex flex-col gap-2">
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
-                        {isEn ? "Prioritized CargoGrid System Modules*" : "Modul Sistem CargoGrid Yang Diprioritaskan*"}
+                        {isEn ? "Priority CargoGrid Capabilities*" : "Kapabilitas CargoGrid Yang Diprioritaskan*"}
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {[
@@ -888,7 +888,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     {/* ERP System Dropdown */}
                     <div className="flex flex-col gap-1.5">
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
-                        {isEn ? "Currently Active Internal Finance / ERP System*" : "Sistem Keuangan / ERP Internal Aktif Saat Ini*"}
+                        {isEn ? "Current Finance / Operations Tools*" : "Tools Keuangan / Operasional Saat Ini*"}
                       </label>
                       <select id="detailedquestionnaire-select-4" name="detailedquestionnaire-select-4" aria-label="detailedquestionnaire-select-4"
                         required
@@ -896,7 +896,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         onChange={(e) => setErpSystem(e.target.value)}
                         className="w-full nm-input bg-white rounded-xl px-4 py-3.5 text-xs font-bold focus:outline-none cursor-pointer text-slate-800 border-0"
                       >
-                        <option value="None">{isEn ? "No ERP / Using Spreadsheet only" : "Tidak ada ERP / Menggunakan Excel"}</option>
+                        <option value="None">{isEn ? "Spreadsheet only" : "Hanya Menggunakan Excel"}</option>
                         <option value="SAP ERP (R3 / HANA / B1)">SAP ERP (R3 / HANA / Business One)</option>
                         <option value="Oracle NetSuite">Oracle NetSuite ERP</option>
                         <option value="Accurate Online">Accurate Online Indonesia</option>
@@ -906,7 +906,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       </select>
                     </div>
 
-                    {/* Custom API Requirements */}
+                    {/* Integration Requests */}
                     <div className="flex flex-col gap-1.5">
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                         {isEn ? "Custom Workflows or Additional Integration Needs (Optional)" : "Kebutuhan Custom Alur Kerja atau Integrasi Tambahan (Opsional)"}

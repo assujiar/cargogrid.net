@@ -17,9 +17,9 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             <Logo size="md" />
             <p className="text-xs text-slate-600 font-semibold leading-relaxed max-w-sm mt-2">
               {isEn ? (
-                "CargoGrid is a logistics operating system connecting CRM, RFQs, quotes, shipment operations, warehousing, PODs, billing, and accounting ledgers into a single unified workspace."
+                "CargoGrid is a logistics platform connecting customer requests, quotes, shipment operations, warehousing, delivery proof, billing, and reports into a single workspace."
               ) : (
-                "CargoGrid adalah operating grid system logistik yang menghubungkan CRM, RFQ, quotation, shipment operations, warehouse, POD, billing, harian hingga General Ledger akuntansi dalam satu alur kerja tunggal."
+                "CargoGrid adalah platform logistik yang menghubungkan permintaan customer, penawaran, operasional pengiriman, gudang, bukti kirim, tagihan, dan laporan dalam satu ruang kerja."
               )}
             </p>
           </div>
@@ -37,7 +37,7 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
                 {isEn ? "Unified Workflow" : "Satu Alur Kerja"}
               </a>
               <a href="#system" className="hover:text-brand-orange transition-colors font-bold">
-                {isEn ? "Grid Modules" : "Modul Grid"}
+                {isEn ? "Solutions" : "Solusi"}
               </a>
               <a href="#system" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Business Sectors" : "Sektor Bisnis"}
@@ -46,7 +46,7 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
                 {isEn ? "ROI Calculator" : "Kalkulator ROI"}
               </a>
               <a href="#simulator" className="hover:text-brand-orange transition-colors font-bold">
-                {isEn ? "Portal Demo" : "Eksplor Portal"}
+                {isEn ? "Product Preview" : "Preview Produk"}
               </a>
               <a href="#plans" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Pricing Suites" : "Paket Harga"}
@@ -85,7 +85,7 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
         {/* Lower footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-[11px] text-slate-500 font-mono font-bold border-t border-slate-300">
           <div>
-            &copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved &bull; Configurable Logistics ERP.
+            &copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved &bull; Configurable Logistics Platform.
           </div>
           <div className="flex items-center flex-wrap gap-x-4 gap-y-2 justify-center">
             <a href="#privacy" className="hover:text-brand-orange transition-colors font-extrabold">

@@ -39,9 +39,9 @@ export default function PricingSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
               {isEn ? (
-                "Select the logistics suite package that best aligns with your company scale. Ranging from essential tracking capabilities to a complete, end-to-end operational ERP."
+                "Select the package that best fits your company scale, from essential tracking visibility to a complete daily operations platform."
               ) : (
-                "Pilih paket sistem yang paling sesuai dengan skala dan tantangan bisnis Anda saat ini. Mulai dari pelacakan dasar hingga modul ERP logistik hulu ke hilir yang komprehensif harian."
+                "Pilih paket sistem yang paling sesuai dengan skala dan tantangan bisnis Anda saat ini, mulai dari pelacakan dasar hingga platform operasional harian yang lengkap."
               )}
             </p>
           </div>
@@ -182,13 +182,13 @@ export default function PricingSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
         >
           <div className="flex-1">
             <h4 className="font-display font-black text-xl text-slate-900">
-              {isEn ? "Need Custom Add-Ons or API Integrations?" : "Butuh Add-On atau Integrasi Kustom Tambahan?"}
+              {isEn ? "Need Custom Add-Ons or Integrations?" : "Butuh Add-On atau Integrasi Kustom Tambahan?"}
             </h4>
             <p className="text-slate-600 text-xs font-semibold leading-relaxed mt-2">
               {isEn ? (
-                "Supercharge your operational workflow with Customer Portal Pro, advanced barcode scanning, General Ledger integration, verified WhatsApp notifications, complete White-Label domains, or historical Excel database migrations."
+                "Extend your operations with branded customer portals, barcode scanning, accounting connections, verified WhatsApp notifications, white-label domains, or historical spreadsheet migration."
               ) : (
-                "Tingkatkan kapabilitas sistem Anda dengan Customer Portal Pro, WMS Advanced barcode scanning, modul Akuntansi General Ledger, notifikasi otomatis WhatsApp terverifikasi, White-Labeling domain penuh, hingga prioritas migrasi data Excel lama."
+                "Tingkatkan kapabilitas operasional Anda dengan portal customer berlogo brand, barcode scanning, koneksi akuntansi, notifikasi WhatsApp terverifikasi, domain white-label, hingga migrasi data spreadsheet lama."
               )}
             </p>
           </div>

@@ -140,7 +140,7 @@ export default function IcpSelector({ lang = 'id' }: { lang?: 'id' | 'en' }) {
                 className="flex flex-col gap-5"
               >
                 <span className="font-mono text-[9px] text-slate-400 uppercase tracking-widest block font-black">
-                  {isEn ? "TARGET BUYER PERSONA" : "TARGET BUYER PERSONA"}
+                  {isEn ? "WHO THIS HELPS" : "COCOK UNTUK TIM"}
                 </span>
 
                 {/* Persona Profile Header */}
@@ -156,7 +156,7 @@ export default function IcpSelector({ lang = 'id' }: { lang?: 'id' | 'en' }) {
 
                 {/* Key KPI/Focus indicator */}
                 <div className="nm-deboss bg-white/70 p-3.5 rounded-2xl text-xs font-mono border-0">
-                  <span className="text-slate-400 block text-[9px] uppercase tracking-widest font-black">KPI / {isEn ? "PRIMARY FOCUS" : "FOKUS UTAMA"}:</span>
+                  <span className="text-slate-400 block text-[9px] uppercase tracking-widest font-black">{isEn ? "BUSINESS PRIORITY" : "PRIORITAS BISNIS"}:</span>
                   <span className="text-brand-orange font-black mt-1.5 block">{isEn ? (activeIcp.personaFocusEn || activeIcp.personaFocus) : activeIcp.personaFocus}</span>
                 </div>
 

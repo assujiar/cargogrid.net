@@ -258,10 +258,10 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
             </span>
             <div>
               <p className="font-extrabold text-sm text-slate-800">
-                {isEn ? "Need a comprehensive logistics ERP buyer's guide?" : "Butuh panduan lengkap mengukur efisiensi ERP?"}
+                {isEn ? "Need a practical logistics software buying guide?" : "Butuh panduan praktis memilih software logistik?"}
               </p>
               <p className="text-xs text-slate-500 font-semibold mt-0.5">
-                {isEn ? 'Download our free "Logistics ERP Buyer Guide Indonesia" PDF handbook.' : 'Unduh secara gratis PDF "Logistics ERP Buyer Guide Indonesia".'}
+                {isEn ? 'Download our free logistics software guide for Indonesian businesses.' : 'Unduh panduan software logistik gratis untuk bisnis Indonesia.'}
               </p>
             </div>
           </div>

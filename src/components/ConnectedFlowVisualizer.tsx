@@ -21,7 +21,7 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16 pb-8 border-b border-slate-300/60 text-left">
           <div className="lg:col-span-7 flex flex-col gap-4">
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">
-              {isEn ? "Integrated Flow: Lead to Billing (Ledger)" : "Alur Terintegrasi: Lead ke Billing (Ledger)"}
+              {isEn ? "Connected Flow: Inquiry to Payment" : "Alur Terhubung: Permintaan ke Pembayaran"}
             </span>
             <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
               {isEn ? (
@@ -34,9 +34,9 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
               {isEn ? (
-                "CargoGrid is designed so you only input data once at the start (Lead/RFQ). That information automatically flows to operations, warehousing, customer tracking, and finance for invoicing and ledger posting."
+                "CargoGrid is designed so customer requests, pricing, operations, tracking, and finance teams can work from one connected source of truth."
               ) : (
-                "CargoGrid dirancang agar Anda cukup memasukkan data sekali di awal (Lead/RFQ). Informasi tersebut otomatis mengalir ke tim operasional, pergudangan, pelacakan customer, hingga divisi keuangan untuk invoice dan pembukuan (ledger)."
+                "CargoGrid membantu permintaan customer, penawaran, operasional, tracking, dan finance berjalan dari satu data kerja yang terhubung."
               )}
             </p>
           </div>
@@ -151,15 +151,15 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
             </AnimatePresence>
 
             <div className="pt-6 mt-8 border-t border-slate-200 flex items-center justify-between text-xs text-slate-400 font-bold">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">{isEn ? "Unified Data Stream" : "Alur Data Tersinkronisasi"}</span>
-              <span className="text-slate-400 font-bold text-[10px] font-mono">CargoGrid OS v2</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-slate-500">{isEn ? "Connected Operations Preview" : "Preview Operasi Terhubung"}</span>
+              <span className="text-slate-400 font-bold text-[10px] font-mono">CargoGrid Platform</span>
             </div>
           </div>
 
           {/* Right Pipeline Simulation Column (Staggered Layout) */}
           <div className="p-6 sm:p-8 lg:p-12 lg:col-span-7 bg-white/10 flex flex-col gap-6 relative z-10 text-left">
             <span className="font-mono text-[10px] text-slate-400 uppercase tracking-widest block font-black">
-              {isEn ? "Automated Division Sync (Zero Redundant Data-Entry)" : "Sistem Sinkronisasi Lintas Divisi (Satu Kali Input)"}
+              {isEn ? "Connected Team Updates" : "Update Tim Terhubung"}
             </span>
 
             <AnimatePresence mode="wait">
@@ -178,7 +178,7 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
                     <Database className="w-4 h-4" />
                   </div>
                   <h4 className="font-mono text-[10px] font-black text-brand-teal uppercase tracking-widest mb-3">
-                    {isEn ? "Single Input (Upstream Source):" : "Input Tunggal (Hulu Utama):"}
+                    {isEn ? "Starting Information:" : "Informasi Awal:"}
                   </h4>
                   <ul className="space-y-2 text-xs">
                     {(isEn ? (activeStep.inputsEn || activeStep.inputs) : activeStep.inputs).map((inp, idx) => (
@@ -196,7 +196,7 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
                     <RefreshCw className="w-4 h-4" />
                   </div>
                   <h4 className="font-mono text-[10px] font-black text-brand-orange uppercase tracking-widest mb-3">
-                    {isEn ? "Auto-synced Outflow Downstream:" : "Sinkronisasi Hilir Otomatis:"}
+                    {isEn ? "What other teams receive:" : "Diterima tim lain:"}
                   </h4>
                   <ul className="space-y-2 text-xs">
                     {(isEn ? (activeStep.outputsEn || activeStep.outputs) : activeStep.outputs).map((out, idx) => (
@@ -225,14 +225,14 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
                     {activeStep.number}
                   </div>
                   <div>
-                    <p className="font-bold text-xs text-slate-800">{isEn ? "Current Transaction Status:" : "Status Transaksi Saat Ini:"}</p>
+                    <p className="font-bold text-xs text-slate-800">{isEn ? "Current Process Status:" : "Status Proses Saat Ini:"}</p>
                     <p className="text-[11px] text-slate-500 font-semibold font-mono mt-0.5">
                       {isEn ? (activeStep.titleEn || activeStep.title) : activeStep.title} &rarr; {isEn ? "Successfully Triggered" : "Berhasil Diaktifkan"}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-slate-400 font-bold">{isEn ? "Next Stage:" : "Divisi Berikutnya:"}</span>
+                  <span className="text-[10px] font-mono text-slate-400 font-bold">{isEn ? "Next Step:" : "Langkah Berikutnya:"}</span>
                   <span className="text-xs font-black text-brand-teal font-mono nm-emboss-sm bg-white/60 px-3 py-1.5 rounded-xl">
                     {activeStepIndex === 7 ? "Cycle Complete!" : (isEn ? (connectedFlowSteps[activeStepIndex + 1].titleEn || connectedFlowSteps[activeStepIndex + 1].title) : connectedFlowSteps[activeStepIndex + 1].title)}
                   </span>
@@ -243,7 +243,7 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
             {/* Next Step Interaction Call */}
             <div className="flex justify-between items-center mt-2">
               <p className="text-xs text-slate-400 font-bold font-mono">
-                {isEn ? "Click step cards above to explore other stages of the workflow." : "Klik nomor menu di atas untuk menelusuri modul selanjutnya."}
+                {isEn ? "Choose a process card above to see how each team benefits." : "Pilih kartu proses di atas untuk melihat manfaat bagi tiap tim."}
               </p>
               {activeStepIndex < 7 && (
                 <button

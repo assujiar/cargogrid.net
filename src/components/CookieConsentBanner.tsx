@@ -70,9 +70,9 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
             </h4>
             <p className="text-slate-600 text-xs font-semibold leading-relaxed mt-1.5">
               {isEn ? (
-                "We use secure cookies to analyze traffic, capture UTM marketing campaigns, and optimize your system audit experience. Choose your privacy comfort level below."
+                "We use secure cookies to analyze traffic, understand marketing sources, and improve your consultation experience. Choose your privacy comfort level below."
               ) : (
-                "Kami menggunakan cookies aman untuk menganalisis lalu lintas situs, melacak kampanye marketing UTM, dan mengoptimalkan konsultasi audit Anda. Pilih kenyamanan privasi Anda."
+                "Kami menggunakan cookies aman untuk menganalisis lalu lintas situs, memahami sumber marketing, dan mengoptimalkan pengalaman konsultasi Anda. Pilih kenyamanan privasi Anda."
               )}
             </p>
           </div>
@@ -119,8 +119,8 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
 
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 text-xs">
                 <div>
-                  <span className="font-bold text-slate-800 block">{isEn ? "Marketing Campaigns" : "Optimasi Marketing (UTM)"}</span>
-                  <span className="text-[10px] text-slate-500 font-semibold">{isEn ? "Links UTM campaign channels to evaluation submissions" : "Menghubungkan kampanye iklan UTM dengan formulir audit"}</span>
+                  <span className="font-bold text-slate-800 block">{isEn ? "Marketing Source" : "Sumber Marketing"}</span>
+                  <span className="text-[10px] text-slate-500 font-semibold">{isEn ? "Links marketing source to evaluation submissions" : "Menghubungkan sumber marketing dengan formulir audit"}</span>
                 </div>
                 <button
                   type="button"

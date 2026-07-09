@@ -6,23 +6,25 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import ProblemSection from "./components/ProblemSection";
-import ConnectedFlowVisualizer from "./components/ConnectedFlowVisualizer";
-import ModulesSection from "./components/ModulesSection";
-import IcpSelector from "./components/IcpSelector";
-import DelayCalculator from "./components/DelayCalculator";
-import LiveDemoSandbox from "./components/LiveDemoSandbox";
-import PricingSection from "./components/PricingSection";
-import FaqSection from "./components/FaqSection";
-import LeadCaptureForm from "./components/LeadCaptureForm";
 import Footer from "./components/Footer";
-import DetailedQuestionnaire from "./components/DetailedQuestionnaire";
-import SuperAdminPortal from "./components/SuperAdminPortal";
-import LegalSection from "./components/LegalSection";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import { captureUtmParams } from "./lib/tracking";
+
+const ProblemSection = dynamic(() => import("./components/ProblemSection"));
+const ConnectedFlowVisualizer = dynamic(() => import("./components/ConnectedFlowVisualizer"));
+const ModulesSection = dynamic(() => import("./components/ModulesSection"));
+const IcpSelector = dynamic(() => import("./components/IcpSelector"));
+const DelayCalculator = dynamic(() => import("./components/DelayCalculator"));
+const LiveDemoSandbox = dynamic(() => import("./components/LiveDemoSandbox"));
+const PricingSection = dynamic(() => import("./components/PricingSection"));
+const FaqSection = dynamic(() => import("./components/FaqSection"));
+const LeadCaptureForm = dynamic(() => import("./components/LeadCaptureForm"));
+const DetailedQuestionnaire = dynamic(() => import("./components/DetailedQuestionnaire"));
+const SuperAdminPortal = dynamic(() => import("./components/SuperAdminPortal"));
+const LegalSection = dynamic(() => import("./components/LegalSection"));
 
 export default function App() {
   const [hash, setHash] = React.useState("");

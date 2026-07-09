@@ -6,6 +6,8 @@ interface LogoProps {
   size?: "sm" | "md" | "lg" | "xl";
 }
 
+const LOGO_SRC = "/cargogrid_vertical.svg";
+
 export default function Logo({ className = "", size = "md" }: LogoProps) {
   let logoSize = "h-12 w-auto";
 

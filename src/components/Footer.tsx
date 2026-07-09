@@ -30,28 +30,28 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
               {isEn ? "Page Navigation" : "Navigasi Halaman"}
             </h4>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <a href="#problem" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#challenges" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Core Bottlenecks" : "Penyebab Masalah"}
               </a>
-              <a href="#flow" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#system" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Unified Workflow" : "Satu Alur Kerja"}
               </a>
-              <a href="#modules" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#system" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Grid Modules" : "Modul Grid"}
               </a>
-              <a href="#use-cases" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#system" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Business Sectors" : "Sektor Bisnis"}
               </a>
-              <a href="#roi-calculator" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#simulator" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "ROI Calculator" : "Kalkulator ROI"}
               </a>
-              <a href="#sandbox" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#simulator" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Portal Demo" : "Eksplor Portal"}
               </a>
-              <a href="#pricing" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#plans" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Pricing Suites" : "Paket Harga"}
               </a>
-              <a href="#faq" className="hover:text-brand-orange transition-colors font-bold">
+              <a href="#plans" className="hover:text-brand-orange transition-colors font-bold">
                 FAQ
               </a>
             </div>
@@ -65,11 +65,11 @@ export default function Footer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             <ul className="space-y-2 text-xs">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-brand-teal flex-shrink-0" />
-                <span className="font-bold text-slate-700">info@cargogrid-ops.io</span>
+                <span className="font-bold text-slate-700">service@cargogrid.net</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-brand-teal flex-shrink-0" />
-                <span className="font-bold text-slate-700">+62 (21) 5092-9102 (SLA Support)</span>
+                <span className="font-bold text-slate-700">+62877 8898 0088</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-brand-teal flex-shrink-0" />

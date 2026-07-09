@@ -27,17 +27,15 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
   const isEn = lang === 'en';
 
   const navLinks = isEn ? [
-    { name: "Challenges", href: "#problem" },
-    { name: "System & Modules", href: "#flow" },
-    { name: "Simulator & ROI", href: "#sandbox" },
-    { name: "Plans & FAQ", href: "#pricing" },
-    { name: "Admin Portal", href: "#admin" },
+    { name: "Challenges", href: "#challenges" },
+    { name: "System & Modules", href: "#system" },
+    { name: "Simulator & ROI", href: "#simulator" },
+    { name: "Plans & FAQ", href: "#plans" },
   ] : [
-    { name: "Tantangan", href: "#problem" },
-    { name: "Sistem & Modul", href: "#flow" },
-    { name: "Simulator & ROI", href: "#sandbox" },
-    { name: "Paket & FAQ", href: "#pricing" },
-    { name: "Portal Admin", href: "#admin" },
+    { name: "Tantangan", href: "#challenges" },
+    { name: "Sistem & Modul", href: "#system" },
+    { name: "Simulator & ROI", href: "#simulator" },
+    { name: "Paket & FAQ", href: "#plans" },
   ];
 
   return (
@@ -101,7 +99,7 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
             </div>
 
             <a
-              href="#audit-form"
+              href="#contact"
               className="px-5 py-2.5 nm-btn-accent rounded-full font-extrabold text-xs shadow-md flex items-center gap-2 cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4 text-white" />
@@ -181,7 +179,7 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
                 </div>
               </div>
               <a
-                href="#audit-form"
+                href="#contact"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full text-sm font-extrabold nm-btn-accent"
               >

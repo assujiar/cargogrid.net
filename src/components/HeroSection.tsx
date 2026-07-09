@@ -85,7 +85,7 @@ export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
               <motion.a
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                href="#audit-form"
+                href="#contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 nm-btn-accent text-white font-extrabold rounded-2xl text-base shadow-md cursor-pointer border-0"
               >
                 <span>{isEn ? "Book Free Logistics Audit" : "Daftar Audit Logistik Gratis"}</span>

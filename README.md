@@ -15,6 +15,6 @@ View your app in AI Studio: https://ai.studio/apps/c154037a-e8bc-46f4-8946-30eee
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+2. Set Supabase and optional SMTP keys in Vercel Environment Variables, mirroring `.env.example` for local `.env.local` development
 3. Run the app:
    `npm run dev`

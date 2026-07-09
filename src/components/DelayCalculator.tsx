@@ -257,7 +257,7 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
             </div>
           </div>
           <a
-            href="#audit-form"
+            href="#contact"
             className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-xl text-xs font-black nm-btn-accent shadow uppercase tracking-wider cursor-pointer whitespace-nowrap"
           >
             <span>{isEn ? "Download Free Buyer Guide" : "Unduh Buyer Guide Gratis"}</span>

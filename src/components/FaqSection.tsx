@@ -91,7 +91,7 @@ export default function FaqSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             <MessageSquareCode className="w-5 h-5 text-brand-teal" />
             <span>{isEn ? "Have specific operational questions not answered above?" : "Punya pertanyaan operasional khusus yang belum terjawab di atas?"}</span>
             <a
-              href="#audit-form"
+              href="#contact"
               className="text-brand-teal hover:text-brand-orange font-black underline cursor-pointer"
             >
               {isEn ? "Consult with Our Expert Team \u2192" : "Diskusi dengan Tim Ahli Kami \u2192"}

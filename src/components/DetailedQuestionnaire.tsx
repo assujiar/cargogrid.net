@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   getInquiry,
-  getInquiries,
+  findInquiryByEmail,
   getQuestionnaireByInquiryId,
   saveQuestionnaireDraft,
   submitQuestionnaire,
@@ -38,7 +38,6 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   // Parse inquiry ID from URL hash or props
   const [inquiryId, setInquiryId] = useState<string>("");
   const [inquiry, setInquiry] = useState<Inquiry | undefined>(undefined);
-  const [availableInquiries, setAvailableInquiries] = useState<Inquiry[]>([]);
   const [step, setStep] = useState<number>(1);
   const [saveStatus, setSaveStatus] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -48,7 +47,9 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const isEn = lang === "en";
 
   // Questionnaire form states
+  const [serviceTypes, setServiceTypes] = useState<string[]>([]);
   const [cargoTypes, setCargoTypes] = useState<string[]>([]);
+  const [operationScope, setOperationScope] = useState<string>("");
   const [primaryRoutes, setPrimaryRoutes] = useState<string>("");
   const [fleetSize, setFleetSize] = useState<string>("");
   const [vendorCount, setVendorCount] = useState<string>("");
@@ -76,15 +77,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const [topProblemImpact, setTopProblemImpact] = useState<string>("");
   const [specificRequests, setSpecificRequests] = useState<string>("");
 
-  // Load inquiries list and specific questionnaire state
+  // Resolve which inquiry this page is scoped to (from URL hash or props)
   useEffect(() => {
     let isMounted = true;
     const load = async () => {
       try {
-        const list = await getInquiries();
-        if (!isMounted) return;
-        setAvailableInquiries(list);
-
         const hash = window.location.hash;
         let id = initialInquiryId || "";
         if (hash.includes("?id=")) {
@@ -119,7 +116,9 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
       const loadQuestionnaire = async () => {
         const q = await getQuestionnaireByInquiryId(inquiryId);
         if (q) {
+        setServiceTypes(q.serviceTypes || []);
         setCargoTypes(q.cargoTypes || []);
+        setOperationScope(q.operationScope || "");
         setPrimaryRoutes(q.primaryRoutes || "");
         setFleetSize(q.fleetSize || "");
         setVendorCount(q.vendorCount || "");
@@ -145,7 +144,9 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         setIsDone(!q.isDraft);
       } else {
         // Reset to default
+        setServiceTypes([]);
         setCargoTypes([]);
+        setOperationScope("");
         setPrimaryRoutes("");
         setFleetSize("");
         setVendorCount("");
@@ -175,19 +176,28 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     }
   }, [inquiryId]);
 
-  const handleLookupEmail = (e: React.FormEvent) => {
+  const handleLookupEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     setLookupError("");
     const trimmed = lookupEmail.trim().toLowerCase();
-    const matched = availableInquiries.find(inq => inq.email.trim().toLowerCase() === trimmed);
-    if (matched) {
-      // Securely redirect to unique URL hash query parameter
-      window.location.hash = `#questionnaire?id=${matched.id}`;
-    } else {
+    try {
+      const matched = await findInquiryByEmail(trimmed);
+      if (matched) {
+        // Securely redirect to unique URL hash query parameter
+        window.location.hash = `#questionnaire?id=${matched.id}`;
+      } else {
+        setLookupError(
+          isEn
+            ? "This email is not registered as an active CargoGrid partner. Please complete initial registration on the homepage first."
+            : "Email tidak terdaftar sebagai mitra aktif CargoGrid. Silakan lengkapi pendaftaran awal pada halaman utama terlebih dahulu."
+        );
+      }
+    } catch (error) {
+      console.error("Failed to look up inquiry by email", error);
       setLookupError(
         isEn
-          ? "This email is not registered as an active CargoGrid partner. Please complete initial registration on the homepage first."
-          : "Email tidak terdaftar sebagai mitra aktif CargoGrid. Silakan lengkapi pendaftaran awal pada halaman utama terlebih dahulu."
+          ? "Something went wrong while verifying your email. Please try again."
+          : "Terjadi kesalahan saat memverifikasi email Anda. Silakan coba lagi."
       );
     }
   };
@@ -196,7 +206,9 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const getPayload = (): Partial<Questionnaire> => {
     return {
       inquiryId,
+      serviceTypes,
       cargoTypes,
+      operationScope,
       primaryRoutes,
       fleetSize,
       vendorCount,
@@ -285,6 +297,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
       setCargoTypes(cargoTypes.filter(c => c !== type));
     } else {
       setCargoTypes([...cargoTypes, type]);
+    }
+  };
+
+  const toggleService = (type: string) => {
+    if (serviceTypes.includes(type)) {
+      setServiceTypes(serviceTypes.filter(s => s !== type));
+    } else {
+      setServiceTypes([...serviceTypes, type]);
     }
   };
 
@@ -497,21 +517,61 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       </p>
                     </div>
 
-                    {/* Cargo Types Checklist */}
+                    {/* Service Types Checklist */}
                     <div className="flex flex-col gap-2">
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
-                        {isEn ? "Main Cargo / Cargo Type*" : "Jenis Kargo / Muatan Utama*"}
+                        {isEn ? "Service Type (mode of transport/handling)*" : "Jenis Layanan (moda transportasi/penanganan)*"}
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {[
-                          { id: "FCL (Full Container)", en: "FCL (Full Container)" },
-                          { id: "LCL (Less Container)", en: "LCL (Less Container)" },
+                          { id: "Air Freight", en: "Air Freight" },
+                          { id: "Sea Freight - FCL", en: "Sea Freight - FCL" },
+                          { id: "Sea Freight - LCL", en: "Sea Freight - LCL" },
+                          { id: "Trucking - FTL", en: "Trucking - FTL" },
+                          { id: "Trucking - LTL", en: "Trucking - LTL" },
+                          { id: "Warehousing", en: "Warehousing" },
+                          { id: "Last-Mile / Kurir", en: "Last-Mile / Courier" },
+                          { id: "Multimodal / Door-to-Door", en: "Multimodal / Door-to-Door" }
+                        ].map((svcObj) => {
+                          const svc = svcObj.id;
+                          const label = isEn ? svcObj.en : svcObj.id;
+                          const checked = serviceTypes.includes(svc);
+                          return (
+                            <button
+                              type="button"
+                              key={svc}
+                              onClick={() => toggleService(svc)}
+                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                                checked
+                                  ? "nm-emboss bg-brand-teal text-white"
+                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 justify-between">
+                                <span>{label}</span>
+                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Commodity Types Checklist */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        {isEn ? "Commodity Type (goods being shipped)*" : "Jenis Komoditas (barang yang diangkut)*"}
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        {[
                           { id: "General Cargo / Box", en: "General Cargo / Box" },
-                          { id: "Reefer (Suhu Dingin)", en: "Reefer (Cold Chain)" },
                           { id: "Bulk Cargo (Curah)", en: "Bulk Cargo (Dry Bulk)" },
+                          { id: "Reefer (Suhu Dingin)", en: "Reefer (Cold Chain)" },
                           { id: "Dangerous Goods (B3)", en: "Dangerous Goods (Hazmat)" },
-                          { id: "Armada Truk Kecil", en: "Small Truck Fleets" },
-                          { id: "Cairan / Chemical", en: "Liquid / Chemical" }
+                          { id: "Cairan / Chemical", en: "Liquid / Chemical" },
+                          { id: "Oversized / Project Cargo", en: "Oversized / Project Cargo" },
+                          { id: "Perishables / FMCG", en: "Perishables / FMCG" },
+                          { id: "Livestock", en: "Livestock" }
                         ].map((cargoObj) => {
                           const cargo = cargoObj.id;
                           const label = isEn ? cargoObj.en : cargoObj.id;
@@ -529,6 +589,39 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             >
                               <div className="flex items-center gap-2 justify-between">
                                 <span>{label}</span>
+                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Operational Scope */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        {isEn ? "Operational Scope*" : "Cakupan Wilayah Operasional*"}
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {[
+                          { id: "domestic", labelId: "Domestik Saja", labelEn: "Domestic Only" },
+                          { id: "international", labelId: "Internasional Saja", labelEn: "International Only" },
+                          { id: "both", labelId: "Domestik & Internasional", labelEn: "Domestic & International" }
+                        ].map((scope) => {
+                          const checked = operationScope === scope.id;
+                          return (
+                            <button
+                              type="button"
+                              key={scope.id}
+                              onClick={() => setOperationScope(scope.id)}
+                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                                checked
+                                  ? "nm-emboss bg-brand-teal text-white"
+                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 justify-between">
+                                <span>{isEn ? scope.labelEn : scope.labelId}</span>
                                 {checked && <Check className="w-3.5 h-3.5 text-white" />}
                               </div>
                             </button>
@@ -1164,6 +1257,7 @@ function getSektorLabel(key: string): string {
     '3pl': "3PL Warehouse",
     trucking: "Trucking Company",
     inhouse: "In-house Logistics (Shipper)",
+    courier: "Kurir / Last-Mile Delivery",
     other: "Lainnya"
   };
   return map[key] || key;

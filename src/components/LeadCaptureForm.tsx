@@ -285,6 +285,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                           <option value="3pl" className="text-slate-800">3PL Warehouse</option>
                           <option value="trucking" className="text-slate-800">Trucking Company</option>
                           <option value="inhouse" className="text-slate-800">In-house Logistics (Shipper)</option>
+                          <option value="courier" className="text-slate-800">{isEn ? "Courier / Last-Mile Delivery" : "Kurir / Pengiriman Last-Mile"}</option>
                           <option value="other" className="text-slate-800">{isEn ? "Other" : "Lainnya"}</option>
                         </select>
                       </div>

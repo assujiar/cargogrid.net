@@ -42,7 +42,8 @@ import {
   Terminal,
   Settings,
   Lock,
-  User
+  User,
+  LogOut
 } from "lucide-react";
 
 interface SuperAdminPortalProps {
@@ -138,6 +139,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
     setNewPassword("");
     setIsPasswordRecovery(false);
     setLoginInfo(lang === "en" ? "Password updated successfully." : "Password berhasil diperbarui.");
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
   };
 
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
@@ -475,39 +480,51 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           </p>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-1.5 p-1 bg-slate-200/60 rounded-xl max-w-xl">
-          <button
-            onClick={() => setActiveTab("database")}
-            className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "database"
-                ? "bg-white text-slate-900 shadow-sm font-extrabold"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
-            }`}
-          >
-            Prospek
-          </button>
-          <button
-            onClick={() => setActiveTab("meetings")}
-            className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "meetings"
-                ? "bg-white text-slate-900 shadow-sm font-extrabold"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
-            }`}
-          >
-            Jadwal Meeting
-          </button>
-          <button
-            onClick={() => setActiveTab("outbox")}
-            className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "outbox"
-                ? "bg-white text-slate-900 shadow-sm font-extrabold"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
-            }`}
-          >
-            Log Email
-          </button>
+        <div className="flex items-center gap-3">
+          {/* Navigation Tabs */}
+          <div className="flex flex-wrap gap-1.5 p-1 bg-slate-200/60 rounded-xl max-w-xl">
+            <button
+              onClick={() => setActiveTab("database")}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
+                activeTab === "database"
+                  ? "bg-white text-slate-900 shadow-sm font-extrabold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
+              }`}
+            >
+              Prospek
+            </button>
+            <button
+              onClick={() => setActiveTab("meetings")}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
+                activeTab === "meetings"
+                  ? "bg-white text-slate-900 shadow-sm font-extrabold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
+              }`}
+            >
+              Jadwal Meeting
+            </button>
+            <button
+              onClick={() => setActiveTab("outbox")}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
+                activeTab === "outbox"
+                  ? "bg-white text-slate-900 shadow-sm font-extrabold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
+              }`}
+            >
+              Log Email
+            </button>
 
+          </div>
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            title={lang === "en" ? "Sign out" : "Keluar"}
+            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold rounded-xl border-0 cursor-pointer bg-red-50 text-red-600 hover:bg-red-100 transition-all flex-shrink-0"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>{lang === "en" ? "Logout" : "Keluar"}</span>
+          </button>
         </div>
       </div>
 
@@ -731,8 +748,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                               {/* Sektor 1 */}
                               <div className="space-y-1">
                                 <span className="font-mono text-[9px] font-black text-slate-400 block uppercase">1. PROFIL OPERASIONAL</span>
+                                <p className="font-bold text-slate-700">Cakupan: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.operationScope === "domestic" ? "Domestik Saja" : selectedInquiryQuestionnaire.operationScope === "international" ? "Internasional Saja" : selectedInquiryQuestionnaire.operationScope === "both" ? "Domestik & Internasional" : "-"}</span></p>
                                 <p className="font-bold text-slate-700">Rute: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.primaryRoutes || "-"}</span></p>
-                                <p className="font-bold text-slate-700">Kargo: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.cargoTypes || []).join(", ") || "-"}</span></p>
+                                <p className="font-bold text-slate-700">Layanan: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.serviceTypes || []).join(", ") || "-"}</span></p>
+                                <p className="font-bold text-slate-700">Komoditas: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.cargoTypes || []).join(", ") || "-"}</span></p>
                                 <p className="font-bold text-slate-700">Armada/Sub-vendor: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.fleetSize || "-"} / {selectedInquiryQuestionnaire.vendorCount || "-"}</span></p>
                                 {selectedInquiryQuestionnaire.totalExpectedUsers && (
                                   <p className="font-bold text-slate-700">Estimasi Pengguna: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.totalExpectedUsers}</span></p>
@@ -1437,6 +1456,7 @@ function getSektorLabel(key: string): string {
     '3pl': "3PL Warehouse",
     trucking: "Trucking Company",
     inhouse: "In-house Logistics (Shipper)",
+    courier: "Kurir / Last-Mile Delivery",
     other: "Lainnya"
   };
   return map[key] || key;

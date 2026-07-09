@@ -29,7 +29,9 @@ export interface Inquiry {
 export interface Questionnaire {
   inquiryId: string;
   // Section 1: Profil & Operasional Bisnis
-  cargoTypes: string[]; // e.g. ['FCL', 'LCL', 'Bulk', 'Reefer', 'General Cargo']
+  serviceTypes: string[]; // e.g. ['Air Freight', 'Sea Freight - FCL', 'Trucking - FTL', 'Warehousing']
+  cargoTypes: string[]; // Commodity types e.g. ['Bulk Cargo (Curah)', 'Reefer (Suhu Dingin)', 'General Cargo / Box']
+  operationScope: string; // 'domestic' | 'international' | 'both'
   primaryRoutes: string;
   fleetSize: string;
   vendorCount: string;
@@ -402,6 +404,7 @@ export function getSektorLabel(key: string, lang: 'id' | 'en' = 'id'): string {
       '3pl': "3PL Warehouse",
       trucking: "Trucking Company",
       inhouse: "In-house Logistics (Shipper)",
+      courier: "Courier / Last-Mile Delivery",
       other: "Other"
     };
     return map[key] || key;
@@ -411,6 +414,7 @@ export function getSektorLabel(key: string, lang: 'id' | 'en' = 'id'): string {
       '3pl': "3PL Warehouse",
       trucking: "Trucking Company",
       inhouse: "In-house Logistics (Shipper)",
+      courier: "Kurir / Last-Mile Delivery",
       other: "Lainnya"
     };
     return map[key] || key;
@@ -470,7 +474,7 @@ type InquiryRow = {
 };
 
 type QuestionnaireRow = {
-  inquiry_id: string; cargo_types?: string[] | null; primary_routes?: string | null; fleet_size?: string | null;
+  inquiry_id: string; service_types?: string[] | null; cargo_types?: string[] | null; operation_scope?: string | null; primary_routes?: string | null; fleet_size?: string | null;
   vendor_count?: string | null; pain_rfq_details?: string | null; pain_dispatch_details?: string | null;
   pain_tracking_details?: string | null; pain_billing_details?: string | null; desired_modules?: string[] | null;
   erp_system?: string | null; custom_requirements?: string | null; preferred_slots?: string[] | null; contact_notes?: string | null;
@@ -497,7 +501,8 @@ const toInquiry = (row: InquiryRow): Inquiry => ({
 });
 
 const toQuestionnaire = (row: QuestionnaireRow): Questionnaire => ({
-  inquiryId: row.inquiry_id, cargoTypes: row.cargo_types || [], primaryRoutes: row.primary_routes || "",
+  inquiryId: row.inquiry_id, serviceTypes: row.service_types || [], cargoTypes: row.cargo_types || [], operationScope: row.operation_scope || "",
+  primaryRoutes: row.primary_routes || "",
   fleetSize: row.fleet_size || "", vendorCount: row.vendor_count || "", painRfqDetails: row.pain_rfq_details || "",
   painDispatchDetails: row.pain_dispatch_details || "", painTrackingDetails: row.pain_tracking_details || "",
   painBillingDetails: row.pain_billing_details || "", desiredModules: row.desired_modules || [], erpSystem: row.erp_system || "None",
@@ -518,15 +523,16 @@ const toEmailLog = (row: EmailLogRow): EmailLog => ({
   id: row.id, to: row.to_address, subject: row.subject, htmlBody: row.html_body, sentAt: row.sent_at, type: row.type
 });
 
-const toQuestionnaireRow = (inquiryId: string, qData: Partial<Questionnaire>, isDraft: boolean) => ({
-  inquiry_id: inquiryId, cargo_types: qData.cargoTypes || [], primary_routes: qData.primaryRoutes || "", fleet_size: qData.fleetSize || "",
-  vendor_count: qData.vendorCount || "", pain_rfq_details: qData.painRfqDetails || "", pain_dispatch_details: qData.painDispatchDetails || "",
-  pain_tracking_details: qData.painTrackingDetails || "", pain_billing_details: qData.painBillingDetails || "", desired_modules: qData.desiredModules || [],
-  erp_system: qData.erpSystem || "None", custom_requirements: qData.customRequirements || "", preferred_slots: qData.preferredSlots || [],
-  contact_notes: qData.contactNotes || "", existing_customer_flow: qData.existingCustomerFlow || "", business_process_sop: qData.businessProcessSop || "",
-  total_expected_users: qData.totalExpectedUsers || "", roles_involved: qData.rolesInvolved || [], top_problem_impact: qData.topProblemImpact || "",
-  specific_requests: qData.specificRequests || "", is_draft: isDraft, current_step: qData.currentStep || (isDraft ? 1 : 4),
-  last_saved_at: new Date().toISOString(), submitted_at: isDraft ? qData.submittedAt || null : new Date().toISOString()
+const toQuestionnaireRpcArgs = (inquiryId: string, qData: Partial<Questionnaire>, isDraft: boolean) => ({
+  p_inquiry_id: inquiryId, p_service_types: qData.serviceTypes || [], p_cargo_types: qData.cargoTypes || [], p_primary_routes: qData.primaryRoutes || "", p_fleet_size: qData.fleetSize || "",
+  p_vendor_count: qData.vendorCount || "", p_pain_rfq_details: qData.painRfqDetails || "", p_pain_dispatch_details: qData.painDispatchDetails || "",
+  p_pain_tracking_details: qData.painTrackingDetails || "", p_pain_billing_details: qData.painBillingDetails || "", p_desired_modules: qData.desiredModules || [],
+  p_erp_system: qData.erpSystem || "None", p_custom_requirements: qData.customRequirements || "", p_preferred_slots: qData.preferredSlots || [],
+  p_contact_notes: qData.contactNotes || "", p_existing_customer_flow: qData.existingCustomerFlow || "", p_business_process_sop: qData.businessProcessSop || "",
+  p_total_expected_users: qData.totalExpectedUsers || "", p_roles_involved: qData.rolesInvolved || [], p_top_problem_impact: qData.topProblemImpact || "",
+  p_specific_requests: qData.specificRequests || "", p_is_draft: isDraft, p_current_step: qData.currentStep || (isDraft ? 1 : 4),
+  p_submitted_at: isDraft ? qData.submittedAt || null : new Date().toISOString(),
+  p_operation_scope: qData.operationScope || ""
 });
 
 function throwSupabaseError(error: unknown): never {
@@ -538,25 +544,37 @@ function throwSupabaseError(error: unknown): never {
 }
 
 // API Methods
+
+// Admin-only: full listing requires an authenticated session (RLS: "Admin: Full control of inquiries").
 export async function getInquiries(): Promise<Inquiry[]> {
   const { data, error } = await supabase.from("inquiries").select("*").order("created_at", { ascending: false });
   if (error) throwSupabaseError(error);
   return ((data || []) as InquiryRow[]).map(toInquiry);
 }
 
+// Public: scoped to a single row via the get_inquiry_by_id() SECURITY DEFINER function,
+// so an anonymous visitor can only ever fetch the exact inquiry they already hold the ID for.
 export async function getInquiry(id: string): Promise<Inquiry | undefined> {
-  const { data, error } = await supabase.from("inquiries").select("*").eq("id", id).maybeSingle();
+  const { data, error } = await supabase.rpc("get_inquiry_by_id", { p_id: id }).maybeSingle();
+  if (error) throwSupabaseError(error);
+  return data ? toInquiry(data as InquiryRow) : undefined;
+}
+
+// Public: used by the "resend my questionnaire link" flow. Scoped server-side to a single
+// email match so the client never receives other customers' inquiry data.
+export async function findInquiryByEmail(email: string): Promise<Inquiry | undefined> {
+  const { data, error } = await supabase.rpc("find_inquiry_by_email", { p_email: email }).maybeSingle();
   if (error) throwSupabaseError(error);
   return data ? toInquiry(data as InquiryRow) : undefined;
 }
 
 export async function addInquiry(inquiryData: Omit<Inquiry, "id" | "status" | "createdAt" | "updatedAt">): Promise<Inquiry> {
-  const { data, error } = await supabase.from("inquiries").insert({
-    name: inquiryData.name, company: inquiryData.company, role: inquiryData.role, email: inquiryData.email, phone: inquiryData.phone,
-    company_type: inquiryData.companyType, shipment_volume: inquiryData.shipmentVolume, biggest_pain: inquiryData.biggestPain,
-    lang: inquiryData.lang || "id", utm_source: inquiryData.utmSource, utm_medium: inquiryData.utmMedium,
-    utm_campaign: inquiryData.utmCampaign, utm_term: inquiryData.utmTerm, utm_content: inquiryData.utmContent
-  }).select("*").single();
+  const { data, error } = await supabase.rpc("create_inquiry", {
+    p_name: inquiryData.name, p_company: inquiryData.company, p_role: inquiryData.role, p_email: inquiryData.email, p_phone: inquiryData.phone,
+    p_company_type: inquiryData.companyType, p_shipment_volume: inquiryData.shipmentVolume, p_biggest_pain: inquiryData.biggestPain,
+    p_lang: inquiryData.lang || "id", p_utm_source: inquiryData.utmSource, p_utm_medium: inquiryData.utmMedium,
+    p_utm_campaign: inquiryData.utmCampaign, p_utm_term: inquiryData.utmTerm, p_utm_content: inquiryData.utmContent
+  }).single();
   if (error) throwSupabaseError(error);
   const newInquiry = toInquiry(data as InquiryRow);
   try {
@@ -579,24 +597,24 @@ export async function getQuestionnaires(): Promise<Questionnaire[]> {
   return ((data || []) as QuestionnaireRow[]).map(toQuestionnaire);
 }
 
+// Public: scoped to a single row via the get_questionnaire_by_inquiry_id() SECURITY DEFINER
+// function, so an anonymous visitor can only ever load the draft tied to their own inquiry ID.
 export async function getQuestionnaireByInquiryId(inquiryId: string): Promise<Questionnaire | undefined> {
-  const { data, error } = await supabase.from("questionnaires").select("*").eq("inquiry_id", inquiryId).maybeSingle();
+  const { data, error } = await supabase.rpc("get_questionnaire_by_inquiry_id", { p_inquiry_id: inquiryId }).maybeSingle();
   if (error) throwSupabaseError(error);
   return data ? toQuestionnaire(data as QuestionnaireRow) : undefined;
 }
 
 export async function saveQuestionnaireDraft(inquiryId: string, qData: Partial<Questionnaire> & { currentStep: number }): Promise<Questionnaire> {
-  const { data, error } = await supabase.from("questionnaires").upsert(toQuestionnaireRow(inquiryId, qData, true), { onConflict: "inquiry_id" }).select("*").single();
+  const { data, error } = await supabase.rpc("upsert_questionnaire", toQuestionnaireRpcArgs(inquiryId, qData, true)).single();
   if (error) throwSupabaseError(error);
-  await updateInquiryStatus(inquiryId, "Draft Kuesioner");
   return toQuestionnaire(data as QuestionnaireRow);
 }
 
 export async function submitQuestionnaire(inquiryId: string, qData: Partial<Questionnaire>): Promise<Questionnaire> {
-  const { data, error } = await supabase.from("questionnaires").upsert(toQuestionnaireRow(inquiryId, { ...qData, currentStep: 4 }, false), { onConflict: "inquiry_id" }).select("*").single();
+  const { data, error } = await supabase.rpc("upsert_questionnaire", toQuestionnaireRpcArgs(inquiryId, { ...qData, currentStep: 4 }, false)).single();
   if (error) throwSupabaseError(error);
   const updated = toQuestionnaire(data as QuestionnaireRow);
-  await updateInquiryStatus(inquiryId, "Kuesioner Selesai");
   const inquiry = await getInquiry(inquiryId);
   try {
     if (inquiry) await addEmailLog("service@cargogrid.net", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, generateHtmlEmailTemplate("admin_alert_complete", { inquiry, questionnaire: updated }), "admin_alert_complete");
@@ -635,8 +653,10 @@ export async function getEmailLogs(): Promise<EmailLog[]> {
   return ((data || []) as EmailLogRow[]).map(toEmailLog);
 }
 
+// Public: routed through the log_email() SECURITY DEFINER function since anon has no direct
+// table grants on email_logs (avoids relying on RLS SELECT policies to return INSERT ... RETURNING rows).
 export async function addEmailLog(to: string, subject: string, htmlBody: string, type: EmailLog["type"]): Promise<EmailLog> {
-  const { data, error } = await supabase.from("email_logs").insert({ to_address: to, subject, html_body: htmlBody, type }).select("*").single();
+  const { data, error } = await supabase.rpc("log_email", { p_to_address: to, p_subject: subject, p_html_body: htmlBody, p_type: type }).single();
   if (error) throwSupabaseError(error);
   return toEmailLog(data as EmailLogRow);
 }

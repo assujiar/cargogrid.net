@@ -1,6 +1,25 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "../src/index.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "CargoGrid OS - Sistem Operasi Logistik Enterprise Terintegrasi & ERP Software",
@@ -33,7 +52,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="id">
-      <body>{children}</body>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>{children}</body>
     </html>
   );
 }

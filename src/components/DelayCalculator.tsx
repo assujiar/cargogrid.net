@@ -85,6 +85,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 min="100"
                 max="10000"
                 step="100"
+                id="monthly-shipments"
+                name="monthly-shipments"
+                aria-label="monthly shipments"
                 value={shipments}
                 onChange={(e) => setShipments(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -109,6 +112,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 min="1"
                 max="12"
                 step="1"
+                id="hours-wasted"
+                name="hours-wasted"
+                aria-label="hours wasted"
                 value={hoursWasted}
                 onChange={(e) => setHoursWasted(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -135,6 +141,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 min="25000"
                 max="150000"
                 step="5000"
+                id="labor-rate"
+                name="labor-rate"
+                aria-label="labor rate"
                 value={laborRate}
                 onChange={(e) => setLaborRate(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"

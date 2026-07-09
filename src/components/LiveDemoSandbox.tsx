@@ -195,6 +195,9 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
                         <span className="text-slate-900 font-mono font-black">Rp {sellingPrice.toLocaleString()}</span>
                       </div>
                       <input
+                        id="selling-price"
+                        name="sellingPrice"
+                        aria-label={isEn ? "Configure offer selling price" : "Kalkulasi selling price penawaran"}
                         type="range"
                         min="9000000"
                         max="15000000"
@@ -430,6 +433,9 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
                     <div className="relative flex-1">
                       <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                       <input
+                        id="tracking-number-input"
+                        name="trackingNumber"
+                        aria-label={isEn ? "Container number or booking code" : "Nomor kontainer atau resi pengiriman"}
                         type="text"
                         value={trackingNumberInput}
                         onChange={(e) => setTrackingNumberInput(e.target.value)}

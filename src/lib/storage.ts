@@ -658,5 +658,22 @@ export async function getEmailLogs(): Promise<EmailLog[]> {
 export async function addEmailLog(to: string, subject: string, htmlBody: string, type: EmailLog["type"]): Promise<EmailLog> {
   const { data, error } = await supabase.rpc("log_email", { p_to_address: to, p_subject: subject, p_html_body: htmlBody, p_type: type }).single();
   if (error) throwSupabaseError(error);
+
+  // Best-effort actual delivery via the server-side SMTP relay. A delivery failure (e.g. SMTP
+  // not configured yet) must not affect the audit log row that was already written above.
+  try {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ to, subject, html: htmlBody }),
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      console.warn("Email delivery failed (non-blocking):", body.error || res.status);
+    }
+  } catch (err) {
+    console.warn("Email delivery request failed (non-blocking):", err);
+  }
+
   return toEmailLog(data as EmailLogRow);
 }

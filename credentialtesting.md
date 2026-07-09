@@ -1,18 +1,17 @@
 # Kredensial Pengujian Sistem (System Testing Credentials)
 
-Berikut adalah kredensial pengujian untuk masuk ke dalam Portal Admin CargoGrid:
+Portal Admin CargoGrid sekarang memakai **Supabase Auth**. Kredensial tidak lagi disimpan atau divalidasi secara hardcoded di kode front-end.
 
 ## Akun Administrator Portal
 
-* **Username:** `admin`
-* **Password:** `CargoGridAdmin2026!`
+Buat/kelola akun super admin langsung di Supabase Auth dashboard, lalu login menggunakan email dan password akun tersebut. Jika password lupa, gunakan tombol reset password di halaman login portal admin.
 
----
+## SMTP / Backend Configuration
 
-## SMTP Simulation / Configuration Defaults
+Konfigurasi SMTP harus didefinisikan sebagai environment variables server-side, bukan disimpan di browser:
 
-* **Host:** `smtp.gmail.com`
-* **Port:** `587`
-* **Secure checkbox:** Disabled (STARTTLS)
-* **Default Sender Name:** `CargoGrid OS <noreply@cargogrid.com>`
-* **Default Sender Email:** `as.sujiar@gmail.com`
+* `SMTP_HOST`
+* `SMTP_PORT`
+* `SMTP_USER`
+* `SMTP_PASS`
+* `SMTP_FROM`

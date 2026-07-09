@@ -12,6 +12,7 @@ import {
   Meeting, 
   EmailLog 
 } from "../lib/storage";
+import { supabase } from "../lib/supabase";
 import { 
   Users, 
   Calendar, 
@@ -50,22 +51,93 @@ interface SuperAdminPortalProps {
 }
 
 export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id" }: SuperAdminPortalProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return sessionStorage.getItem("cargogrid_admin_logged_in") === "true";
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [adminUsername, setAdminUsername] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [loginInfo, setLoginInfo] = useState("");
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [isLoginSubmitting, setIsLoginSubmitting] = useState(false);
+  const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
+      setIsLoggedIn(Boolean(data.session));
+      setIsAuthLoading(false);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") setIsPasswordRecovery(true);
+      setIsLoggedIn(Boolean(session));
+      setIsAuthLoading(false);
+    });
+
+    return () => {
+      mounted = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminUsername.trim() === "admin" && adminPassword === "CargoGridAdmin2026!") {
-      setIsLoggedIn(true);
-      sessionStorage.setItem("cargogrid_admin_logged_in", "true");
-      setLoginError("");
-    } else {
-      setLoginError(lang === "en" ? "Invalid admin credentials!" : "Kredensial admin tidak valid!");
+    setIsLoginSubmitting(true);
+    setLoginError("");
+    setLoginInfo("");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: adminUsername.trim(),
+      password: adminPassword
+    });
+
+    setIsLoginSubmitting(false);
+    if (error) {
+      setLoginError(lang === "en" ? "Invalid Supabase admin credentials." : "Kredensial admin Supabase tidak valid.");
+      return;
     }
+
+    setAdminPassword("");
+  };
+
+  const handleResetPassword = async () => {
+    setLoginError("");
+    setLoginInfo("");
+    const email = adminUsername.trim();
+    if (!email) {
+      setLoginError(lang === "en" ? "Enter your admin email first." : "Masukkan email admin terlebih dahulu.");
+      return;
+    }
+
+    const redirectTo = `${window.location.origin}${window.location.pathname}#admin`;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+    if (error) {
+      setLoginError(error.message);
+      return;
+    }
+    setLoginInfo(lang === "en" ? "Password reset email sent via Supabase." : "Email reset password telah dikirim melalui Supabase.");
+  };
+
+
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError("");
+    setLoginInfo("");
+    if (newPassword.length < 8) {
+      setLoginError(lang === "en" ? "Password must be at least 8 characters." : "Password minimal 8 karakter.");
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) {
+      setLoginError(error.message);
+      return;
+    }
+
+    setNewPassword("");
+    setIsPasswordRecovery(false);
+    setLoginInfo(lang === "en" ? "Password updated successfully." : "Password berhasil diperbarui.");
   };
 
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
@@ -79,13 +151,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [statusFilter, setStatusFilter] = useState("all");
   const [activeTab, setActiveTab] = useState<"database" | "meetings" | "outbox" | "smtp">("database");
   
-  // SMTP Configuration States (persisted in localStorage)
-  const [smtpHost, setSmtpHost] = useState(() => localStorage.getItem("cargogrid_smtp_host") || "smtp.gmail.com");
-  const [smtpPort, setSmtpPort] = useState(() => localStorage.getItem("cargogrid_smtp_port") || "587");
-  const [smtpSecure, setSmtpSecure] = useState(() => localStorage.getItem("cargogrid_smtp_secure") === "true");
-  const [smtpUser, setSmtpUser] = useState(() => localStorage.getItem("cargogrid_smtp_user") || "as.sujiar@gmail.com");
-  const [smtpPass, setSmtpPass] = useState(() => localStorage.getItem("cargogrid_smtp_pass") || "••••••••••••••••");
-  const [smtpFrom, setSmtpFrom] = useState(() => localStorage.getItem("cargogrid_smtp_from") || "CargoGrid OS <service@cargogrid.net>");
+  // SMTP configuration is server-owned. These fields mirror deployment environment values only.
+  const [smtpHost, setSmtpHost] = useState("");
+  const [smtpPort, setSmtpPort] = useState("587");
+  const [smtpSecure, setSmtpSecure] = useState(false);
+  const [smtpUser, setSmtpUser] = useState("");
+  const [smtpPass, setSmtpPass] = useState("");
+  const [smtpFrom, setSmtpFrom] = useState("CargoGrid OS <service@cargogrid.net>");
   
   const [showSmtpPass, setShowSmtpPass] = useState(false);
   const [smtpStatusLog, setSmtpStatusLog] = useState<string[]>([]);
@@ -94,12 +166,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
   const handleSaveSmtp = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("cargogrid_smtp_host", smtpHost);
-    localStorage.setItem("cargogrid_smtp_port", smtpPort);
-    localStorage.setItem("cargogrid_smtp_secure", String(smtpSecure));
-    localStorage.setItem("cargogrid_smtp_user", smtpUser);
-    localStorage.setItem("cargogrid_smtp_pass", smtpPass);
-    localStorage.setItem("cargogrid_smtp_from", smtpFrom);
+    setSmtpStatusLog([
+      "SMTP config is not saved in the browser anymore.",
+      "Update SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and SMTP_FROM in server environment variables."
+    ]);
     setSmtpSaveSuccess(true);
     setTimeout(() => setSmtpSaveSuccess(false), 3000);
   };
@@ -155,45 +225,55 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [viewingEmail, setViewingEmail] = useState<EmailLog | null>(null);
 
   // Load storage states
-  const loadData = () => {
-    setInquiries(getInquiries());
-    setEmails(getEmailLogs());
-    setMeetings(getMeetings());
+  const loadData = async () => {
+    const [nextInquiries, nextEmails, nextMeetings] = await Promise.all([
+      getInquiries(),
+      getEmailLogs(),
+      getMeetings()
+    ]);
+    setInquiries(nextInquiries);
+    setEmails(nextEmails);
+    setMeetings(nextMeetings);
   };
 
   useEffect(() => {
-    loadData();
-    // Refresh interval for live test feel
-    const interval = setInterval(loadData, 3000);
+    if (!isLoggedIn) return;
+    loadData().catch((error) => console.error("Failed to load admin data", error));
+    const interval = setInterval(() => {
+      loadData().catch((error) => console.error("Failed to refresh admin data", error));
+    }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isLoggedIn]);
 
   // Update selected inquiry sub-states if selectedInquiry changes
   useEffect(() => {
     if (selectedInquiry) {
-      const q = getQuestionnaireByInquiryId(selectedInquiry.id);
-      setSelectedInquiryQuestionnaire(q || null);
+      const loadSelected = async () => {
+        const q = await getQuestionnaireByInquiryId(selectedInquiry.id);
+        setSelectedInquiryQuestionnaire(q || null);
 
-      // Auto fill schedule form based on preferences
-      if (q && q.preferredSlots && q.preferredSlots.length > 0) {
+        // Auto fill schedule form based on preferences
+        if (q && q.preferredSlots && q.preferredSlots.length > 0) {
         // Auto seed a simulated meeting link
         const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
         setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
         setAdminNotes(`Sesi meeting kualifikasi. Customer sangat memprioritaskan modul ${q.desiredModules.join(", ")} dengan rute ${q.primaryRoutes}.`);
-      } else {
-        const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
-        setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
-        setAdminNotes("");
-      }
-      setScheduledDate("");
-      setScheduledTime("");
-      setPlatform("Google Meet");
-      setScheduleSuccess(false);
+        } else {
+          const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
+          setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
+          setAdminNotes("");
+        }
+        setScheduledDate("");
+        setScheduledTime("");
+        setPlatform("Google Meet");
+        setScheduleSuccess(false);
+      };
+      loadSelected().catch((error) => console.error("Failed to load selected inquiry questionnaire", error));
     }
   }, [selectedInquiry]);
 
   // Handle scheduling action
-  const handleConfirmMeeting = (e: React.FormEvent) => {
+  const handleConfirmMeeting = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedInquiry) return;
 
@@ -207,7 +287,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       finalTime = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}T10:00:00+07:00`;
     }
 
-    scheduleMeeting(selectedInquiry.id, {
+    await scheduleMeeting(selectedInquiry.id, {
       scheduledTime: finalTime,
       meetingUrl,
       platform,
@@ -215,10 +295,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
     });
 
     setScheduleSuccess(true);
-    loadData();
+    await loadData();
     
     // Refresh active selected inquiry view to update badge
-    const updatedInq = getInquiry(selectedInquiry.id);
+    const updatedInq = await getInquiry(selectedInquiry.id);
     if (updatedInq) {
       setSelectedInquiry(updatedInq);
     }
@@ -246,6 +326,43 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const statCompleted = inquiries.filter(i => i.status === "Kuesioner Selesai").length;
   const statMeetings = inquiries.filter(i => i.status === "Meeting Scheduled").length;
 
+  if (isAuthLoading) {
+    return (
+      <div className="py-24 px-4 text-center text-xs font-bold text-slate-500">
+        {lang === "en" ? "Checking Supabase session..." : "Memeriksa sesi Supabase..."}
+      </div>
+    );
+  }
+
+  if (isPasswordRecovery) {
+    return (
+      <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-md mx-auto w-full flex-1 flex flex-col justify-center items-center relative z-10" id="admin-reset-password-page">
+        <form onSubmit={handleUpdatePassword} className="w-full nm-emboss bg-[#eaf0f6]/80 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-0 flex flex-col gap-5 relative">
+          <h1 className="font-display font-black text-xl sm:text-2xl text-slate-900 tracking-tight text-center">
+            {lang === "en" ? "Set New Supabase Password" : "Atur Password Supabase Baru"}
+          </h1>
+          {loginError && <div className="p-3.5 bg-red-500/5 text-red-600 text-xs font-bold rounded-xl border border-red-500/20 text-center">{loginError}</div>}
+          {loginInfo && <div className="p-3.5 bg-brand-teal/5 text-brand-teal text-xs font-bold rounded-xl border border-brand-teal/20 text-center">{loginInfo}</div>}
+          <input
+            id="admin-new-password"
+            name="newPassword"
+            autoComplete="new-password"
+            type="password"
+            required
+            minLength={8}
+            placeholder={lang === "en" ? "New password" : "Password baru"}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            className="w-full nm-input bg-white rounded-xl px-4 py-3.5 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-brand-teal transition-all"
+          />
+          <button type="submit" className="w-full py-4 bg-brand-teal text-white text-xs font-black rounded-xl cursor-pointer border-0 shadow-md hover:bg-brand-teal/95 transition-all uppercase tracking-wider">
+            {lang === "en" ? "Update Password" : "Perbarui Password"}
+          </button>
+        </form>
+      </div>
+    );
+  }
+
   if (!isLoggedIn) {
     return (
       <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-md mx-auto w-full flex-1 flex flex-col justify-center items-center relative z-10" id="admin-login-page">
@@ -272,17 +389,26 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             </div>
           )}
 
+          {loginInfo && (
+            <div className="p-3.5 bg-brand-teal/5 text-brand-teal text-xs font-bold rounded-xl border border-brand-teal/20 text-center">
+              {loginInfo}
+            </div>
+          )}
+
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
-                {lang === "en" ? "Username" : "Username Admin"}
+              <label htmlFor="admin-email" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
+                {lang === "en" ? "Admin Email" : "Email Admin"}
               </label>
               <div className="relative">
                 <User className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
-                  type="text"
+                  id="admin-email"
+                  name="email"
+                  autoComplete="username"
+                  type="email"
                   required
-                  placeholder="admin"
+                  placeholder="service@cargogrid.net"
                   value={adminUsername}
                   onChange={(e) => setAdminUsername(e.target.value)}
                   className="w-full nm-input bg-white rounded-xl pl-10 pr-4 py-3.5 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-brand-teal transition-all"
@@ -291,12 +417,15 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
+              <label htmlFor="admin-password" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
                 {lang === "en" ? "Password" : "Kata Sandi"}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
+                  id="admin-password"
+                  name="password"
+                  autoComplete="current-password"
                   type="password"
                   required
                   placeholder="••••••••••••••••"
@@ -311,11 +440,19 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
               type="submit"
               className="w-full py-4 bg-brand-teal text-white text-xs font-black rounded-xl cursor-pointer border-0 shadow-md hover:bg-brand-teal/95 transition-all mt-2 uppercase tracking-wider"
             >
-              {lang === "en" ? "Sign In &rarr;" : "Masuk Sistem &rarr;"}
+              {isLoginSubmitting ? (lang === "en" ? "Signing in..." : "Memproses...") : (lang === "en" ? "Sign In with Supabase →" : "Masuk via Supabase →")}
             </button>
           </form>
 
-          {/* Credentials box removed from UI. Placed in credentialtesting.md for reference */}
+          <button
+            type="button"
+            onClick={handleResetPassword}
+            className="text-[11px] font-black text-brand-teal hover:underline"
+          >
+            {lang === "en" ? "Forgot password? Send Supabase reset email" : "Lupa password? Kirim email reset Supabase"}
+          </button>
+
+          {/* Credentials are managed by Supabase Auth, not hardcoded in the UI. */}
         </div>
       </div>
     );
@@ -411,6 +548,9 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 <div className="relative flex-1">
                   <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                   <input
+                    id="admin-search"
+                    name="adminSearch"
+                    aria-label="Cari berdasarkan perusahaan, nama kontak, atau email"
                     type="text"
                     placeholder="Cari berdasarkan perusahaan, nama kontak, atau email..."
                     value={searchTerm}
@@ -421,7 +561,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                 <div className="flex items-center gap-2">
                   <Filter className="w-4 h-4 text-slate-400" />
-                  <select
+                  <select id="superadminportal-select-1" name="superadminportal-select-1" aria-label="superadminportal-select-1"
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="nm-input bg-white text-slate-800 rounded-xl px-4 py-3 text-xs font-bold border-0 focus:outline-none cursor-pointer"
@@ -705,8 +845,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                             {/* Manual Schedulers */}
                             <div className="grid grid-cols-2 gap-3.5">
                               <div className="flex flex-col gap-1">
-                                <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Tanggal Pertemuan*</label>
+                                <label htmlFor="meeting-date" className="text-[10px] text-slate-500 font-black font-mono uppercase">Tanggal Pertemuan*</label>
                                 <input
+                                  id="meeting-date"
+                                  name="meetingDate"
                                   type="date"
                                   required
                                   value={scheduledDate}
@@ -715,8 +857,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                 />
                               </div>
                               <div className="flex flex-col gap-1">
-                                <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Waktu/Jam (WIB)*</label>
+                                <label htmlFor="meeting-time" className="text-[10px] text-slate-500 font-black font-mono uppercase">Waktu/Jam (WIB)*</label>
                                 <input
+                                  id="meeting-time"
+                                  name="meetingTime"
                                   type="time"
                                   required
                                   value={scheduledTime}
@@ -746,10 +890,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                             {/* Meeting URL */}
                             <div className="flex flex-col gap-1">
-                              <label className="text-[10px] text-slate-500 font-black font-mono uppercase">URL Link Meeting Online*</label>
+                              <label htmlFor="meeting-url" className="text-[10px] text-slate-500 font-black font-mono uppercase">URL Link Meeting Online*</label>
                               <div className="relative">
                                 <Video className="absolute left-3 top-3 w-3.5 h-3.5 text-slate-400" />
                                 <input
+                                  id="meeting-url"
+                                  name="meetingUrl"
                                   type="url"
                                   required
                                   placeholder="Masukkan URL meeting"
@@ -763,7 +909,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                             {/* Internal notes */}
                             <div className="flex flex-col gap-1">
                               <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Catatan Konsultan Internal (Opsional)</label>
-                              <textarea
+                              <textarea id="superadminportal-textarea-1" name="superadminportal-textarea-1" aria-label="superadminportal-textarea-1"
                                 rows={2}
                                 placeholder="Tulis catatan agenda meeting untuk tim..."
                                 value={adminNotes}
@@ -1018,8 +1164,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                   {/* Host and Port row */}
                   <div className="grid grid-cols-3 gap-3">
                     <div className="col-span-2 flex flex-col gap-1">
-                      <label className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Host</label>
+                      <label htmlFor="smtp-host" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Host</label>
                       <input 
+                        id="smtp-host"
+                        name="smtpHost"
                         type="text" 
                         required
                         value={smtpHost}
@@ -1029,8 +1177,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-[9px] text-slate-400 font-black font-mono uppercase">Port</label>
+                      <label htmlFor="smtp-port" className="text-[9px] text-slate-400 font-black font-mono uppercase">Port</label>
                       <input 
+                        id="smtp-port"
+                        name="smtpPort"
                         type="text" 
                         required
                         value={smtpPort}
@@ -1046,6 +1196,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     <input 
                       type="checkbox" 
                       id="smtpSecureCheckbox"
+                      name="smtpSecure"
                       checked={smtpSecure}
                       onChange={(e) => setSmtpSecure(e.target.checked)}
                       className="w-4 h-4 rounded text-brand-teal border-slate-300 focus:ring-brand-teal cursor-pointer"
@@ -1057,10 +1208,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Username */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Username (Email Sender)</label>
+                    <label htmlFor="smtp-user" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Username (Email Sender)</label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3.5 w-3.5 h-3.5 text-slate-400" />
                       <input 
+                        id="smtp-user"
+                        name="smtpUser"
+                        autoComplete="username"
                         type="email" 
                         required
                         value={smtpUser}
@@ -1073,10 +1227,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Password / App Password */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Password / App Password</label>
+                    <label htmlFor="smtp-password" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Password / App Password</label>
                     <div className="relative">
                       <Key className="absolute left-3 top-3.5 w-3.5 h-3.5 text-slate-400" />
                       <input 
+                        id="smtp-password"
+                        name="smtpPassword"
+                        autoComplete="current-password"
                         type={showSmtpPass ? "text" : "password"} 
                         required
                         value={smtpPass}
@@ -1096,8 +1253,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Sender From Header Name */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-[9px] text-slate-400 font-black font-mono uppercase">Header FROM Name (Nama Pengirim)</label>
+                    <label htmlFor="smtp-from" className="text-[9px] text-slate-400 font-black font-mono uppercase">Header FROM Name (Nama Pengirim)</label>
                     <input 
+                      id="smtp-from"
+                      name="smtpFrom"
                       type="text" 
                       required
                       value={smtpFrom}

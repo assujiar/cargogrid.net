@@ -48,6 +48,7 @@ export default function App() {
   React.useEffect(() => {
     const handleHashChange = () => {
       setHash(window.location.hash);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
@@ -230,7 +231,10 @@ export default function App() {
         <LegalSection lang={lang} defaultTab="terms" />
       ) : (
         /* Hash-routed public pages with lang support */
-        <main className="flex-1 relative z-10" id={`${view}-page-main-flow`}>
+        <main
+          className={`flex-1 relative z-10 ${view === 'landing' ? '' : 'pt-28 sm:pt-32 md:pt-36'}`}
+          id={`${view}-page-main-flow`}
+        >
           {view === 'landing' && <HeroSection lang={lang} />}
 
           {view === 'challenges' && (

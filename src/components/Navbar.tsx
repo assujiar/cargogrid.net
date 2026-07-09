@@ -27,15 +27,19 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
   const isEn = lang === 'en';
 
   const navLinks = isEn ? [
+    { name: "Home", href: "#" },
     { name: "Challenges", href: "#challenges" },
     { name: "System & Modules", href: "#system" },
     { name: "Simulator & ROI", href: "#simulator" },
     { name: "Plans & FAQ", href: "#plans" },
+    { name: "Contact", href: "#contact" },
   ] : [
+    { name: "Home", href: "#" },
     { name: "Tantangan", href: "#challenges" },
     { name: "Sistem & Modul", href: "#system" },
     { name: "Simulator & ROI", href: "#simulator" },
     { name: "Paket & FAQ", href: "#plans" },
+    { name: "Kontak", href: "#contact" },
   ];
 
   return (

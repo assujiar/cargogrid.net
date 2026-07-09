@@ -60,6 +60,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
 
     try {
       // Save inquiry with active language context and UTM attributes
+      // Save to Supabase with active language context and UTM attributes
       const newInq = await addInquiry({
         name: formData.name,
         company: formData.company,

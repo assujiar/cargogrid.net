@@ -94,7 +94,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
     setIsLoginSubmitting(false);
     if (error) {
-      setLoginError(lang === "en" ? "Invalid admin credentials." : "Kredensial admin tidak valid.");
+      setLoginError(lang === "en" ? "Invalid Supabase admin credentials." : "Kredensial admin Supabase tidak valid.");
       return;
     }
 
@@ -116,7 +116,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       setLoginError(error.message);
       return;
     }
-    setLoginInfo(lang === "en" ? "Password reset email sent." : "Email reset password telah dikirim.");
+    setLoginInfo(lang === "en" ? "Password reset email sent via Supabase." : "Email reset password telah dikirim melalui Supabase.");
   };
 
 
@@ -329,7 +329,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   if (isAuthLoading) {
     return (
       <div className="py-24 px-4 text-center text-xs font-bold text-slate-500">
-        {lang === "en" ? "Checking admin session..." : "Memeriksa sesi admin..."}
+        {lang === "en" ? "Checking Supabase session..." : "Memeriksa sesi Supabase..."}
       </div>
     );
   }
@@ -339,14 +339,11 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-md mx-auto w-full flex-1 flex flex-col justify-center items-center relative z-10" id="admin-reset-password-page">
         <form onSubmit={handleUpdatePassword} className="w-full nm-emboss bg-[#eaf0f6]/80 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-0 flex flex-col gap-5 relative">
           <h1 className="font-display font-black text-xl sm:text-2xl text-slate-900 tracking-tight text-center">
-            {lang === "en" ? "Set New Password" : "Atur Password Baru"}
+            {lang === "en" ? "Set New Supabase Password" : "Atur Password Supabase Baru"}
           </h1>
           {loginError && <div className="p-3.5 bg-red-500/5 text-red-600 text-xs font-bold rounded-xl border border-red-500/20 text-center">{loginError}</div>}
           {loginInfo && <div className="p-3.5 bg-brand-teal/5 text-brand-teal text-xs font-bold rounded-xl border border-brand-teal/20 text-center">{loginInfo}</div>}
           <input
-            id="admin-new-password"
-            name="newPassword"
-            autoComplete="new-password"
             type="password"
             required
             minLength={8}
@@ -397,15 +394,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="admin-email" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
+              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
                 {lang === "en" ? "Admin Email" : "Email Admin"}
               </label>
               <div className="relative">
                 <User className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
-                  id="admin-email"
-                  name="email"
-                  autoComplete="username"
                   type="email"
                   required
                   placeholder="service@cargogrid.net"
@@ -440,7 +434,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
               type="submit"
               className="w-full py-4 bg-brand-teal text-white text-xs font-black rounded-xl cursor-pointer border-0 shadow-md hover:bg-brand-teal/95 transition-all mt-2 uppercase tracking-wider"
             >
-              {isLoginSubmitting ? (lang === "en" ? "Signing in..." : "Memproses...") : (lang === "en" ? "Sign In →" : "Masuk →")}
+              {isLoginSubmitting ? (lang === "en" ? "Signing in..." : "Memproses...") : (lang === "en" ? "Sign In with Supabase →" : "Masuk via Supabase →")}
             </button>
           </form>
 
@@ -449,10 +443,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             onClick={handleResetPassword}
             className="text-[11px] font-black text-brand-teal hover:underline"
           >
-            {lang === "en" ? "Forgot password? Send reset email" : "Lupa password? Kirim email reset"}
+            {lang === "en" ? "Forgot password? Send Supabase reset email" : "Lupa password? Kirim email reset Supabase"}
           </button>
 
-          {/* Credentials are managed by the secure auth provider, not hardcoded in the UI. */}
+          {/* Credentials are managed by Supabase Auth, not hardcoded in the UI. */}
         </div>
       </div>
     );

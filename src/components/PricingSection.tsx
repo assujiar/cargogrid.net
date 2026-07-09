@@ -155,7 +155,7 @@ export default function PricingSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
                   <motion.a
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    href="#audit-form"
+                    href="#contact"
                     className={`inline-flex items-center justify-center gap-1.5 w-full py-3.5 rounded-full text-xs font-black transition-all duration-150 cursor-pointer border-0 uppercase tracking-wider ${
                       pkg.isPopular
                         ? "nm-btn-accent text-white shadow-md font-black"
@@ -195,7 +195,7 @@ export default function PricingSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
           <motion.a
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            href="#audit-form"
+            href="#contact"
             className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full text-xs font-black nm-btn bg-[#eef2f6] text-slate-700 hover:text-slate-900 transition-colors cursor-pointer border-0 uppercase tracking-wider whitespace-nowrap"
           >
             <span>{isEn ? "Inquire Custom Add-Ons" : "Tanya Add-On Khusus"}</span>

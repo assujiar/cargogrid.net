@@ -174,7 +174,7 @@ export default function IcpSelector({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             <div className="pt-6 border-t border-slate-200 mt-8 flex justify-between items-center">
               <span className="text-[9px] font-mono text-slate-400 font-black uppercase tracking-widest">{isEn ? "Segment Demo Available" : "Demo khusus tersedia"}</span>
               <a
-                href="#audit-form"
+                href="#contact"
                 className="inline-flex items-center gap-1.5 text-xs font-black text-brand-orange hover:text-brand-orange/80 transition-all group cursor-pointer"
               >
                 <span>{isEn ? `Learn ${activeIcp.titleEn || activeIcp.title} Suite` : `Pelajari Paket ${activeIcp.title}`}</span>

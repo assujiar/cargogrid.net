@@ -99,7 +99,7 @@ export default function App() {
       "@graph": [
         {
           "@type": "SoftwareApplication",
-          "@id": "https://cargogrid.com/#software",
+          "@id": "https://cargogrid.net/#software",
           "name": "CargoGrid OS",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web, iOS, Android, PWA",
@@ -113,13 +113,13 @@ export default function App() {
         },
         {
           "@type": "Organization",
-          "@id": "https://cargogrid.com/#organization",
+          "@id": "https://cargogrid.net/#organization",
           "name": "CargoGrid OS Indonesia",
           "url": window.location.origin,
-          "logo": "https://cargogrid.com/logo.png",
+          "logo": "https://cargogrid.net/logo.png",
           "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+62-21-5088-0000",
+            "telephone": "+62877 8898 0088",
             "contactType": "customer service",
             "areaServed": "ID",
             "availableLanguage": ["Indonesian", "English"]
@@ -135,7 +135,7 @@ export default function App() {
         },
         {
           "@type": "FAQPage",
-          "@id": "https://cargogrid.com/#faq",
+          "@id": "https://cargogrid.net/#faq",
           "mainEntity": [
             {
               "@type": "Question",
@@ -177,8 +177,9 @@ export default function App() {
     };
   }, [lang]);
 
-  // Parse active route view
-  let view: 'landing' | 'questionnaire' | 'admin' | 'privacy' | 'terms' = 'landing';
+  // Parse active route view. Public navbar destinations render as separate hash pages
+  // instead of one long scrolling landing page.
+  let view: 'landing' | 'questionnaire' | 'admin' | 'privacy' | 'terms' | 'challenges' | 'system' | 'simulator' | 'plans' | 'contact' = 'landing';
   if (hash.startsWith("#admin")) {
     view = 'admin';
   } else if (hash.startsWith("#questionnaire")) {
@@ -187,6 +188,16 @@ export default function App() {
     view = 'privacy';
   } else if (hash.startsWith("#terms")) {
     view = 'terms';
+  } else if (hash.startsWith("#challenges") || hash.startsWith("#problem")) {
+    view = 'challenges';
+  } else if (hash.startsWith("#system") || hash.startsWith("#flow") || hash.startsWith("#modules") || hash.startsWith("#use-cases")) {
+    view = 'system';
+  } else if (hash.startsWith("#simulator") || hash.startsWith("#roi-calculator") || hash.startsWith("#sandbox")) {
+    view = 'simulator';
+  } else if (hash.startsWith("#plans") || hash.startsWith("#pricing") || hash.startsWith("#faq")) {
+    view = 'plans';
+  } else if (hash.startsWith("#contact") || hash.startsWith("#audit-form")) {
+    view = 'contact';
   }
 
   return (
@@ -216,45 +227,57 @@ export default function App() {
       ) : view === 'terms' ? (
         <LegalSection lang={lang} defaultTab="terms" />
       ) : (
-        /* Structured SaaS landing page content with lang support */
-        <main className="flex-1 relative z-10" id="landing-page-main-flow">
-          <HeroSection lang={lang} />
-          
-          <div id="problem-area">
-            <ProblemSection lang={lang} />
-          </div>
+        /* Hash-routed public pages with lang support */
+        <main className="flex-1 relative z-10" id={`${view}-page-main-flow`}>
+          {view === 'landing' && <HeroSection lang={lang} />}
 
-          <div id="flow-area">
-            <ConnectedFlowVisualizer lang={lang} />
-          </div>
+          {view === 'challenges' && (
+            <div id="problem-area">
+              <ProblemSection lang={lang} />
+            </div>
+          )}
 
-          <div id="modules-area">
-            <ModulesSection lang={lang} />
-          </div>
+          {view === 'system' && (
+            <>
+              <div id="flow-area">
+                <ConnectedFlowVisualizer lang={lang} />
+              </div>
+              <div id="modules-area">
+                <ModulesSection lang={lang} />
+              </div>
+              <div id="use-cases-area">
+                <IcpSelector lang={lang} />
+              </div>
+            </>
+          )}
 
-          <div id="use-cases-area">
-            <IcpSelector lang={lang} />
-          </div>
+          {view === 'simulator' && (
+            <>
+              <div id="calculator-area">
+                <DelayCalculator lang={lang} />
+              </div>
+              <div id="sandbox-area">
+                <LiveDemoSandbox lang={lang} />
+              </div>
+            </>
+          )}
 
-          <div id="calculator-area">
-            <DelayCalculator lang={lang} />
-          </div>
+          {view === 'plans' && (
+            <>
+              <div id="pricing-area">
+                <PricingSection lang={lang} />
+              </div>
+              <div id="faq-area">
+                <FaqSection lang={lang} />
+              </div>
+            </>
+          )}
 
-          <div id="sandbox-area">
-            <LiveDemoSandbox lang={lang} />
-          </div>
-
-          <div id="pricing-area">
-            <PricingSection lang={lang} />
-          </div>
-
-          <div id="faq-area">
-            <FaqSection lang={lang} />
-          </div>
-
-          <div id="lead-form-area">
-            <LeadCaptureForm lang={lang} />
-          </div>
+          {view === 'contact' && (
+            <div id="lead-form-area">
+              <LeadCaptureForm lang={lang} />
+            </div>
+          )}
         </main>
       )}
 

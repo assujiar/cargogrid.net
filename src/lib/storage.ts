@@ -1,7 +1,9 @@
 /**
- * CargoGrid Persistent Storage & Email Simulation Engine
- * Uses localStorage to persist inquiries, draft/final questionnaires, meetings, and email outbox logs.
+ * CargoGrid Supabase data access layer.
+ * All mutable application data is read from and written to Supabase tables.
  */
+
+import { supabase } from "./supabase";
 
 export interface Inquiry {
   id: string;
@@ -572,337 +574,167 @@ export function formatDateDisplay(isoString: string, lang: 'id' | 'en' = 'id'): 
   }
 }
 
-// Storage helpers
-function getStorageItem<T>(key: string, defaultValue: T): T {
-  const val = localStorage.getItem(key);
-  if (!val) return defaultValue;
-  try {
-    return JSON.parse(val) as T;
-  } catch (e) {
-    return defaultValue;
-  }
-}
+// Supabase row mapping helpers
+type InquiryRow = {
+  id: string; name: string; company: string; role: string; email: string; phone: string;
+  company_type: string; shipment_volume: string; biggest_pain: string; status: Inquiry["status"];
+  lang?: "id" | "en" | null; utm_source?: string | null; utm_medium?: string | null; utm_campaign?: string | null;
+  utm_term?: string | null; utm_content?: string | null; created_at: string; updated_at: string;
+};
 
-function setStorageItem<T>(key: string, value: T): void {
-  localStorage.setItem(key, JSON.stringify(value));
-}
+type QuestionnaireRow = {
+  inquiry_id: string; cargo_types?: string[] | null; primary_routes?: string | null; fleet_size?: string | null;
+  vendor_count?: string | null; pain_rfq_details?: string | null; pain_dispatch_details?: string | null;
+  pain_tracking_details?: string | null; pain_billing_details?: string | null; desired_modules?: string[] | null;
+  erp_system?: string | null; custom_requirements?: string | null; preferred_slots?: string[] | null; contact_notes?: string | null;
+  existing_customer_flow?: string | null; business_process_sop?: string | null; total_expected_users?: string | null;
+  roles_involved?: string[] | null; top_problem_impact?: string | null; specific_requests?: string | null;
+  is_draft?: boolean | null; current_step?: number | null; last_saved_at?: string | null; submitted_at?: string | null;
+};
 
-export function initializeStorage() {
-  if (!localStorage.getItem("cargogrid_inquiries")) {
-    setStorageItem("cargogrid_inquiries", DEFAULT_INQUIRIES);
-  }
-  if (!localStorage.getItem("cargogrid_questionnaires")) {
-    setStorageItem("cargogrid_questionnaires", DEFAULT_QUESTIONNAIRES);
-  }
-  if (!localStorage.getItem("cargogrid_meetings")) {
-    setStorageItem("cargogrid_meetings", DEFAULT_MEETINGS);
-  }
-  if (!localStorage.getItem("cargogrid_emails")) {
-    // Generate initial emails for the pre-seeded inquiries
-    const inquiries = getStorageItem<Inquiry[]>("cargogrid_inquiries", []);
-    const questionnaires = getStorageItem<Questionnaire[]>("cargogrid_questionnaires", []);
-    const meetings = getStorageItem<Meeting[]>("cargogrid_meetings", []);
-    
-    const seededEmails: EmailLog[] = [];
-    
-    // Welcome email for Sinar Mas
-    const smInq = inquiries.find(i => i.id === "inq-sinar-mas")!;
-    seededEmails.push({
-      id: "email-sm-welcome",
-      to: smInq.email,
-      subject: "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda",
-      htmlBody: generateHtmlEmailTemplate("customer_welcome", { inquiry: smInq }),
-      sentAt: "2026-07-06T10:35:00Z",
-      type: "customer_welcome"
-    });
-    
-    // New Inquiry Alert for Samudera
-    const samInq = inquiries.find(i => i.id === "inq-samudera")!;
-    seededEmails.push({
-      id: "email-sam-new-alert",
-      to: "service@cargogrid.net",
-      subject: "🚨 [CargoGrid ALERT] Inquiry Baru Masuk - PT Samudera Indonesia",
-      htmlBody: generateHtmlEmailTemplate("admin_alert_new", { inquiry: samInq }),
-      sentAt: "2026-07-07T09:16:00Z",
-      type: "admin_alert_new"
-    });
+type MeetingRow = {
+  id: string; inquiry_id: string; scheduled_time: string; meeting_url?: string | null; platform?: Meeting["platform"] | null;
+  admin_notes?: string | null; is_invitation_sent?: boolean | null; created_at: string;
+};
 
-    // Welcome email for Samudera
-    seededEmails.push({
-      id: "email-sam-welcome",
-      to: samInq.email,
-      subject: "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda",
-      htmlBody: generateHtmlEmailTemplate("customer_welcome", { inquiry: samInq }),
-      sentAt: "2026-07-07T09:17:00Z",
-      type: "customer_welcome"
-    });
+type EmailLogRow = {
+  id: string; to_address: string; subject: string; html_body: string; sent_at: string; type: EmailLog["type"];
+};
 
-    // Astra welcome, admin alerts & meeting
-    const astraInq = inquiries.find(i => i.id === "inq-astra")!;
-    const astraQuest = questionnaires.find(q => q.inquiryId === "inq-astra")!;
-    const astraMeet = meetings.find(m => m.inquiryId === "inq-astra")!;
+const toInquiry = (row: InquiryRow): Inquiry => ({
+  id: row.id, name: row.name, company: row.company, role: row.role, email: row.email, phone: row.phone,
+  companyType: row.company_type, shipmentVolume: row.shipment_volume, biggestPain: row.biggest_pain, status: row.status,
+  createdAt: row.created_at, updatedAt: row.updated_at, lang: row.lang || undefined,
+  utmSource: row.utm_source || undefined, utmMedium: row.utm_medium || undefined, utmCampaign: row.utm_campaign || undefined,
+  utmTerm: row.utm_term || undefined, utmContent: row.utm_content || undefined
+});
 
-    seededEmails.push({
-      id: "email-astra-welcome",
-      to: astraInq.email,
-      subject: "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda",
-      htmlBody: generateHtmlEmailTemplate("customer_welcome", { inquiry: astraInq }),
-      sentAt: "2026-07-05T08:05:00Z",
-      type: "customer_welcome"
-    });
+const toQuestionnaire = (row: QuestionnaireRow): Questionnaire => ({
+  inquiryId: row.inquiry_id, cargoTypes: row.cargo_types || [], primaryRoutes: row.primary_routes || "",
+  fleetSize: row.fleet_size || "", vendorCount: row.vendor_count || "", painRfqDetails: row.pain_rfq_details || "",
+  painDispatchDetails: row.pain_dispatch_details || "", painTrackingDetails: row.pain_tracking_details || "",
+  painBillingDetails: row.pain_billing_details || "", desiredModules: row.desired_modules || [], erpSystem: row.erp_system || "None",
+  customRequirements: row.custom_requirements || "", preferredSlots: row.preferred_slots || [], contactNotes: row.contact_notes || "",
+  existingCustomerFlow: row.existing_customer_flow || "", businessProcessSop: row.business_process_sop || "",
+  totalExpectedUsers: row.total_expected_users || "", rolesInvolved: row.roles_involved || [], topProblemImpact: row.top_problem_impact || "",
+  specificRequests: row.specific_requests || "", isDraft: row.is_draft ?? true, currentStep: row.current_step || 1,
+  lastSavedAt: row.last_saved_at || new Date().toISOString(), submittedAt: row.submitted_at || undefined
+});
 
-    seededEmails.push({
-      id: "email-astra-new-alert",
-      to: "service@cargogrid.net",
-      subject: "🚨 [CargoGrid ALERT] Inquiry Baru Masuk - PT Astra Otoparts Tbk",
-      htmlBody: generateHtmlEmailTemplate("admin_alert_new", { inquiry: astraInq }),
-      sentAt: "2026-07-05T08:06:00Z",
-      type: "admin_alert_new"
-    });
+const toMeeting = (row: MeetingRow): Meeting => ({
+  id: row.id, inquiryId: row.inquiry_id, scheduledTime: row.scheduled_time, meetingUrl: row.meeting_url || "",
+  platform: row.platform || "Google Meet", adminNotes: row.admin_notes || "", isInvitationSent: row.is_invitation_sent ?? false,
+  createdAt: row.created_at
+});
 
-    seededEmails.push({
-      id: "email-astra-complete-alert",
-      to: "service@cargogrid.net",
-      subject: "✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - PT Astra Otoparts Tbk",
-      htmlBody: generateHtmlEmailTemplate("admin_alert_complete", { inquiry: astraInq, questionnaire: astraQuest }),
-      sentAt: "2026-07-05T17:16:00Z",
-      type: "admin_alert_complete"
-    });
+const toEmailLog = (row: EmailLogRow): EmailLog => ({
+  id: row.id, to: row.to_address, subject: row.subject, htmlBody: row.html_body, sentAt: row.sent_at, type: row.type
+});
 
-    seededEmails.push({
-      id: "email-astra-meeting",
-      to: astraInq.email,
-      subject: "📅 [CargoGrid OS] Undangan Meeting Konfirmasi Audit Sistem - PT Astra Otoparts Tbk",
-      htmlBody: generateHtmlEmailTemplate("customer_meeting", { inquiry: astraInq, meeting: astraMeet }),
-      sentAt: "2026-07-06T11:05:00Z",
-      type: "customer_meeting"
-    });
+const toQuestionnaireRow = (inquiryId: string, qData: Partial<Questionnaire>, isDraft: boolean) => ({
+  inquiry_id: inquiryId, cargo_types: qData.cargoTypes || [], primary_routes: qData.primaryRoutes || "", fleet_size: qData.fleetSize || "",
+  vendor_count: qData.vendorCount || "", pain_rfq_details: qData.painRfqDetails || "", pain_dispatch_details: qData.painDispatchDetails || "",
+  pain_tracking_details: qData.painTrackingDetails || "", pain_billing_details: qData.painBillingDetails || "", desired_modules: qData.desiredModules || [],
+  erp_system: qData.erpSystem || "None", custom_requirements: qData.customRequirements || "", preferred_slots: qData.preferredSlots || [],
+  contact_notes: qData.contactNotes || "", existing_customer_flow: qData.existingCustomerFlow || "", business_process_sop: qData.businessProcessSop || "",
+  total_expected_users: qData.totalExpectedUsers || "", roles_involved: qData.rolesInvolved || [], top_problem_impact: qData.topProblemImpact || "",
+  specific_requests: qData.specificRequests || "", is_draft: isDraft, current_step: qData.currentStep || (isDraft ? 1 : 4),
+  last_saved_at: new Date().toISOString(), submitted_at: isDraft ? qData.submittedAt || null : new Date().toISOString()
+});
 
-    setStorageItem("cargogrid_emails", seededEmails);
-  }
+function throwSupabaseError(error: unknown): never {
+  const message = error instanceof Error ? error.message : "Supabase request failed";
+  throw new Error(message);
 }
 
 // API Methods
-export function getInquiries(): Inquiry[] {
-  initializeStorage();
-  return getStorageItem<Inquiry[]>("cargogrid_inquiries", []).sort((a, b) => 
-    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+export async function getInquiries(): Promise<Inquiry[]> {
+  const { data, error } = await supabase.from("inquiries").select("*").order("created_at", { ascending: false });
+  if (error) throwSupabaseError(error);
+  return ((data || []) as InquiryRow[]).map(toInquiry);
 }
 
-export function getInquiry(id: string): Inquiry | undefined {
-  return getInquiries().find(i => i.id === id);
+export async function getInquiry(id: string): Promise<Inquiry | undefined> {
+  const { data, error } = await supabase.from("inquiries").select("*").eq("id", id).maybeSingle();
+  if (error) throwSupabaseError(error);
+  return data ? toInquiry(data as InquiryRow) : undefined;
 }
 
-export function addInquiry(inquiryData: Omit<Inquiry, 'id' | 'status' | 'createdAt' | 'updatedAt'>): Inquiry {
-  initializeStorage();
-  const inquiries = getStorageItem<Inquiry[]>("cargogrid_inquiries", []);
-  
-  const newInquiry: Inquiry = {
-    ...inquiryData,
-    id: `inq-${Math.random().toString(36).substr(2, 9)}`,
-    status: 'Inquiry Masuk',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  };
-
-  inquiries.push(newInquiry);
-  setStorageItem("cargogrid_inquiries", inquiries);
-
-  // Send initial simulated emails
-  // 1. Welcome to Customer with link
-  const welcomeHtml = generateHtmlEmailTemplate("customer_welcome", { inquiry: newInquiry });
-  addEmailLog(newInquiry.email, "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda", welcomeHtml, "customer_welcome");
-
-  // 2. Alert to Admin
-  const adminHtml = generateHtmlEmailTemplate("admin_alert_new", { inquiry: newInquiry });
-  addEmailLog("service@cargogrid.net", `🚨 [CargoGrid ALERT] Inquiry Baru Masuk - ${newInquiry.company}`, adminHtml, "admin_alert_new");
-
+export async function addInquiry(inquiryData: Omit<Inquiry, "id" | "status" | "createdAt" | "updatedAt">): Promise<Inquiry> {
+  const { data, error } = await supabase.from("inquiries").insert({
+    name: inquiryData.name, company: inquiryData.company, role: inquiryData.role, email: inquiryData.email, phone: inquiryData.phone,
+    company_type: inquiryData.companyType, shipment_volume: inquiryData.shipmentVolume, biggest_pain: inquiryData.biggestPain,
+    lang: inquiryData.lang || "id", utm_source: inquiryData.utmSource, utm_medium: inquiryData.utmMedium,
+    utm_campaign: inquiryData.utmCampaign, utm_term: inquiryData.utmTerm, utm_content: inquiryData.utmContent
+  }).select("*").single();
+  if (error) throwSupabaseError(error);
+  const newInquiry = toInquiry(data as InquiryRow);
+  await addEmailLog(newInquiry.email, "[CargoGrid OS] Registrasi Audit Sistem Berhasil - Lengkapi Kuesioner Kebutuhan Anda", generateHtmlEmailTemplate("customer_welcome", { inquiry: newInquiry }), "customer_welcome");
+  await addEmailLog("service@cargogrid.net", `🚨 [CargoGrid ALERT] Inquiry Baru Masuk - ${newInquiry.company}`, generateHtmlEmailTemplate("admin_alert_new", { inquiry: newInquiry }), "admin_alert_new");
   return newInquiry;
 }
 
-export function updateInquiryStatus(id: string, status: Inquiry['status']) {
-  initializeStorage();
-  const inquiries = getStorageItem<Inquiry[]>("cargogrid_inquiries", []);
-  const idx = inquiries.findIndex(i => i.id === id);
-  if (idx !== -1) {
-    inquiries[idx].status = status;
-    inquiries[idx].updatedAt = new Date().toISOString();
-    setStorageItem("cargogrid_inquiries", inquiries);
-  }
+export async function updateInquiryStatus(id: string, status: Inquiry["status"]): Promise<void> {
+  const { error } = await supabase.from("inquiries").update({ status }).eq("id", id);
+  if (error) throwSupabaseError(error);
 }
 
-export function getQuestionnaires(): Questionnaire[] {
-  initializeStorage();
-  return getStorageItem<Questionnaire[]>("cargogrid_questionnaires", []);
+export async function getQuestionnaires(): Promise<Questionnaire[]> {
+  const { data, error } = await supabase.from("questionnaires").select("*");
+  if (error) throwSupabaseError(error);
+  return ((data || []) as QuestionnaireRow[]).map(toQuestionnaire);
 }
 
-export function getQuestionnaireByInquiryId(inquiryId: string): Questionnaire | undefined {
-  return getQuestionnaires().find(q => q.inquiryId === inquiryId);
+export async function getQuestionnaireByInquiryId(inquiryId: string): Promise<Questionnaire | undefined> {
+  const { data, error } = await supabase.from("questionnaires").select("*").eq("inquiry_id", inquiryId).maybeSingle();
+  if (error) throwSupabaseError(error);
+  return data ? toQuestionnaire(data as QuestionnaireRow) : undefined;
 }
 
-export function saveQuestionnaireDraft(inquiryId: string, qData: Partial<Questionnaire> & { currentStep: number }) {
-  initializeStorage();
-  const questionnaires = getStorageItem<Questionnaire[]>("cargogrid_questionnaires", []);
-  const idx = questionnaires.findIndex(q => q.inquiryId === inquiryId);
-  
-  const existing = idx !== -1 ? questionnaires[idx] : {
-    inquiryId,
-    cargoTypes: [],
-    primaryRoutes: "",
-    fleetSize: "",
-    vendorCount: "",
-    painRfqDetails: "",
-    painDispatchDetails: "",
-    painTrackingDetails: "",
-    painBillingDetails: "",
-    desiredModules: [],
-    erpSystem: "",
-    customRequirements: "",
-    preferredSlots: [],
-    contactNotes: "",
-    isDraft: true,
-    currentStep: qData.currentStep,
-    lastSavedAt: new Date().toISOString()
-  };
+export async function saveQuestionnaireDraft(inquiryId: string, qData: Partial<Questionnaire> & { currentStep: number }): Promise<Questionnaire> {
+  const { data, error } = await supabase.from("questionnaires").upsert(toQuestionnaireRow(inquiryId, qData, true), { onConflict: "inquiry_id" }).select("*").single();
+  if (error) throwSupabaseError(error);
+  await updateInquiryStatus(inquiryId, "Draft Kuesioner");
+  return toQuestionnaire(data as QuestionnaireRow);
+}
 
-  const updated: Questionnaire = {
-    ...existing,
-    ...qData,
-    isDraft: true,
-    lastSavedAt: new Date().toISOString()
-  };
-
-  if (idx !== -1) {
-    questionnaires[idx] = updated;
-  } else {
-    questionnaires.push(updated);
-  }
-
-  setStorageItem("cargogrid_questionnaires", questionnaires);
-  updateInquiryStatus(inquiryId, "Draft Kuesioner");
+export async function submitQuestionnaire(inquiryId: string, qData: Partial<Questionnaire>): Promise<Questionnaire> {
+  const { data, error } = await supabase.from("questionnaires").upsert(toQuestionnaireRow(inquiryId, { ...qData, currentStep: 4 }, false), { onConflict: "inquiry_id" }).select("*").single();
+  if (error) throwSupabaseError(error);
+  const updated = toQuestionnaire(data as QuestionnaireRow);
+  await updateInquiryStatus(inquiryId, "Kuesioner Selesai");
+  const inquiry = await getInquiry(inquiryId);
+  if (inquiry) await addEmailLog("service@cargogrid.net", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, generateHtmlEmailTemplate("admin_alert_complete", { inquiry, questionnaire: updated }), "admin_alert_complete");
   return updated;
 }
 
-export function submitQuestionnaire(inquiryId: string, qData: Partial<Questionnaire>) {
-  initializeStorage();
-  const questionnaires = getStorageItem<Questionnaire[]>("cargogrid_questionnaires", []);
-  const idx = questionnaires.findIndex(q => q.inquiryId === inquiryId);
-  
-  const existing = idx !== -1 ? questionnaires[idx] : {
-    inquiryId,
-    cargoTypes: [],
-    primaryRoutes: "",
-    fleetSize: "",
-    vendorCount: "",
-    painRfqDetails: "",
-    painDispatchDetails: "",
-    painTrackingDetails: "",
-    painBillingDetails: "",
-    desiredModules: [],
-    erpSystem: "",
-    customRequirements: "",
-    preferredSlots: [],
-    contactNotes: "",
-    isDraft: false,
-    currentStep: 4,
-    lastSavedAt: new Date().toISOString()
-  };
-
-  const updated: Questionnaire = {
-    ...existing,
-    ...qData,
-    isDraft: false,
-    currentStep: 4,
-    lastSavedAt: new Date().toISOString(),
-    submittedAt: new Date().toISOString()
-  };
-
-  if (idx !== -1) {
-    questionnaires[idx] = updated;
-  } else {
-    questionnaires.push(updated);
-  }
-
-  setStorageItem("cargogrid_questionnaires", questionnaires);
-  updateInquiryStatus(inquiryId, "Kuesioner Selesai");
-
-  // Send Alert email to Supreme Admin that questionnaire is completed
-  const inquiry = getInquiry(inquiryId);
-  if (inquiry) {
-    const completeHtml = generateHtmlEmailTemplate("admin_alert_complete", { inquiry, questionnaire: updated });
-    addEmailLog("service@cargogrid.net", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, completeHtml, "admin_alert_complete");
-  }
-
-  return updated;
+export async function getMeetings(): Promise<Meeting[]> {
+  const { data, error } = await supabase.from("meetings").select("*").order("created_at", { ascending: false });
+  if (error) throwSupabaseError(error);
+  return ((data || []) as MeetingRow[]).map(toMeeting);
 }
 
-export function getMeetings(): Meeting[] {
-  initializeStorage();
-  return getStorageItem<Meeting[]>("cargogrid_meetings", []);
+export async function scheduleMeeting(inquiryId: string, meetData: { scheduledTime: string; meetingUrl: string; platform: Meeting["platform"]; adminNotes: string; }): Promise<Meeting> {
+  const { data, error } = await supabase.from("meetings").upsert({
+    inquiry_id: inquiryId, scheduled_time: meetData.scheduledTime, meeting_url: meetData.meetingUrl, platform: meetData.platform,
+    admin_notes: meetData.adminNotes, is_invitation_sent: true
+  }, { onConflict: "inquiry_id" }).select("*").single();
+  if (error) throwSupabaseError(error);
+  const meeting = toMeeting(data as MeetingRow);
+  await updateInquiryStatus(inquiryId, "Meeting Scheduled");
+  const inquiry = await getInquiry(inquiryId);
+  if (inquiry) await addEmailLog(inquiry.email, `📅 [CargoGrid OS] Undangan Meeting Konfirmasi Audit Sistem - ${inquiry.company}`, generateHtmlEmailTemplate("customer_meeting", { inquiry, meeting }), "customer_meeting");
+  return meeting;
 }
 
-export function scheduleMeeting(inquiryId: string, meetData: {
-  scheduledTime: string;
-  meetingUrl: string;
-  platform: Meeting['platform'];
-  adminNotes: string;
-}): Meeting {
-  initializeStorage();
-  const meetings = getStorageItem<Meeting[]>("cargogrid_meetings", []);
-  const idx = meetings.findIndex(m => m.inquiryId === inquiryId);
-
-  const newMeeting: Meeting = {
-    id: idx !== -1 ? meetings[idx].id : `meet-${Math.random().toString(36).substr(2, 9)}`,
-    inquiryId,
-    scheduledTime: meetData.scheduledTime,
-    meetingUrl: meetData.meetingUrl,
-    platform: meetData.platform,
-    adminNotes: meetData.adminNotes,
-    isInvitationSent: true,
-    createdAt: idx !== -1 ? meetings[idx].createdAt : new Date().toISOString()
-  };
-
-  if (idx !== -1) {
-    meetings[idx] = newMeeting;
-  } else {
-    meetings.push(newMeeting);
-  }
-
-  setStorageItem("cargogrid_meetings", meetings);
-  updateInquiryStatus(inquiryId, "Meeting Scheduled");
-
-  // Send Invitation Email to Customer with Google Meet/Zoom Link
-  const inquiry = getInquiry(inquiryId);
-  if (inquiry) {
-    const inviteHtml = generateHtmlEmailTemplate("customer_meeting", { inquiry, meeting: newMeeting });
-    addEmailLog(inquiry.email, `📅 [CargoGrid OS] Undangan Meeting Konfirmasi Audit Sistem - ${inquiry.company}`, inviteHtml, "customer_meeting");
-  }
-
-  return newMeeting;
+export async function getEmailLogs(): Promise<EmailLog[]> {
+  const { data, error } = await supabase.from("email_logs").select("*").order("sent_at", { ascending: false });
+  if (error) throwSupabaseError(error);
+  return ((data || []) as EmailLogRow[]).map(toEmailLog);
 }
 
-export function getEmailLogs(): EmailLog[] {
-  initializeStorage();
-  return getStorageItem<EmailLog[]>("cargogrid_emails", []).sort((a, b) => 
-    new Date(b.sentAt).getTime() - new Date(a.sentAt).getTime()
-  );
-}
-
-export function addEmailLog(to: string, subject: string, htmlBody: string, type: EmailLog['type']) {
-  initializeStorage();
-  const emails = getStorageItem<EmailLog[]>("cargogrid_emails", []);
-  
-  const newEmail: EmailLog = {
-    id: `email-${Math.random().toString(36).substr(2, 9)}`,
-    to,
-    subject,
-    htmlBody,
-    sentAt: new Date().toISOString(),
-    type
-  };
-
-  emails.push(newEmail);
-  setStorageItem("cargogrid_emails", emails);
-  return newEmail;
+export async function addEmailLog(to: string, subject: string, htmlBody: string, type: EmailLog["type"]): Promise<EmailLog> {
+  const { data, error } = await supabase.from("email_logs").insert({ to_address: to, subject, html_body: htmlBody, type }).select("*").single();
+  if (error) throwSupabaseError(error);
+  return toEmailLog(data as EmailLogRow);
 }

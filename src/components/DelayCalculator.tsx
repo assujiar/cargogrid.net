@@ -85,6 +85,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 min="100"
                 max="10000"
                 step="100"
+                id="monthly-shipments"
+                name="monthly-shipments"
+                aria-label="monthly shipments"
                 value={shipments}
                 onChange={(e) => setShipments(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -109,6 +112,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 min="1"
                 max="12"
                 step="1"
+                id="hours-wasted"
+                name="hours-wasted"
+                aria-label="hours wasted"
                 value={hoursWasted}
                 onChange={(e) => setHoursWasted(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -135,6 +141,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 min="25000"
                 max="150000"
                 step="5000"
+                id="labor-rate"
+                name="labor-rate"
+                aria-label="labor rate"
                 value={laborRate}
                 onChange={(e) => setLaborRate(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -249,10 +258,10 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
             </span>
             <div>
               <p className="font-extrabold text-sm text-slate-800">
-                {isEn ? "Need a comprehensive logistics ERP buyer's guide?" : "Butuh panduan lengkap mengukur efisiensi ERP?"}
+                {isEn ? "Need a practical logistics software buying guide?" : "Butuh panduan praktis memilih software logistik?"}
               </p>
               <p className="text-xs text-slate-500 font-semibold mt-0.5">
-                {isEn ? 'Download our free "Logistics ERP Buyer Guide Indonesia" PDF handbook.' : 'Unduh secara gratis PDF "Logistics ERP Buyer Guide Indonesia".'}
+                {isEn ? 'Download our free logistics software guide for Indonesian businesses.' : 'Unduh panduan software logistik gratis untuk bisnis Indonesia.'}
               </p>
             </div>
           </div>

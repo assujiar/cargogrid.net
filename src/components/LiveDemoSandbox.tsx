@@ -35,7 +35,7 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16 pb-8 border-b border-slate-300/60 text-left">
           <div className="lg:col-span-7 flex flex-col gap-4">
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase animate-pulse">
-              {isEn ? "Interactive System Sandbox" : "Simulasi Alur Kerja Sistem"}
+              {isEn ? "Product Demo Preview" : "Preview Demo Produk"}
             </span>
             <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
               {isEn ? (
@@ -48,9 +48,9 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
               {isEn ? (
-                "Experience the CargoGrid logistics operating system firsthand. Click the interactive tabs and buttons below to observe real-time database synchronization."
+                "Explore how CargoGrid helps commercial, operations, tracking, and finance teams work from the same source of truth."
               ) : (
-                "Rasakan langsung pengalaman menggunakan modul operasional logistik CargoGrid. Klik tombol interaktif di bawah untuk melihat bagaimana sistem merespon secara real-time."
+                "Lihat bagaimana CargoGrid membantu tim komersial, operasional, tracking, dan finance bekerja dari data yang sama."
               )}
             </p>
           </div>
@@ -131,7 +131,7 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
             </div>
             <div className="flex items-center gap-1 bg-slate-200/50 border border-slate-300/40 px-3 py-1 rounded-lg text-[9px] text-slate-600 font-black uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse mr-1" />
-              <span>Database Sync: {isEn ? "ACTIVE" : "REAL-TIME"}</span>
+              <span>Data Update: {isEn ? "ACTIVE" : "REAL-TIME"}</span>
             </div>
           </div>
 
@@ -195,6 +195,9 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
                         <span className="text-slate-900 font-mono font-black">Rp {sellingPrice.toLocaleString()}</span>
                       </div>
                       <input
+                        id="selling-price"
+                        name="sellingPrice"
+                        aria-label={isEn ? "Configure offer selling price" : "Kalkulasi selling price penawaran"}
                         type="range"
                         min="9000000"
                         max="15000000"
@@ -254,7 +257,7 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
                       <div className="flex flex-col items-center justify-center text-center flex-1 py-10 text-slate-500">
                         <ClipboardList className="w-12 h-12 text-slate-400 stroke-1 mb-2 animate-bounce" />
                         <p className="text-xs font-semibold leading-relaxed">
-                          {isEn ? "Adjust operational settings on the left panel, then trigger calculation to audit the gross margins." : "Ubah parameter di kiri dan klik tombol kalkulasi untuk melihat perhitungan margin."}
+                          {isEn ? "Adjust the settings on the left panel, then calculate an estimated margin preview." : "Ubah parameter di kiri dan klik tombol kalkulasi untuk melihat estimasi margin."}
                         </p>
                       </div>
                     )}
@@ -430,6 +433,9 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
                     <div className="relative flex-1">
                       <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                       <input
+                        id="tracking-number-input"
+                        name="trackingNumber"
+                        aria-label={isEn ? "Container number or booking code" : "Nomor kontainer atau resi pengiriman"}
                         type="text"
                         value={trackingNumberInput}
                         onChange={(e) => setTrackingNumberInput(e.target.value)}
@@ -567,7 +573,7 @@ export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' })
                       <div className="nm-deboss bg-white text-slate-900 p-4 rounded-2xl text-[10px] font-mono leading-normal border-0">
                         <div className="flex justify-between border-b border-slate-200 pb-2">
                           <div>
-                            <p className="font-black text-[11px] text-brand-teal uppercase">PT CARGOGRID ERP</p>
+                            <p className="font-black text-[11px] text-brand-teal uppercase">CARGOGRID PLATFORM</p>
                             <p className="text-[7px] text-slate-400">Jakarta, Indonesia</p>
                           </div>
                           <div className="text-right">

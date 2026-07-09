@@ -29,14 +29,14 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
   const navLinks = isEn ? [
     { name: "Home", href: "#" },
     { name: "Challenges", href: "#challenges" },
-    { name: "System & Modules", href: "#system" },
+    { name: "Solutions", href: "#system" },
     { name: "Simulator & ROI", href: "#simulator" },
     { name: "Plans & FAQ", href: "#plans" },
     { name: "Contact", href: "#contact" },
   ] : [
     { name: "Home", href: "#" },
     { name: "Tantangan", href: "#challenges" },
-    { name: "Sistem & Modul", href: "#system" },
+    { name: "Solusi", href: "#system" },
     { name: "Simulator & ROI", href: "#simulator" },
     { name: "Paket & FAQ", href: "#plans" },
     { name: "Kontak", href: "#contact" },
@@ -107,7 +107,7 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
               className="px-5 py-2.5 nm-btn-accent rounded-full font-extrabold text-xs shadow-md flex items-center gap-2 cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4 text-white" />
-              <span>{isEn ? "Book System Audit" : "Audit Sistem Gratis"}</span>
+              <span>{isEn ? "Book Free Consultation" : "Konsultasi Gratis"}</span>
             </a>
           </div>
 
@@ -188,7 +188,7 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
                 className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full text-sm font-extrabold nm-btn-accent"
               >
                 <ShieldCheck className="w-5 h-5" />
-                <span>{isEn ? "Book System Audit" : "Audit Sistem Gratis"}</span>
+                <span>{isEn ? "Book Free Consultation" : "Konsultasi Gratis"}</span>
               </a>
             </div>
           </div>

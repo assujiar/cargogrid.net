@@ -181,13 +181,16 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Name */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-name" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Full Name*" : "Nama Lengkap*"}
                         </label>
                         <input
                           type="text"
                           required
                           placeholder={isEn ? "e.g., John Doe" : "Contoh: Budi Santoso"}
+                          id="lead-name"
+                          name="fullName"
+                          autoComplete="name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all bg-white"
@@ -195,13 +198,16 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                       </div>
                       {/* Company */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-company" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Company Name*" : "Nama Perusahaan*"}
                         </label>
                         <input
                           type="text"
                           required
                           placeholder={isEn ? "e.g., Acme Logistics" : "Contoh: PT Sinar Logistics"}
+                          id="lead-company"
+                          name="company"
+                          autoComplete="organization"
                           value={formData.company}
                           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all bg-white"
@@ -212,13 +218,16 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Role */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-role" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Job Title / Role*" : "Jabatan / Role*"}
                         </label>
                         <input
                           type="text"
                           required
                           placeholder={isEn ? "e.g., Operations Director" : "Contoh: Operations Director"}
+                          id="lead-role"
+                          name="role"
+                          autoComplete="organization-title"
                           value={formData.role}
                           onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all bg-white"
@@ -226,13 +235,16 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                       </div>
                       {/* Email */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-email" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Work Email*" : "Email Kantor*"}
                         </label>
                         <input
                           type="email"
                           required
                           placeholder={isEn ? "e.g., john@company.com" : "Contoh: budi@company.com"}
+                          id="lead-email"
+                          name="email"
+                          autoComplete="email"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all bg-white"
@@ -243,13 +255,16 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Phone WhatsApp */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-phone" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "WhatsApp Number*" : "No. WhatsApp Aktif*"}
                         </label>
                         <input
                           type="tel"
                           required
                           placeholder={isEn ? "e.g., +62812345678" : "Contoh: 081234567890"}
+                          id="lead-phone"
+                          name="phone"
+                          autoComplete="tel"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all font-mono bg-white"
@@ -260,7 +275,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                         <label className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Logistics Sector*" : "Sektor Bisnis Logistik*"}
                         </label>
-                        <select
+                        <select id="leadcaptureform-select-1" name="leadcaptureform-select-1" aria-label="leadcaptureform-select-1"
                           value={formData.companyType}
                           onChange={(e) => setFormData({ ...formData, companyType: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all cursor-pointer text-slate-800 bg-white"
@@ -280,7 +295,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                         <label className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Monthly Shipment Volume*" : "Volume Pengiriman / Bulan*"}
                         </label>
-                        <select
+                        <select id="leadcaptureform-select-2" name="leadcaptureform-select-2" aria-label="leadcaptureform-select-2"
                           value={formData.shipmentVolume}
                           onChange={(e) => setFormData({ ...formData, shipmentVolume: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all cursor-pointer text-slate-800 bg-white"
@@ -296,7 +311,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                         <label className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Biggest Current Pain Point*" : "Tantangan Terbesar Saat Ini*"}
                         </label>
-                        <select
+                        <select id="leadcaptureform-select-3" name="leadcaptureform-select-3" aria-label="leadcaptureform-select-3"
                           value={formData.biggestPain}
                           onChange={(e) => setFormData({ ...formData, biggestPain: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all cursor-pointer text-slate-800 bg-white"

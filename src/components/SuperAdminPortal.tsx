@@ -411,12 +411,15 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
+              <label htmlFor="admin-password" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
                 {lang === "en" ? "Password" : "Kata Sandi"}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
+                  id="admin-password"
+                  name="password"
+                  autoComplete="current-password"
                   type="password"
                   required
                   placeholder="••••••••••••••••"
@@ -539,6 +542,9 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 <div className="relative flex-1">
                   <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                   <input
+                    id="admin-search"
+                    name="adminSearch"
+                    aria-label="Cari berdasarkan perusahaan, nama kontak, atau email"
                     type="text"
                     placeholder="Cari berdasarkan perusahaan, nama kontak, atau email..."
                     value={searchTerm}
@@ -549,7 +555,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                 <div className="flex items-center gap-2">
                   <Filter className="w-4 h-4 text-slate-400" />
-                  <select
+                  <select id="superadminportal-select-1" name="superadminportal-select-1" aria-label="superadminportal-select-1"
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="nm-input bg-white text-slate-800 rounded-xl px-4 py-3 text-xs font-bold border-0 focus:outline-none cursor-pointer"
@@ -833,8 +839,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                             {/* Manual Schedulers */}
                             <div className="grid grid-cols-2 gap-3.5">
                               <div className="flex flex-col gap-1">
-                                <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Tanggal Pertemuan*</label>
+                                <label htmlFor="meeting-date" className="text-[10px] text-slate-500 font-black font-mono uppercase">Tanggal Pertemuan*</label>
                                 <input
+                                  id="meeting-date"
+                                  name="meetingDate"
                                   type="date"
                                   required
                                   value={scheduledDate}
@@ -843,8 +851,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                 />
                               </div>
                               <div className="flex flex-col gap-1">
-                                <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Waktu/Jam (WIB)*</label>
+                                <label htmlFor="meeting-time" className="text-[10px] text-slate-500 font-black font-mono uppercase">Waktu/Jam (WIB)*</label>
                                 <input
+                                  id="meeting-time"
+                                  name="meetingTime"
                                   type="time"
                                   required
                                   value={scheduledTime}
@@ -874,10 +884,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                             {/* Meeting URL */}
                             <div className="flex flex-col gap-1">
-                              <label className="text-[10px] text-slate-500 font-black font-mono uppercase">URL Link Meeting Online*</label>
+                              <label htmlFor="meeting-url" className="text-[10px] text-slate-500 font-black font-mono uppercase">URL Link Meeting Online*</label>
                               <div className="relative">
                                 <Video className="absolute left-3 top-3 w-3.5 h-3.5 text-slate-400" />
                                 <input
+                                  id="meeting-url"
+                                  name="meetingUrl"
                                   type="url"
                                   required
                                   placeholder="Masukkan URL meeting"
@@ -891,7 +903,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                             {/* Internal notes */}
                             <div className="flex flex-col gap-1">
                               <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Catatan Konsultan Internal (Opsional)</label>
-                              <textarea
+                              <textarea id="superadminportal-textarea-1" name="superadminportal-textarea-1" aria-label="superadminportal-textarea-1"
                                 rows={2}
                                 placeholder="Tulis catatan agenda meeting untuk tim..."
                                 value={adminNotes}
@@ -1146,8 +1158,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                   {/* Host and Port row */}
                   <div className="grid grid-cols-3 gap-3">
                     <div className="col-span-2 flex flex-col gap-1">
-                      <label className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Host</label>
+                      <label htmlFor="smtp-host" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Host</label>
                       <input 
+                        id="smtp-host"
+                        name="smtpHost"
                         type="text" 
                         required
                         value={smtpHost}
@@ -1157,8 +1171,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-[9px] text-slate-400 font-black font-mono uppercase">Port</label>
+                      <label htmlFor="smtp-port" className="text-[9px] text-slate-400 font-black font-mono uppercase">Port</label>
                       <input 
+                        id="smtp-port"
+                        name="smtpPort"
                         type="text" 
                         required
                         value={smtpPort}
@@ -1174,6 +1190,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     <input 
                       type="checkbox" 
                       id="smtpSecureCheckbox"
+                      name="smtpSecure"
                       checked={smtpSecure}
                       onChange={(e) => setSmtpSecure(e.target.checked)}
                       className="w-4 h-4 rounded text-brand-teal border-slate-300 focus:ring-brand-teal cursor-pointer"
@@ -1185,10 +1202,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Username */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Username (Email Sender)</label>
+                    <label htmlFor="smtp-user" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Username (Email Sender)</label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3.5 w-3.5 h-3.5 text-slate-400" />
                       <input 
+                        id="smtp-user"
+                        name="smtpUser"
+                        autoComplete="username"
                         type="email" 
                         required
                         value={smtpUser}
@@ -1201,10 +1221,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Password / App Password */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Password / App Password</label>
+                    <label htmlFor="smtp-password" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Password / App Password</label>
                     <div className="relative">
                       <Key className="absolute left-3 top-3.5 w-3.5 h-3.5 text-slate-400" />
                       <input 
+                        id="smtp-password"
+                        name="smtpPassword"
+                        autoComplete="current-password"
                         type={showSmtpPass ? "text" : "password"} 
                         required
                         value={smtpPass}
@@ -1224,8 +1247,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Sender From Header Name */}
                   <div className="flex flex-col gap-1">
-                    <label className="text-[9px] text-slate-400 font-black font-mono uppercase">Header FROM Name (Nama Pengirim)</label>
+                    <label htmlFor="smtp-from" className="text-[9px] text-slate-400 font-black font-mono uppercase">Header FROM Name (Nama Pengirim)</label>
                     <input 
+                      id="smtp-from"
+                      name="smtpFrom"
                       type="text" 
                       required
                       value={smtpFrom}

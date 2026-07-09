@@ -352,10 +352,13 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
           <form onSubmit={handleLookupEmail} className="space-y-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
+              <label htmlFor="questionnaire-lookup-email" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
                 {isEn ? "Verify Your Registered Email" : "Verifikasi Email Terdaftar Anda"}
               </label>
               <input
+                id="questionnaire-lookup-email"
+                name="lookupEmail"
+                autoComplete="email"
                 type="email"
                 required
                 placeholder="nama@perusahaan.com"
@@ -536,10 +539,12 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                     {/* Primary Routes Text */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                      <label htmlFor="primary-routes" className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                         {isEn ? "Dominant Logistics Route / Core Corridors*" : "Rute Logistik Dominan / Koridor Utama*"}
                       </label>
                       <input
+                        id="primary-routes"
+                        name="primaryRoutes"
                         type="text"
                         required
                         placeholder={isEn ? "Example: Jabodetabek - Surabaya port, or Intra-Sumatra trans-island" : "Contoh: Jabodetabek - Surabaya port, atau Intra-Sumatera trans-island"}
@@ -555,7 +560,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                           {isEn ? "Estimated Active Fleet Size*" : "Perkiraan Jumlah Armada Aktif*"}
                         </label>
-                        <select
+                        <select id="detailedquestionnaire-select-1" name="detailedquestionnaire-select-1" aria-label="detailedquestionnaire-select-1"
                           required
                           value={fleetSize}
                           onChange={(e) => setFleetSize(e.target.value)}
@@ -575,7 +580,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                           {isEn ? "Number of Expedition / Subcontract Vendors*" : "Jumlah Vendor Ekspedisi / Subkontrak*"}
                         </label>
-                        <select
+                        <select id="detailedquestionnaire-select-2" name="detailedquestionnaire-select-2" aria-label="detailedquestionnaire-select-2"
                           required
                           value={vendorCount}
                           onChange={(e) => setVendorCount(e.target.value)}
@@ -596,7 +601,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                           {isEn ? "Estimated Number of Active Users*" : "Perkiraan Jumlah Pengguna Sistem (User)*"}
                         </label>
-                        <select
+                        <select id="detailedquestionnaire-select-3" name="detailedquestionnaire-select-3" aria-label="detailedquestionnaire-select-3"
                           required
                           value={totalExpectedUsers}
                           onChange={(e) => setTotalExpectedUsers(e.target.value)}
@@ -683,7 +688,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., WhatsApp, Excel" : "Contoh: WhatsApp, Excel"}</span>
                       </div>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-1" name="detailedquestionnaire-textarea-1" aria-label="detailedquestionnaire-textarea-1"
                         required
                         rows={2}
                         placeholder={isEn ? "How does your sales team negotiate prices with clients? Where is the rate index stored to prevent oversight?" : "Bagaimana tim sales Anda melakukan tawar-menawar harga dengan customer? Di mana daftar rate disimpan agar tidak lupa?"}
@@ -701,7 +706,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., manual typing" : "Contoh: Admin ngetik satu-satu"}</span>
                       </div>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-2" name="detailedquestionnaire-textarea-2" aria-label="detailedquestionnaire-textarea-2"
                         required
                         rows={2}
                         placeholder={isEn ? "How does your dispatch admin issue delivery orders? Are there frequent discrepancies in driver travel cash advances?" : "Bagaimana admin dispatch Anda mengeluarkan surat perintah jalan? Apakah uang jalan/kasbon supir sering selisih rekap?"}
@@ -719,7 +724,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., constant customer phone calls" : "Contoh: Customer nanya berkali-kali"}</span>
                       </div>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-3" name="detailedquestionnaire-textarea-3" aria-label="detailedquestionnaire-textarea-3"
                         required
                         rows={2}
                         placeholder={isEn ? "How does your team update clients on truck locations? Do you have to call drivers one by one?" : "Bagaimana tim Anda menginfokan posisi truk saat ini ke customer? Apakah harus telepon supir satu per satu?"}
@@ -737,7 +742,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., lost physical documents, 2-week delays" : "Contoh: Bukti POD nyelip, telat 2 minggu"}</span>
                       </div>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-4" name="detailedquestionnaire-textarea-4" aria-label="detailedquestionnaire-textarea-4"
                         required
                         rows={2}
                         placeholder={isEn ? "What are the primary blockages delaying invoices? How many days does it take on average to retrieve physical PODs from drivers?" : "Apa kendala utama yang membuat invoice telat ditagih? Berapa hari rata-rata surat jalan POD fisik kembali dari supir?"}
@@ -756,7 +761,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                           </label>
                           <span className="text-[10px] text-slate-400 font-mono">{isEn ? "Step-by-step workflow" : "Alur langkah-demi-langkah"}</span>
                         </div>
-                        <textarea
+                        <textarea id="detailedquestionnaire-textarea-5" name="detailedquestionnaire-textarea-5" aria-label="detailedquestionnaire-textarea-5"
                           required
                           rows={3}
                           placeholder={isEn ? "Explain how order comes in, how you assign trucks, how goods are dispatched, and how customers track/receive invoices." : "Jelaskan urutan proses bisnis mulai dari order masuk, cara penunjukan armada, pengiriman barang, hingga serah terima tagihan invoice."}
@@ -771,7 +776,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                           {isEn ? "6. Current Standard Operating Procedure (SOP)*" : "6. Kondisi SOP / Prosedur Operasional Saat Ini*"}
                         </label>
-                        <textarea
+                        <textarea id="detailedquestionnaire-textarea-6" name="detailedquestionnaire-textarea-6" aria-label="detailedquestionnaire-textarea-6"
                           required
                           rows={2}
                           placeholder={isEn ? "Are your operations guided by strict formal SOPs, or mostly semi-formal / spreadsheet and WhatsApp-based?" : "Apakah operasional logistik berjalan dengan SOP tertulis resmi, atau masih semi-formal (bebas menggunakan WhatsApp & Excel)?"}
@@ -786,7 +791,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                           {isEn ? "7. Operational & Financial Impact of Challenges*" : "7. Dampak Operasional & Finansial dari Kendala Utama*"}
                         </label>
-                        <textarea
+                        <textarea id="detailedquestionnaire-textarea-7" name="detailedquestionnaire-textarea-7" aria-label="detailedquestionnaire-textarea-7"
                           required
                           rows={2}
                           placeholder={isEn ? "What are the biggest consequences of these pain points? (e.g., delayed payments, lost clients, revenue leaks)" : "Apa kerugian terbesar akibat masalah-masalah di atas? (Contoh: cash-flow macet, kehilangan customer, selisih kasbon supir)"}
@@ -885,7 +890,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                         {isEn ? "Currently Active Internal Finance / ERP System*" : "Sistem Keuangan / ERP Internal Aktif Saat Ini*"}
                       </label>
-                      <select
+                      <select id="detailedquestionnaire-select-4" name="detailedquestionnaire-select-4" aria-label="detailedquestionnaire-select-4"
                         required
                         value={erpSystem}
                         onChange={(e) => setErpSystem(e.target.value)}
@@ -906,7 +911,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                         {isEn ? "Custom Workflows or Additional Integration Needs (Optional)" : "Kebutuhan Custom Alur Kerja atau Integrasi Tambahan (Opsional)"}
                       </label>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-8" name="detailedquestionnaire-textarea-8" aria-label="detailedquestionnaire-textarea-8"
                         rows={2}
                         placeholder={isEn ? "Example: Need automatic truck weight data sync with digital bridge scales at the factory..." : "Contoh: Butuh sinkronisasi data truk otomatis dengan timbangan digital jembatan di pabrik..."}
                         value={customRequirements}
@@ -920,7 +925,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                         {isEn ? "Specific Requests & Special Feature Demands (Optional)" : "Permintaan Spesifik & Kebutuhan Fitur Khusus (Opsional)"}
                       </label>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-9" name="detailedquestionnaire-textarea-9" aria-label="detailedquestionnaire-textarea-9"
                         rows={2}
                         placeholder={isEn ? "Are there any specific modules, hardware integrations, or tailored reports you require?" : "Apakah ada permintaan modul spesifik, integrasi hardware khusus, atau format laporan kustom tertentu yang Anda butuhkan?"}
                         value={specificRequests}
@@ -991,7 +996,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
                         {isEn ? "Additional Attendance Notes (Who else from your team should be included?)" : "Catatan Kehadiran Tambahan (Siapa saja yang akan dilibatkan?)"}
                       </label>
-                      <textarea
+                      <textarea id="detailedquestionnaire-textarea-10" name="detailedquestionnaire-textarea-10" aria-label="detailedquestionnaire-textarea-10"
                         rows={2}
                         placeholder={isEn ? "Example: Please copy email ryan@company.com on the invite as he manages our IT infrastructure..." : "Contoh: Pertemuan harap melampirkan email ryan@company.com karena dia selaku head of IT infrastructure..."}
                         value={contactNotes}

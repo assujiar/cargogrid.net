@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf .next out dist server.js",
-    "lint": "tsc --noEmit",
-    "vercel-build": "next build"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

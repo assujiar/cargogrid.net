@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
@@ -98,7 +100,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     } else {
       setIsInvalidToken(true);
     }
-  }, [initialInquiryId, window.location.hash]);
+  }, [initialInquiryId]);
 
   // Load existing questionnaire data if draft exists
   useEffect(() => {

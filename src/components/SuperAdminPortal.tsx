@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  getInquiries, 
-  getInquiry, 
-  getQuestionnaireByInquiryId, 
-  getMeetings, 
-  scheduleMeeting, 
-  getEmailLogs, 
-  Inquiry, 
-  Questionnaire, 
-  Meeting, 
-  EmailLog 
+import {
+  getInquiries,
+  getInquiry,
+  getQuestionnaireByInquiryId,
+  getMeetings,
+  scheduleMeeting,
+  getEmailLogs,
+  Inquiry,
+  Questionnaire,
+  Meeting,
+  EmailLog
 } from "../lib/storage";
 import { supabase } from "../lib/supabase";
-import { 
-  Users, 
-  Calendar, 
-  Mail, 
-  Search, 
-  Filter, 
-  Check, 
-  ChevronRight, 
-  X, 
-  Link as LinkIcon, 
-  Video, 
-  Clock, 
-  FileText, 
-  Building2, 
-  Phone, 
-  AlertTriangle, 
-  Compass, 
+import {
+  Users,
+  Calendar,
+  Mail,
+  Search,
+  Filter,
+  Check,
+  ChevronRight,
+  X,
+  Link as LinkIcon,
+  Video,
+  Clock,
+  FileText,
+  Building2,
+  Phone,
+  AlertTriangle,
+  Compass,
   Info,
   CalendarCheck,
   Send,
@@ -116,7 +116,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       setLoginError(error.message);
       return;
     }
-    setLoginInfo(lang === "en" ? "Password reset email sent via Supabase." : "Email reset password telah dikirim melalui Supabase.");
+    setLoginInfo(lang === "en" ? "Password reset email sent." : "Email reset password telah dikirim.");
   };
 
 
@@ -143,14 +143,14 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [emails, setEmails] = useState<EmailLog[]>([]);
   const [meetings, setMeetings] = useState<Meeting[]>([]);
-  
+
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
   const [selectedInquiryQuestionnaire, setSelectedInquiryQuestionnaire] = useState<Questionnaire | null>(null);
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [activeTab, setActiveTab] = useState<"database" | "meetings" | "outbox" | "smtp">("database");
-  
+
   // SMTP configuration is server-owned. These fields mirror deployment environment values only.
   const [smtpHost, setSmtpHost] = useState("");
   const [smtpPort, setSmtpPort] = useState("587");
@@ -158,7 +158,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [smtpUser, setSmtpUser] = useState("");
   const [smtpPass, setSmtpPass] = useState("");
   const [smtpFrom, setSmtpFrom] = useState("CargoGrid OS <service@cargogrid.net>");
-  
+
   const [showSmtpPass, setShowSmtpPass] = useState(false);
   const [smtpStatusLog, setSmtpStatusLog] = useState<string[]>([]);
   const [isTestingSmtp, setIsTestingSmtp] = useState(false);
@@ -177,7 +177,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const handleTestSmtpConnection = () => {
     setIsTestingSmtp(true);
     setSmtpStatusLog([]);
-    
+
     const logs = [
       `[${new Date().toLocaleTimeString()}] Membuka koneksi TCP ke ${smtpHost}:${smtpPort}...`,
       `[${new Date().toLocaleTimeString()}] Handshake TLS berhasil. Menunggu sambutan SMTP server...`,
@@ -296,7 +296,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
     setScheduleSuccess(true);
     await loadData();
-    
+
     // Refresh active selected inquiry view to update badge
     const updatedInq = await getInquiry(selectedInquiry.id);
     if (updatedInq) {
@@ -310,13 +310,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
   // Filter inquiries
   const filteredInquiries = inquiries.filter((inq) => {
-    const matchesSearch = 
+    const matchesSearch =
       inq.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
       inq.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       inq.email.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
     const matchesStatus = statusFilter === "all" || inq.status === statusFilter;
-    
+
     return matchesSearch && matchesStatus;
   });
 
@@ -368,7 +368,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-md mx-auto w-full flex-1 flex flex-col justify-center items-center relative z-10" id="admin-login-page">
         <div className="w-full nm-emboss bg-[#eaf0f6]/80 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-0 flex flex-col gap-6 relative">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-orange to-brand-teal rounded-t-3xl" />
-          
+
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl bg-brand-teal/10 flex items-center justify-center mx-auto mb-4">
               <Lock className="w-6 h-6 text-brand-teal" />
@@ -377,8 +377,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
               {lang === "en" ? "Admin Portal Login" : "Login Portal Admin"}
             </h1>
             <p className="text-slate-500 text-xs font-semibold leading-relaxed">
-              {lang === "en" 
-                ? "Enter your admin account to manage leads, meetings, and email logs." 
+              {lang === "en"
+                ? "Enter your admin account to manage leads, meetings, and email logs."
                 : "Masukkan akun admin untuk mengelola prospek, meeting, dan log email CargoGrid."}
             </p>
           </div>
@@ -460,18 +460,18 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
   return (
     <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full flex-1 flex flex-col gap-8 relative z-10" id="super-admin-portal">
-      
+
       {/* Admin Title Banner */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <span className="text-xs font-mono font-black text-brand-orange uppercase tracking-[0.2em] block mb-1">
-            CargoGrid Management Control
+            CargoGrid Admin Workspace
           </span>
           <h1 className="font-display font-black text-3xl sm:text-4xl text-slate-900 tracking-tight">
-            Super Admin <span className="text-brand-teal">Portal</span>
+            Admin <span className="text-brand-teal">Portal</span>
           </h1>
           <p className="text-slate-500 text-xs font-semibold mt-1">
-            Panel operasional untuk mengelola prospek, jadwal meeting, log email, dan pengaturan email CargoGrid.
+            Panel internal untuk mengelola prospek, jadwal pertemuan, dan riwayat email CargoGrid.
           </p>
         </div>
 
@@ -480,8 +480,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           <button
             onClick={() => setActiveTab("database")}
             className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "database" 
-                ? "bg-white text-slate-900 shadow-sm font-extrabold" 
+              activeTab === "database"
+                ? "bg-white text-slate-900 shadow-sm font-extrabold"
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
@@ -490,8 +490,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           <button
             onClick={() => setActiveTab("meetings")}
             className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "meetings" 
-                ? "bg-white text-slate-900 shadow-sm font-extrabold" 
+              activeTab === "meetings"
+                ? "bg-white text-slate-900 shadow-sm font-extrabold"
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
@@ -500,23 +500,14 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           <button
             onClick={() => setActiveTab("outbox")}
             className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "outbox" 
-                ? "bg-white text-slate-900 shadow-sm font-extrabold" 
+              activeTab === "outbox"
+                ? "bg-white text-slate-900 shadow-sm font-extrabold"
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
             Log Email
           </button>
-          <button
-            onClick={() => setActiveTab("smtp")}
-            className={`px-4 py-2 text-xs font-bold rounded-lg transition-all border-0 cursor-pointer ${
-              activeTab === "smtp" 
-                ? "bg-white text-slate-900 shadow-sm font-extrabold" 
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
-            }`}
-          >
-            Pengaturan Email
-          </button>
+
         </div>
       </div>
 
@@ -538,7 +529,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
       {/* Main Tab Content */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         {/* Tab 1: Prospek Table */}
         {activeTab === "database" && (
           <div className="lg:col-span-12 space-y-6">
@@ -561,7 +552,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                 <div className="flex items-center gap-2">
                   <Filter className="w-4 h-4 text-slate-400" />
-                  <select id="superadminportal-select-1" name="superadminportal-select-1" aria-label="superadminportal-select-1"
+                  <label htmlFor="admin-status-filter" className="sr-only">Filter status prospek</label>
+                  <select id="admin-status-filter" name="statusFilter"
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="nm-input bg-white text-slate-800 rounded-xl px-4 py-3 text-xs font-bold border-0 focus:outline-none cursor-pointer"
@@ -581,26 +573,26 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                   className="px-4 py-2.5 bg-brand-orange text-white text-xs font-black rounded-xl cursor-pointer border-0 flex items-center gap-1.5"
                 >
                   <Sparkles className="w-4 h-4 text-white" />
-                  <span>Coba Isi Kuesioner Baru</span>
+                  <span>Buka Form Kuesioner</span>
                 </button>
               )}
             </div>
 
             {/* Main Split Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              
+
               {/* Left Column: Dossier Cards Grid */}
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="font-display font-black text-sm text-slate-800 uppercase tracking-wider">
                     Hasil Filter Prospek ({filteredInquiries.length})
                   </h3>
-                  <span className="text-[10px] text-slate-400 font-bold font-mono">Klik baris data untuk melihat berkas kuesioner lengkap</span>
+                  <span className="text-[10px] text-slate-400 font-bold font-mono">Klik data untuk melihat detail kuesioner</span>
                 </div>
 
                 {filteredInquiries.length === 0 ? (
                   <div className="nm-deboss bg-slate-100 rounded-2xl py-12 text-center text-slate-400 text-xs font-bold">
-                    Tidak ada dossier data prospek yang cocok dengan pencarian Anda.
+                    Tidak ada data prospek yang cocok dengan pencarian Anda.
                   </div>
                 ) : (
                   <div className="space-y-3.5">
@@ -611,8 +603,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                           key={inq.id}
                           onClick={() => setSelectedInquiry(inq)}
                           className={`p-5 rounded-2xl border-0 cursor-pointer transition-all ${
-                            isSelected 
-                              ? "nm-emboss bg-slate-100 ring-2 ring-brand-teal" 
+                            isSelected
+                              ? "nm-emboss bg-slate-100 ring-2 ring-brand-teal"
                               : "nm-emboss bg-white/50 hover:bg-white"
                           }`}
                         >
@@ -635,9 +627,9 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                             <div className="text-right flex flex-col items-end gap-1.5">
                               <span className={`text-[10px] font-mono font-black uppercase px-2 py-1 rounded-full ${
-                                inq.status === "Meeting Scheduled" 
-                                  ? "bg-emerald-100 text-emerald-700" 
-                                  : inq.status === "Kuesioner Selesai" 
+                                inq.status === "Meeting Scheduled"
+                                  ? "bg-emerald-100 text-emerald-700"
+                                  : inq.status === "Kuesioner Selesai"
                                     ? "bg-brand-teal/15 text-brand-teal"
                                     : inq.status === "Draft Kuesioner"
                                       ? "bg-amber-100 text-amber-700 animate-pulse"
@@ -669,7 +661,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       className="nm-emboss bg-white rounded-3xl p-6 border-0 space-y-6 relative sticky top-24"
                     >
                       {/* Close detail */}
-                      <button 
+                      <button
                         onClick={() => setSelectedInquiry(null)}
                         className="absolute top-4 right-4 p-1.5 rounded-lg nm-btn text-slate-400 hover:text-slate-700 flex items-center justify-center border-0 cursor-pointer"
                       >
@@ -678,7 +670,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                       {/* Header */}
                       <div className="border-b border-slate-200 pb-4">
-                        <span className="text-[10px] font-mono font-black text-brand-orange uppercase tracking-wider block">DETIL BERKAS PELANGGAN</span>
+                        <span className="text-[10px] font-mono font-black text-brand-orange uppercase tracking-wider block">DETAIL PROSPEK</span>
                         <h3 className="font-display font-black text-xl text-slate-900 mt-1">PT {selectedInquiry.company}</h3>
                         <div className="flex flex-col gap-1 text-[11px] font-semibold text-slate-500 mt-2">
                           <span className="flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5 text-slate-400" /> Kontak: {selectedInquiry.name} ({selectedInquiry.role})</span>
@@ -735,7 +727,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                             {/* Section breakdown Accordion Style */}
                             <div className="nm-deboss bg-slate-50/50 p-4 rounded-2xl text-xs space-y-4 max-h-72 overflow-y-auto">
-                              
+
                               {/* Sektor 1 */}
                               <div className="space-y-1">
                                 <span className="font-mono text-[9px] font-black text-slate-400 block uppercase">1. PROFIL OPERASIONAL</span>
@@ -757,7 +749,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                 {selectedInquiryQuestionnaire.painDispatchDetails && <p className="font-semibold text-slate-700 leading-relaxed mt-1"><strong>Dispatch:</strong> &quot;{selectedInquiryQuestionnaire.painDispatchDetails}&quot;</p>}
                                 {selectedInquiryQuestionnaire.painTrackingDetails && <p className="font-semibold text-slate-700 leading-relaxed mt-1"><strong>Tracking:</strong> &quot;{selectedInquiryQuestionnaire.painTrackingDetails}&quot;</p>}
                                 {selectedInquiryQuestionnaire.painBillingDetails && <p className="font-semibold text-slate-700 leading-relaxed mt-1"><strong>Penagihan:</strong> &quot;{selectedInquiryQuestionnaire.painBillingDetails}&quot;</p>}
-                                
+
                                 {selectedInquiryQuestionnaire.existingCustomerFlow && (
                                   <p className="font-semibold text-slate-700 leading-relaxed mt-2 pt-2 border-t border-dashed border-slate-200"><strong>Alur Kerja Eksisting:</strong> &quot;{selectedInquiryQuestionnaire.existingCustomerFlow}&quot;</p>
                                 )}
@@ -819,7 +811,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                           </div>
                         ) : (
                           <form onSubmit={handleConfirmMeeting} className="space-y-4">
-                            
+
                             {/* Preference Display Helper */}
                             {selectedInquiryQuestionnaire?.preferredSlots && selectedInquiryQuestionnaire.preferredSlots.length > 0 && (
                               <div className="p-3 bg-slate-50 rounded-xl space-y-1.5 text-xs">
@@ -878,8 +870,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                   key={plat}
                                   onClick={() => setPlatform(plat as Meeting['platform'])}
                                   className={`p-2 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
-                                    platform === plat 
-                                      ? "nm-emboss bg-brand-teal text-white" 
+                                    platform === plat
+                                      ? "nm-emboss bg-brand-teal text-white"
                                       : "nm-emboss bg-slate-50 text-slate-600"
                                   }`}
                                 >
@@ -908,8 +900,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                             {/* Internal notes */}
                             <div className="flex flex-col gap-1">
-                              <label className="text-[10px] text-slate-500 font-black font-mono uppercase">Catatan Konsultan Internal (Opsional)</label>
-                              <textarea id="superadminportal-textarea-1" name="superadminportal-textarea-1" aria-label="superadminportal-textarea-1"
+                              <label htmlFor="admin-meeting-notes" className="text-[10px] text-slate-500 font-black font-mono uppercase">Catatan Pertemuan (Opsional)</label>
+                              <textarea
+                                id="admin-meeting-notes"
+                                name="adminMeetingNotes"
                                 rows={2}
                                 placeholder="Tulis catatan agenda meeting untuk tim..."
                                 value={adminNotes}
@@ -928,7 +922,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                             </button>
 
                             {scheduleSuccess && (
-                              <motion.p 
+                              <motion.p
                                 initial={{ opacity: 0, y: 5 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 className="text-center text-[11px] text-emerald-600 font-bold font-mono mt-1"
@@ -978,7 +972,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                   return (
                     <div key={meet.id} className="nm-emboss bg-white rounded-2xl p-5 border-0 flex flex-col justify-between gap-5 relative overflow-hidden">
                       <div className="absolute top-0 left-0 w-full h-1 bg-brand-teal" />
-                      
+
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-[9px] font-mono font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded uppercase">
@@ -1016,7 +1010,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                       {/* Direct launch link */}
                       <div className="border-t border-slate-100 pt-4 flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-slate-400">Kasbon & API siap diuji</span>
+                        <span className="text-[10px] font-mono text-slate-400">Detail pertemuan siap</span>
                         <a
                           href={meet.meetingUrl}
                           target="_blank"
@@ -1038,7 +1032,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
         {/* Tab 3: Simulated Log Email with Interactive Webmail previewer */}
         {activeTab === "outbox" && (
           <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
+
             {/* Outbox log list (Left column) */}
             <div className="lg:col-span-6 space-y-4">
               <div className="flex items-center justify-between">
@@ -1056,8 +1050,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       key={mail.id}
                       onClick={() => setViewingEmail(mail)}
                       className={`p-4 rounded-xl border-0 cursor-pointer transition-all ${
-                        isSelected 
-                          ? "nm-emboss bg-slate-100 ring-1 ring-brand-teal" 
+                        isSelected
+                          ? "nm-emboss bg-slate-100 ring-1 ring-brand-teal"
                           : "nm-emboss bg-white/40 hover:bg-white"
                       }`}
                     >
@@ -1070,8 +1064,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                             {mail.subject}
                           </p>
                           <span className={`inline-block text-[9px] font-mono font-black px-2 py-0.5 rounded-full ${
-                            mail.type.startsWith("admin") 
-                              ? "bg-red-50 text-red-600" 
+                            mail.type.startsWith("admin")
+                              ? "bg-red-50 text-red-600"
                               : "bg-brand-teal/10 text-brand-teal"
                           }`}>
                             {mail.type}
@@ -1090,12 +1084,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             {/* Simulated Email Client Preview panel (Right column) */}
             <div className="lg:col-span-6">
               <h3 className="font-display font-black text-sm text-slate-800 uppercase tracking-wider mb-4">
-                Pratinjau HTML Webmail Client
+                Pratinjau Email
               </h3>
 
               {viewingEmail ? (
                 <div className="nm-emboss bg-slate-900 text-slate-300 rounded-3xl border-0 overflow-hidden flex flex-col h-[550px]" id="simulated-gmail-client">
-                  
+
                   {/* Webmail application menu bar */}
                   <div className="bg-slate-950 p-4 border-b border-slate-800 flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -1104,7 +1098,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       <div className="w-3 h-3 rounded-full bg-green-500" />
                       <span className="text-[10px] text-slate-500 font-mono font-black ml-2 uppercase tracking-widest">CargoGrid Email Log</span>
                     </div>
-                    <span className="text-[9px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">LIVE METRIC TRIGGERED</span>
+                    <span className="text-[9px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">RECORDED</span>
                   </div>
 
                   {/* Mail header parameters */}
@@ -1117,9 +1111,9 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* HTML rendered body */}
                   <div className="flex-1 bg-white overflow-y-auto p-4 select-text">
-                    <div 
+                    <div
                       className="origin-top scale-95 mx-auto"
-                      dangerouslySetInnerHTML={{ __html: viewingEmail.htmlBody }} 
+                      dangerouslySetInnerHTML={{ __html: viewingEmail.htmlBody }}
                     />
                   </div>
 
@@ -1128,9 +1122,9 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 <div className="nm-deboss bg-slate-900 text-slate-500 rounded-3xl h-[550px] flex flex-col items-center justify-center text-center p-8 gap-3">
                   <Mail className="w-12 h-12 text-slate-800 animate-bounce" />
                   <div>
-                    <h4 className="font-display font-black text-sm text-slate-400 uppercase tracking-wider">Simulasi Surat Belum Dipilih</h4>
+                    <h4 className="font-display font-black text-sm text-slate-400 uppercase tracking-wider">Email Belum Dipilih</h4>
                     <p className="text-[11px] text-slate-600 font-semibold max-w-xs mx-auto leading-relaxed mt-1">
-                      Pilih salah satu log transmisi email di sebelah kiri untuk me-render format HTML email konfirmasi, notifikasi, atau undangan meeting secara visual.
+                      Pilih salah satu riwayat email di sebelah kiri untuk melihat isi pesan konfirmasi, notifikasi, atau undangan meeting.
                     </p>
                   </div>
                 </div>
@@ -1144,7 +1138,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
         {/* Tab 4: Real SMTP Integration Settings & Code Generator */}
         {activeTab === "smtp" && (
           <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-8" id="smtp-setup-panel">
-            
+
             {/* SMTP credentials input panel */}
             <div className="lg:col-span-5 space-y-6">
               <div className="nm-emboss bg-white rounded-3xl p-6 border-0">
@@ -1154,21 +1148,21 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     Konfigurasi Pengaturan Email
                   </h3>
                 </div>
-                
+
                 <p className="text-[11px] text-slate-500 font-semibold mb-5 leading-relaxed">
                   Nilai di bawah hanya untuk membuat template konfigurasi server. Kredensial asli wajib disimpan di environment variables backend, bukan di browser.
                 </p>
 
                 <form onSubmit={handleSaveSmtp} className="space-y-4">
-                  
+
                   {/* Host and Port row */}
                   <div className="grid grid-cols-3 gap-3">
                     <div className="col-span-2 flex flex-col gap-1">
                       <label htmlFor="smtp-host" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Host</label>
-                      <input 
+                      <input
                         id="smtp-host"
                         name="smtpHost"
-                        type="text" 
+                        type="text"
                         required
                         value={smtpHost}
                         onChange={(e) => setSmtpHost(e.target.value)}
@@ -1178,10 +1172,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     </div>
                     <div className="flex flex-col gap-1">
                       <label htmlFor="smtp-port" className="text-[9px] text-slate-400 font-black font-mono uppercase">Port</label>
-                      <input 
+                      <input
                         id="smtp-port"
                         name="smtpPort"
-                        type="text" 
+                        type="text"
                         required
                         value={smtpPort}
                         onChange={(e) => setSmtpPort(e.target.value)}
@@ -1193,8 +1187,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Secure Toggle */}
                   <div className="flex items-center gap-2.5 py-1">
-                    <input 
-                      type="checkbox" 
+                    <input
+                      type="checkbox"
                       id="smtpSecureCheckbox"
                       name="smtpSecure"
                       checked={smtpSecure}
@@ -1211,11 +1205,11 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     <label htmlFor="smtp-user" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Username (Email Sender)</label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3.5 w-3.5 h-3.5 text-slate-400" />
-                      <input 
+                      <input
                         id="smtp-user"
                         name="smtpUser"
                         autoComplete="username"
-                        type="email" 
+                        type="email"
                         required
                         value={smtpUser}
                         onChange={(e) => setSmtpUser(e.target.value)}
@@ -1230,11 +1224,11 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     <label htmlFor="smtp-password" className="text-[9px] text-slate-400 font-black font-mono uppercase">SMTP Password / App Password</label>
                     <div className="relative">
                       <Key className="absolute left-3 top-3.5 w-3.5 h-3.5 text-slate-400" />
-                      <input 
+                      <input
                         id="smtp-password"
                         name="smtpPassword"
                         autoComplete="current-password"
-                        type={showSmtpPass ? "text" : "password"} 
+                        type={showSmtpPass ? "text" : "password"}
                         required
                         value={smtpPass}
                         onChange={(e) => setSmtpPass(e.target.value)}
@@ -1254,10 +1248,10 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                   {/* Sender From Header Name */}
                   <div className="flex flex-col gap-1">
                     <label htmlFor="smtp-from" className="text-[9px] text-slate-400 font-black font-mono uppercase">Header FROM Name (Nama Pengirim)</label>
-                    <input 
+                    <input
                       id="smtp-from"
                       name="smtpFrom"
-                      type="text" 
+                      type="text"
                       required
                       value={smtpFrom}
                       onChange={(e) => setSmtpFrom(e.target.value)}
@@ -1309,15 +1303,15 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     </div>
                   ) : (
                     smtpStatusLog.map((log, idx) => (
-                      <p 
-                        key={idx} 
+                      <p
+                        key={idx}
                         className={
-                          log.startsWith("✅") 
-                            ? "text-emerald-400 font-black mt-1.5 bg-emerald-950/30 p-2 rounded" 
-                            : log.includes("C:") 
-                              ? "text-blue-400" 
-                              : log.includes("S:") 
-                                ? "text-amber-400" 
+                          log.startsWith("✅")
+                            ? "text-emerald-400 font-black mt-1.5 bg-emerald-950/30 p-2 rounded"
+                            : log.includes("C:")
+                              ? "text-blue-400"
+                              : log.includes("S:")
+                                ? "text-amber-400"
                                 : "text-slate-300"
                         }
                       >
@@ -1331,7 +1325,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
             {/* Integration reference block */}
             <div className="lg:col-span-7 space-y-6">
-              
+
               {/* Environment Variable Setup Card */}
               <div className="nm-emboss bg-white rounded-3xl p-6 border-0">
                 <div className="flex items-center justify-between mb-3">

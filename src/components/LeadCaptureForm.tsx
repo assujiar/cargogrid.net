@@ -45,9 +45,9 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
     if (formData.shipmentVolume === "1000+" || (formData.biggestPain === "pod" && formData.shipmentVolume === "500-1000")) {
       priority = "high";
     } else if (
-      formData.biggestPain === "tracking" || 
-      formData.biggestPain === "margin" || 
-      formData.biggestPain === "warehouse" || 
+      formData.biggestPain === "tracking" ||
+      formData.biggestPain === "margin" ||
+      formData.biggestPain === "warehouse" ||
       formData.shipmentVolume === "500-1000"
     ) {
       priority = "medium";
@@ -60,7 +60,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
 
     try {
       // Save inquiry with active language context and UTM attributes
-      // Save to Supabase with active language context and UTM attributes
+      // Save inquiry with active language context and UTM attributes
       const newInq = await addInquiry({
         name: formData.name,
         company: formData.company,
@@ -95,9 +95,9 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-teal/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           {/* Left Text Column */}
           <div className="lg:col-span-5 flex flex-col gap-5 text-left">
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">
@@ -125,9 +125,9 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                   <Check className="w-3.5 h-3.5" />
                 </div>
                 <span>
-                  {isEn 
-                    ? "Margin Leakage Review: We identify where operational delays reduce profit." 
-                    : "Pemetaan DSO Leakage: Kami tunjukkan di modul mana margin Anda bocor."}
+                  {isEn
+                    ? "Efficiency review: we identify workflow steps that slow operations and profitability."
+                    : "Pemetaan efisiensi: Kami bantu identifikasi tahapan yang memperlambat arus kerja dan profitabilitas."}
                 </span>
               </div>
               <div className="flex items-start gap-3.5 text-xs text-slate-600 font-semibold">
@@ -135,8 +135,8 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                   <Check className="w-3.5 h-3.5" />
                 </div>
                 <span>
-                  {isEn 
-                    ? "WMS Readiness Assessment: Evaluate your physical warehouse rack and bin layouts." 
+                  {isEn
+                    ? "WMS Readiness Assessment: Evaluate your physical warehouse rack and bin layouts."
                     : "Checklist Kesiapan WMS: Evaluasi tata letak rack/bin pergudangan Anda."}
                 </span>
               </div>
@@ -145,8 +145,8 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                   <Check className="w-3.5 h-3.5" />
                 </div>
                 <span>
-                  {isEn 
-                    ? "Branded Portal Preview: Interactive mockup tracking portal built with your logo." 
+                  {isEn
+                    ? "Branded Portal Preview: Interactive mockup tracking portal built with your logo."
                     : "Demo Branded Tracking: Mockup halaman pelacakan khusus berlogo brand Anda."}
                 </span>
               </div>
@@ -156,18 +156,18 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
               <span className="font-black text-slate-800 block uppercase tracking-wider mb-1">
                 {isEn ? "Fast-Track Onboarding Route:" : "Jalur Onboarding Cepat:"}
               </span>
-              {isEn 
-                ? "Estimated audit process and initial trial plan delivered within 14 working days." 
+              {isEn
+                ? "Estimated audit process and initial trial plan delivered within 14 working days."
                 : "Estimasi proses audit dan uji coba awal dalam waktu 14 hari kerja."}
             </div>
           </div>
 
           {/* Right Lead Capture Form Column */}
           <div className="lg:col-span-7">
-            
+
             <div className="nm-emboss rounded-3xl p-6 sm:p-8 relative overflow-hidden bg-[#eef2f6]/40">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-teal to-emerald-400" />
-              
+
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
                   <motion.form
@@ -273,10 +273,10 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                       </div>
                       {/* Company Type */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-company-type" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Logistics Sector*" : "Sektor Bisnis Logistik*"}
                         </label>
-                        <select id="leadcaptureform-select-1" name="leadcaptureform-select-1" aria-label="leadcaptureform-select-1"
+                        <select id="lead-company-type" name="companyType"
                           value={formData.companyType}
                           onChange={(e) => setFormData({ ...formData, companyType: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all cursor-pointer text-slate-800 bg-white"
@@ -293,10 +293,10 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Volume */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-shipment-volume" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Monthly Shipment Volume*" : "Volume Pengiriman / Bulan*"}
                         </label>
-                        <select id="leadcaptureform-select-2" name="leadcaptureform-select-2" aria-label="leadcaptureform-select-2"
+                        <select id="lead-shipment-volume" name="shipmentVolume"
                           value={formData.shipmentVolume}
                           onChange={(e) => setFormData({ ...formData, shipmentVolume: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all cursor-pointer text-slate-800 bg-white"
@@ -309,10 +309,10 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                       </div>
                       {/* Pain */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-500 font-black font-mono">
+                        <label htmlFor="lead-biggest-pain" className="text-xs text-slate-500 font-black font-mono">
                           {isEn ? "Biggest Current Pain Point*" : "Tantangan Terbesar Saat Ini*"}
                         </label>
-                        <select id="leadcaptureform-select-3" name="leadcaptureform-select-3" aria-label="leadcaptureform-select-3"
+                        <select id="lead-biggest-pain" name="biggestPain"
                           value={formData.biggestPain}
                           onChange={(e) => setFormData({ ...formData, biggestPain: e.target.value })}
                           className="w-full nm-input rounded-xl px-4 py-3.5 text-xs focus:outline-none transition-all cursor-pointer text-slate-800 bg-white"
@@ -361,8 +361,8 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                     </motion.button>
 
                     <p className="text-[10px] text-slate-500 text-center font-bold font-mono mt-2">
-                      {isEn 
-                        ? "*Your data is securely encrypted. We never share your company details with third parties." 
+                      {isEn
+                        ? "*Your data is securely encrypted. We never share your company details with third parties."
                         : "*Data Anda dienkripsi aman. Kami tidak membagikan data Anda dengan pihak ketiga."}
                     </p>
                   </motion.form>
@@ -384,7 +384,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
                       <h3 className="font-display font-bold text-xl text-slate-900">
                         {isEn ? "Audit Registration Submitted!" : "Daftar Audit Terkirim Sukses!"}
                       </h3>
-                      
+
                       {/* Live calculated qualification notice */}
                       {qualification === "high" ? (
                         <div className="mt-4 nm-emboss bg-emerald-500/[0.04] p-4.5 rounded-2xl max-w-lg mx-auto text-xs text-left">

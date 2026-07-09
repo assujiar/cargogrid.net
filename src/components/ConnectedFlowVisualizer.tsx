@@ -1,9 +1,13 @@
+"use client";
+
 import React, { useState } from "react";
 import { connectedFlowSteps } from "../data";
-import { ArrowRight, Database, ExternalLink, Play, Sparkles, RefreshCw, Layers } from "lucide-react";
+import { ArrowRight, Database, Sparkles, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
 
-export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+export default function ConnectedFlowVisualizer() {
+  const { lang } = useLanguage();
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const isEn = lang === 'en';
   const activeStep = connectedFlowSteps[activeStepIndex];
@@ -23,13 +27,13 @@ export default function ConnectedFlowVisualizer({ lang = 'id' }: { lang?: 'id' |
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">
               {isEn ? "Connected Flow: Inquiry to Payment" : "Alur Terhubung: Permintaan ke Pembayaran"}
             </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
+            <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
               {isEn ? (
                 <>Single Input, <span className="text-brand-teal font-extrabold">Flows to the Entire System</span></>
               ) : (
                 <>Satu Input, <span className="text-brand-teal font-extrabold">Mengalir ke Seluruh Sistem</span></>
               )}
-            </h2>
+            </h1>
           </div>
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">

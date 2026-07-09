@@ -1,9 +1,13 @@
+"use client";
+
 import React, { useState } from "react";
 import { problemPoints } from "../data";
-import { AlertCircle, AlertTriangle, FileSpreadsheet, Send, Search, CheckCircle, Smartphone, ArrowRight, ShieldAlert } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { AlertCircle, AlertTriangle, FileSpreadsheet, Send, Search, CheckCircle, Smartphone, ShieldAlert, Quote, UserRound } from "lucide-react";
+import { motion } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
 
-export default function ProblemSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+export default function ProblemSection() {
+  const { lang } = useLanguage();
   const [activeCompareTab, setActiveCompareTab] = useState<"rfq" | "pod" | "customer">("rfq");
   const isEn = lang === 'en';
 
@@ -20,13 +24,13 @@ export default function ProblemSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-orange uppercase">
               {isEn ? "Operational Efficiency Evaluation" : "Evaluasi Efisiensi Operasional"}
             </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
+            <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
               {isEn ? (
                 <>Logistics operations look busy, but <span className="text-brand-orange font-extrabold">are they efficient?</span></>
               ) : (
                 <>Operasional logistik terlihat sibuk, tapi <span className="text-brand-orange font-extrabold">apakah efisien?</span></>
               )}
-            </h2>
+            </h1>
           </div>
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
@@ -126,6 +130,39 @@ export default function ProblemSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
               <span>{isEn ? "Frozen Funds (DSO)" : "Dana Macet (DSO)"}</span>
               <span className="text-red-600 font-black">{isEn ? "24+ Days" : "24+ Hari"}</span>
             </div>
+          </div>
+        </motion.div>
+
+        {/* Human case-study anecdote: e-POD impact on daily operations */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="nm-emboss bg-white/50 rounded-3xl p-6 md:p-8 mb-20 flex flex-col sm:flex-row items-start gap-5 shadow-md"
+          id="pod-case-study"
+        >
+          <div className="w-12 h-12 rounded-full nm-emboss-sm bg-white text-brand-teal flex items-center justify-center flex-shrink-0">
+            <UserRound className="w-6 h-6" aria-hidden="true" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Quote className="w-4 h-4 text-brand-teal" aria-hidden="true" />
+              <span className="font-mono text-[10px] font-black tracking-widest text-brand-teal uppercase">
+                {isEn ? "Field Story" : "Cerita dari Lapangan"}
+              </span>
+            </div>
+            <p className="text-slate-700 text-sm font-semibold leading-relaxed">
+              {isEn ? (
+                <>
+                  Take Pak Andi, an operations manager at a mid-sized forwarder. His team used to burn <strong className="text-slate-900 font-extrabold">3 hours a day</strong> just chasing down POD paperwork, cross-checking delivery status, and answering the same &ldquo;where&rsquo;s my shipment&rdquo; questions from customers. Once they switched to the e-POD flow, proof of receipt lands straight in the system the moment cargo is delivered — no more phone tag with drivers, no more digging through WhatsApp threads. His team now spends that reclaimed time moving the next shipment forward instead of chasing paper.
+                </>
+              ) : (
+                <>
+                  Contohnya Pak Andi, manajer operasi di sebuah perusahaan forwarder skala menengah. Sebelumnya timnya bisa habis <strong className="text-slate-900 font-extrabold">3 jam sehari</strong> hanya untuk mengejar POD, mencocokkan status pengiriman, dan menjawab pertanyaan customer yang itu-itu saja soal posisi barang. Setelah alur e-POD dipakai, bukti terima langsung masuk ke sistem begitu barang sampai di tujuan — tidak perlu lagi telepon-teleponan dengan supir atau menggali riwayat chat WhatsApp. Waktu yang dulu terbuang itu sekarang dipakai timnya untuk fokus mengurus shipment berikutnya.
+                </>
+              )}
+            </p>
           </div>
         </motion.div>
 

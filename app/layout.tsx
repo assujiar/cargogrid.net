@@ -2,6 +2,9 @@ import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "../src/index.css";
+import { LanguageProvider } from "../src/components/shared/LanguageProvider";
+import UtmCapture from "../src/components/shared/UtmCapture";
+import { siteGraphJsonLd } from "../src/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,7 +68,17 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="id">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteGraphJsonLd()) }}
+        />
+        <LanguageProvider>
+          <UtmCapture />
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

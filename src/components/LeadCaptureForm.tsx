@@ -1,14 +1,14 @@
+"use client";
+
 import React, { useState } from "react";
-import { Check, ClipboardList, ShieldCheck, Mail, Phone, Building, Briefcase, RefreshCw } from "lucide-react";
+import { Check, ClipboardList, ShieldCheck, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { addInquiry } from "../lib/storage";
 import { getStoredUtmParams } from "../lib/tracking";
+import { useLanguage } from "./shared/LanguageProvider";
 
-interface LeadCaptureFormProps {
-  lang: 'id' | 'en';
-}
-
-export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
+export default function LeadCaptureForm() {
+  const { lang } = useLanguage();
   const isEn = lang === 'en';
 
   const [formData, setFormData] = useState({
@@ -103,13 +103,13 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">
               {isEn ? "System Evaluation Program" : "Program Evaluasi Sistem"}
             </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
+            <h1 className="font-display font-black text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
               {isEn ? (
                 <>Register for a Free <span className="text-brand-teal font-extrabold">System Audit</span></>
               ) : (
                 <>Daftarkan Audit Sistem <span className="text-brand-teal font-extrabold">Logistik Gratis</span></>
               )}
-            </h2>
+            </h1>
             <p className="text-slate-600 text-sm font-semibold leading-relaxed">
               {isEn ? (
                 <>Get a comprehensive operational workflow review from <strong className="text-slate-800 font-bold">request to payment</strong> (valued at Rp 5,000,000) for free with CargoGrid's logistics consultants.</>
@@ -452,15 +452,16 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
 
                     <div className="flex flex-col sm:flex-row items-center gap-3 justify-center w-full mt-4">
                       <a
-                        href={`#questionnaire?id=${newInquiryId}`}
-                        className="px-6 py-3 bg-gradient-to-r from-brand-orange to-brand-teal text-white font-extrabold text-xs rounded-xl shadow-md hover:opacity-95 transition-all text-center flex items-center gap-1.5"
+                        href={`/#questionnaire?id=${newInquiryId}`}
+                        className="px-6 py-3 bg-gradient-to-r from-brand-orange to-brand-teal text-white font-extrabold text-xs rounded-xl shadow-md hover:opacity-95 transition-all text-center flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                       >
-                        <ClipboardList className="w-4 h-4 text-white" />
-                        <span>{isEn ? "Complete Detailed Questionnaire &rarr;" : "Lengkapi Kuesioner Detail & Jadwal &rarr;"}</span>
+                        <ClipboardList className="w-4 h-4 text-white" aria-hidden="true" />
+                        <span>{isEn ? "Complete Detailed Questionnaire →" : "Lengkapi Kuesioner Detail & Jadwal →"}</span>
                       </a>
                       <button
+                        type="button"
                         onClick={() => setIsSubmitted(false)}
-                        className="px-5 py-3 nm-btn text-slate-600 font-bold rounded-xl text-xs cursor-pointer border-0"
+                        className="px-5 py-3 nm-btn text-slate-600 font-bold rounded-xl text-xs cursor-pointer border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                       >
                         {isEn ? "Input New Data" : "Input Data Baru"}
                       </button>

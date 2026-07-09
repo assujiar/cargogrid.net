@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { ArrowRight, Play, ShieldCheck, Activity, Users, Truck, CheckCircle2 } from "lucide-react";
-import { motion } from "motion/react";
+"use client";
 
-export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { ArrowRight, Play, Activity, Users, Truck } from "lucide-react";
+import { motion } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
+
+export default function HeroSection() {
+  const { lang } = useLanguage();
   const [shipmentsCount, setShipmentsCount] = useState(14820);
   const [activeTrucks, setActiveTrucks] = useState(142);
   const [podProgress, setPodProgress] = useState(99.6);
@@ -82,25 +87,25 @@ export default function HeroSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
 
             {/* Call to Actions (Tactile Outsets) */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 mt-2">
-              <motion.a
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                href="#challenges"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 nm-btn-accent text-white font-extrabold rounded-2xl text-base shadow-md cursor-pointer border-0"
-              >
-                <span>{isEn ? "Explore the Challenges" : "Lihat Tantangan Operasional"}</span>
-                <ArrowRight className="w-5 h-5 text-white" />
-              </motion.a>
+              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/tantangan"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 nm-btn-accent text-white font-extrabold rounded-2xl text-base shadow-md cursor-pointer border-0"
+                >
+                  <span>{isEn ? "Explore the Challenges" : "Lihat Tantangan Operasional"}</span>
+                  <ArrowRight className="w-5 h-5 text-white" aria-hidden="true" />
+                </Link>
+              </motion.div>
 
-              <motion.a
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                href="#sandbox"
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 nm-btn text-slate-700 font-extrabold rounded-2xl text-base cursor-pointer border-0"
-              >
-                <Play className="w-3.5 h-3.5 fill-current text-brand-teal" />
-                <span>{isEn ? "Try Live Simulator" : "Uji Coba Sistem"}</span>
-              </motion.a>
+              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/simulator-roi"
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 nm-btn text-slate-700 font-extrabold rounded-2xl text-base cursor-pointer border-0"
+                >
+                  <Play className="w-3.5 h-3.5 fill-current text-brand-teal" aria-hidden="true" />
+                  <span>{isEn ? "Try Live Simulator" : "Uji Coba Sistem"}</span>
+                </Link>
+              </motion.div>
             </div>
 
             {/* Trust badging (Tactile indicators) */}

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { Check, ClipboardList, Truck, Search, FileCheck, Download, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+"use client";
 
-export default function LiveDemoSandbox({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+import React, { useState } from "react";
+import { Check, ClipboardList, Truck, Search, FileCheck, Download } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
+
+export default function LiveDemoSandbox() {
+  const { lang } = useLanguage();
   const [activeTab, setActiveTab] = useState<"commercial" | "ops" | "tracking" | "finance" | "dashboard">("commercial");
   const isEn = lang === 'en';
 

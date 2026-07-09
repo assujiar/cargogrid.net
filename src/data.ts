@@ -402,6 +402,18 @@ export const pricingPackages: PackageItem[] = [
       "Standard Email Notifications",
       "Web Ticket Support with 24-hour SLA",
     ],
+    implementationNotes: "Setup domain custom dan branding portal biasanya selesai dalam 3-5 hari kerja setelah data logo dan DNS diserahkan.",
+    implementationNotesEn: "Custom domain and portal branding setup is typically completed within 3-5 business days once logo and DNS details are provided.",
+    limitations: [
+      "Belum termasuk modul RFQ, dispatch, atau billing — murni tracking & portal customer.",
+      "Kuota 150 shipment/bulan; kelebihan kuota dikenakan biaya tambahan per shipment.",
+    ],
+    limitationsEn: [
+      "Does not include RFQ, dispatch, or billing modules — tracking & customer portal only.",
+      "Quota is 150 shipments/month; overage is billed per additional shipment.",
+    ],
+    addOns: ["Domain custom tambahan", "Kuota shipment tracking tambahan", "Integrasi notifikasi WhatsApp"],
+    addOnsEn: ["Additional custom domains", "Extra shipment-tracking quota", "WhatsApp notification integration"],
   },
   {
     id: "quoteops",
@@ -432,6 +444,18 @@ export const pricingPackages: PackageItem[] = [
       "Multi-currency & Surcharge Management",
       "Sales Activity Logs & Win-Rate Analytics",
     ],
+    implementationNotes: "Migrasi rate vendor dari spreadsheet lama dibantu tim onboarding kami, biasanya rampung dalam pilot 30 hari pertama.",
+    implementationNotesEn: "Migrating vendor rates from legacy spreadsheets is assisted by our onboarding team, typically completed within the first 30-day pilot.",
+    limitations: [
+      "Belum termasuk modul dispatch armada, WMS, atau billing/akuntansi.",
+      "Cocok untuk tim komersial; eksekusi operasional lapangan memerlukan paket Operations Pro ke atas.",
+    ],
+    limitationsEn: [
+      "Does not include fleet dispatch, WMS, or billing/accounting modules.",
+      "Best fit for commercial teams; field operations execution requires Operations Pro or above.",
+    ],
+    addOns: ["Upgrade ke Operations Pro kapan saja", "Integrasi akuntansi eksternal", "User tambahan di luar kuota dasar"],
+    addOnsEn: ["Upgrade to Operations Pro anytime", "External accounting integrations", "Additional users beyond the base quota"],
   },
   {
     id: "operations",
@@ -463,6 +487,18 @@ export const pricingPackages: PackageItem[] = [
       "Pro Customer Portal (Bookings, Tracking, & Billing View)",
       "SLA Performance Tracker & Exception Log Alerts",
     ],
+    implementationNotes: "Termasuk pendampingan 30 hari pilot kerja: setup manifest, training driver app, dan konfigurasi billing-readiness rules bersama tim kami.",
+    implementationNotesEn: "Includes a 30-day working pilot with hands-on support: manifest setup, driver app training, and billing-readiness rule configuration with our team.",
+    limitations: [
+      "Modul WMS pergudangan penuh (rack/bin, putaway) tidak termasuk — perlu paket Warehouse WMS atau ERP Suite.",
+      "Modul akuntansi/GL belum termasuk; billing readiness hanya memicu draft invoice, bukan pembukuan penuh.",
+    ],
+    limitationsEn: [
+      "Full warehouse WMS features (rack/bin, putaway) are not included — requires Warehouse WMS or ERP Suite.",
+      "Accounting/GL module not included; billing readiness only triggers draft invoices, not full bookkeeping.",
+    ],
+    addOns: ["Modul Warehouse WMS", "Modul akuntansi & GL", "Kapasitas driver/user tambahan"],
+    addOnsEn: ["Warehouse WMS module", "Accounting & GL module", "Additional driver/user capacity"],
   },
   {
     id: "warehouse",
@@ -493,6 +529,18 @@ export const pricingPackages: PackageItem[] = [
       "B2B Client Stock Portal (Self-Service Stock Visibility)",
       "Storage Billing Estimator (Automated space lease pricing)",
     ],
+    implementationNotes: "Tim kami membantu pemetaan layout rack/bin gudang eksisting dan migrasi data stok awal (stock opname) sebelum go-live.",
+    implementationNotesEn: "Our team assists with mapping your existing rack/bin layout and migrating initial stock data (stock opname) before go-live.",
+    limitations: [
+      "Modul dispatch armada trucking tidak termasuk — perlu paket Operations Pro atau ERP Suite.",
+      "Cocok untuk 1-5 lokasi gudang aktif dalam paket dasar; lokasi tambahan dikenakan biaya per gudang.",
+    ],
+    limitationsEn: [
+      "Trucking fleet dispatch module is not included — requires Operations Pro or ERP Suite.",
+      "Base package covers 1-5 active warehouse locations; additional locations are billed per site.",
+    ],
+    addOns: ["Lokasi gudang tambahan", "Integrasi barcode scanner khusus", "Modul dispatch armada trucking"],
+    addOnsEn: ["Additional warehouse locations", "Custom barcode scanner integration", "Trucking fleet dispatch module"],
   },
   {
     id: "erpsuite",
@@ -523,6 +571,18 @@ export const pricingPackages: PackageItem[] = [
       "Event-based Automated WhatsApp & Email Notifications",
       "Unlimited Open API & Webhook Integrations",
     ],
+    implementationNotes: "Onboarding melibatkan tim finance Anda untuk memetakan Chart of Accounts dan alur jurnal otomatis sebelum sistem live penuh.",
+    implementationNotesEn: "Onboarding involves your finance team to map the Chart of Accounts and automated journal flows before going fully live.",
+    limitations: [
+      "Bukan pengganti software perpajakan resmi (e-Faktur/Coretax); ERP Suite adalah lapisan operasional finance, bukan pelaporan pajak.",
+      "Integrasi legacy system (SAP/Oracle/AS400) memerlukan paket Enterprise Custom.",
+    ],
+    limitationsEn: [
+      "Not a replacement for official tax-filing software (e-Faktur/Coretax); ERP Suite is an operational finance layer, not tax reporting.",
+      "Legacy system integrations (SAP/Oracle/AS400) require the Enterprise Custom package.",
+    ],
+    addOns: ["Integrasi software pajak pihak ketiga", "Modul loyalty tier lanjutan", "Dedicated onboarding specialist"],
+    addOnsEn: ["Third-party tax software integration", "Advanced loyalty tier module", "Dedicated onboarding specialist"],
   },
   {
     id: "enterprise",
@@ -553,6 +613,18 @@ export const pricingPackages: PackageItem[] = [
       "24/7 Dedicated Technical Account Manager Support",
       "On-site Implementation, Full Data Migration, and Staff Training",
     ],
+    implementationNotes: "Scope, timeline, dan harga final ditentukan bersama tim solution architect kami setelah sesi discovery kebutuhan integrasi dan infrastruktur Anda.",
+    implementationNotesEn: "Final scope, timeline, and pricing are determined with our solution architects after a discovery session covering your integration and infrastructure needs.",
+    limitations: [
+      "Harga di atas adalah estimasi awal; kontrak final mengikuti hasil discovery dan kompleksitas integrasi.",
+      "Memerlukan komitmen kontrak tahunan minimum sesuai kesepakatan SLA.",
+    ],
+    limitationsEn: [
+      "The price above is a starting estimate; the final contract follows the discovery outcome and integration complexity.",
+      "Requires a minimum annual contract commitment as agreed in the SLA.",
+    ],
+    addOns: ["Integrasi legacy system tambahan", "Infrastruktur multi-region", "Program pelatihan staf lanjutan"],
+    addOnsEn: ["Additional legacy system integrations", "Multi-region infrastructure", "Advanced staff training program"],
   },
 ];
 

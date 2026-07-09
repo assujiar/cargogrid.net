@@ -96,6 +96,19 @@ ALTER TABLE inquiries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE questionnaires ENABLE ROW LEVEL SECURITY;
 ALTER TABLE meetings ENABLE ROW LEVEL SECURITY;
 
+-- 4. Create 'email_logs' Table
+-- Stores rendered transactional email payloads and delivery audit history.
+CREATE TABLE IF NOT EXISTS email_logs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    to_address VARCHAR(255) NOT NULL,
+    subject TEXT NOT NULL,
+    html_body TEXT NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    sent_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE email_logs ENABLE ROW LEVEL SECURITY;
+
 -- --- Inquiries Policies ---
 -- Allow any public visitor to insert a new inquiry (e.g. via landing page)
 CREATE POLICY "Public: Allow initial inquiry insertion" 
@@ -130,6 +143,7 @@ USING (true);
 CREATE POLICY "Admin: Full control of inquiries" ON inquiries FOR ALL TO authenticated USING (true);
 CREATE POLICY "Admin: Full control of questionnaires" ON questionnaires FOR ALL TO authenticated USING (true);
 CREATE POLICY "Admin: Full control of meetings" ON meetings FOR ALL TO authenticated USING (true);
+CREATE POLICY "Admin: Full control of email logs" ON email_logs FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- ==========================================
 -- Automatic Timestamps Trigger Hook

@@ -78,34 +78,46 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
   // Load inquiries list and specific questionnaire state
   useEffect(() => {
-    const list = getInquiries();
-    setAvailableInquiries(list);
+    let isMounted = true;
+    const load = async () => {
+      try {
+        const list = await getInquiries();
+        if (!isMounted) return;
+        setAvailableInquiries(list);
 
-    // Read ID from hash query string, e.g. #questionnaire?id=xyz
-    const hash = window.location.hash;
-    let id = initialInquiryId || "";
-    if (hash.includes("?id=")) {
-      id = hash.split("?id=")[1];
-    }
-    
-    if (id) {
-      setInquiryId(id);
-      const inq = getInquiry(id);
-      if (inq) {
-        setInquiry(inq);
-        setIsInvalidToken(false);
-      } else {
-        setIsInvalidToken(true);
+        const hash = window.location.hash;
+        let id = initialInquiryId || "";
+        if (hash.includes("?id=")) {
+          id = hash.split("?id=")[1];
+        }
+        
+        if (id) {
+          setInquiryId(id);
+          const inq = await getInquiry(id);
+          if (!isMounted) return;
+          if (inq) {
+            setInquiry(inq);
+            setIsInvalidToken(false);
+          } else {
+            setIsInvalidToken(true);
+          }
+        } else {
+          setIsInvalidToken(true);
+        }
+      } catch (error) {
+        console.error("Failed to load questionnaire access data", error);
+        if (isMounted) setIsInvalidToken(true);
       }
-    } else {
-      setIsInvalidToken(true);
-    }
+    };
+    load();
+    return () => { isMounted = false; };
   }, [initialInquiryId]);
 
   // Load existing questionnaire data if draft exists
   useEffect(() => {
     if (inquiryId) {
-      const q = getQuestionnaireByInquiryId(inquiryId);
+      const loadQuestionnaire = async () => {
+      const q = await getQuestionnaireByInquiryId(inquiryId);
       if (q) {
         setCargoTypes(q.cargoTypes || []);
         setPrimaryRoutes(q.primaryRoutes || "");
@@ -158,6 +170,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         setStep(1);
         setIsDone(false);
       }
+      };
+      loadQuestionnaire().catch((error) => console.error("Failed to load questionnaire", error));
     }
   }, [inquiryId]);
 
@@ -206,11 +220,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   };
 
   // Handle auto-save / manual draft save
-  const handleSaveDraft = (stepOverride?: number) => {
+  const handleSaveDraft = async (stepOverride?: number) => {
     if (!inquiryId) return;
     const currentStepNum = stepOverride !== undefined ? stepOverride : step;
     
-    saveQuestionnaireDraft(inquiryId, {
+    await saveQuestionnaireDraft(inquiryId, {
       ...getPayload(),
       currentStep: currentStepNum
     });
@@ -247,19 +261,22 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   };
 
   // Final Submit
-  const handleSubmitForm = (e: React.FormEvent) => {
+  const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inquiryId) return;
 
     setIsSubmitting(true);
     
-    // Simulate API delay
-    setTimeout(() => {
-      submitQuestionnaire(inquiryId, getPayload());
-      setIsSubmitting(false);
+    try {
+      await submitQuestionnaire(inquiryId, getPayload());
       setIsDone(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1500);
+    } catch (error) {
+      console.error("Failed to submit questionnaire", error);
+      alert(isEn ? "Unable to submit questionnaire. Please try again." : "Gagal mengirim kuesioner. Silakan coba lagi.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Helper toggle arrays
@@ -1107,11 +1124,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center pt-4">
               <button
-                onClick={() => {
+                onClick={async () => {
                   setIsDone(false);
                   setStep(1);
                   if (inquiryId) {
-                    saveQuestionnaireDraft(inquiryId, { ...getPayload(), isDraft: true, currentStep: 1 });
+                    await saveQuestionnaireDraft(inquiryId, { ...getPayload(), isDraft: true, currentStep: 1 });
                   }
                 }}
                 className="px-5 py-2.5 nm-btn text-slate-600 text-xs font-bold rounded-xl cursor-pointer border-0"

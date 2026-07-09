@@ -2,28 +2,28 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  getInquiry, 
-  getInquiries, 
-  getQuestionnaireByInquiryId, 
-  saveQuestionnaireDraft, 
-  submitQuestionnaire, 
-  Inquiry, 
-  Questionnaire 
+import {
+  getInquiry,
+  getInquiries,
+  getQuestionnaireByInquiryId,
+  saveQuestionnaireDraft,
+  submitQuestionnaire,
+  Inquiry,
+  Questionnaire
 } from "../lib/storage";
-import { 
-  ClipboardList, 
-  Check, 
-  Save, 
-  ArrowRight, 
-  ArrowLeft, 
-  Calendar, 
-  Building2, 
-  Activity, 
-  Layers, 
-  Info, 
-  Sparkles, 
-  User, 
+import {
+  ClipboardList,
+  Check,
+  Save,
+  ArrowRight,
+  ArrowLeft,
+  Calendar,
+  Building2,
+  Activity,
+  Layers,
+  Info,
+  Sparkles,
+  User,
   ChevronRight,
   RefreshCw
 } from "lucide-react";
@@ -90,7 +90,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         if (hash.includes("?id=")) {
           id = hash.split("?id=")[1];
         }
-        
+
         if (id) {
           setInquiryId(id);
           const inq = await getInquiry(id);
@@ -132,7 +132,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         setCustomRequirements(q.customRequirements || "");
         setPreferredSlots(q.preferredSlots || []);
         setContactNotes(q.contactNotes || "");
-        
+
         // Load new fields
         setExistingCustomerFlow(q.existingCustomerFlow || "");
         setBusinessProcessSop(q.businessProcessSop || "");
@@ -158,7 +158,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         setCustomRequirements("");
         setPreferredSlots([]);
         setContactNotes("");
-        
+
         // Reset new fields
         setExistingCustomerFlow("");
         setBusinessProcessSop("");
@@ -223,7 +223,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const handleSaveDraft = async (stepOverride?: number) => {
     if (!inquiryId) return;
     const currentStepNum = stepOverride !== undefined ? stepOverride : step;
-    
+
     await saveQuestionnaireDraft(inquiryId, {
       ...getPayload(),
       currentStep: currentStepNum
@@ -236,7 +236,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         ? `Draft automatically saved at ${timeStr}`
         : `Draft otomatis tersimpan pkl ${timeStr}`
     );
-    
+
     // Clear status toast after 3s
     setTimeout(() => {
       setSaveStatus("");
@@ -266,7 +266,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     if (!inquiryId) return;
 
     setIsSubmitting(true);
-    
+
     try {
       await submitQuestionnaire(inquiryId, getPayload());
       setIsDone(true);
@@ -335,7 +335,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
       <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-xl mx-auto w-full flex-1 flex flex-col gap-8 relative z-10" id="invalid-token-page">
         <div className="nm-emboss bg-white/75 backdrop-blur-md rounded-3xl p-8 sm:p-10 border-0 flex flex-col gap-6 relative">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-orange to-brand-teal rounded-t-3xl" />
-          
+
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
               <ClipboardList className="w-6 h-6 text-brand-orange" />
@@ -344,8 +344,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
               {isEn ? "Detailed Questionnaire Access" : "Akses Kuesioner Detail"}
             </h1>
             <p className="text-slate-500 text-xs font-semibold leading-relaxed">
-              {isEn 
-                ? "For data security and confidentiality of operational records, this page is only accessible via the unique link sent to your registered business email." 
+              {isEn
+                ? "For data security and confidentiality of operational records, this page is only accessible via the unique link sent to your registered business email."
                 : "Demi keamanan dan kerahasiaan data operasional perusahaan, halaman kuesioner detail ini hanya dapat diakses melalui tautan unik yang dikirimkan ke email resmi Anda."}
             </p>
           </div>
@@ -394,7 +394,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
   return (
     <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full flex-1 flex flex-col gap-8 relative z-10" id="detailed-questionnaire-page">
-      
+
       {/* Main Container */}
       <div className="nm-emboss bg-white/75 backdrop-blur-md rounded-3xl p-6 sm:p-10 border-0 flex flex-col gap-8 relative">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-orange to-brand-teal rounded-t-3xl" />
@@ -424,7 +424,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
         ) : (
           <div className="text-center py-10">
             <RefreshCw className="w-8 h-8 text-brand-teal animate-spin mx-auto mb-2" />
-            <p className="text-slate-500 font-bold text-sm">{isEn ? "Connecting with system registration records..." : "Menghubungkan dengan dossier registrasi sistem..."}</p>
+            <p className="text-slate-500 font-bold text-sm">{isEn ? "Connecting with system registration records..." : "Menghubungkan dengan data registrasi sistem..."}</p>
           </div>
         )}
 
@@ -445,7 +445,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                 return (
                   <div key={item.s} className="flex flex-col gap-2">
                     <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden relative">
-                      <div 
+                      <div
                         className={`absolute top-0 left-0 h-full transition-all duration-300 ${
                           isCompleted ? "w-full bg-brand-teal" : isActive ? "w-1/2 bg-brand-orange" : "w-0"
                         }`}
@@ -453,10 +453,10 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     </div>
                     <div className="flex items-center gap-1.5 px-1">
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black font-mono transition-colors ${
-                        isCompleted 
-                          ? "bg-brand-teal text-white" 
-                          : isActive 
-                            ? "bg-brand-orange text-white ring-4 ring-brand-orange/15" 
+                        isCompleted
+                          ? "bg-brand-teal text-white"
+                          : isActive
+                            ? "bg-brand-orange text-white ring-4 ring-brand-orange/15"
                             : "bg-slate-200 text-slate-500"
                       }`}>
                         {isCompleted ? <Check className="w-3 h-3" /> : item.s}
@@ -474,7 +474,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
             {/* Step Content Wrapper */}
             <form onSubmit={handleSubmitForm} className="space-y-6">
-              
+
               <AnimatePresence mode="wait">
                 {step === 1 && (
                   <motion.div
@@ -491,7 +491,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <span>{isEn ? "Category 1: Operational Profile & Logistics Scale" : "Kategori 1: Profil Operasional & Skala Logistik"}</span>
                       </h3>
                       <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
-                        {isEn 
+                        {isEn
                           ? "This information helps us prepare a trial setup that matches your active routes and shipment volume."
                           : "Informasi ini membantu kami menyiapkan konfigurasi uji coba yang sesuai dengan rute aktif dan volume pengiriman Anda."}
                       </p>
@@ -522,8 +522,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               key={cargo}
                               onClick={() => toggleCargo(cargo)}
                               className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
-                                checked 
-                                  ? "nm-emboss bg-brand-teal text-white" 
+                                checked
+                                  ? "nm-emboss bg-brand-teal text-white"
                                   : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
                               }`}
                             >
@@ -643,8 +643,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             key={role.id}
                             onClick={() => toggleRole(role.id)}
                             className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
-                              active 
-                                ? "nm-emboss bg-brand-orange text-white" 
+                              active
+                                ? "nm-emboss bg-brand-orange text-white"
                                 : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
                             }`}
                           >
@@ -674,7 +674,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <span>{isEn ? "Category 2: Diagnosis & Field Pain Points Description" : "Kategori 2: Diagnosa & Deskripsi Masalah Lapangan"}</span>
                       </h3>
                       <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
-                        {isEn 
+                        {isEn
                           ? "Describe the current manual workflows that often lead to cost leaks, lack of visibility, or data discrepancies."
                           : "Jelaskan alur kerja manual saat ini yang sering menimbulkan deviasi biaya, hilangnya transparansi, atau ketidaksesuaian data."}
                       </p>
@@ -819,7 +819,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <span>{isEn ? "Category 3: Priority Solutions & Current Tools" : "Kategori 3: Prioritas Solusi & Tools Saat Ini"}</span>
                       </h3>
                       <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
-                        {isEn 
+                        {isEn
                           ? "Select the CargoGrid capabilities you want to prioritize during your trial period, plus any tools you need to connect."
                           : "Pilih kapabilitas CargoGrid yang ingin Anda prioritaskan selama masa uji coba, serta tools lain yang perlu dihubungkan."}
                       </p>
@@ -832,30 +832,30 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {[
-                          { 
-                            id: "commercial", 
-                            title: isEn ? "Commercial (Rate Catalog, Digital RFQ & Logistics CRM)" : "Commercial (Katalog Rate, RFQ Digital & CRM Logistik)", 
-                            desc: isEn ? "Consolidates all tender quotes and sales deal margin history." : "Menyatukan semua penawaran tender dan histori margin deal sales." 
+                          {
+                            id: "commercial",
+                            title: isEn ? "Commercial (Rate Catalog, Digital RFQ & Logistics CRM)" : "Commercial (Katalog Rate, RFQ Digital & CRM Logistik)",
+                            desc: isEn ? "Consolidates all tender quotes and sales deal margin history." : "Menyatukan semua penawaran tender dan histori margin deal sales."
                           },
-                          { 
-                            id: "ops", 
-                            title: isEn ? "Operations (TMS, Dispatching & Driver Trip Allowances)" : "Operations (TMS, Dispatching & Kasbon Uang Jalan Supir)", 
-                            desc: isEn ? "Distributes digital routes, monitors vendors, and simplifies driver trip reconciliation." : "Membagikan rute digital, monitoring vendor, dan mempermudah rekap jalan supir." 
+                          {
+                            id: "ops",
+                            title: isEn ? "Operations (TMS, Dispatching & Driver Trip Allowances)" : "Operations (TMS, Dispatching & Kasbon Uang Jalan Supir)",
+                            desc: isEn ? "Distributes digital routes, monitors vendors, and simplifies driver trip reconciliation." : "Membagikan rute digital, monitoring vendor, dan mempermudah rekap jalan supir."
                           },
-                          { 
-                            id: "tracking", 
-                            title: isEn ? "Tracking & Visibility (Self-Service Client Tracking Portal)" : "Tracking & Visibility (Portal Live Tracking Mandiri untuk Client)", 
-                            desc: isEn ? "Dedicated tracking links so clients can verify POD status without calling CS." : "Link tracking khusus sehingga client bisa cek status POD tanpa telepon CS." 
+                          {
+                            id: "tracking",
+                            title: isEn ? "Tracking & Visibility (Self-Service Client Tracking Portal)" : "Tracking & Visibility (Portal Live Tracking Mandiri untuk Client)",
+                            desc: isEn ? "Dedicated tracking links so clients can verify POD status without calling CS." : "Link tracking khusus sehingga client bisa cek status POD tanpa telepon CS."
                           },
-                          { 
-                            id: "finance", 
-                            title: isEn ? "Finance & Invoicing (Auto Billing, Reconciliation & Job Margin)" : "Finance & Invoicing (Auto Billing, Rekonsiliasi, Margin Profit per Job)", 
-                            desc: isEn ? "Automated invoice generation as soon as driver uploads POD photos." : "Penerbitan faktur invoice otomatis saat foto POD diunggah oleh supir." 
+                          {
+                            id: "finance",
+                            title: isEn ? "Finance & Invoicing (Auto Billing, Reconciliation & Job Margin)" : "Finance & Invoicing (Auto Billing, Rekonsiliasi, Margin Profit per Job)",
+                            desc: isEn ? "Automated invoice generation as soon as driver uploads POD photos." : "Penerbitan faktur invoice otomatis saat foto POD diunggah oleh supir."
                           },
-                          { 
-                            id: "warehouse", 
-                            title: isEn ? "Warehouse Management (Multi-client WMS, Stock Audits & Live Racks)" : "Warehouse Management (Multi-client WMS, Stok Opname, Live Rack)", 
-                            desc: isEn ? "Barcode tracking, pick-and-pack management, and warehouse capacity monitoring." : "Pelacakan barcode, manajemen pick-and-pack, dan monitoring kapasitas gudang." 
+                          {
+                            id: "warehouse",
+                            title: isEn ? "Warehouse Management (Multi-client WMS, Stock Audits & Live Racks)" : "Warehouse Management (Multi-client WMS, Stok Opname, Live Rack)",
+                            desc: isEn ? "Barcode tracking, pick-and-pack management, and warehouse capacity monitoring." : "Pelacakan barcode, manajemen pick-and-pack, dan monitoring kapasitas gudang."
                           }
                         ].map((m) => {
                           const checked = desiredModules.includes(m.id);
@@ -865,8 +865,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               key={m.id}
                               onClick={() => toggleModule(m.id)}
                               className={`p-4 rounded-2xl text-left transition-all border-0 cursor-pointer flex flex-col gap-1.5 ${
-                                checked 
-                                  ? "nm-emboss bg-[#eaf0f6] ring-2 ring-brand-teal" 
+                                checked
+                                  ? "nm-emboss bg-[#eaf0f6] ring-2 ring-brand-teal"
                                   : "nm-emboss bg-white/40"
                               }`}
                             >
@@ -951,7 +951,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         <span>{isEn ? "Category 4: Meeting Preferences & Audit Confirmation" : "Kategori 4: Preferensi Jadwal Pertemuan & Konfirmasi Audit"}</span>
                       </h3>
                       <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
-                        {isEn 
+                        {isEn
                           ? "Select up to 3 available time slots for your video conference audit confirmation session with a CargoGrid Senior Solutions partner."
                           : "Pilih maksimal 3 opsi jadwal ketersediaan waktu Anda untuk agenda teleconference konfirmasi audit bersama Senior Logistics Solutions partner CargoGrid."}
                       </p>
@@ -971,8 +971,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               key={slot.id}
                               onClick={() => toggleSlot(slot.id)}
                               className={`p-3 rounded-2xl text-left border-0 cursor-pointer flex flex-col gap-1.5 transition-all ${
-                                selected 
-                                  ? "nm-emboss bg-brand-orange text-white" 
+                                selected
+                                  ? "nm-emboss bg-brand-orange text-white"
                                   : "nm-emboss bg-slate-50/50 text-slate-700 hover:bg-slate-100"
                               }`}
                             >
@@ -1079,7 +1079,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
               </div>
 
               {saveStatus && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center text-xs text-emerald-600 font-bold font-mono mt-2"
@@ -1093,7 +1093,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
         {/* Success Screen */}
         {isDone && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             className="py-12 text-center flex flex-col items-center gap-6 max-w-xl mx-auto"
@@ -1106,7 +1106,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
             <div className="space-y-2">
               <h2 className="font-display font-black text-2xl text-slate-900 tracking-tight">{isEn ? "Questionnaire Submitted Successfully!" : "Kuesioner Sukses Terkirim!"}</h2>
               <p className="text-slate-600 text-xs font-semibold leading-relaxed">
-                {isEn 
+                {isEn
                   ? `Thank you for completing the details for PT ${inquiry?.company || ""}. The CargoGrid technical advisory team will review your operational profile prior to our scheduled call.`
                   : `Terima kasih telah mengisi kuesioner detail untuk PT ${inquiry?.company || ""}. Tim teknis CargoGrid akan segera meninjau informasi operasional Anda sebelum sesi pertemuan kualifikasi.`}
               </p>
@@ -1121,7 +1121,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                 {isEn ? "Your selected slots: " : "Jadwal yang Anda pilih: "} <strong className="text-slate-950 font-black">{preferredSlots.join(isEn ? " or " : " atau ")}</strong>
               </p>
               <p className="text-slate-500 font-medium leading-relaxed">
-                {isEn 
+                {isEn
                   ? "Our lead administrator will confirm your official calendar slot via email invite (with Google Meet) within a maximum of 1-2 business hours."
                   : "Tim admin utama kami akan mengonfirmasi jadwal meeting resmi via undangan email (Google Meet) dalam kurun waktu maksimal 1-2 jam kerja."}
               </p>
@@ -1145,7 +1145,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                   onClick={onNavigateToAdmin}
                   className="px-5 py-2.5 nm-btn-accent text-white text-xs font-black rounded-xl cursor-pointer border-0 flex items-center gap-1"
                 >
-                  <span>{isEn ? "Open Super Admin Portal" : "Buka Super Admin Portal"}</span>
+                  <span>{isEn ? "Open Admin Portal" : "Buka Portal Admin"}</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               )}

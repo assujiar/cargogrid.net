@@ -68,7 +68,7 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
   const progress = ((activeIndex + 1) / journeySteps.length) * 100;
 
   return (
-    <section className="relative bg-[#eef2f6] px-4 sm:px-6 lg:px-8 pb-5 sm:pb-7" id="journey-step-navigation">
+    <section className="relative bg-[#eef2f6] px-4 sm:px-6 lg:px-8 pb-5 sm:pb-7 md:sticky md:top-20 md:z-10" id="journey-step-navigation">
       {/* Mobile: purpose-built compact journey card, not just a scaled-down desktop nav */}
       <div className="md:hidden mx-auto max-w-md nm-emboss bg-white/70 rounded-3xl p-4 border-0">
         <div className="flex items-center justify-between gap-3">
@@ -159,8 +159,8 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 font-semibold mt-2 max-w-2xl leading-relaxed">
                 {isEn
-                  ? "Follow the transformation journey from operational friction to connected systems, measurable ROI, implementation options, and an audit-ready action plan."
-                  : "Ikuti journey transformasi dari friksi operasional menuju sistem terhubung, ROI terukur, pilihan implementasi, dan rencana audit yang siap dijalankan."}
+                  ? "Your Transformation Journey: map your needs, explore the right system capabilities, measure impact, choose an implementation option, and prepare the next-step plan."
+                  : "Your Transformation Journey: mulai dari memetakan kebutuhan, melihat sistem yang relevan, mengukur dampak, memilih opsi implementasi, hingga menyusun rencana tindak lanjut."}
               </p>
             </div>
           </div>
@@ -172,10 +172,12 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
                 <span>{isEn ? previousStep.labelEn : previousStep.labelId}</span>
               </a>
             )}
-            <a href={nextStep?.href || "#lead-form-area"} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md">
-              <span>{nextStep ? `${isEn ? "Next:" : "Lanjut:"} ${isEn ? nextStep.labelEn : nextStep.labelId}` : isEn ? "Share your needs" : "Ceritakan kebutuhan Anda"}</span>
-              <ArrowRight className="w-4 h-4 text-white" />
-            </a>
+            {nextStep && (
+              <a href={nextStep.href} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md">
+                <span>{`${isEn ? "Next:" : "Lanjut:"} ${isEn ? nextStep.labelEn : nextStep.labelId}`}</span>
+                <ArrowRight className="w-4 h-4 text-white" />
+              </a>
+            )}
           </div>
         </div>
       </div>

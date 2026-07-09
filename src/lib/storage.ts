@@ -33,24 +33,24 @@ export interface Questionnaire {
   primaryRoutes: string;
   fleetSize: string;
   vendorCount: string;
-  
+
   // Section 2: Diagnosa Kendala Utama
   painRfqDetails: string;
   painDispatchDetails: string;
   painTrackingDetails: string;
   painBillingDetails: string;
-  
+
   // Section 3: Kebutuhan Solusi & Integrasi
   desiredModules: string[]; // e.g. ['commercial', 'ops', 'tracking', 'finance', 'warehouse']
   erpSystem: string;
   customRequirements: string;
-  
+
   // Section 4: Preferensi Jadwal Meeting & Koordinasi
   preferredSlots: string[]; // e.g. ['Kamis, 9 Juli - Pagi', 'Jumat, 10 Juli - Siang']
   contactNotes: string;
-  
+
   // NEW: Business Process, Expected Users, and Customer Requests
-  existingCustomerFlow?: string; 
+  existingCustomerFlow?: string;
   businessProcessSop?: string;
   totalExpectedUsers?: string;
   rolesInvolved?: string[];
@@ -83,119 +83,6 @@ export interface EmailLog {
   type: 'customer_welcome' | 'admin_alert_new' | 'admin_alert_complete' | 'customer_meeting';
 }
 
-// Default Seed Data
-const DEFAULT_INQUIRIES: Inquiry[] = [
-  {
-    id: "inq-sinar-mas",
-    name: "Andi Wijaya",
-    company: "PT Sinar Mas Logistics",
-    role: "VP of Supply Chain",
-    email: "a.wijaya@sinarmas-logistics.com",
-    phone: "08119876543",
-    companyType: "3pl",
-    shipmentVolume: "500-1000",
-    biggestPain: "warehouse",
-    status: "Draft Kuesioner",
-    createdAt: "2026-07-06T10:30:00Z",
-    updatedAt: "2026-07-06T14:20:00Z"
-  },
-  {
-    id: "inq-samudera",
-    name: "Joko Susilo",
-    company: "PT Samudera Indonesia",
-    role: "General Manager Operations",
-    email: "joko.susilo@samudera.co.id",
-    phone: "08122334455",
-    companyType: "forwarder",
-    shipmentVolume: "100-500",
-    biggestPain: "rfq",
-    status: "Inquiry Masuk",
-    createdAt: "2026-07-07T09:15:00Z",
-    updatedAt: "2026-07-07T09:15:00Z"
-  },
-  {
-    id: "inq-astra",
-    name: "Budi Santoso",
-    company: "PT Astra Otoparts Tbk",
-    role: "Logistics Division Head",
-    email: "budi.santoso@astra-otoparts.co.id",
-    phone: "081234567890",
-    companyType: "inhouse",
-    shipmentVolume: "1000+",
-    biggestPain: "pod",
-    status: "Meeting Scheduled",
-    createdAt: "2026-07-05T08:00:00Z",
-    updatedAt: "2026-07-06T11:00:00Z"
-  }
-];
-
-const DEFAULT_QUESTIONNAIRES: Questionnaire[] = [
-  {
-    inquiryId: "inq-sinar-mas",
-    cargoTypes: ["FCL", "Reefer", "General Cargo"],
-    primaryRoutes: "Jakarta - Surabaya - Bali (Inter-island & Land)",
-    fleetSize: "120 unit CDD & Fuso",
-    vendorCount: "15 vendor sub-kontrak",
-    painRfqDetails: "Proses penawaran harga masih manual via WhatsApp Group dan Excel, sering selisih rate ketika invoicing.",
-    painDispatchDetails: "Pemberian instruksi jalan ke supir lambat karena nunggu surat jalan fisik.",
-    painTrackingDetails: "",
-    painBillingDetails: "",
-    desiredModules: ["commercial", "ops", "warehouse"],
-    erpSystem: "SAP B1",
-    customRequirements: "Butuh modul rekonsiliasi kasbon supir terintegrasi langsung dengan fleet tracker.",
-    preferredSlots: ["Kamis, 9 Juli 2026 (10:00 - 11:30 WIB)", "Jumat, 10 Juli 2026 (14:00 - 15:30 WIB)"],
-    contactNotes: "Tolong email draf juga ke staff ops saya ryan@sinarmas-logistics.com",
-    existingCustomerFlow: "Customer kirim purchase order (PO) -> Sales buat penawaran manual via excel -> Disetujui -> Tim ops cari armada vendor -> Barang dimuat -> Pengiriman jalan -> Invoice ditagih manual.",
-    businessProcessSop: "SOP masih semi-formal. Pencatatan utama di spreadsheet bersama oleh tim komersial dan tim operasional logistik.",
-    totalExpectedUsers: "20-50 users",
-    rolesInvolved: ["sales", "ops", "finance", "warehouse"],
-    topProblemImpact: "Keterlambatan penawaran harga membuat kami kehilangan sekitar 15% tender bulanan, serta kasbon supir sering bocor/selisih rekonsiliasi.",
-    specificRequests: "Ingin ada dashboard real-time yang memantau margin keuntungan bersih per pengiriman (margin per job) sebelum invoice diterbitkan.",
-    isDraft: true,
-    currentStep: 3,
-    lastSavedAt: "2026-07-06T14:20:00Z"
-  },
-  {
-    inquiryId: "inq-astra",
-    cargoTypes: ["LCL", "General Cargo", "Dangerous Goods"],
-    primaryRoutes: "Jabodetabek - Karawang - Cikarang (Intra-city industrial)",
-    fleetSize: "250+ truck wingbox",
-    vendorCount: "45 vendor trucking aktif",
-    painRfqDetails: "Sudah tersentralisasi tapi rekap harian masih makan waktu 4 jam per tim.",
-    painDispatchDetails: "Kesulitan monitoring utilisasi truk yang standby di gudang supplier.",
-    painTrackingDetails: "Customer sering komplain karena tidak tahu truk sudah sampai gate berapa.",
-    painBillingDetails: "Keterlambatan serah terima fisik surat jalan POD mengakibatkan invoice tertahan hingga 45 hari.",
-    desiredModules: ["commercial", "ops", "tracking", "finance"],
-    erpSystem: "Oracle ERP Cloud",
-    customRequirements: "Integrasi via REST API untuk data dispatch agar sinkron otomatis dengan manifest ERP Oracle.",
-    preferredSlots: ["Rabu, 8 Juli 2026 (09:00 - 10:30 WIB)"],
-    contactNotes: "Pertemuan akan dihadiri juga oleh tim IT Integration head.",
-    existingCustomerFlow: "Order masuk otomatis dari sistem internal -> Dispatch admin koordinasi supir via SMS/WhatsApp -> Supir jalan membawa surat jalan rangkap 3 -> Customer tanda tangan POD -> POD fisik dikembalikan supir mingguan -> Tim Finance verifikasi POD -> Cetak & kirim invoice.",
-    businessProcessSop: "Sudah memiliki sertifikasi ISO 9001 untuk manajemen mutu. Semua alur terdokumentasi rapi, namun eksekusinya masih manual di lapangan.",
-    totalExpectedUsers: "100+ users",
-    rolesInvolved: ["sales", "ops", "finance", "driver", "management"],
-    topProblemImpact: "Penumpukan cash-flow tertunda (Outstanding Accounts Receivable) mencapai 12 Miliar Rupiah karena POD fisik lambat kembali.",
-    specificRequests: "Butuh Driver App yang sangat ringan, bisa upload foto bukti surat jalan bertanda tangan (E-POD) yang langsung sinkron ke modul finance logistik.",
-    isDraft: false,
-    currentStep: 4,
-    lastSavedAt: "2026-07-05T17:00:00Z",
-    submittedAt: "2026-07-05T17:15:00Z"
-  }
-];
-
-const DEFAULT_MEETINGS: Meeting[] = [
-  {
-    id: "meet-astra",
-    inquiryId: "inq-astra",
-    scheduledTime: "2026-07-08T09:00:00+07:00",
-    meetingUrl: "https://meet.google.com/cgr-jfwz-dfp",
-    platform: "Google Meet",
-    adminNotes: "Meeting konfirmasi pilot project 30 hari. Tim IT Astra minta didemonstrasikan endpoint REST API docs.",
-    isInvitationSent: true,
-    createdAt: "2026-07-06T11:00:00Z"
-  }
-];
-
 // Helper to generate beautifully styled HTML emails
 export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
   inquiry: Inquiry;
@@ -207,7 +94,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
   const brandTeal = "#0097b2";
   const brandOrange = "#ff5e14";
   const bgSlate = "#f8fafc";
-  
+
   const headerHtml = `
     <div style="background-color: ${brandTeal}; padding: 24px; text-align: center; border-top-left-radius: 12px; border-top-right-radius: 12px;">
       <h1 style="color: #ffffff; margin: 0; font-family: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -0.02em;">
@@ -235,8 +122,8 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
   `;
 
   const containerStyle = `
-    background-color: ${bgSlate}; 
-    padding: 24px; 
+    background-color: ${bgSlate};
+    padding: 24px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: #334155;
     line-height: 1.6;
@@ -257,7 +144,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
             <p style="color: #475569; margin-bottom: 24px;">
               Thank you for registering your company for the <strong>Logistics System Audit & 30-Day Working Pilot</strong> program with CargoGrid OS. Your registration has been successfully received.
             </p>
-            
+
             <div style="background-color: #f1f5f9; border-left: 4px solid ${brandTeal}; padding: 16px; margin-bottom: 24px; border-radius: 4px;">
               <h3 style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; tracking-wider; color: #475569;">Initial Data Summary</h3>
               <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
@@ -291,7 +178,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
             <p style="color: #475569; margin-bottom: 24px;">
               Terima kasih telah mengajukan registrasi untuk program <strong>Audit Sistem Logistik & Pilot Kerja 30 Hari</strong> bersama CargoGrid OS. Registrasi Anda telah kami terima dengan sukses.
             </p>
-            
+
             <div style="background-color: #f1f5f9; border-left: 4px solid ${brandTeal}; padding: 16px; margin-bottom: 24px; border-radius: 4px;">
               <h3 style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; tracking-wider; color: #475569;">Ringkasan Data Awal</h3>
               <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
@@ -318,7 +205,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
           ${footerHtml}
         </div>
       `;
-      
+
     case 'admin_alert_new':
       return `
         <div style="${containerStyle}">
@@ -348,7 +235,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
 
             <div style="text-align: center; margin-top: 24px;">
               <a href="${window.location.origin}/#admin" style="background-color: #0f172a; color: #ffffff; padding: 12px 24px; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 13px; display: inline-block;">
-                ${isEn ? "Open Admin Dashboard &rarr;" : "Buka Super Admin Dashboard &rarr;"}
+                ${isEn ? "Open Admin Dashboard &rarr;" : "Buka Admin Dashboard &rarr;"}
               </a>
             </div>
           </div>
@@ -415,7 +302,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
               <p style="font-size: 13px; margin: 0 0 16px 0; color: #64748b;">
                 Platform: <strong>${meeting?.platform || 'Google Meet'}</strong>
               </p>
-              
+
               <a href="${meeting?.meetingUrl || '#'}" target="_blank" style="background-color: ${brandTeal}; color: #ffffff; padding: 10px 20px; font-weight: bold; text-decoration: none; border-radius: 6px; font-size: 12px; display: inline-block; box-shadow: 0 2px 4px rgba(0, 151, 178, 0.2);">
                 Join Online Meeting Room &rarr;
               </a>
@@ -453,7 +340,7 @@ export function generateHtmlEmailTemplate(type: EmailLog['type'], data: {
               <p style="font-size: 13px; margin: 0 0 16px 0; color: #64748b;">
                 Platform: <strong>${meeting?.platform || 'Google Meet'}</strong>
               </p>
-              
+
               <a href="${meeting?.meetingUrl || '#'}" target="_blank" style="background-color: ${brandTeal}; color: #ffffff; padding: 10px 20px; font-weight: bold; text-decoration: none; border-radius: 6px; font-size: 12px; display: inline-block; box-shadow: 0 2px 4px rgba(0, 151, 178, 0.2);">
                 Masuk ke Ruang Meeting Online &rarr;
               </a>

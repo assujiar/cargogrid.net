@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import Footer from "./components/Footer";
+import JourneyStepNav from "./components/JourneyStepNav";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import { captureUtmParams } from "./lib/tracking";
 
@@ -284,6 +285,8 @@ export default function App() {
               <LeadCaptureForm lang={lang} />
             </div>
           )}
+
+          <JourneyStepNav view={view} lang={lang} />
         </main>
       )}
 

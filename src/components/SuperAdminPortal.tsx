@@ -249,24 +249,24 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   useEffect(() => {
     if (selectedInquiry) {
       const loadSelected = async () => {
-      const q = await getQuestionnaireByInquiryId(selectedInquiry.id);
-      setSelectedInquiryQuestionnaire(q || null);
+        const q = await getQuestionnaireByInquiryId(selectedInquiry.id);
+        setSelectedInquiryQuestionnaire(q || null);
 
-      // Auto fill schedule form based on preferences
-      if (q && q.preferredSlots && q.preferredSlots.length > 0) {
+        // Auto fill schedule form based on preferences
+        if (q && q.preferredSlots && q.preferredSlots.length > 0) {
         // Auto seed a simulated meeting link
         const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
         setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
         setAdminNotes(`Sesi meeting kualifikasi. Customer sangat memprioritaskan modul ${q.desiredModules.join(", ")} dengan rute ${q.primaryRoutes}.`);
-      } else {
-        const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
-        setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
-        setAdminNotes("");
-      }
-      setScheduledDate("");
-      setScheduledTime("");
-      setPlatform("Google Meet");
-      setScheduleSuccess(false);
+        } else {
+          const randomMeetId = Math.random().toString(36).substr(2, 3) + "-" + Math.random().toString(36).substr(2, 4) + "-" + Math.random().toString(36).substr(2, 3);
+          setMeetingUrl(`https://meet.google.com/${randomMeetId}`);
+          setAdminNotes("");
+        }
+        setScheduledDate("");
+        setScheduledTime("");
+        setPlatform("Google Meet");
+        setScheduleSuccess(false);
       };
       loadSelected().catch((error) => console.error("Failed to load selected inquiry questionnaire", error));
     }

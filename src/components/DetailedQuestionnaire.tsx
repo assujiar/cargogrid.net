@@ -117,8 +117,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   useEffect(() => {
     if (inquiryId) {
       const loadQuestionnaire = async () => {
-      const q = await getQuestionnaireByInquiryId(inquiryId);
-      if (q) {
+        const q = await getQuestionnaireByInquiryId(inquiryId);
+        if (q) {
         setCargoTypes(q.cargoTypes || []);
         setPrimaryRoutes(q.primaryRoutes || "");
         setFleetSize(q.fleetSize || "");

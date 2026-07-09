@@ -236,6 +236,8 @@ export default function App() {
           className={`flex-1 relative z-10 ${view === 'landing' ? '' : 'pt-28 sm:pt-32 md:pt-36'}`}
           id={`${view}-page-main-flow`}
         >
+          <JourneyStepNav view={view} lang={lang} />
+
           {view === 'landing' && <HeroSection lang={lang} />}
 
           {view === 'challenges' && (
@@ -285,8 +287,6 @@ export default function App() {
               <LeadCaptureForm lang={lang} />
             </div>
           )}
-
-          <JourneyStepNav view={view} lang={lang} />
         </main>
       )}
 

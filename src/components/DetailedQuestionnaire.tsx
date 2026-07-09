@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   getInquiry,
-  getInquiries,
+  findInquiryByEmail,
   getQuestionnaireByInquiryId,
   saveQuestionnaireDraft,
   submitQuestionnaire,
@@ -38,7 +38,6 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   // Parse inquiry ID from URL hash or props
   const [inquiryId, setInquiryId] = useState<string>("");
   const [inquiry, setInquiry] = useState<Inquiry | undefined>(undefined);
-  const [availableInquiries, setAvailableInquiries] = useState<Inquiry[]>([]);
   const [step, setStep] = useState<number>(1);
   const [saveStatus, setSaveStatus] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -76,15 +75,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
   const [topProblemImpact, setTopProblemImpact] = useState<string>("");
   const [specificRequests, setSpecificRequests] = useState<string>("");
 
-  // Load inquiries list and specific questionnaire state
+  // Resolve which inquiry this page is scoped to (from URL hash or props)
   useEffect(() => {
     let isMounted = true;
     const load = async () => {
       try {
-        const list = await getInquiries();
-        if (!isMounted) return;
-        setAvailableInquiries(list);
-
         const hash = window.location.hash;
         let id = initialInquiryId || "";
         if (hash.includes("?id=")) {
@@ -175,19 +170,28 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     }
   }, [inquiryId]);
 
-  const handleLookupEmail = (e: React.FormEvent) => {
+  const handleLookupEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     setLookupError("");
     const trimmed = lookupEmail.trim().toLowerCase();
-    const matched = availableInquiries.find(inq => inq.email.trim().toLowerCase() === trimmed);
-    if (matched) {
-      // Securely redirect to unique URL hash query parameter
-      window.location.hash = `#questionnaire?id=${matched.id}`;
-    } else {
+    try {
+      const matched = await findInquiryByEmail(trimmed);
+      if (matched) {
+        // Securely redirect to unique URL hash query parameter
+        window.location.hash = `#questionnaire?id=${matched.id}`;
+      } else {
+        setLookupError(
+          isEn
+            ? "This email is not registered as an active CargoGrid partner. Please complete initial registration on the homepage first."
+            : "Email tidak terdaftar sebagai mitra aktif CargoGrid. Silakan lengkapi pendaftaran awal pada halaman utama terlebih dahulu."
+        );
+      }
+    } catch (error) {
+      console.error("Failed to look up inquiry by email", error);
       setLookupError(
         isEn
-          ? "This email is not registered as an active CargoGrid partner. Please complete initial registration on the homepage first."
-          : "Email tidak terdaftar sebagai mitra aktif CargoGrid. Silakan lengkapi pendaftaran awal pada halaman utama terlebih dahulu."
+          ? "Something went wrong while verifying your email. Please try again."
+          : "Terjadi kesalahan saat memverifikasi email Anda. Silakan coba lagi."
       );
     }
   };

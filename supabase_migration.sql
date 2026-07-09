@@ -4,6 +4,8 @@
 -- This SQL migration file provisions the complete tables, relations, and security rules
 -- required for the CargoGrid Inquiry, Draftable Questionnaire, and Meeting Scheduling system.
 -- Paste this script into your Supabase SQL Editor (https://supabase.com) and click 'Run'.
+-- This script is idempotent: it is safe to re-run in full on a database that already has
+-- an earlier version of this schema applied (used DROP ... IF EXISTS guards throughout).
 
 -- Enable UUID extension if not already present
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -36,28 +38,28 @@ CREATE TABLE IF NOT EXISTS inquiries (
 CREATE TABLE IF NOT EXISTS questionnaires (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     inquiry_id UUID UNIQUE NOT NULL REFERENCES inquiries(id) ON DELETE CASCADE,
-    
+
     -- Kategori 1: Profil & Operasional Bisnis (JSON or flat columns for structure)
     cargo_types TEXT[] DEFAULT '{}', -- Array of cargo types e.g. ['FCL', 'LCL', 'Bulk']
     primary_routes TEXT, -- Primary logistics corridors
     fleet_size VARCHAR(100), -- Size of trucking/carrier pool
     vendor_count VARCHAR(100), -- Number of active transport vendors
-    
+
     -- Kategori 2: Diagnosa Kendala Utama (Rich descriptive inputs)
     pain_rfq_details TEXT, -- How RFQs are currently processed (e.g., WA, Email, Excel)
     pain_dispatch_details TEXT, -- Pain points with driver coordination and tracking
     pain_tracking_details TEXT, -- Customer feedback on shipment visibility
     pain_billing_details TEXT, -- Delay times in POD return and invoicing
-    
+
     -- Kategori 3: Kebutuhan Solusi & Integrasi
     desired_modules TEXT[] DEFAULT '{}', -- Modules of CargoGrid e.g. ['commercial', 'ops', 'tracking', 'finance']
     erp_system VARCHAR(255) DEFAULT 'None', -- e.g. 'SAP', 'Oracle', 'Xero', 'Accurate', 'None'
     custom_requirements TEXT, -- Any custom workflow customization requests
-    
+
     -- Kategori 4: Preferensi Jadwal Meeting & Koordinasi
     preferred_slots TEXT[] DEFAULT '{}', -- Selected time preference strings e.g. ['2026-07-09 Pagi', '2026-07-10 Siang']
     contact_notes TEXT, -- Additional notes on who to loop into the meeting
-    
+
     -- Kategori 5: Detil Proses Operasional, Dampak, dan Ekspektasi Pengguna (Bilingual details)
     existing_customer_flow TEXT, -- Alur perjalanan barang & invoice saat ini
     business_process_sop TEXT, -- Status standard operating procedures (SOP tertulis vs informal)
@@ -65,7 +67,7 @@ CREATE TABLE IF NOT EXISTS questionnaires (
     roles_involved TEXT[] DEFAULT '{}', -- Peran internal yang terlibat dalam sistem
     top_problem_impact TEXT, -- Kerugian/dampak terbesar akibat kendala operasional
     specific_requests TEXT, -- Modul, kustomisasi, atau integrasi hardware khusus
-    
+
     -- Draft and Progression Status
     is_draft BOOLEAN DEFAULT TRUE, -- TRUE if in progress, FALSE if completed and locked
     last_saved_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -87,15 +89,6 @@ CREATE TABLE IF NOT EXISTS meetings (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- ==========================================
--- Security & Row Level Security (RLS) Rules
--- ==========================================
-
--- Enable Row Level Security (RLS) on all tables
-ALTER TABLE inquiries ENABLE ROW LEVEL SECURITY;
-ALTER TABLE questionnaires ENABLE ROW LEVEL SECURITY;
-ALTER TABLE meetings ENABLE ROW LEVEL SECURITY;
-
 -- 4. Create 'email_logs' Table
 -- Stores rendered transactional email payloads and delivery audit history.
 CREATE TABLE IF NOT EXISTS email_logs (
@@ -107,49 +100,151 @@ CREATE TABLE IF NOT EXISTS email_logs (
     sent_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Enable Row Level Security (RLS) on all tables
+ALTER TABLE inquiries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE questionnaires ENABLE ROW LEVEL SECURITY;
+ALTER TABLE meetings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE email_logs ENABLE ROW LEVEL SECURITY;
 
--- --- Inquiries Policies ---
--- Allow any public visitor to insert a new inquiry (e.g. via landing page)
-CREATE POLICY "Public: Allow initial inquiry insertion" 
-ON inquiries FOR INSERT 
-WITH CHECK (true);
+-- ==========================================
+-- Security & Row Level Security (RLS) Rules
+-- ==========================================
+-- IMPORTANT: anonymous visitors get NO direct table policies on inquiries, questionnaires,
+-- meetings, or email_logs. Postgres RLS cannot distinguish "the app querying its own row"
+-- from "anyone querying every row" -- a USING (true) policy exposes the entire table to any
+-- caller holding the public anon key, regardless of the filter the app itself intended to use.
+-- Instead, every anonymous read/write goes through the narrow SECURITY DEFINER functions
+-- defined further below, each scoped to a single row (by id, email, or inquiry_id).
 
--- Allow public users to retrieve or update their own inquiries to match questionnaire flow
-CREATE POLICY "Public: Allow select of their own inquiry" 
-ON inquiries FOR SELECT 
-USING (true);
-
-CREATE POLICY "Public: Allow update of their own inquiry status" 
-ON inquiries FOR UPDATE 
-USING (true);
-
--- --- Questionnaires Policies ---
--- Allow public users to fully manage (insert, read, update) questionnaire drafts linked to an inquiry
-CREATE POLICY "Public: Allow full questionnaire management" 
-ON questionnaires FOR ALL 
-USING (true) 
-WITH CHECK (true);
-
--- --- Meetings Policies ---
--- Allow customers to see their scheduled meeting details
-CREATE POLICY "Public: Allow view of meetings"
-ON meetings FOR SELECT
-USING (true);
-
--- --- Email Logs Policies ---
--- Allow the public inquiry/questionnaire submission flow to record transactional email logs
-CREATE POLICY "Public: Allow email log insertion"
-ON email_logs FOR INSERT
-WITH CHECK (true);
+DROP POLICY IF EXISTS "Public: Allow initial inquiry insertion" ON inquiries;
+DROP POLICY IF EXISTS "Public: Allow select of their own inquiry" ON inquiries;
+DROP POLICY IF EXISTS "Public: Allow update of their own inquiry status" ON inquiries;
+DROP POLICY IF EXISTS "Public: Allow full questionnaire management" ON questionnaires;
+DROP POLICY IF EXISTS "Public: Allow view of meetings" ON meetings;
+DROP POLICY IF EXISTS "Public: Allow email log insertion" ON email_logs;
 
 -- --- Admin Access Override Policy ---
 -- In production, restrict admin management to authenticated CargoGrid accounts.
 -- Replace 'authenticated' and custom claims as required for your organizational structure.
-CREATE POLICY "Admin: Full control of inquiries" ON inquiries FOR ALL TO authenticated USING (true);
-CREATE POLICY "Admin: Full control of questionnaires" ON questionnaires FOR ALL TO authenticated USING (true);
-CREATE POLICY "Admin: Full control of meetings" ON meetings FOR ALL TO authenticated USING (true);
+DROP POLICY IF EXISTS "Admin: Full control of inquiries" ON inquiries;
+DROP POLICY IF EXISTS "Admin: Full control of questionnaires" ON questionnaires;
+DROP POLICY IF EXISTS "Admin: Full control of meetings" ON meetings;
+DROP POLICY IF EXISTS "Admin: Full control of email logs" ON email_logs;
+
+CREATE POLICY "Admin: Full control of inquiries" ON inquiries FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin: Full control of questionnaires" ON questionnaires FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin: Full control of meetings" ON meetings FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin: Full control of email logs" ON email_logs FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+-- ==========================================
+-- Public-Safe RPC Functions (SECURITY DEFINER)
+-- ==========================================
+-- These are the ONLY way an anonymous visitor (the public/anon Supabase key used by the
+-- website) can read or write inquiries/questionnaires/email_logs. SECURITY DEFINER makes
+-- each function run with the privileges of its owner (bypassing RLS internally), while the
+-- function body itself only ever touches the single row identified by its arguments -- so a
+-- caller can never enumerate or edit another customer's data, no matter what they pass in.
+
+CREATE OR REPLACE FUNCTION public.create_inquiry(
+    p_name VARCHAR, p_company VARCHAR, p_role VARCHAR, p_email VARCHAR, p_phone VARCHAR,
+    p_company_type VARCHAR, p_shipment_volume VARCHAR, p_biggest_pain VARCHAR, p_lang VARCHAR DEFAULT 'id',
+    p_utm_source VARCHAR DEFAULT NULL, p_utm_medium VARCHAR DEFAULT NULL, p_utm_campaign VARCHAR DEFAULT NULL,
+    p_utm_term VARCHAR DEFAULT NULL, p_utm_content VARCHAR DEFAULT NULL
+) RETURNS inquiries
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+    v_row inquiries;
+BEGIN
+    INSERT INTO inquiries (
+        name, company, role, email, phone, company_type, shipment_volume, biggest_pain,
+        lang, utm_source, utm_medium, utm_campaign, utm_term, utm_content
+    ) VALUES (
+        p_name, p_company, p_role, p_email, p_phone, p_company_type, p_shipment_volume, p_biggest_pain,
+        COALESCE(p_lang, 'id'), p_utm_source, p_utm_medium, p_utm_campaign, p_utm_term, p_utm_content
+    )
+    RETURNING * INTO v_row;
+    RETURN v_row;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.get_inquiry_by_id(p_id UUID) RETURNS inquiries
+LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
+    SELECT * FROM inquiries WHERE id = p_id;
+$$;
+
+CREATE OR REPLACE FUNCTION public.find_inquiry_by_email(p_email TEXT) RETURNS inquiries
+LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
+    SELECT * FROM inquiries WHERE lower(email) = lower(p_email) ORDER BY created_at DESC LIMIT 1;
+$$;
+
+CREATE OR REPLACE FUNCTION public.get_questionnaire_by_inquiry_id(p_inquiry_id UUID) RETURNS questionnaires
+LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
+    SELECT * FROM questionnaires WHERE inquiry_id = p_inquiry_id;
+$$;
+
+CREATE OR REPLACE FUNCTION public.upsert_questionnaire(
+    p_inquiry_id UUID, p_cargo_types TEXT[], p_primary_routes TEXT, p_fleet_size TEXT, p_vendor_count TEXT,
+    p_pain_rfq_details TEXT, p_pain_dispatch_details TEXT, p_pain_tracking_details TEXT, p_pain_billing_details TEXT,
+    p_desired_modules TEXT[], p_erp_system TEXT, p_custom_requirements TEXT, p_preferred_slots TEXT[], p_contact_notes TEXT,
+    p_existing_customer_flow TEXT, p_business_process_sop TEXT, p_total_expected_users TEXT, p_roles_involved TEXT[],
+    p_top_problem_impact TEXT, p_specific_requests TEXT, p_is_draft BOOLEAN, p_current_step INT, p_submitted_at TIMESTAMPTZ
+) RETURNS questionnaires
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+    v_row questionnaires;
+BEGIN
+    INSERT INTO questionnaires (
+        inquiry_id, cargo_types, primary_routes, fleet_size, vendor_count, pain_rfq_details, pain_dispatch_details,
+        pain_tracking_details, pain_billing_details, desired_modules, erp_system, custom_requirements, preferred_slots,
+        contact_notes, existing_customer_flow, business_process_sop, total_expected_users, roles_involved,
+        top_problem_impact, specific_requests, is_draft, current_step, last_saved_at, submitted_at
+    ) VALUES (
+        p_inquiry_id, p_cargo_types, p_primary_routes, p_fleet_size, p_vendor_count, p_pain_rfq_details, p_pain_dispatch_details,
+        p_pain_tracking_details, p_pain_billing_details, p_desired_modules, p_erp_system, p_custom_requirements, p_preferred_slots,
+        p_contact_notes, p_existing_customer_flow, p_business_process_sop, p_total_expected_users, p_roles_involved,
+        p_top_problem_impact, p_specific_requests, p_is_draft, p_current_step, now(), p_submitted_at
+    )
+    ON CONFLICT (inquiry_id) DO UPDATE SET
+        cargo_types = excluded.cargo_types, primary_routes = excluded.primary_routes, fleet_size = excluded.fleet_size,
+        vendor_count = excluded.vendor_count, pain_rfq_details = excluded.pain_rfq_details, pain_dispatch_details = excluded.pain_dispatch_details,
+        pain_tracking_details = excluded.pain_tracking_details, pain_billing_details = excluded.pain_billing_details,
+        desired_modules = excluded.desired_modules, erp_system = excluded.erp_system, custom_requirements = excluded.custom_requirements,
+        preferred_slots = excluded.preferred_slots, contact_notes = excluded.contact_notes, existing_customer_flow = excluded.existing_customer_flow,
+        business_process_sop = excluded.business_process_sop, total_expected_users = excluded.total_expected_users, roles_involved = excluded.roles_involved,
+        top_problem_impact = excluded.top_problem_impact, specific_requests = excluded.specific_requests, is_draft = excluded.is_draft,
+        current_step = excluded.current_step, last_saved_at = now(), submitted_at = excluded.submitted_at
+    RETURNING * INTO v_row;
+
+    UPDATE inquiries SET status = CASE WHEN p_is_draft THEN 'Draft Kuesioner' ELSE 'Kuesioner Selesai' END WHERE id = p_inquiry_id;
+
+    RETURN v_row;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.log_email(p_to_address VARCHAR, p_subject TEXT, p_html_body TEXT, p_type VARCHAR) RETURNS email_logs
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+    v_row email_logs;
+BEGIN
+    INSERT INTO email_logs (to_address, subject, html_body, type) VALUES (p_to_address, p_subject, p_html_body, p_type)
+    RETURNING * INTO v_row;
+    RETURN v_row;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.create_inquiry FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.get_inquiry_by_id FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.find_inquiry_by_email FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.get_questionnaire_by_inquiry_id FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.upsert_questionnaire FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.log_email FROM PUBLIC;
+
+GRANT EXECUTE ON FUNCTION public.create_inquiry TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.get_inquiry_by_id TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.find_inquiry_by_email TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.get_questionnaire_by_inquiry_id TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.upsert_questionnaire TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.log_email TO anon, authenticated;
 
 -- ==========================================
 -- Automatic Timestamps Trigger Hook
@@ -165,12 +260,14 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Set trigger hooks
-CREATE TRIGGER update_inquiries_modtime 
-BEFORE UPDATE ON inquiries 
+DROP TRIGGER IF EXISTS update_inquiries_modtime ON inquiries;
+CREATE TRIGGER update_inquiries_modtime
+BEFORE UPDATE ON inquiries
 FOR EACH ROW EXECUTE FUNCTION update_modified_column();
 
-CREATE TRIGGER update_meetings_modtime 
-BEFORE UPDATE ON meetings 
+DROP TRIGGER IF EXISTS update_meetings_modtime ON meetings;
+CREATE TRIGGER update_meetings_modtime
+BEFORE UPDATE ON meetings
 FOR EACH ROW EXECUTE FUNCTION update_modified_column();
 
 -- ==========================================
@@ -181,14 +278,14 @@ FOR EACH ROW EXECUTE FUNCTION update_modified_column();
 /*
 INSERT INTO inquiries (name, company, role, email, phone, company_type, shipment_volume, biggest_pain, status)
 VALUES (
-    'Budi Santoso', 
-    'PT Astra Otoparts Tbk', 
-    'Logistics Director', 
-    'budi.santoso@astra-otoparts.co.id', 
-    '081234567890', 
-    'inhouse', 
-    '1000+', 
-    'pod', 
+    'Budi Santoso',
+    'PT Astra Otoparts Tbk',
+    'Logistics Director',
+    'budi.santoso@astra-otoparts.co.id',
+    '081234567890',
+    'inhouse',
+    '1000+',
+    'pod',
     'Inquiry Masuk'
 );
 */

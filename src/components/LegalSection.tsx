@@ -19,7 +19,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 pt-32 pb-24 px-4 sm:px-6 lg:px-8 relative z-10 animate-fade-in" id="legal-page-container">
       <div className="absolute top-0 left-0 w-full h-64 bg-navy-dark/10 pointer-events-none -z-10" />
-      
+
       <div className="max-w-4xl mx-auto">
         {/* Back navigation */}
         <button
@@ -40,8 +40,8 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
             {isEn ? "Legal Agreements & Policies" : "Kebijakan & Syarat Hukum Resmi"}
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm mt-2 font-semibold">
-            {isEn 
-              ? "CargoGrid Logistics OS &bull; Compliant with UU ITE, UU PDP & GDPR Guidelines" 
+            {isEn
+              ? "CargoGrid Logistics OS &bull; Compliant with UU ITE, UU PDP & GDPR Guidelines"
               : "CargoGrid Logistics OS &bull; Sesuai dengan Regulasi UU ITE, UU PDP & Standar GDPR"}
           </p>
         </div>
@@ -74,16 +74,16 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
 
         {/* Document Content Box */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-10 text-left text-slate-700 leading-relaxed text-xs sm:text-sm space-y-6">
-          
+
           {activeTab === 'privacy' ? (
             /* Privacy Policy Content (Indonesian & English side-by-side or clearly delineated) */
             <div className="space-y-8" id="privacy-policy-content">
-              
+
               {/* ENGLISH PRIVACY POLICY */}
               <div className="prose max-w-none space-y-5">
                 <h2 className="font-display font-black text-xl text-slate-900 border-b pb-2">1. CargoGrid Privacy Policy (International & Enterprise)</h2>
                 <p className="text-slate-500 font-bold font-mono text-[10px]">Last Updated: July 7, 2026</p>
-                
+
                 <p className="font-semibold text-slate-600">
                   CargoGrid (“we,” “our,” or “us”) respects the privacy of our clients, logistics vendors, shippers, and users of CargoGrid OS. This Privacy Policy describes how we collect, process, use, and protect your enterprise data and personal information in compliance with the General Data Protection Regulation (GDPR) and the Indonesian Personal Data Protection Act (UU PDP).
                 </p>
@@ -112,7 +112,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
 
                 <h3 className="font-display font-extrabold text-slate-900 mt-4 uppercase tracking-wider text-xs">D. Data Retention and Deletion Rights</h3>
                 <p>
-                  You retain full ownership of your data. You may export or request complete purging of your company account details, system audit records, and uploaded POD images at any time by contacting our Security & SLA Officer at <strong>compliance@cargogrid-ops.io</strong>.
+                  You retain full ownership of your data. You may export or request complete purging of your company account details, system audit records, and uploaded POD images at any time by contacting our Security & SLA Officer at <strong>service@cargogrid.net</strong>.
                 </p>
               </div>
 
@@ -120,7 +120,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
               <div className="prose max-w-none space-y-5 pt-8 border-t border-slate-200">
                 <h2 className="font-display font-black text-xl text-slate-900 border-b pb-2">2. Kebijakan Privasi CargoGrid (Indonesia)</h2>
                 <p className="text-slate-500 font-bold font-mono text-[10px]">Terakhir Diperbarui: 7 Juli 2026</p>
-                
+
                 <p className="font-semibold text-slate-600">
                   CargoGrid (“kami”) menghormati privasi klien kami, mitra vendor logistik, pengirim barang (shipper), dan seluruh pengguna CargoGrid OS. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, memproses, menggunakan, dan melindungi data perusahaan serta informasi pribadi Anda sesuai dengan Undang-Undang Pelindungan Data Pribadi (UU PDP) Republik Indonesia.
                 </p>
@@ -149,7 +149,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
 
                 <h3 className="font-display font-extrabold text-slate-900 mt-4 uppercase tracking-wider text-xs">D. Hak Penghapusan dan Retensi Data</h3>
                 <p>
-                  Perusahaan Anda memegang hak milik mutlak atas seluruh data logistik. Anda berhak mengekspor file atau meminta penghapusan permanen atas seluruh profil perusahaan, data kuesioner, dan unggahan POD Anda dengan menghubungi bagian kepatuhan hukum kami di <strong>compliance@cargogrid-ops.io</strong>.
+                  Perusahaan Anda memegang hak milik mutlak atas seluruh data logistik. Anda berhak mengekspor file atau meminta penghapusan permanen atas seluruh profil perusahaan, data kuesioner, dan unggahan POD Anda dengan menghubungi bagian kepatuhan hukum kami di <strong>service@cargogrid.net</strong>.
                 </p>
               </div>
 
@@ -157,12 +157,12 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
           ) : (
             /* Terms & Conditions Content */
             <div className="space-y-8" id="terms-conditions-content">
-              
+
               {/* ENGLISH TERMS */}
               <div className="prose max-w-none space-y-5">
                 <h2 className="font-display font-black text-xl text-slate-900 border-b pb-2">1. CargoGrid Terms of Service (SaaS Agreement)</h2>
                 <p className="text-slate-500 font-bold font-mono text-[10px]">Last Updated: July 7, 2026</p>
-                
+
                 <p className="font-semibold text-slate-600">
                   By accessing, testing, registering for a free audit, or deploying the CargoGrid OS platform, your organization (“Client”) agrees to comply with and be bound by the following Terms of Service. Please read this agreement carefully.
                 </p>
@@ -195,7 +195,7 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
               <div className="prose max-w-none space-y-5 pt-8 border-t border-slate-200">
                 <h2 className="font-display font-black text-xl text-slate-900 border-b pb-2">2. Syarat & Ketentuan Penggunaan CargoGrid OS (Indonesia)</h2>
                 <p className="text-slate-500 font-bold font-mono text-[10px]">Terakhir Diperbarui: 7 Juli 2026</p>
-                
+
                 <p className="font-semibold text-slate-600">
                   Dengan mengakses, mendaftarkan audit sistem gratis, menguji modul, atau menerapkan platform CargoGrid OS, organisasi Anda (“Klien”) secara hukum setuju untuk tunduk pada Syarat dan Ketentuan Penggunaan berikut ini.
                 </p>
@@ -231,9 +231,9 @@ export default function LegalSection({ lang, defaultTab = 'privacy' }: LegalSect
 
         {/* Footer info inside legal */}
         <div className="mt-8 text-center text-xs text-slate-500 font-mono font-bold pb-12">
-          {isEn 
-            ? "Need custom legal frameworks or enterprise cloud SLA agreements? Contact compliance@cargogrid-ops.io" 
-            : "Butuh draf perjanjian legal khusus untuk korporasi Anda? Hubungi compliance@cargogrid-ops.io"}
+          {isEn
+            ? "Need custom legal frameworks or enterprise cloud SLA agreements? Contact service@cargogrid.net"
+            : "Butuh draf perjanjian legal khusus untuk korporasi Anda? Hubungi service@cargogrid.net"}
         </div>
 
       </div>

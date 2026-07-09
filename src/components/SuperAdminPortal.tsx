@@ -85,7 +85,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [smtpSecure, setSmtpSecure] = useState(() => localStorage.getItem("cargogrid_smtp_secure") === "true");
   const [smtpUser, setSmtpUser] = useState(() => localStorage.getItem("cargogrid_smtp_user") || "as.sujiar@gmail.com");
   const [smtpPass, setSmtpPass] = useState(() => localStorage.getItem("cargogrid_smtp_pass") || "••••••••••••••••");
-  const [smtpFrom, setSmtpFrom] = useState(() => localStorage.getItem("cargogrid_smtp_from") || "CargoGrid OS <noreply@cargogrid.com>");
+  const [smtpFrom, setSmtpFrom] = useState(() => localStorage.getItem("cargogrid_smtp_from") || "CargoGrid OS <service@cargogrid.net>");
   
   const [showSmtpPass, setShowSmtpPass] = useState(false);
   const [smtpStatusLog, setSmtpStatusLog] = useState<string[]>([]);
@@ -963,7 +963,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
                   {/* Mail header parameters */}
                   <div className="p-4 bg-slate-900 border-b border-slate-800/80 text-xs space-y-1.5">
-                    <p><span className="text-slate-500 font-bold font-mono">FROM:</span> <span className="text-slate-200">CargoGrid OS Automation &lt;noreply@cargogrid.com&gt;</span></p>
+                    <p><span className="text-slate-500 font-bold font-mono">FROM:</span> <span className="text-slate-200">CargoGrid OS Automation &lt;service@cargogrid.net&gt;</span></p>
                     <p><span className="text-slate-500 font-bold font-mono">TO:</span> <span className="text-emerald-400 font-bold">{viewingEmail.to}</span></p>
                     <p><span className="text-slate-500 font-bold font-mono">SUBJECT:</span> <span className="text-white font-extrabold">{viewingEmail.subject}</span></p>
                     <p><span className="text-slate-500 font-bold font-mono">SENT AT:</span> <span className="text-slate-400">{new Date(viewingEmail.sentAt).toLocaleString("id-ID")}</span></p>
@@ -1102,7 +1102,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       required
                       value={smtpFrom}
                       onChange={(e) => setSmtpFrom(e.target.value)}
-                      placeholder='CargoGrid OS <noreply@cargogrid.com>'
+                      placeholder='CargoGrid OS <service@cargogrid.net>'
                       className="w-full nm-input bg-slate-50 rounded-lg px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none border-0"
                     />
                   </div>
@@ -1237,7 +1237,7 @@ const transporter = nodemailer.createTransport({
 // Fungsi pengiriman email Welcome HTML otomatis ke Customer
 export async function sendWelcomeEmail(customerEmail, customerName, tokenLink) {
   const mailOptions = {
-    from: process.env.SMTP_FROM || '"CargoGrid OS" <noreply@yourcompany.com>',
+    from: process.env.SMTP_FROM || '"CargoGrid OS" <service@cargogrid.net>',
     to: customerEmail,
     subject: "📋 Selamat Datang! Langkah Berikutnya: Melengkapi Profil Logistik CargoGrid Anda",
     html: \`

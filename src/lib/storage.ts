@@ -620,7 +620,7 @@ export function initializeStorage() {
     const samInq = inquiries.find(i => i.id === "inq-samudera")!;
     seededEmails.push({
       id: "email-sam-new-alert",
-      to: "supreme_admin@cargogrid.com",
+      to: "service@cargogrid.net",
       subject: "🚨 [CargoGrid ALERT] Inquiry Baru Masuk - PT Samudera Indonesia",
       htmlBody: generateHtmlEmailTemplate("admin_alert_new", { inquiry: samInq }),
       sentAt: "2026-07-07T09:16:00Z",
@@ -653,7 +653,7 @@ export function initializeStorage() {
 
     seededEmails.push({
       id: "email-astra-new-alert",
-      to: "supreme_admin@cargogrid.com",
+      to: "service@cargogrid.net",
       subject: "🚨 [CargoGrid ALERT] Inquiry Baru Masuk - PT Astra Otoparts Tbk",
       htmlBody: generateHtmlEmailTemplate("admin_alert_new", { inquiry: astraInq }),
       sentAt: "2026-07-05T08:06:00Z",
@@ -662,7 +662,7 @@ export function initializeStorage() {
 
     seededEmails.push({
       id: "email-astra-complete-alert",
-      to: "supreme_admin@cargogrid.com",
+      to: "service@cargogrid.net",
       subject: "✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - PT Astra Otoparts Tbk",
       htmlBody: generateHtmlEmailTemplate("admin_alert_complete", { inquiry: astraInq, questionnaire: astraQuest }),
       sentAt: "2026-07-05T17:16:00Z",
@@ -716,7 +716,7 @@ export function addInquiry(inquiryData: Omit<Inquiry, 'id' | 'status' | 'created
 
   // 2. Alert to Admin
   const adminHtml = generateHtmlEmailTemplate("admin_alert_new", { inquiry: newInquiry });
-  addEmailLog("supreme_admin@cargogrid.com", `🚨 [CargoGrid ALERT] Inquiry Baru Masuk - ${newInquiry.company}`, adminHtml, "admin_alert_new");
+  addEmailLog("service@cargogrid.net", `🚨 [CargoGrid ALERT] Inquiry Baru Masuk - ${newInquiry.company}`, adminHtml, "admin_alert_new");
 
   return newInquiry;
 }
@@ -831,7 +831,7 @@ export function submitQuestionnaire(inquiryId: string, qData: Partial<Questionna
   const inquiry = getInquiry(inquiryId);
   if (inquiry) {
     const completeHtml = generateHtmlEmailTemplate("admin_alert_complete", { inquiry, questionnaire: updated });
-    addEmailLog("supreme_admin@cargogrid.com", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, completeHtml, "admin_alert_complete");
+    addEmailLog("service@cargogrid.net", `✅ [CargoGrid ALERT] Kuesioner Selesai Diisi - ${inquiry.company}`, completeHtml, "admin_alert_complete");
   }
 
   return updated;

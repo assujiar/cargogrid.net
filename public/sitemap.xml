@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cargogrid-ops.io/</loc>
+    <loc>https://cargogrid.net/</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     
     <!-- Bilingual alternate language configurations -->
-    <xhtml:link rel="alternate" hreflang="id" href="https://cargogrid-ops.io/?lang=id" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://cargogrid-ops.io/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://cargogrid-ops.io/" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://cargogrid.net/?lang=id" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cargogrid.net/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cargogrid.net/" />
   </url>
 </urlset>

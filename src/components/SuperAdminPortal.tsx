@@ -81,19 +81,6 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
     };
   }, []);
 
-
-    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY") setIsPasswordRecovery(true);
-      setIsLoggedIn(Boolean(session));
-      setIsAuthLoading(false);
-    });
-
-    return () => {
-      mounted = false;
-      listener.subscription.unsubscribe();
-    };
-  }, []);
-
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoginSubmitting(true);
@@ -123,29 +110,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       return;
     }
 
-      setLoginError(lang === "en" ? "Invalid Supabase admin credentials." : "Kredensial admin Supabase tidak valid.");
-      return;
-    }
-
-    setAdminPassword("");
-  };
-
-  const handleResetPassword = async () => {
-    setLoginError("");
-    setLoginInfo("");
-    const email = adminUsername.trim();
-    if (!email) {
-      setLoginError(lang === "en" ? "Enter your admin email first." : "Masukkan email admin terlebih dahulu.");
-      return;
-    }
-
     const redirectTo = `${window.location.origin}${window.location.pathname}#admin`;
     const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
     if (error) {
       setLoginError(error.message);
       return;
     }
-    setLoginInfo(lang === "en" ? "Password reset email sent." : "Email reset password telah dikirim.");
     setLoginInfo(lang === "en" ? "Password reset email sent via Supabase." : "Email reset password telah dikirim melalui Supabase.");
   };
 
@@ -428,7 +398,6 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="admin-email" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
-              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
                 {lang === "en" ? "Admin Email" : "Email Admin"}
               </label>
               <div className="relative">

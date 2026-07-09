@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+"use client";
+
 import React from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -23,10 +25,13 @@ import CookieConsentBanner from "./components/CookieConsentBanner";
 import { captureUtmParams } from "./lib/tracking";
 
 export default function App() {
-  const [hash, setHash] = React.useState(window.location.hash);
-  const [lang, setLang] = React.useState<'id' | 'en'>(() => {
-    return (localStorage.getItem("cargogrid_lang") as 'id' | 'en') || 'id';
-  });
+  const [hash, setHash] = React.useState("");
+  const [lang, setLang] = React.useState<'id' | 'en'>('id');
+
+  React.useEffect(() => {
+    setHash(window.location.hash);
+    setLang((localStorage.getItem("cargogrid_lang") as 'id' | 'en') || 'id');
+  }, []);
 
   // Capture UTM campaign parameters on initial application mount
   React.useEffect(() => {

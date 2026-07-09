@@ -61,10 +61,11 @@ const journeySteps = [
 
 export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
   const isEn = lang === "en";
-  const activeIndex = journeySteps.findIndex((step) => step.view === view);
-  const currentStep = journeySteps[activeIndex] ?? journeySteps[0];
+  const activeIndex = Math.max(journeySteps.findIndex((step) => step.view === view), 0);
+  const currentStep = journeySteps[activeIndex];
   const previousStep = activeIndex > 0 ? journeySteps[activeIndex - 1] : undefined;
   const nextStep = activeIndex < journeySteps.length - 1 ? journeySteps[activeIndex + 1] : undefined;
+  const progress = ((activeIndex + 1) / journeySteps.length) * 100;
 
   return (
     <section className="relative bg-[#eef2f6] px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 pb-4 sm:pb-6" id="journey-step-navigation">
@@ -75,12 +76,11 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
               {journeySteps.map((step, index) => {
                 const isCompleted = index < activeIndex;
                 const isActive = index === activeIndex;
-
                 return (
                   <a
                     key={step.view}
                     href={step.href}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-black transition-all ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] lg:text-xs font-black transition-all ${
                       isActive
                         ? "bg-brand-teal text-white shadow-md"
                         : isCompleted
@@ -94,7 +94,6 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
                 );
               })}
             </div>
-
             <div>
               <p className="text-[10px] font-mono font-black uppercase tracking-[0.2em] text-brand-orange">
                 Your Transformation Journey
@@ -110,36 +109,17 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 lg:flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 xl:flex-shrink-0">
             {previousStep && (
-              <a
-                href={previousStep.href}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl nm-btn text-slate-700 text-xs font-black"
-              >
+              <a href={previousStep.href} className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl nm-btn text-slate-700 text-xs font-black">
                 <ArrowLeft className="w-4 h-4" />
                 <span>{isEn ? previousStep.labelEn : previousStep.labelId}</span>
               </a>
             )}
-
-            {nextStep ? (
-              <a
-                href={nextStep.href}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md"
-              >
-                <span>
-                  {isEn ? "Next:" : "Lanjut:"} {isEn ? nextStep.labelEn : nextStep.labelId}
-                </span>
-                <ArrowRight className="w-4 h-4 text-white" />
-              </a>
-            ) : (
-              <a
-                href="#lead-form-area"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md"
-              >
-                <span>{isEn ? "Share your needs" : "Ceritakan kebutuhan Anda"}</span>
-                <ArrowRight className="w-4 h-4 text-white" />
-              </a>
-            )}
+            <a href={nextStep?.href || "#lead-form-area"} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md">
+              <span>{nextStep ? `${isEn ? "Next:" : "Lanjut:"} ${isEn ? nextStep.labelEn : nextStep.labelId}` : isEn ? "Share your needs" : "Ceritakan kebutuhan Anda"}</span>
+              <ArrowRight className="w-4 h-4 text-white" />
+            </a>
           </div>
         </div>
       </div>

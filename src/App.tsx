@@ -233,7 +233,7 @@ export default function App() {
       ) : (
         /* Hash-routed public pages with lang support */
         <main
-          className={`flex-1 relative z-10 ${view === 'landing' ? '' : 'pt-28 sm:pt-32 md:pt-36'}`}
+          className="flex-1 relative z-10 pt-24 sm:pt-28 lg:pt-32"
           id={`${view}-page-main-flow`}
         >
           <JourneyStepNav view={view} lang={lang} />

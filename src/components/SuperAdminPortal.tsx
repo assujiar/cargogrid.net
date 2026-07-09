@@ -375,8 +375,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             </h1>
             <p className="text-slate-500 text-xs font-semibold leading-relaxed">
               {lang === "en" 
-                ? "Enter super admin credentials to access system audit database and coordination dashboards." 
-                : "Masukkan kredensial super admin untuk mengelola pelacakan prospek & data audit sistem CargoGrid."}
+                ? "Enter your admin account to manage leads, meetings, and email logs." 
+                : "Masukkan akun admin untuk mengelola prospek, meeting, dan log email CargoGrid."}
             </p>
           </div>
 
@@ -465,7 +465,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
             Super Admin <span className="text-brand-teal">Portal</span>
           </h1>
           <p className="text-slate-500 text-xs font-semibold mt-1">
-            Sistem rekapitulasi data prospek kuesioner harian, monitoring log email, serta orkestrasi link meeting online.
+            Panel operasional untuk mengelola prospek, jadwal meeting, log email, dan pengaturan email CargoGrid.
           </p>
         </div>
 
@@ -479,7 +479,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
-            Database Dossier
+            Prospek
           </button>
           <button
             onClick={() => setActiveTab("meetings")}
@@ -489,7 +489,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
-            Agenda Meeting
+            Jadwal Meeting
           </button>
           <button
             onClick={() => setActiveTab("outbox")}
@@ -499,7 +499,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
-            Outbox Mail Logs
+            Log Email
           </button>
           <button
             onClick={() => setActiveTab("smtp")}
@@ -509,7 +509,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 : "text-slate-600 hover:text-slate-900 hover:bg-white/30"
             }`}
           >
-            🔌 Integrasi SMTP
+            Pengaturan Email
           </button>
         </div>
       </div>
@@ -533,7 +533,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
       {/* Main Tab Content */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Tab 1: Database Dossier Table */}
+        {/* Tab 1: Prospek Table */}
         {activeTab === "database" && (
           <div className="lg:col-span-12 space-y-6">
             <div className="nm-emboss bg-white rounded-2xl p-5 border-0 flex flex-col sm:flex-row gap-4 items-center justify-between">
@@ -587,7 +587,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="font-display font-black text-sm text-slate-800 uppercase tracking-wider">
-                    Hasil Filter Dossier ({filteredInquiries.length})
+                    Hasil Filter Prospek ({filteredInquiries.length})
                   </h3>
                   <span className="text-[10px] text-slate-400 font-bold font-mono">Klik baris data untuk melihat berkas kuesioner lengkap</span>
                 </div>
@@ -938,7 +938,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                     <div className="nm-emboss bg-slate-100 rounded-3xl p-10 text-center border-0 flex flex-col items-center justify-center h-96 gap-4 text-slate-400">
                       <Compass className="w-12 h-12 text-slate-300 animate-spin-slow" />
                       <div>
-                        <h4 className="font-display font-black text-sm text-slate-700 uppercase tracking-wider">Silakan Pilih Berkas Dossier</h4>
+                        <h4 className="font-display font-black text-sm text-slate-700 uppercase tracking-wider">Pilih Prospek</h4>
                         <p className="text-xs text-slate-500 font-semibold mt-1 leading-relaxed max-w-xs mx-auto">
                           Pilih salah satu perusahaan di daftar kiri untuk melihat kendala operasional, rekap modul, serta menyetujui jadwal pertemuan.
                         </p>
@@ -1029,7 +1029,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           </div>
         )}
 
-        {/* Tab 3: Simulated Outbox Mail Logs with Interactive Webmail previewer */}
+        {/* Tab 3: Simulated Log Email with Interactive Webmail previewer */}
         {activeTab === "outbox" && (
           <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
             
@@ -1096,7 +1096,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       <div className="w-3 h-3 rounded-full bg-red-500" />
                       <div className="w-3 h-3 rounded-full bg-yellow-500" />
                       <div className="w-3 h-3 rounded-full bg-green-500" />
-                      <span className="text-[10px] text-slate-500 font-mono font-black ml-2 uppercase tracking-widest">CargoMail v1.4 (Sandbox Outbox)</span>
+                      <span className="text-[10px] text-slate-500 font-mono font-black ml-2 uppercase tracking-widest">CargoGrid Email Log</span>
                     </div>
                     <span className="text-[9px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">LIVE METRIC TRIGGERED</span>
                   </div>
@@ -1145,12 +1145,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 <div className="flex items-center gap-2 mb-4">
                   <Server className="w-5 h-5 text-brand-teal" />
                   <h3 className="font-display font-black text-base text-slate-900 tracking-tight">
-                    Kredensial SMTP Server Anda
+                    Konfigurasi Pengaturan Email
                   </h3>
                 </div>
                 
                 <p className="text-[11px] text-slate-500 font-semibold mb-5 leading-relaxed">
-                  Masukkan informasi host SMTP dari email corporate, Mailgun, SendGrid, Resend, atau Gmail Anda untuk disimulasikan secara real-time.
+                  Nilai di bawah hanya untuk membuat template konfigurasi server. Kredensial asli wajib disimpan di environment variables backend, bukan di browser.
                 </p>
 
                 <form onSubmit={handleSaveSmtp} className="space-y-4">
@@ -1274,13 +1274,13 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                       className="flex-1 py-3 nm-btn-accent text-white font-extrabold text-xs rounded-xl cursor-pointer border-0 shadow-md flex items-center justify-center gap-1.5"
                     >
                       <Terminal className="w-3.5 h-3.5 text-white" />
-                      <span>{isTestingSmtp ? "Menguji..." : "Test Koneksi SMTP"}</span>
+                      <span>{isTestingSmtp ? "Menguji..." : "Preview Handshake SMTP"}</span>
                     </button>
                   </div>
 
                   {smtpSaveSuccess && (
                     <p className="text-center text-[11px] font-bold font-mono text-emerald-600 animate-pulse">
-                      ✅ Kredensial SMTP berhasil disimpan ke cache lokal!
+                      ✅ Template konfigurasi SMTP siap disalin ke environment backend.
                     </p>
                   )}
                 </form>
@@ -1299,7 +1299,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                 <div className="font-mono text-[10px] text-slate-400 space-y-1 overflow-y-auto max-h-[220px] flex-1 pr-1 custom-scrollbar">
                   {smtpStatusLog.length === 0 ? (
                     <div className="text-slate-600 italic py-8 text-center">
-                      Belum ada aktifitas koneksi. Klik tombol &quot;Test Koneksi SMTP&quot; di atas untuk mensimulasikan handshake TLS, autentikasi terenkripsi Base64, serta handshake port 587.
+                      Belum ada aktivitas. Klik tombol test untuk melihat contoh handshake SMTP tanpa menyimpan kredensial di browser.
                     </div>
                   ) : (
                     smtpStatusLog.map((log, idx) => (

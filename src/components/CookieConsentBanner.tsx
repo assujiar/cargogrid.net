@@ -1,14 +1,15 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { Shield, Cookie, X, Check, Settings2 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { Cookie, X, Settings2 } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { getCookieConsent, saveCookieConsent, CookieConsent } from "../lib/tracking";
+import { useLanguage } from "./shared/LanguageProvider";
 
-interface CookieConsentBannerProps {
-  lang: 'id' | 'en';
-}
-
-export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) {
+export default function CookieConsentBanner() {
+  const { lang } = useLanguage();
   const isEn = lang === 'en';
+  const shouldReduceMotion = useReducedMotion();
   const [consent, setConsent] = useState<CookieConsent | null>(null);
   const [showBanner, setShowBanner] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
@@ -53,16 +54,18 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 30, scale: 0.95 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 50, scale: 0.95 }}
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.95 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: "easeOut" }}
         className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 z-50 text-left"
         id="cookie-consent-banner"
+        role="dialog"
+        aria-label={isEn ? "Cookie & Consent Preferences" : "Persetujuan Cookie & Analitik"}
       >
         <div className="flex items-start gap-3">
           <div className="p-2 bg-brand-teal/10 rounded-xl text-brand-teal flex-shrink-0">
-            <Cookie className="w-5 h-5" />
+            <Cookie className="w-5 h-5" aria-hidden="true" />
           </div>
           <div className="flex-1">
             <h4 className="font-display font-black text-sm text-slate-900 flex items-center gap-1.5">
@@ -76,21 +79,23 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
               )}
             </p>
           </div>
-          <button 
+          <button
+            type="button"
             onClick={handleRejectAll}
-            className="text-slate-400 hover:text-slate-600 transition-colors p-1"
+            aria-label={isEn ? "Dismiss and reject non-essential cookies" : "Tutup dan tolak cookie opsional"}
+            className="text-slate-400 hover:text-slate-600 transition-colors p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal rounded"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
 
         {/* Toggle preferences view */}
         <AnimatePresence>
           {showPreferences && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
               className="mt-4 pt-4 border-t border-slate-100 space-y-3"
             >
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 text-xs">
@@ -110,8 +115,11 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
                 </div>
                 <button
                   type="button"
+                  role="switch"
+                  aria-checked={prefAnalytics}
+                  aria-label={isEn ? "Analytics Tracking" : "Analisis Pengunjung"}
                   onClick={() => setPrefAnalytics(!prefAnalytics)}
-                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${prefAnalytics ? "bg-brand-teal" : "bg-slate-300"}`}
+                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${prefAnalytics ? "bg-brand-teal" : "bg-slate-300"}`}
                 >
                   <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${prefAnalytics ? "translate-x-4" : "translate-x-0"}`} />
                 </button>
@@ -124,8 +132,11 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
                 </div>
                 <button
                   type="button"
+                  role="switch"
+                  aria-checked={prefMarketing}
+                  aria-label={isEn ? "Marketing Source" : "Sumber Marketing"}
                   onClick={() => setPrefMarketing(!prefMarketing)}
-                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${prefMarketing ? "bg-brand-teal" : "bg-slate-300"}`}
+                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${prefMarketing ? "bg-brand-teal" : "bg-slate-300"}`}
                 >
                   <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${prefMarketing ? "translate-x-4" : "translate-x-0"}`} />
                 </button>
@@ -136,31 +147,36 @@ export default function CookieConsentBanner({ lang }: CookieConsentBannerProps) 
 
         <div className="flex flex-wrap items-center justify-end gap-2 mt-4 pt-4 border-t border-slate-100">
           <button
+            type="button"
             onClick={() => setShowPreferences(!showPreferences)}
-            className="px-3 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer bg-slate-100 hover:bg-slate-200 rounded-xl"
+            aria-expanded={showPreferences}
+            className="px-3 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer bg-slate-100 hover:bg-slate-200 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
           >
-            <Settings2 className="w-3.5 h-3.5" />
+            <Settings2 className="w-3.5 h-3.5" aria-hidden="true" />
             <span>{isEn ? "Preferences" : "Atur"}</span>
           </button>
-          
+
           {showPreferences ? (
             <button
+              type="button"
               onClick={handleSavePreferences}
-              className="px-4 py-2 text-xs font-extrabold text-white bg-brand-teal hover:bg-brand-teal-hover transition-all rounded-xl shadow-md cursor-pointer"
+              className="px-4 py-2 text-xs font-extrabold text-white bg-brand-teal hover:bg-brand-teal-hover transition-all rounded-xl shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal-hover"
             >
               {isEn ? "Save Choices" : "Simpan Pilihan"}
             </button>
           ) : (
             <>
               <button
+                type="button"
                 onClick={handleRejectAll}
-                className="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
+                className="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-700 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
               >
                 {isEn ? "Reject Non-Essential" : "Tolak Opsional"}
               </button>
               <button
+                type="button"
                 onClick={handleAcceptAll}
-                className="px-4 py-2 text-xs font-extrabold text-white bg-brand-teal hover:bg-brand-teal-hover transition-all rounded-xl shadow-md cursor-pointer"
+                className="px-4 py-2 text-xs font-extrabold text-white bg-brand-teal hover:bg-brand-teal-hover transition-all rounded-xl shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal-hover"
               >
                 {isEn ? "Accept All" : "Setujui Semua"}
               </button>

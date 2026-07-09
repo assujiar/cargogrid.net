@@ -1,17 +1,20 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "../shared/LanguageProvider";
 
-type PublicJourneyView = "landing" | "challenges" | "system" | "simulator" | "plans" | "contact";
+export type PublicJourneyView = "landing" | "challenges" | "system" | "simulator" | "plans" | "contact";
 
-interface JourneyStepNavProps {
+interface PageJourneyNavProps {
   view: PublicJourneyView;
-  lang: "id" | "en";
 }
 
 const journeySteps = [
   {
     view: "landing",
-    href: "#",
+    href: "/",
     labelId: "Home",
     labelEn: "Home",
     titleId: "Mulai transformasi operasional Anda",
@@ -19,7 +22,7 @@ const journeySteps = [
   },
   {
     view: "challenges",
-    href: "#challenges",
+    href: "/tantangan",
     labelId: "Tantangan",
     labelEn: "Challenges",
     titleId: "Petakan hambatan yang menahan pertumbuhan",
@@ -27,7 +30,7 @@ const journeySteps = [
   },
   {
     view: "system",
-    href: "#system",
+    href: "/solusi",
     labelId: "Sistem & Modul",
     labelEn: "System & Modules",
     titleId: "Bangun operating system yang saling terhubung",
@@ -35,7 +38,7 @@ const journeySteps = [
   },
   {
     view: "simulator",
-    href: "#simulator",
+    href: "/simulator-roi",
     labelId: "Simulator & ROI",
     labelEn: "Simulator & ROI",
     titleId: "Ukur dampak dan potensi ROI",
@@ -43,7 +46,7 @@ const journeySteps = [
   },
   {
     view: "plans",
-    href: "#plans",
+    href: "/paket",
     labelId: "Paket & FAQ",
     labelEn: "Plans & FAQ",
     titleId: "Pilih jalur implementasi yang tepat",
@@ -51,7 +54,7 @@ const journeySteps = [
   },
   {
     view: "contact",
-    href: "#contact",
+    href: "/kontak",
     labelId: "Kontak/Form",
     labelEn: "Contact/Form",
     titleId: "Mulai audit dan rencana transformasi",
@@ -59,7 +62,8 @@ const journeySteps = [
   },
 ] as const;
 
-export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
+export default function PageJourneyNav({ view }: PageJourneyNavProps) {
+  const { lang } = useLanguage();
   const isEn = lang === "en";
   const activeIndex = Math.max(journeySteps.findIndex((step) => step.view === view), 0);
   const currentStep = journeySteps[activeIndex];
@@ -73,8 +77,11 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
       <div className="md:hidden mx-auto max-w-md nm-emboss bg-white/70 rounded-3xl p-4 border-0">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-[9px] font-mono font-black uppercase tracking-[0.22em] text-brand-orange">Your Transformation Journey</p>
-            <h2 className="font-display font-black text-lg text-slate-900 leading-tight mt-1">{isEn ? currentStep.titleEn : currentStep.titleId}</h2>
+            <p className="text-[9px] font-mono font-black uppercase tracking-[0.22em] text-brand-orange">
+              {isEn ? "Your Rollout Path" : "Jalur Implementasi Anda"}
+            </p>
+            {/* Wayfinding label, not a document heading — see desktop variant note below. */}
+            <p className="font-display font-black text-lg text-slate-900 leading-tight mt-1">{isEn ? currentStep.titleEn : currentStep.titleId}</p>
           </div>
           <span className="shrink-0 rounded-2xl bg-brand-teal text-white px-3 py-2 text-xs font-black shadow-md">
             {activeIndex + 1}/{journeySteps.length}
@@ -89,7 +96,7 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
           {journeySteps.map((step, index) => {
             const isActive = index === activeIndex;
             return (
-              <a
+              <Link
                 key={step.view}
                 href={step.href}
                 className={`snap-start shrink-0 rounded-2xl px-3 py-2 text-[10px] font-black transition-all ${
@@ -97,29 +104,30 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
                 }`}
               >
                 {index + 1}. {isEn ? step.labelEn : step.labelId}
-              </a>
+              </Link>
             );
           })}
         </div>
 
         <div className={`mt-4 grid gap-2 ${nextStep ? "grid-cols-2" : "grid-cols-1"}`}>
-          <a
-            href={previousStep?.href || "#"}
+          <Link
+            href={previousStep?.href || "/"}
+            aria-disabled={!previousStep}
             className={`inline-flex items-center justify-center gap-1.5 rounded-2xl px-3 py-3 text-[11px] font-black ${
               previousStep ? "nm-btn text-slate-700" : "bg-slate-100 text-slate-400 pointer-events-none"
             }`}
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             {isEn ? "Previous" : "Sebelumnya"}
-          </a>
+          </Link>
           {nextStep && (
-            <a
+            <Link
               href={nextStep.href}
               className="inline-flex items-center justify-center gap-1.5 rounded-2xl px-3 py-3 text-[11px] font-black nm-btn-accent text-white"
             >
               {isEn ? "Next" : "Lanjut"}
               <ArrowRight className="w-3.5 h-3.5 text-white" />
-            </a>
+            </Link>
           )}
         </div>
       </div>
@@ -133,7 +141,7 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
                 const isCompleted = index < activeIndex;
                 const isActive = index === activeIndex;
                 return (
-                  <a
+                  <Link
                     key={step.view}
                     href={step.href}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] lg:text-xs font-black transition-all ${
@@ -146,37 +154,39 @@ export default function JourneyStepNav({ view, lang }: JourneyStepNavProps) {
                   >
                     {isCompleted && <CheckCircle2 className="w-3.5 h-3.5" />}
                     <span>{index + 1}. {isEn ? step.labelEn : step.labelId}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
             <div>
               <p className="text-[10px] font-mono font-black uppercase tracking-[0.2em] text-brand-orange">
-                Your Transformation Journey
+                {isEn ? "Your Rollout Path" : "Jalur Implementasi Anda"}
               </p>
-              <h2 className="font-display font-black text-xl sm:text-2xl text-slate-900 mt-1">
+              {/* Wayfinding label, not a document heading — the page's own <h1> owns
+                  the heading hierarchy, so this stays a styled paragraph. */}
+              <p className="font-display font-black text-xl sm:text-2xl text-slate-900 mt-1">
                 {isEn ? currentStep.titleEn : currentStep.titleId}
-              </h2>
+              </p>
               <p className="text-xs sm:text-sm text-slate-600 font-semibold mt-2 max-w-2xl leading-relaxed">
                 {isEn
-                  ? "Your Transformation Journey: map your needs, explore the right system capabilities, measure impact, choose an implementation option, and prepare the next-step plan."
-                  : "Your Transformation Journey: mulai dari memetakan kebutuhan, melihat sistem yang relevan, mengukur dampak, memilih opsi implementasi, hingga menyusun rencana tindak lanjut."}
+                  ? "From mapping what your team needs, to exploring the right system capabilities, measuring impact, picking an implementation path, and locking in next steps."
+                  : "Mulai dari memetakan kebutuhan tim Anda, melihat kapabilitas sistem yang relevan, mengukur dampaknya, memilih jalur implementasi, hingga menyusun langkah selanjutnya."}
               </p>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 xl:flex-shrink-0">
             {previousStep && (
-              <a href={previousStep.href} className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl nm-btn text-slate-700 text-xs font-black">
+              <Link href={previousStep.href} className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl nm-btn text-slate-700 text-xs font-black">
                 <ArrowLeft className="w-4 h-4" />
                 <span>{isEn ? previousStep.labelEn : previousStep.labelId}</span>
-              </a>
+              </Link>
             )}
             {nextStep && (
-              <a href={nextStep.href} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md">
+              <Link href={nextStep.href} className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl nm-btn-accent text-white text-xs font-black shadow-md">
                 <span>{`${isEn ? "Next:" : "Lanjut:"} ${isEn ? nextStep.labelEn : nextStep.labelId}`}</span>
                 <ArrowRight className="w-4 h-4 text-white" />
-              </a>
+              </Link>
             )}
           </div>
         </div>

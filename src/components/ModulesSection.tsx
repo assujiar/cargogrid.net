@@ -1,9 +1,13 @@
+"use client";
+
 import React, { useState } from "react";
 import { productModules } from "../data";
-import { Layers, Briefcase, Truck, Home, Users, CircleDollarSign, ShieldCheck, CheckCircle } from "lucide-react";
+import { Layers, Briefcase, Truck, Home, Users, CircleDollarSign, ShieldCheck, CheckCircle, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
 
-export default function ModulesSection({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+export default function ModulesSection() {
+  const { lang } = useLanguage();
   const [selectedLayer, setSelectedLayer] = useState<string>("All");
   const isEn = lang === 'en';
 
@@ -92,6 +96,22 @@ export default function ModulesSection({ lang = 'id' }: { lang?: 'id' | 'en' }) 
               )}
             </p>
           </div>
+        </div>
+
+        {/* Conversational aside about the CRM module */}
+        <div className="nm-deboss bg-white/40 rounded-2xl p-5 mb-10 flex items-start gap-3" id="crm-aside">
+          <MessageCircle className="w-5 h-5 text-brand-teal flex-shrink-0 mt-0.5" aria-hidden="true" />
+          <p className="text-slate-700 text-xs sm:text-sm font-semibold leading-relaxed">
+            {isEn ? (
+              <>
+                Your team is probably tired of chasing RFQs scattered across five different chats, right? The CRM &amp; RFQ Management module pulls every inquiry into one place — complete with SLA timers, an assigned PIC, and follow-up status.
+              </>
+            ) : (
+              <>
+                Tim Anda pasti sering ribet ngurus RFQ yang tercecer, kan? Tenang, modul CRM &amp; RFQ Management CargoGrid bantu semua inquiry masuk ke satu tempat, lengkap dengan SLA, PIC, dan status follow-up.
+              </>
+            )}
+          </p>
         </div>
 
         {/* Dynamic Filters Bar */}

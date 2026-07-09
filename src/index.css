@@ -175,3 +175,26 @@ body {
   background: rgba(0, 151, 178, 0.2);
   color: #007d94;
 }
+
+/* Accessible disclosure panel (pricing reveal cards, FAQ) — content stays in the
+   DOM and readable by screen readers at all times; only visually clipped via
+   grid-template-rows + overflow, never hidden/display:none. */
+.cg-disclosure-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease;
+}
+
+.cg-disclosure-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.cg-disclosure-panel > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-disclosure-panel {
+    transition: none;
+  }
+}

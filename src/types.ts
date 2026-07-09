@@ -59,6 +59,12 @@ export interface PackageItem {
   features: string[];
   featuresEn?: string[];
   isPopular?: boolean;
+  implementationNotes?: string;
+  implementationNotesEn?: string;
+  limitations?: string[];
+  limitationsEn?: string[];
+  addOns?: string[];
+  addOnsEn?: string[];
 }
 
 export interface FaqItem {

@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from "react";
+import Link from "next/link";
 import { icpList } from "../data";
 import { ArrowRight, XCircle, ShieldCheck, Quote, Building2, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
 
-export default function IcpSelector({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+export default function IcpSelector() {
+  const { lang } = useLanguage();
   const [activeIcpId, setActiveIcpId] = useState<string>("forwarder");
   const isEn = lang === 'en';
   const activeIcp = icpList.find((icp) => icp.id === activeIcpId) || icpList[0];
@@ -173,13 +178,13 @@ export default function IcpSelector({ lang = 'id' }: { lang?: 'id' | 'en' }) {
             {/* Quick Action Button */}
             <div className="pt-6 border-t border-slate-200 mt-8 flex justify-between items-center">
               <span className="text-[9px] font-mono text-slate-400 font-black uppercase tracking-widest">{isEn ? "Segment Demo Available" : "Demo khusus tersedia"}</span>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-1.5 text-xs font-black text-brand-orange hover:text-brand-orange/80 transition-all group cursor-pointer"
+              <Link
+                href="/kontak"
+                className="inline-flex items-center gap-1.5 text-xs font-black text-brand-orange hover:text-brand-orange/80 transition-all group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded"
               >
                 <span>{isEn ? `Learn ${activeIcp.titleEn || activeIcp.title} Suite` : `Pelajari Paket ${activeIcp.title}`}</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
-              </a>
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
+              </Link>
             </div>
 
           </div>

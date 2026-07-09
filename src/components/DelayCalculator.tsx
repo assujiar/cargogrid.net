@@ -1,8 +1,13 @@
+"use client";
+
 import React, { useState } from "react";
+import Link from "next/link";
 import { Calculator, ArrowRight, AlertCircle, TrendingDown } from "lucide-react";
 import { motion } from "motion/react";
+import { useLanguage } from "./shared/LanguageProvider";
 
-export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+export default function DelayCalculator() {
+  const { lang } = useLanguage();
   const [shipments, setShipments] = useState(1200);
   const [hoursWasted, setHoursWasted] = useState(4);
   const [laborRate, setLaborRate] = useState(50000);
@@ -47,9 +52,9 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
             <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">
               {isEn ? "Margin Recovery Estimation" : "Estimasi Pemulihan Margin"}
             </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
+            <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
               POD Delay & <span className="text-brand-teal font-extrabold">Cost Leakage Calculator</span>
-            </h2>
+            </h1>
           </div>
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
@@ -87,7 +92,7 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 step="100"
                 id="monthly-shipments"
                 name="monthly-shipments"
-                aria-label="monthly shipments"
+                aria-label={isEn ? "Monthly shipment volume" : "Volume pengiriman bulanan"}
                 value={shipments}
                 onChange={(e) => setShipments(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -114,7 +119,7 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 step="1"
                 id="hours-wasted"
                 name="hours-wasted"
-                aria-label="hours wasted"
+                aria-label={isEn ? "Average hours wasted per shipment" : "Rata-rata jam terbuang per pengiriman"}
                 value={hoursWasted}
                 onChange={(e) => setHoursWasted(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -143,7 +148,7 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
                 step="5000"
                 id="labor-rate"
                 name="labor-rate"
-                aria-label="labor rate"
+                aria-label={isEn ? "Estimated staff cost per hour" : "Estimasi biaya staf per jam"}
                 value={laborRate}
                 onChange={(e) => setLaborRate(parseInt(e.target.value))}
                 className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
@@ -265,13 +270,13 @@ export default function DelayCalculator({ lang = 'id' }: { lang?: 'id' | 'en' })
               </p>
             </div>
           </div>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-xl text-xs font-black nm-btn-accent shadow uppercase tracking-wider cursor-pointer whitespace-nowrap"
+          <Link
+            href="/kontak"
+            className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-xl text-xs font-black nm-btn-accent shadow uppercase tracking-wider cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <span>{isEn ? "Download Free Buyer Guide" : "Unduh Buyer Guide Gratis"}</span>
-            <ArrowRight className="w-3.5 h-3.5 text-white" />
-          </a>
+            <ArrowRight className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+          </Link>
         </div>
 
       </div>

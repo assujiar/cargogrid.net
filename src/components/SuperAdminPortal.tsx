@@ -344,9 +344,6 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
           {loginError && <div className="p-3.5 bg-red-500/5 text-red-600 text-xs font-bold rounded-xl border border-red-500/20 text-center">{loginError}</div>}
           {loginInfo && <div className="p-3.5 bg-brand-teal/5 text-brand-teal text-xs font-bold rounded-xl border border-brand-teal/20 text-center">{loginInfo}</div>}
           <input
-            id="admin-new-password"
-            name="newPassword"
-            autoComplete="new-password"
             type="password"
             required
             minLength={8}
@@ -397,15 +394,12 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
 
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="admin-email" className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
+              <label className="text-xs text-slate-500 font-black font-mono uppercase tracking-wider">
                 {lang === "en" ? "Admin Email" : "Email Admin"}
               </label>
               <div className="relative">
                 <User className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                 <input
-                  id="admin-email"
-                  name="email"
-                  autoComplete="username"
                   type="email"
                   required
                   placeholder="service@cargogrid.net"

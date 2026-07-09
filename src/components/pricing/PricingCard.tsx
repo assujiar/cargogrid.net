@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Check, ArrowRight, ChevronDown, Info, AlertTriangle, PlusCircle } from "lucide-react";
-import { motion } from "motion/react";
 import type { PackageItem } from "../../types";
 import { useLanguage } from "../shared/LanguageProvider";
+import Reveal from "../shared/Reveal";
 
 interface PricingCardProps {
   pkg: PackageItem;
@@ -48,13 +48,9 @@ export default function PricingCard({ pkg, isAnnual, index }: PricingCardProps) 
       : "Mulai 30 Hari Pilot Kerja";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.01 }}
-      className={`relative flex flex-col justify-between p-7 sm:p-9 rounded-3xl border-0 transition-all duration-200 text-left ${premiumBorder}`}
+    <Reveal
+      delayMs={index * 100}
+      className={`relative flex flex-col justify-between p-7 sm:p-9 rounded-3xl border-0 h-full transition-transform duration-200 hover:-translate-y-2 hover:scale-[1.01] will-change-transform text-left ${premiumBorder}`}
     >
       {pkg.isPopular && (
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-teal text-slate-950 font-mono text-[9px] font-black tracking-widest px-5 py-2 rounded-full uppercase shadow-md">
@@ -188,18 +184,18 @@ export default function PricingCard({ pkg, isAnnual, index }: PricingCardProps) 
 
       {/* Primary CTA (always visible) */}
       <div className="pt-8 border-t border-slate-200/80 mt-8">
-        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+        <div className="transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] will-change-transform">
           <Link
             href="/kontak"
-            className={`inline-flex items-center justify-center gap-1.5 w-full py-3.5 rounded-full text-xs font-black transition-all duration-150 cursor-pointer border-0 uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
+            className={`inline-flex items-center justify-center gap-1.5 w-full py-3.5 rounded-full text-xs font-black transition-colors duration-150 cursor-pointer border-0 uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
               pkg.isPopular ? "nm-btn-accent text-white shadow-md font-black" : "nm-btn text-slate-700 hover:text-slate-900 font-black"
             }`}
           >
             <span>{ctaLabel}</span>
             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
           </Link>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </Reveal>
   );
 }

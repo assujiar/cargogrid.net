@@ -59,11 +59,10 @@ export default function ConnectedFlowVisualizer() {
                   key={step.id} 
                   className="relative flex-shrink-0 w-[135px] sm:w-[150px] lg:w-auto snap-align-center flex items-center"
                 >
-                  <motion.button
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.97 }}
+                  <button
+                    type="button"
                     onClick={() => setActiveStepIndex(idx)}
-                    className={`w-full flex flex-col items-center justify-center p-4 rounded-2xl text-center transition-all duration-200 group cursor-pointer border-0 min-h-[105px] lg:min-h-0 ${
+                    className={`w-full flex flex-col items-center justify-center p-4 rounded-2xl text-center transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-[0.97] will-change-transform group cursor-pointer border-0 min-h-[105px] lg:min-h-0 ${
                       isSelected
                         ? "nm-btn-accent bg-gradient-to-br from-brand-teal via-brand-teal to-emerald-500 text-white font-extrabold shadow-md"
                         : "nm-btn bg-white/40 text-slate-600 font-semibold"
@@ -88,7 +87,7 @@ export default function ConnectedFlowVisualizer() {
                     >
                       {isEn ? (step.titleEn || step.title) : step.title}
                     </span>
-                  </motion.button>
+                  </button>
                   
                   {/* Arrow Connector for Desktop Grid - Placed outside the motion button so it remains perfectly aligned and stationary */}
                   {idx < 7 && (
@@ -177,7 +176,7 @@ export default function ConnectedFlowVisualizer() {
               >
                 
                 {/* Box 1: Inputs (Slightly elevated on hover) */}
-                <div className="nm-emboss bg-[#f8fafc]/60 rounded-3xl p-5 relative border-0 hover:scale-[1.015] transition-transform duration-200">
+                <div className="nm-emboss bg-[#f8fafc]/60 rounded-3xl p-5 relative border-0 hover:scale-[1.015] transition-transform duration-200 will-change-transform">
                   <div className="absolute top-4 right-4 text-slate-400">
                     <Database className="w-4 h-4" />
                   </div>
@@ -195,7 +194,7 @@ export default function ConnectedFlowVisualizer() {
                 </div>
 
                 {/* Box 2: Outputs (Slightly staggered downwards on hover) */}
-                <div className="nm-emboss bg-[#fbf9f6]/60 rounded-3xl p-5 relative border-0 hover:scale-[1.015] transition-transform duration-200">
+                <div className="nm-emboss bg-[#fbf9f6]/60 rounded-3xl p-5 relative border-0 hover:scale-[1.015] transition-transform duration-200 will-change-transform">
                   <div className="absolute top-4 right-4 text-slate-400">
                     <RefreshCw className="w-4 h-4" />
                   </div>

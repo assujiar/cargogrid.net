@@ -35,7 +35,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden bg-navy-dark"
+      className="relative pt-8 pb-16 md:pt-16 md:pb-24 overflow-hidden bg-navy-dark"
       id="hero-section"
     >
       {/* Decorative Grid Mesh (Clean and subtle light grid) */}
@@ -58,14 +58,13 @@ export default function HeroSection() {
           >
             
             {/* Status Tag */}
-            <motion.div 
-              whileHover={{ scale: 1.02 }}
-              className="inline-flex items-center gap-2.5 self-start px-4 py-2 rounded-full nm-emboss-sm text-brand-teal text-xs font-extrabold uppercase tracking-widest cursor-default" 
+            <div
+              className="inline-flex items-center gap-2.5 self-start px-4 py-2 rounded-full nm-emboss-sm text-brand-teal text-xs font-extrabold uppercase tracking-widest cursor-default transition-transform duration-200 hover:scale-[1.02] will-change-transform"
               id="hero-status-tag"
             >
               <span className="w-2.5 h-2.5 rounded-full nm-led-teal"></span>
               <span>{isEn ? "Logistics Integration: Request to Payment" : "Integrasi Logistik: Permintaan ke Pembayaran"}</span>
-            </motion.div>
+            </div>
 
             {/* Main Headline (Editorial / Magazine Style - NO ITALIC) */}
             <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-slate-900">
@@ -87,7 +86,7 @@ export default function HeroSection() {
 
             {/* Call to Actions (Tactile Outsets) */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 mt-2">
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <div className="transition-transform duration-200 hover:-translate-y-0.5 hover:scale-[1.03] active:scale-[0.98] will-change-transform">
                 <Link
                   href="/tantangan"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 nm-btn-accent text-white font-extrabold rounded-2xl text-base shadow-md cursor-pointer border-0"
@@ -95,9 +94,9 @@ export default function HeroSection() {
                   <span>{isEn ? "Explore the Challenges" : "Lihat Tantangan Operasional"}</span>
                   <ArrowRight className="w-5 h-5 text-white" aria-hidden="true" />
                 </Link>
-              </motion.div>
+              </div>
 
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
+              <div className="transition-transform duration-200 hover:-translate-y-0.5 hover:scale-[1.03] active:scale-[0.98] will-change-transform">
                 <Link
                   href="/simulator-roi"
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-4 nm-btn text-slate-700 font-extrabold rounded-2xl text-base cursor-pointer border-0"
@@ -105,7 +104,7 @@ export default function HeroSection() {
                   <Play className="w-3.5 h-3.5 fill-current text-brand-teal" aria-hidden="true" />
                   <span>{isEn ? "Try Live Simulator" : "Uji Coba Sistem"}</span>
                 </Link>
-              </motion.div>
+              </div>
             </div>
 
             {/* Trust badging (Tactile indicators) */}
@@ -208,9 +207,8 @@ export default function HeroSection() {
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block font-extrabold">{isEn ? "Recent System Activities" : "Aktivitas Sistem Terkini"}</span>
                 
                 {/* Event 1 (Tactile Outset Card) */}
-                <motion.div 
-                  whileHover={{ y: -2 }}
-                  className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40"
+                <div
+                  className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40 transition-transform duration-200 hover:-translate-y-0.5 will-change-transform"
                 >
                   <div className="p-2 rounded-xl nm-deboss text-brand-teal flex-shrink-0 mt-0.5">
                     <Users className="w-4 h-4" />
@@ -224,12 +222,11 @@ export default function HeroSection() {
                       {isEn ? "Quotation generated automatically based on vendor contract rates." : "Quotation dikirimkan otomatis berdasarkan rate kontrak vendor."}
                     </p>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Event 2 (Tactile Outset Card) */}
-                <motion.div 
-                  whileHover={{ y: -2 }}
-                  className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40"
+                <div
+                  className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40 transition-transform duration-200 hover:-translate-y-0.5 will-change-transform"
                 >
                   <div className="p-2 rounded-xl nm-deboss text-brand-orange flex-shrink-0 mt-0.5">
                     <Truck className="w-4 h-4" />
@@ -243,12 +240,11 @@ export default function HeroSection() {
                       {isEn ? "Truck in transit on Jakarta to Surabaya route via Trans-Java Toll." : "Truk dalam perjalanan rute Jakarta ke Surabaya via Tol Trans Jawa."}
                     </p>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Event 3 (Tactile Outset Card) */}
-                <motion.div 
-                  whileHover={{ y: -2 }}
-                  className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40"
+                <div
+                  className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40 transition-transform duration-200 hover:-translate-y-0.5 will-change-transform"
                 >
                   <div className="p-2 rounded-xl nm-deboss text-emerald-600 flex-shrink-0 mt-0.5">
                     <Activity className="w-4 h-4" />
@@ -262,7 +258,7 @@ export default function HeroSection() {
                       {isEn ? "ePOD successfully validated, invoice draft posted to daily ledger." : "ePOD berhasil divalidasi, draft invoice otomatis masuk ke buku besar harian."}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Progress Tracker (Sunken container) */}

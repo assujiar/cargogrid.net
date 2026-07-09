@@ -4,7 +4,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "../src/index.css";
 import { LanguageProvider } from "../src/components/shared/LanguageProvider";
 import UtmCapture from "../src/components/shared/UtmCapture";
-import { siteGraphJsonLd } from "../src/lib/seo";
+import { siteGraphJsonLd, siteUrl } from "../src/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,6 +25,7 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "CargoGrid OS - Sistem Operasi Logistik Enterprise Terintegrasi & ERP Software",
   description:
     "CargoGrid OS adalah sistem operasi logistik terintegrasi dan software ERP end-to-end untuk Freight Forwarder, 3PL Warehouse, armada Trucking, dan Corporate Shipper.",

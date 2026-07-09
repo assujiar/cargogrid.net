@@ -52,12 +52,11 @@ export default function IcpSelector() {
           {icpList.map((icp, idx) => {
             const isSelected = activeIcpId === icp.id;
             return (
-              <motion.button
+              <button
+                type="button"
                 key={icp.id}
-                whileHover={{ scale: 1.03, y: -4 }}
-                whileTap={{ scale: 0.97 }}
                 onClick={() => setActiveIcpId(icp.id)}
-                className={`flex flex-col items-start p-5 rounded-2xl border-0 text-left transition-all duration-200 cursor-pointer ${
+                className={`flex flex-col items-start p-5 rounded-2xl border-0 text-left transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1 active:scale-[0.97] will-change-transform cursor-pointer ${
                   isSelected
                     ? "nm-btn-accent bg-gradient-to-br from-brand-orange via-brand-orange to-amber-500 text-white shadow-md font-extrabold"
                     : "nm-btn bg-white/40 text-slate-600 hover:text-slate-800"
@@ -70,7 +69,7 @@ export default function IcpSelector() {
                   <Building2 className={`w-4 h-4 ${isSelected ? "text-white" : "text-brand-orange"}`} />
                   <span>{isEn ? (icp.titleEn || icp.title) : icp.title}</span>
                 </span>
-              </motion.button>
+              </button>
             );
           })}
         </div>

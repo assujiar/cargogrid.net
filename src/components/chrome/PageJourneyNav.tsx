@@ -19,6 +19,8 @@ const journeySteps = [
     labelEn: "Home",
     titleId: "Mulai transformasi operasional Anda",
     titleEn: "Start transforming your operations",
+    descId: "Semua alur kerja logistik Anda, dari permintaan customer sampai laporan keuangan, terhubung dalam satu sistem.",
+    descEn: "Every workflow in your logistics operation, from customer request to financial reporting, connected in one system.",
   },
   {
     view: "challenges",
@@ -27,6 +29,8 @@ const journeySteps = [
     labelEn: "Challenges",
     titleId: "Petakan hambatan yang menahan pertumbuhan",
     titleEn: "Map the bottlenecks holding growth back",
+    descId: "Sebelum bicara sistem, kita lihat dulu bocornya di mana: RFQ yang hilang, rate vendor yang tercecer, POD yang telat, dan invoice yang mundur.",
+    descEn: "Before we talk systems, let's see where the leaks actually are: lost RFQs, scattered vendor rates, late PODs, and invoices that keep slipping.",
   },
   {
     view: "system",
@@ -35,6 +39,8 @@ const journeySteps = [
     labelEn: "System & Modules",
     titleId: "Bangun operating system yang saling terhubung",
     titleEn: "Build a connected operating system",
+    descId: "Setelah problem-nya jelas, CargoGrid menyambungkan alur kerja dari inquiry sampai billing dalam satu sistem yang bisa dikonfigurasi.",
+    descEn: "Once the problems are clear, CargoGrid connects your workflow from inquiry to billing in one configurable system.",
   },
   {
     view: "simulator",
@@ -43,6 +49,8 @@ const journeySteps = [
     labelEn: "Simulator & ROI",
     titleId: "Ukur dampak dan potensi ROI",
     titleEn: "Measure impact and ROI potential",
+    descId: "Masukkan angka operasional Anda. Dari situ kita bisa lihat berapa biaya yang bocor karena POD telat, update manual, dan invoice yang mundur.",
+    descEn: "Enter your operational numbers. From there we can see how much is leaking from late PODs, manual updates, and delayed invoices.",
   },
   {
     view: "plans",
@@ -51,6 +59,8 @@ const journeySteps = [
     labelEn: "Plans & FAQ",
     titleId: "Pilih jalur implementasi yang tepat",
     titleEn: "Choose the right implementation path",
+    descId: "Pilih paket berdasarkan tahap bisnis Anda. Mulai dari tim yang baru merapikan workflow sampai operator multi-cabang yang butuh kontrol penuh.",
+    descEn: "Pick a package based on where your business is at. From teams just tidying up their workflow to multi-branch operators needing full control.",
   },
   {
     view: "contact",
@@ -59,6 +69,8 @@ const journeySteps = [
     labelEn: "Contact/Form",
     titleId: "Mulai audit dan rencana transformasi",
     titleEn: "Start your audit and transformation plan",
+    descId: "Ceritakan kondisi operasional Anda. Tim CargoGrid bisa bantu mapping workflow, pain point, dan opsi implementasi yang paling masuk akal.",
+    descEn: "Tell us about your operations. The CargoGrid team can help map your workflow, pain points, and the implementation option that makes the most sense.",
   },
 ] as const;
 
@@ -92,22 +104,18 @@ export default function PageJourneyNav({ view }: PageJourneyNavProps) {
           <div className="h-full rounded-full bg-gradient-to-r from-brand-orange to-brand-teal transition-all" style={{ width: `${progress}%` }} />
         </div>
 
-        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 snap-x">
-          {journeySteps.map((step, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <Link
-                key={step.view}
-                href={step.href}
-                className={`snap-start shrink-0 rounded-2xl px-3 py-2 text-[10px] font-black transition-all ${
-                  isActive ? "bg-brand-teal text-white shadow-md" : "bg-slate-100 text-slate-500"
-                }`}
-              >
-                {index + 1}. {isEn ? step.labelEn : step.labelId}
-              </Link>
-            );
-          })}
-        </div>
+        {/* Compact "X of N" summary instead of a horizontally-scrolling chip
+            row — avoids clipped/cut-off step labels at narrow (~360px)
+            mobile widths with no visible scroll affordance. */}
+        <p className="mt-3 text-[11px] text-slate-500 font-bold">
+          {isEn ? `Step ${activeIndex + 1} of ${journeySteps.length}` : `Langkah ${activeIndex + 1} dari ${journeySteps.length}`}
+          {nextStep && (
+            <>
+              {" "}
+              &bull; {isEn ? "Next:" : "Berikutnya:"} <span className="text-slate-700">{isEn ? nextStep.labelEn : nextStep.labelId}</span>
+            </>
+          )}
+        </p>
 
         <div className={`mt-4 grid gap-2 ${nextStep ? "grid-cols-2" : "grid-cols-1"}`}>
           <Link
@@ -168,9 +176,7 @@ export default function PageJourneyNav({ view }: PageJourneyNavProps) {
                 {isEn ? currentStep.titleEn : currentStep.titleId}
               </p>
               <p className="text-xs sm:text-sm text-slate-600 font-semibold mt-2 max-w-2xl leading-relaxed">
-                {isEn
-                  ? "From mapping what your team needs, to exploring the right system capabilities, measuring impact, picking an implementation path, and locking in next steps."
-                  : "Mulai dari memetakan kebutuhan tim Anda, melihat kapabilitas sistem yang relevan, mengukur dampaknya, memilih jalur implementasi, hingga menyusun langkah selanjutnya."}
+                {isEn ? currentStep.descEn : currentStep.descId}
               </p>
             </div>
           </div>

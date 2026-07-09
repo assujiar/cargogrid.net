@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Check, ClipboardList, ShieldCheck, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { addInquiry } from "../lib/storage";
 import { getStoredUtmParams } from "../lib/tracking";
 import { useLanguage } from "./shared/LanguageProvider";
 
@@ -59,7 +58,10 @@ export default function LeadCaptureForm() {
     const utm = getStoredUtmParams();
 
     try {
-      // Save inquiry with active language context and UTM attributes
+      // Loaded on submit only — keeps the Supabase SDK out of this page's
+      // initial JS bundle, since most visitors view/fill the form without
+      // ever submitting it.
+      const { addInquiry } = await import("../lib/storage");
       // Save inquiry with active language context and UTM attributes
       const newInq = await addInquiry({
         name: formData.name,
@@ -160,6 +162,12 @@ export default function LeadCaptureForm() {
                 ? "Estimated audit process and initial trial plan delivered within 14 working days."
                 : "Estimasi proses audit dan uji coba awal dalam waktu 14 hari kerja."}
             </div>
+
+            <p className="text-[11px] text-slate-500 font-semibold leading-relaxed">
+              {isEn
+                ? "The audit and demo are non-binding — no commercial agreement until you and our team sign a formal SLA."
+                : "Audit dan demo ini tidak mengikat kontrak apa pun — belum ada perjanjian komersial sampai Anda dan tim kami menandatangani SLA resmi."}
+            </p>
           </div>
 
           {/* Right Lead Capture Form Column */}

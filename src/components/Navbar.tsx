@@ -58,7 +58,7 @@ export default function Navbar() {
           }`}
         >
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 transition-transform duration-200 hover:scale-[1.02]">
+          <Link href="/" className="flex-shrink-0 transition-transform duration-200 hover:scale-[1.02] will-change-transform">
             <Logo size="md" />
           </Link>
 

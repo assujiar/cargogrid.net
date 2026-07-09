@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { problemPoints } from "../data";
 import { AlertCircle, AlertTriangle, FileSpreadsheet, Send, Search, CheckCircle, Smartphone, ShieldAlert, Quote, UserRound } from "lucide-react";
-import { motion } from "motion/react";
 import { useLanguage } from "./shared/LanguageProvider";
+import Reveal from "./shared/Reveal";
 
 export default function ProblemSection() {
   const { lang } = useLanguage();
@@ -52,52 +52,42 @@ export default function ProblemSection() {
               : "border-t-2 border-slate-300 bg-white/40";
             
             return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ scale: 1.03, y: -6 }}
-                className={`relative nm-emboss rounded-3xl p-6.5 transition-all duration-200 group text-left ${cardStyle}`}
-              >
-                {/* Metric Accent Bubble */}
-                <div className="flex justify-between items-start mb-5">
-                  <span className="font-mono text-[9px] font-black tracking-widest text-slate-400 uppercase">{isEn ? `CASE #0${idx + 1}` : `KASUS #0${idx + 1}`}</span>
-                  <span className="font-mono text-[10px] font-black text-brand-orange nm-deboss-sm px-3 py-1.5 rounded-xl bg-white/50">
-                    {point.metric}
-                  </span>
+              <Reveal key={idx} delayMs={idx * 100} className="h-full">
+                <div
+                  className={`relative nm-emboss rounded-3xl p-6.5 h-full transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-1.5 will-change-transform group text-left ${cardStyle}`}
+                >
+                  {/* Metric Accent Bubble */}
+                  <div className="flex justify-between items-start mb-5">
+                    <span className="font-mono text-[9px] font-black tracking-widest text-slate-400 uppercase">{isEn ? `CASE #0${idx + 1}` : `KASUS #0${idx + 1}`}</span>
+                    <span className="font-mono text-[10px] font-black text-brand-orange nm-deboss-sm px-3 py-1.5 rounded-xl bg-white/50">
+                      {point.metric}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-display font-bold text-lg text-slate-900 mb-2 flex items-center gap-2">
+                    <AlertCircle className="w-5 h-5 text-brand-orange flex-shrink-0" />
+                    <span>{isEn ? (point.titleEn || point.title) : point.title}</span>
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-slate-600 text-xs font-semibold leading-relaxed mb-5 min-h-[50px]">
+                    {isEn ? (point.descEn || point.desc) : point.desc}
+                  </p>
+
+                  {/* Impact Tag */}
+                  <div className="pt-3 border-t border-slate-200/60 flex items-center gap-1.5 font-mono text-[9px] text-slate-400 font-black uppercase tracking-wider">
+                    <ShieldAlert className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Impact: {isEn ? (point.metricLabelEn || point.metricLabel) : point.metricLabel}</span>
+                  </div>
                 </div>
-
-                {/* Title */}
-                <h3 className="font-display font-bold text-lg text-slate-900 mb-2 flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5 text-brand-orange flex-shrink-0" />
-                  <span>{isEn ? (point.titleEn || point.title) : point.title}</span>
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-600 text-xs font-semibold leading-relaxed mb-5 min-h-[50px]">
-                  {isEn ? (point.descEn || point.desc) : point.desc}
-                </p>
-
-                {/* Impact Tag */}
-                <div className="pt-3 border-t border-slate-200/60 flex items-center gap-1.5 font-mono text-[9px] text-slate-400 font-black uppercase tracking-wider">
-                  <ShieldAlert className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Impact: {isEn ? (point.metricLabelEn || point.metricLabel) : point.metricLabel}</span>
-                </div>
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>
 
         {/* Campaign Banner: Stop Chasing POD */}
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="nm-emboss bg-gradient-to-r from-rose-50/[0.04] to-[#eef2f6] rounded-3xl p-6 md:p-8 mb-20 flex flex-col lg:flex-row items-center gap-8 shadow-md"
-        >
+        <Reveal className="nm-emboss bg-gradient-to-r from-rose-50/[0.04] to-[#eef2f6] rounded-3xl p-6 md:p-8 mb-20 flex flex-col lg:flex-row items-center gap-8 shadow-md">
           <div className="flex-1 flex flex-col gap-3">
             <span className="inline-flex self-start nm-emboss-sm text-brand-orange font-mono text-[10px] font-black tracking-widest px-3 py-1.5 rounded-full uppercase">
               {isEn ? "Document Obstacle Solution" : "Solusi Hambatan Dokumen"}
@@ -131,14 +121,10 @@ export default function ProblemSection() {
               <span className="text-red-600 font-black">{isEn ? "24+ Days" : "24+ Hari"}</span>
             </div>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Human case-study anecdote: e-POD impact on daily operations */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <Reveal
           className="nm-emboss bg-white/50 rounded-3xl p-6 md:p-8 mb-20 flex flex-col sm:flex-row items-start gap-5 shadow-md"
           id="pod-case-study"
         >
@@ -164,7 +150,7 @@ export default function ProblemSection() {
               )}
             </p>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Interactive Comparison Widget */}
         <div className="nm-emboss bg-white/40 rounded-3xl overflow-hidden" id="interactive-comparison">
@@ -182,39 +168,39 @@ export default function ProblemSection() {
             
             {/* Quick Toggle Tabs */}
             <div className="flex nm-deboss p-1 rounded-2xl bg-white/40">
-              <motion.button
-                whileTap={{ scale: 0.95 }}
+              <button
+                type="button"
                 onClick={() => setActiveCompareTab("rfq")}
-                className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-all cursor-pointer ${
+                className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-transform duration-150 active:scale-[0.95] cursor-pointer ${
                   activeCompareTab === "rfq"
                     ? "bg-brand-orange text-white shadow-sm font-extrabold"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 Inquiry & RFQ
-              </motion.button>
-              <motion.button
-                whileTap={{ scale: 0.95 }}
+              </button>
+              <button
+                type="button"
                 onClick={() => setActiveCompareTab("pod")}
-                className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-all cursor-pointer ${
+                className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-transform duration-150 active:scale-[0.95] cursor-pointer ${
                   activeCompareTab === "pod"
                     ? "bg-brand-orange text-white shadow-sm font-extrabold"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {isEn ? "POD & Receipts" : "POD & Tanda Terima"}
-              </motion.button>
-              <motion.button
-                whileTap={{ scale: 0.95 }}
+              </button>
+              <button
+                type="button"
                 onClick={() => setActiveCompareTab("customer")}
-                className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-all cursor-pointer ${
+                className={`px-4 py-2 text-xs font-extrabold rounded-xl transition-transform duration-150 active:scale-[0.95] cursor-pointer ${
                   activeCompareTab === "customer"
                     ? "bg-brand-orange text-white shadow-sm font-extrabold"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {isEn ? "CS Status Updates" : "Update Status CS"}
-              </motion.button>
+              </button>
             </div>
           </div>
 

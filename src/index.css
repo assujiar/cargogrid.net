@@ -181,20 +181,50 @@ body {
    grid-template-rows + overflow, never hidden/display:none. */
 .cg-disclosure-panel {
   display: grid;
-  grid-template-rows: 0fr;
+  /* minmax(0, 0fr), not bare 0fr: grid tracks default to an implicit
+     `auto` minimum, which stops a 0fr row from actually collapsing below
+     the content's intrinsic min-content height (the longer the collapsed
+     content, the more it visibly peeks through without this). */
+  grid-template-rows: minmax(0, 0fr);
   transition: grid-template-rows 300ms ease;
 }
 
 .cg-disclosure-panel[data-open="true"] {
-  grid-template-rows: 1fr;
+  grid-template-rows: minmax(0, 1fr);
 }
 
 .cg-disclosure-panel > div {
   overflow: hidden;
+  min-height: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .cg-disclosure-panel {
+    transition: none;
+  }
+}
+
+/* Shared scroll-reveal utility (see src/components/shared/Reveal.tsx).
+   One IntersectionObserver toggles this class instead of mounting a
+   Framer Motion instance + its own observer per card. */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 }

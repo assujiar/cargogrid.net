@@ -17,9 +17,19 @@ export default function FaqSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-4 text-left sm:text-center">
-          <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">Questions &amp; Answers</span>
+          <span className="font-mono text-xs font-extrabold tracking-[0.2em] text-brand-teal uppercase">
+            {isEn ? "Questions & Answers" : "Tanya Jawab"}
+          </span>
           <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight leading-tight">
-            Frequently Asked <span className="text-brand-teal font-extrabold">Questions (FAQ)</span>
+            {isEn ? (
+              <>
+                Frequently Asked <span className="text-brand-teal font-extrabold">Questions (FAQ)</span>
+              </>
+            ) : (
+              <>
+                Pertanyaan yang Sering Diajukan <span className="text-brand-teal font-extrabold">(FAQ)</span>
+              </>
+            )}
           </h1>
           <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed mt-2">
             {isEn

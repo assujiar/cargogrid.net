@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { faqList } from "../../data";
 import { useLanguage } from "../shared/LanguageProvider";
 
@@ -10,7 +9,6 @@ export default function FaqAccordion() {
   const { lang } = useLanguage();
   const isEn = lang === "en";
   const [openId, setOpenId] = useState<string | null>("faq1");
-  const shouldReduceMotion = useReducedMotion();
 
   const toggleAccordion = (id: string) => {
     setOpenId((current) => (current === id ? null : id));
@@ -45,24 +43,22 @@ export default function FaqAccordion() {
               </button>
             </h3>
 
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={triggerId}
-                  initial={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                  animate={shouldReduceMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }}
-                  exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: "easeInOut" }}
-                  className="overflow-hidden border-t border-slate-200"
-                >
-                  <div className="p-5 text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed bg-slate-100/40">
-                    {isEn ? faq.answerEn || faq.answer : faq.answer}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Always rendered — the answer text lives in server-rendered HTML
+                for every question, not just the one currently open. It's
+                only ever visually clipped via the grid-rows disclosure
+                pattern (see .cg-disclosure-panel in index.css), never
+                removed from the DOM or hidden from assistive tech. */}
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={triggerId}
+              className={`cg-disclosure-panel ${isOpen ? "border-t border-slate-200" : ""}`}
+              data-open={isOpen}
+            >
+              <div className="p-5 text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed bg-slate-100/40">
+                {isEn ? faq.answerEn || faq.answer : faq.answer}
+              </div>
+            </div>
           </div>
         );
       })}

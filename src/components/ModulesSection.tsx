@@ -120,12 +120,11 @@ export default function ModulesSection() {
             const isSelected = selectedLayer === layer.id;
             const label = isEn ? layer.labelEn : layer.labelId;
             return (
-              <motion.button
+              <button
+                type="button"
                 key={layer.id}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedLayer(layer.id)}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold border-0 transition-all duration-150 cursor-pointer whitespace-nowrap ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold border-0 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] will-change-transform cursor-pointer whitespace-nowrap ${
                   isSelected
                     ? "nm-btn-accent bg-gradient-to-r from-brand-teal to-emerald-500 text-white shadow-sm"
                     : "nm-btn bg-white/40 text-slate-600 hover:text-slate-800"
@@ -133,7 +132,7 @@ export default function ModulesSection() {
               >
                 {getLayerIcon(layer.id)}
                 <span>{label}</span>
-              </motion.button>
+              </button>
             );
           })}
         </div>
@@ -154,9 +153,8 @@ export default function ModulesSection() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
-                  whileHover={{ scale: 1.015, y: -4 }}
                   key={mod.id}
-                  className={`relative nm-emboss rounded-3xl p-7 shadow-md transition-all duration-200 flex flex-col justify-between group border-0 text-left ${
+                  className={`relative nm-emboss rounded-3xl p-7 shadow-md transition-transform duration-200 hover:scale-[1.015] hover:-translate-y-1 will-change-transform flex flex-col justify-between group border-0 text-left ${
                     isProminent
                       ? "lg:col-span-2 bg-white/60 ring-1 ring-brand-teal/20"
                       : "bg-white/30"
@@ -206,7 +204,7 @@ export default function ModulesSection() {
                             <>
                               <div className="flex justify-between items-center border-b border-slate-200 pb-1.5">
                                 <span className="font-bold text-slate-700">{isEn ? "Customer Brand Setup" : "Branding Kustom"}</span>
-                                <span className="text-brand-teal font-extrabold uppercase text-[8px]">ACTIVE</span>
+                                <span className="text-brand-teal font-extrabold uppercase text-[8px]">{isEn ? "ACTIVE" : "AKTIF"}</span>
                               </div>
                               <div className="flex justify-between">
                                 <span>Logo File:</span>

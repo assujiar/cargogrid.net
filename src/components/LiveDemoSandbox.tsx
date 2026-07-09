@@ -62,61 +62,57 @@ export default function LiveDemoSandbox() {
 
         {/* Tab Selection Row (Tactile layout, asymmetrical border highlights) */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-12" id="sandbox-tabs-row">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
+            type="button"
             onClick={() => setActiveTab("commercial")}
-            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-all cursor-pointer ${
+            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] will-change-transform cursor-pointer ${
               activeTab === "commercial"
                 ? "nm-btn-accent bg-gradient-to-r from-brand-teal to-emerald-500 text-white shadow-md font-extrabold"
                 : "nm-btn bg-white/50 text-slate-600 hover:text-slate-800"
             }`}
           >
             <ClipboardList className="w-4 h-4 text-brand-teal" />
-            <span>Commercial (RFQ)</span>
-          </motion.button>
+            <span>{isEn ? "Commercial (RFQ)" : "Komersial (RFQ)"}</span>
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
+            type="button"
             onClick={() => setActiveTab("ops")}
-            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-all cursor-pointer ${
+            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] will-change-transform cursor-pointer ${
               activeTab === "ops"
                 ? "nm-btn-accent bg-gradient-to-r from-brand-teal to-emerald-500 text-white shadow-md font-extrabold"
                 : "nm-btn bg-white/50 text-slate-600 hover:text-slate-800"
             }`}
           >
             <Truck className="w-4 h-4 text-brand-teal" />
-            <span>Operations Dispatch</span>
-          </motion.button>
+            <span>{isEn ? "Operations Dispatch" : "Dispatch Operasional"}</span>
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
+            type="button"
             onClick={() => setActiveTab("tracking")}
-            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-all cursor-pointer ${
+            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] will-change-transform cursor-pointer ${
               activeTab === "tracking"
                 ? "nm-btn-accent bg-gradient-to-r from-brand-teal to-emerald-500 text-white shadow-md font-extrabold"
                 : "nm-btn bg-white/50 text-slate-600 hover:text-slate-800"
             }`}
           >
             <Search className="w-4 h-4 text-brand-teal" />
-            <span>Client Tracking</span>
-          </motion.button>
+            <span>{isEn ? "Client Tracking" : "Tracking Klien"}</span>
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
+            type="button"
             onClick={() => setActiveTab("finance")}
-            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-all cursor-pointer ${
+            className={`px-5 py-3.5 rounded-xl font-display text-xs font-black uppercase tracking-wider flex items-center gap-2 border-0 transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] will-change-transform cursor-pointer ${
               activeTab === "finance"
                 ? "nm-btn-accent bg-gradient-to-r from-brand-teal to-emerald-500 text-white shadow-md font-extrabold"
                 : "nm-btn bg-white/50 text-slate-600 hover:text-slate-800"
             }`}
           >
             <FileCheck className="w-4 h-4 text-brand-teal" />
-            <span>Finance Billing</span>
-          </motion.button>
+            <span>{isEn ? "Finance Billing" : "Billing Keuangan"}</span>
+          </button>
         </div>
 
         {/* Sandbox Content Screen (The App Frame Mockup) */}

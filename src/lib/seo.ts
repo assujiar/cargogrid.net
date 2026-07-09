@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { faqList } from "../data";
 
-export const siteUrl = "https://cargogrid.net";
+// The apex domain (cargogrid.net) 308-redirects to www in production, so
+// canonical/OG/JSON-LD URLs point directly at the domain that actually
+// serves content — avoids an unnecessary redirect hop for crawlers and
+// social unfurlers that don't follow redirects before reading meta tags.
+export const siteUrl = "https://www.cargogrid.net";
 export const siteName = "CargoGrid OS";
 export const companyAddress = {
   streetAddress: "Sudirman Central Business District (SCBD)",

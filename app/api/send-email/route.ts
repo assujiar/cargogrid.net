@@ -15,6 +15,9 @@ export async function POST(request: NextRequest) {
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
   const from = process.env.SMTP_FROM || user;
+  const secure = process.env.SMTP_SECURE !== undefined
+    ? process.env.SMTP_SECURE === "true"
+    : port === 465;
 
   if (!host || !user || !pass) {
     return NextResponse.json({ error: "SMTP is not configured on the server" }, { status: 503 });
@@ -23,7 +26,7 @@ export async function POST(request: NextRequest) {
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465,
+    secure,
     auth: { user, pass },
   });
 

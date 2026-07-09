@@ -29,7 +29,7 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
   const [qualification, setQualification] = useState<"high" | "medium" | "standard">("standard");
   const [newInquiryId, setNewInquiryId] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Verify fields
@@ -58,9 +58,9 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
     // Retrieve active UTM tracking parameters
     const utm = getStoredUtmParams();
 
-    setTimeout(() => {
-      // Save to local persistent storage database with active language context and UTM attributes
-      const newInq = addInquiry({
+    try {
+      // Save to Supabase with active language context and UTM attributes
+      const newInq = await addInquiry({
         name: formData.name,
         company: formData.company,
         role: formData.role,
@@ -77,9 +77,13 @@ export default function LeadCaptureForm({ lang }: LeadCaptureFormProps) {
         utmContent: utm.utmContent || undefined
       });
       setNewInquiryId(newInq.id);
-      setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1500);
+    } catch (error) {
+      console.error("Failed to submit inquiry", error);
+      alert(isEn ? "Unable to submit your inquiry. Please try again." : "Gagal mengirim inquiry. Silakan coba lagi.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import verticalLogo from "./cargogrid_vertical.svg";
 
 interface LogoProps {
   className?: string;
@@ -21,12 +22,10 @@ export default function Logo({ className = "", size = "md" }: LogoProps) {
   return (
     <div className={`flex items-center ${className}`} id="cargogrid-logo-wrapper">
       <img
-        src={LOGO_SRC}
+        src={verticalLogo}
         alt="CargoGrid"
         className={`${logoSize} object-contain`}
-        width={300}
-        height={225}
-        decoding="async"
+        loading="eager"
       />
     </div>
   );

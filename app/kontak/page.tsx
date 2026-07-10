@@ -1,4 +1,5 @@
 import SiteShell from "../../src/components/chrome/SiteShell";
+import PageJourneyNav from "../../src/components/chrome/PageJourneyNav";
 import LeadCaptureForm from "../../src/components/LeadCaptureForm";
 import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
@@ -18,7 +19,7 @@ export const metadata = buildMetadata({
 
 export default function KontakPage() {
   return (
-    <SiteShell view="contact">
+    <SiteShell>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -27,6 +28,7 @@ export default function KontakPage() {
       <div id="lead-form-area">
         <LeadCaptureForm />
       </div>
+      <PageJourneyNav view="contact" />
     </SiteShell>
   );
 }

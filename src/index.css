@@ -46,6 +46,26 @@ html {
   border: 2px solid rgba(255, 255, 255, 1);
 }
 
+/* Selected-state variants of .nm-emboss with a solid brand background.
+   Tailwind v4 wraps its generated utilities (bg-brand-teal, etc.) in a CSS
+   layer, and unlayered rules always win over layered ones regardless of
+   specificity — so combining .nm-emboss with bg-brand-teal never actually
+   shows teal, it silently keeps .nm-emboss's own background. These variants
+   bake the solid color into the same unlayered rule instead. */
+.nm-emboss-teal {
+  background-color: var(--color-brand-teal);
+  color: #ffffff;
+  box-shadow: 12px 12px 24px #cdd4db, -12px -12px 24px #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+}
+
+.nm-emboss-orange {
+  background-color: var(--color-brand-orange);
+  color: #ffffff;
+  box-shadow: 12px 12px 24px #cdd4db, -12px -12px 24px #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+}
+
 .nm-deboss {
   background-color: #eaf0f6;
   box-shadow: inset 8px 8px 16px #cdd4db, inset -8px -8px 16px #ffffff;

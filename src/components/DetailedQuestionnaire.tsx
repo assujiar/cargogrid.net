@@ -183,7 +183,12 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     try {
       const matched = await findInquiryByEmail(trimmed);
       if (matched) {
-        // Securely redirect to unique URL hash query parameter
+        // Update state directly instead of relying on the mount-only id-resolution
+        // effect, which never re-runs since the hash already starts with
+        // "#questionnaire" and HomeRouter doesn't remount this component.
+        setInquiryId(matched.id);
+        setInquiry(matched);
+        setIsInvalidToken(false);
         window.location.hash = `#questionnaire?id=${matched.id}`;
       } else {
         setLookupError(
@@ -543,7 +548,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               onClick={() => toggleService(svc)}
                               className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
                                 checked
-                                  ? "nm-emboss bg-brand-teal text-white"
+                                  ? "nm-emboss-teal"
                                   : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
                               }`}
                             >
@@ -583,7 +588,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               onClick={() => toggleCargo(cargo)}
                               className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
                                 checked
-                                  ? "nm-emboss bg-brand-teal text-white"
+                                  ? "nm-emboss-teal"
                                   : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
                               }`}
                             >
@@ -616,7 +621,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               onClick={() => setOperationScope(scope.id)}
                               className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
                                 checked
-                                  ? "nm-emboss bg-brand-teal text-white"
+                                  ? "nm-emboss-teal"
                                   : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
                               }`}
                             >
@@ -737,7 +742,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             onClick={() => toggleRole(role.id)}
                             className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
                               active
-                                ? "nm-emboss bg-brand-orange text-white"
+                                ? "nm-emboss-orange"
                                 : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
                             }`}
                           >
@@ -1065,7 +1070,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               onClick={() => toggleSlot(slot.id)}
                               className={`p-3 rounded-2xl text-left border-0 cursor-pointer flex flex-col gap-1.5 transition-all ${
                                 selected
-                                  ? "nm-emboss bg-brand-orange text-white"
+                                  ? "nm-emboss-orange"
                                   : "nm-emboss bg-slate-50/50 text-slate-700 hover:bg-slate-100"
                               }`}
                             >

@@ -5,16 +5,12 @@ import { MotionConfig } from "motion/react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import CookieConsentBanner from "../CookieConsentBanner";
-import PageJourneyNav, { type PublicJourneyView } from "./PageJourneyNav";
 
 interface SiteShellProps {
   children: React.ReactNode;
-  /** Which step of the marketing journey this page represents. Omit for pages
-   * (legal, admin/questionnaire) that don't participate in the step tracker. */
-  view?: PublicJourneyView;
 }
 
-export default function SiteShell({ children, view }: SiteShellProps) {
+export default function SiteShell({ children }: SiteShellProps) {
   return (
     // Applies the user's OS-level prefers-reduced-motion preference to every
     // motion/react animation on the page (whileHover, whileInView, etc.)
@@ -45,7 +41,6 @@ export default function SiteShell({ children, view }: SiteShellProps) {
         </div>
 
         <main className="flex-1 relative z-10 pt-24 sm:pt-28 lg:pt-32" id="page-main-flow">
-          {view && <PageJourneyNav view={view} />}
           {children}
         </main>
 

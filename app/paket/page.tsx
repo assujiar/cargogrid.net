@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteShell from "../../src/components/chrome/SiteShell";
+import PageJourneyNav from "../../src/components/chrome/PageJourneyNav";
 import PricingSection from "../../src/components/PricingSection";
 import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
@@ -13,7 +14,7 @@ export const metadata = buildMetadata({
 
 export default function PaketPage() {
   return (
-    <SiteShell view="plans">
+    <SiteShell>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -33,6 +34,7 @@ export default function PaketPage() {
           .
         </p>
       </div>
+      <PageJourneyNav view="plans" />
     </SiteShell>
   );
 }

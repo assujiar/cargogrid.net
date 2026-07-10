@@ -1,51 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { Check, ArrowRight, ChevronDown, Info, AlertTriangle, PlusCircle } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import type { PackageItem } from "../../types";
 import { useLanguage } from "../shared/LanguageProvider";
 import Reveal from "../shared/Reveal";
+import { formatIDRPrice, getPricingCtaLabel } from "../../lib/pricing";
 
 interface PricingCardProps {
   pkg: PackageItem;
   isAnnual: boolean;
   index: number;
+  onOpenDetail: (pkg: PackageItem) => void;
 }
 
 const HEADLINE_FEATURE_COUNT = 4;
 
-export default function PricingCard({ pkg, isAnnual, index }: PricingCardProps) {
+export default function PricingCard({ pkg, isAnnual, index, onOpenDetail }: PricingCardProps) {
   const { lang } = useLanguage();
   const isEn = lang === "en";
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const price = isAnnual ? pkg.priceAnnually : pkg.priceMonthly;
-  const isEnterprise = pkg.id === "enterprise";
-
-  const formatIDRPrice = (value: number) => {
-    const million = value / 1000000;
-    return `${million.toFixed(1).replace(".0", "")} Juta`;
-  };
 
   const allFeatures = isEn ? pkg.featuresEn || pkg.features : pkg.features;
   const headlineFeatures = allFeatures.slice(0, HEADLINE_FEATURE_COUNT);
-  const remainingFeatures = allFeatures.slice(HEADLINE_FEATURE_COUNT);
-
-  const implementationNotes = isEn ? pkg.implementationNotesEn || pkg.implementationNotes : pkg.implementationNotes;
-  const limitations = isEn ? pkg.limitationsEn || pkg.limitations : pkg.limitations;
-  const addOns = isEn ? pkg.addOnsEn || pkg.addOns : pkg.addOns;
+  const remainingFeatureCount = allFeatures.length - headlineFeatures.length;
 
   const premiumBorder = pkg.isPopular ? "nm-emboss ring-2 ring-brand-teal bg-white/75 shadow-xl" : "nm-emboss bg-white/30";
-  const panelId = `pricing-panel-${pkg.id}`;
 
-  const ctaLabel = isEnterprise
-    ? isEn
-      ? "Contact Enterprise Sales"
-      : "Hubungi Enterprise Sales"
-    : isEn
-      ? "Start 30-Day Paid Pilot"
-      : "Mulai 30 Hari Pilot Kerja";
+  const ctaLabel = getPricingCtaLabel(pkg, isEn);
 
   return (
     <Reveal
@@ -99,87 +83,18 @@ export default function PricingCard({ pkg, isAnnual, index }: PricingCardProps) 
           </ul>
         </div>
 
-        {/* Expand trigger */}
+        {/* Detail trigger — opens the shared PricingDetailDialog */}
         <button
           type="button"
-          onClick={() => setIsExpanded((v) => !v)}
-          aria-expanded={isExpanded}
-          aria-controls={panelId}
+          onClick={() => onOpenDetail(pkg)}
           className="inline-flex items-center justify-center gap-1.5 w-full py-3 rounded-full text-[11px] font-black uppercase tracking-wider text-brand-teal hover:text-brand-teal-hover transition-colors cursor-pointer border border-brand-teal/30 hover:border-brand-teal/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
         >
-          <span>{isExpanded ? (isEn ? "Show less" : "Sembunyikan detail") : isEn ? "See full details" : "Lihat detail lengkap"}</span>
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} aria-hidden="true" />
+          <span>
+            {isEn ? "See full details" : "Lihat detail lengkap"}
+            {remainingFeatureCount > 0 ? ` (+${remainingFeatureCount})` : ""}
+          </span>
+          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
         </button>
-
-        {/* Expanded content — always in the DOM, only visually clipped, never
-            hidden from assistive tech */}
-        <div id={panelId} role="region" aria-label={`${pkg.name} ${isEn ? "full details" : "detail lengkap"}`} className="cg-disclosure-panel" data-open={isExpanded}>
-          <div className="flex flex-col gap-5 pt-1">
-            {remainingFeatures.length > 0 && (
-              <div className="space-y-3">
-                <span className="text-[9px] font-mono text-slate-400 uppercase tracking-widest block font-black">
-                  {isEn ? "More Included Features:" : "Fitur Lengkap Lainnya:"}
-                </span>
-                <ul className="space-y-3 text-xs">
-                  {remainingFeatures.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-start gap-2.5 text-slate-700 font-semibold leading-relaxed">
-                      <Check className="w-4 h-4 text-brand-teal flex-shrink-0 mt-0.5" aria-hidden="true" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {implementationNotes && (
-              <div className="nm-deboss-sm bg-white/50 p-4 rounded-2xl">
-                <h4 className="flex items-center gap-1.5 text-[9px] font-mono font-black uppercase tracking-widest text-brand-teal mb-1.5">
-                  <Info className="w-3.5 h-3.5" aria-hidden="true" />
-                  <span>{isEn ? "Implementation Notes" : "Catatan Implementasi"}</span>
-                </h4>
-                <p className="text-xs text-slate-600 font-semibold leading-relaxed">{implementationNotes}</p>
-              </div>
-            )}
-
-            {limitations && limitations.length > 0 && (
-              <div className="nm-deboss-sm bg-amber-50/60 p-4 rounded-2xl">
-                <h4 className="flex items-center gap-1.5 text-[9px] font-mono font-black uppercase tracking-widest text-brand-orange mb-1.5">
-                  <AlertTriangle className="w-3.5 h-3.5" aria-hidden="true" />
-                  <span>{isEn ? "Limitations" : "Batasan Paket"}</span>
-                </h4>
-                <ul className="space-y-1.5 text-xs text-slate-600 font-semibold leading-relaxed list-disc pl-4">
-                  {limitations.map((lim, lIdx) => (
-                    <li key={lIdx}>{lim}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {addOns && addOns.length > 0 && (
-              <div className="nm-deboss-sm bg-white/50 p-4 rounded-2xl">
-                <h4 className="flex items-center gap-1.5 text-[9px] font-mono font-black uppercase tracking-widest text-slate-500 mb-1.5">
-                  <PlusCircle className="w-3.5 h-3.5" aria-hidden="true" />
-                  <span>{isEn ? "Add-On Availability" : "Add-On Tersedia"}</span>
-                </h4>
-                <ul className="space-y-1.5 text-xs text-slate-600 font-semibold leading-relaxed list-disc pl-4">
-                  {addOns.map((addon, aIdx) => (
-                    <li key={aIdx}>{addon}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <Link
-              href="/kontak"
-              className={`inline-flex items-center justify-center gap-1.5 w-full py-3.5 rounded-full text-xs font-black transition-all duration-150 cursor-pointer uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
-                pkg.isPopular ? "nm-btn-accent text-white shadow-md" : "nm-btn text-slate-700 hover:text-slate-900"
-              }`}
-            >
-              <span>{ctaLabel}</span>
-              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
       </div>
 
       {/* Primary CTA (always visible) */}

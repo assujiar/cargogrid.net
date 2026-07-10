@@ -1,4 +1,5 @@
 import SiteShell from "../../src/components/chrome/SiteShell";
+import PageJourneyNav from "../../src/components/chrome/PageJourneyNav";
 import ProblemSection from "../../src/components/ProblemSection";
 import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
@@ -18,7 +19,7 @@ export const metadata = buildMetadata({
 
 export default function TantanganPage() {
   return (
-    <SiteShell view="challenges">
+    <SiteShell>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -27,6 +28,7 @@ export default function TantanganPage() {
       <div id="problem-area">
         <ProblemSection />
       </div>
+      <PageJourneyNav view="challenges" />
     </SiteShell>
   );
 }

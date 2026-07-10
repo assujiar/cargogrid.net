@@ -1,4 +1,5 @@
 import SiteShell from "../../src/components/chrome/SiteShell";
+import PageJourneyNav from "../../src/components/chrome/PageJourneyNav";
 import ConnectedFlowVisualizer from "../../src/components/ConnectedFlowVisualizer";
 import ModulesSection from "../../src/components/ModulesSection";
 import IcpSelector from "../../src/components/IcpSelector";
@@ -21,7 +22,7 @@ export const metadata = buildMetadata({
 
 export default function SolusiPage() {
   return (
-    <SiteShell view="system">
+    <SiteShell>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -36,6 +37,7 @@ export default function SolusiPage() {
       <div id="use-cases-area">
         <IcpSelector />
       </div>
+      <PageJourneyNav view="system" />
     </SiteShell>
   );
 }

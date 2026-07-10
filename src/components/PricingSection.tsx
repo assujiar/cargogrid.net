@@ -1,18 +1,45 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { pricingPackages } from "../data";
+import type { PackageItem } from "../types";
 import { useLanguage } from "./shared/LanguageProvider";
 import PricingCard from "./pricing/PricingCard";
+import PricingDetailDialog from "./pricing/PricingDetailDialog";
 import Reveal from "./shared/Reveal";
 
 export default function PricingSection() {
   const { lang } = useLanguage();
   const [isAnnual, setIsAnnual] = useState(true);
+  const [selectedPkg, setSelectedPkg] = useState<PackageItem | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
   const isEn = lang === "en";
+
+  // Mencegah scroll body saat modal terbuka
+  useEffect(() => {
+    if (selectedPkg) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedPkg]);
+
+  const handleOpenDetail = (pkg: PackageItem) => {
+    setSelectedPkg(pkg);
+    setIsClosing(false);
+  };
+
+  const handleCloseDetail = () => {
+    setIsClosing(true);
+    // Tunggu animasi selesai baru hilangkan komponen dari DOM (0.5s match dgn CSS)
+    setTimeout(() => {
+      setSelectedPkg(null);
+      setIsClosing(false);
+    }, 500);
+  };
 
   return (
     <section className="py-20 md:py-28 bg-[#eef2f6] relative" id="pricing">
@@ -76,9 +103,11 @@ export default function PricingSection() {
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-16" id="pricing-packages-grid">
           {pricingPackages.map((pkg, idx) => (
-            <PricingCard key={pkg.id} pkg={pkg} isAnnual={isAnnual} index={idx} />
+            <PricingCard key={pkg.id} pkg={pkg} isAnnual={isAnnual} index={idx} onOpenDetail={handleOpenDetail} />
           ))}
         </div>
+
+        <PricingDetailDialog pkg={selectedPkg} isClosing={isClosing} isAnnual={isAnnual} isEn={isEn} onClose={handleCloseDetail} />
 
         {/* Addons List Prompt */}
         <Reveal

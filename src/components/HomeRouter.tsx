@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import HeroSection from "./HeroSection";
+import PageJourneyNav from "./chrome/PageJourneyNav";
 import { useLanguage } from "./shared/LanguageProvider";
 
 const SuperAdminPortal = dynamic(() => import("./SuperAdminPortal"), { ssr: false });
@@ -53,5 +54,10 @@ export default function HomeRouter() {
     return <DetailedQuestionnaire lang={lang} />;
   }
 
-  return <HeroSection />;
+  return (
+    <>
+      <HeroSection />
+      <PageJourneyNav view="landing" />
+    </>
+  );
 }

@@ -20,7 +20,7 @@ export const metadata = buildMetadata({
 
 export default function HomePage() {
   return (
-    <SiteShell view="landing">
+    <SiteShell>
       <HomeRouter />
     </SiteShell>
   );

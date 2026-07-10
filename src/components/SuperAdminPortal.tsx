@@ -892,7 +892,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                   onClick={() => setPlatform(plat as Meeting['platform'])}
                                   className={`p-2 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
                                     platform === plat
-                                      ? "nm-emboss bg-brand-teal text-white"
+                                      ? "nm-emboss-teal"
                                       : "nm-emboss bg-slate-50 text-slate-600"
                                   }`}
                                 >

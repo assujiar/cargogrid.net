@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import SiteShell from "../../src/components/chrome/SiteShell";
+import PageJourneyNav from "../../src/components/chrome/PageJourneyNav";
 import DelayCalculator from "../../src/components/DelayCalculator";
 import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
@@ -20,7 +21,7 @@ export const metadata = buildMetadata({
 
 export default function SimulatorRoiPage() {
   return (
-    <SiteShell view="simulator">
+    <SiteShell>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -32,6 +33,7 @@ export default function SimulatorRoiPage() {
       <div id="sandbox-area">
         <LiveDemoSandbox />
       </div>
+      <PageJourneyNav view="simulator" />
     </SiteShell>
   );
 }

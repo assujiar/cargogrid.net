@@ -3,7 +3,7 @@ import type { Article } from "./types";
 export const article: Article = {
   slug: "biaya-tersembunyi-pod-kertas",
   title: "Anatomi Biaya POD Kertas: Menghitung Rupiah yang Hilang di Setiap Lembar",
-  metaTitle: "Biaya Tersembunyi POD Kertas di Operasional Logistik — CargoGrid OS",
+  metaTitle: "Biaya Tersembunyi POD Kertas di Operasional Logistik | CargoGrid OS",
   description:
     "POD kertas jarang masuk laporan biaya karena tidak punya kode akun. Kami bedah ke mana uangnya benar-benar pergi: piutang tertahan, jam kerja admin, dan klaim yang gugur karena bukti hilang.",
   keywords: [
@@ -19,7 +19,7 @@ export const article: Article = {
     "Tidak ada perusahaan yang punya baris anggaran bernama 'biaya POD hilang'. Justru karena itu angkanya bisa besar tanpa pernah ditanya. Tulisan ini memecahnya jadi empat komponen yang bisa Anda hitung sendiri dari data yang sudah ada di kantor Anda.",
   takeaways: [
     "Biaya POD kertas hampir selalu muncul sebagai keterlambatan piutang, bukan sebagai biaya operasional.",
-    "Lembar POD yang hilang berbeda sifatnya dari POD yang telat — yang satu menggugurkan tagihan, yang satu hanya menundanya.",
+    "Lembar POD yang hilang berbeda sifatnya dari POD yang telat, yang satu menggugurkan tagihan, yang satu hanya menundanya.",
     "Titik kebocoran terbesar bukan di driver, melainkan di serah terima antara driver dan admin cabang.",
     "Sebelum membeli sistem apa pun, ukur dulu dua angka: rata-rata hari POD kembali, dan persentase POD yang tidak pernah kembali.",
   ],
@@ -48,8 +48,8 @@ export const article: Article = {
     {
       type: "callout",
       tone: "example",
-      title: "Contoh perhitungan — ganti angkanya dengan milik Anda",
-      body: "Asumsikan omzet Rp 6 miliar per bulan (Rp 200 juta per hari kalender), rata-rata POD kembali 7 hari, dan biaya modal 12% per tahun (setara 0,033% per hari). Jika digitalisasi memangkas jeda itu dari 7 hari jadi 1 hari, ada Rp 1,2 miliar piutang yang lebih cepat berputar. Biaya menahan dana sebesar itu selama 6 hari ekstra: Rp 1,2 M x 0,033% x 6 ≈ Rp 2,4 juta per bulan. Angka ini bukan penghematan tunai — ia biaya kesempatan. Nilainya jadi sangat nyata kalau Anda sedang memakai fasilitas modal kerja bank.",
+      title: "Contoh perhitungan: ganti angkanya dengan milik Anda",
+      body: "Asumsikan omzet Rp 6 miliar per bulan (Rp 200 juta per hari kalender), rata-rata POD kembali 7 hari, dan biaya modal 12% per tahun (setara 0,033% per hari). Jika digitalisasi memangkas jeda itu dari 7 hari jadi 1 hari, ada Rp 1,2 miliar piutang yang lebih cepat berputar. Biaya menahan dana sebesar itu selama 6 hari ekstra: Rp 1,2 M x 0,033% x 6 ≈ Rp 2,4 juta per bulan. Angka ini bukan penghematan tunai, ia biaya kesempatan. Nilainya jadi sangat nyata kalau Anda sedang memakai fasilitas modal kerja bank.",
     },
     {
       type: "p",
@@ -66,7 +66,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Setiap langkah masuk akal secara individual. Digabung, hasilnya adalah pekerjaan penuh waktu yang tidak menambah nilai apa pun ke jasa yang Anda jual — customer tidak membayar lebih karena POD Anda rapi. Mereka hanya berhenti membayar kalau POD-nya tidak ada.",
+      text: "Setiap langkah masuk akal secara individual. Digabung, hasilnya adalah pekerjaan penuh waktu yang tidak menambah nilai apa pun ke jasa yang Anda jual, customer tidak membayar lebih karena POD Anda rapi. Mereka hanya berhenti membayar kalau POD-nya tidak ada.",
     },
     {
       type: "p",
@@ -83,13 +83,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Persentasenya biasanya kecil — inilah sebabnya isu ini jarang naik ke rapat direksi. Tapi nilai per kejadiannya besar, dan distribusinya tidak merata. POD yang hilang cenderung menempel pada shipment bermasalah: yang dikirim ulang, yang ditolak sebagian, yang serah terimanya terjadi di luar jam kerja. Justru shipment yang paling butuh bukti kuat adalah yang paling rawan kehilangan buktinya.",
+      text: "Persentasenya biasanya kecil, inilah sebabnya isu ini jarang naik ke rapat direksi. Tapi nilai per kejadiannya besar, dan distribusinya tidak merata. POD yang hilang cenderung menempel pada shipment bermasalah: yang dikirim ulang, yang ditolak sebagian, yang serah terimanya terjadi di luar jam kerja. Justru shipment yang paling butuh bukti kuat adalah yang paling rawan kehilangan buktinya.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Yang membuatnya mahal bukan tagihannya, tapi klaimnya",
-      body: "Ketika customer mengajukan klaim barang kurang atau rusak, POD bertanda tangan dengan catatan kondisi adalah satu-satunya dokumen yang berpihak pada Anda. Tanpa itu, posisi tawar Anda nol — bukan lemah, nol. Anda akan membayar klaim yang sebetulnya bukan tanggung jawab Anda, semata karena tidak bisa membuktikan sebaliknya.",
+      body: "Ketika customer mengajukan klaim barang kurang atau rusak, POD bertanda tangan dengan catatan kondisi adalah satu-satunya dokumen yang berpihak pada Anda. Tanpa itu, posisi tawar Anda nol, bukan lemah, nol. Anda akan membayar klaim yang sebetulnya bukan tanggung jawab Anda, semata karena tidak bisa membuktikan sebaliknya.",
     },
     {
       type: "p",
@@ -106,7 +106,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Biaya per kejadian kecil, tapi frekuensinya tinggi dan sepenuhnya terdiri dari waktu orang yang paling paham operasional — orang yang seharusnya menangani eskalasi, bukan menjadi mesin pencari manual.",
+      text: "Biaya per kejadian kecil, tapi frekuensinya tinggi dan sepenuhnya terdiri dari waktu orang yang paling paham operasional, orang yang seharusnya menangani eskalasi, bukan menjadi mesin pencari manual.",
     },
     {
       type: "h2",
@@ -115,7 +115,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ada keyakinan umum bahwa POD hilang karena driver ceroboh. Menurut pengamatan kami di lapangan, itu jarang jadi penyebab utama. Driver punya insentif kuat menyimpan POD — bagi mereka, POD adalah bukti bahwa pekerjaan selesai.",
+      text: "Ada keyakinan umum bahwa POD hilang karena driver ceroboh. Menurut pengamatan kami di lapangan, itu jarang jadi penyebab utama. Driver punya insentif kuat menyimpan POD, bagi mereka, POD adalah bukti bahwa pekerjaan selesai.",
     },
     {
       type: "p",
@@ -127,7 +127,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ini penting karena menentukan solusinya. Kalau masalahnya kecerobohan driver, jawabannya pelatihan dan sanksi. Kalau masalahnya serah terima yang tidak tercatat, pelatihan tidak akan mengubah apa pun — yang dibutuhkan adalah mencatat kejadian di titik ia terjadi, yaitu di tangan driver, di lokasi, saat itu juga.",
+      text: "Ini penting karena menentukan solusinya. Kalau masalahnya kecerobohan driver, jawabannya pelatihan dan sanksi. Kalau masalahnya serah terima yang tidak tercatat, pelatihan tidak akan mengubah apa pun, yang dibutuhkan adalah mencatat kejadian di titik ia terjadi, yaitu di tangan driver, di lokasi, saat itu juga.",
     },
     {
       type: "h2",
@@ -140,7 +140,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dengan POD kertas, bukti tercipta di lokasi tapi baru tercatat di sistem berhari-hari kemudian, setelah melewati beberapa tangan. Dengan ePOD, bukti tercipta dan tercatat pada saat yang sama, di tempat yang sama. Rantai perpindahan tangan itu hilang — dan bersamanya, hilang pula seluruh kelas kegagalan yang tadi dibahas.",
+      text: "Dengan POD kertas, bukti tercipta di lokasi tapi baru tercatat di sistem berhari-hari kemudian, setelah melewati beberapa tangan. Dengan ePOD, bukti tercipta dan tercatat pada saat yang sama, di tempat yang sama. Rantai perpindahan tangan itu hilang, dan bersamanya, hilang pula seluruh kelas kegagalan yang tadi dibahas.",
     },
     {
       type: "table",
@@ -158,7 +158,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Foto lebih bernilai daripada tanda tangan",
-      body: "Dalam sengketa klaim, tanda tangan hanya membuktikan bahwa seseorang menerima sesuatu. Foto kondisi barang saat serah terima membuktikan dalam keadaan apa barang itu diterima. Kalau Anda hanya bisa menerapkan satu perubahan, wajibkan foto — bukan tanda tangan digital.",
+      body: "Dalam sengketa klaim, tanda tangan hanya membuktikan bahwa seseorang menerima sesuatu. Foto kondisi barang saat serah terima membuktikan dalam keadaan apa barang itu diterima. Kalau Anda hanya bisa menerapkan satu perubahan, wajibkan foto, bukan tanda tangan digital.",
     },
     {
       type: "h2",
@@ -190,7 +190,7 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "Rata-rata hari antara tanggal barang diterima dan tanggal POD tercatat lengkap di kantor. Bukan tanggal terbaik, bukan perkiraan — rata-rata sesungguhnya, termasuk yang paling parah.",
+        "Rata-rata hari antara tanggal barang diterima dan tanggal POD tercatat lengkap di kantor. Bukan tanggal terbaik, bukan perkiraan, rata-rata sesungguhnya, termasuk yang paling parah.",
         "Persentase dari 100 pengiriman itu yang POD-nya sampai hari ini masih belum lengkap atau tidak ditemukan.",
       ],
     },
@@ -200,7 +200,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Nilai dari dua angka itu bukan sekadar untuk membenarkan pembelian sistem. Keduanya adalah garis dasar. Tanpa garis dasar, enam bulan setelah implementasi Anda tidak akan bisa membuktikan apakah ada yang membaik — dan proyek yang tidak bisa dibuktikan hasilnya adalah proyek yang anggarannya dipotong duluan tahun depan.",
+      text: "Nilai dari dua angka itu bukan sekadar untuk membenarkan pembelian sistem. Keduanya adalah garis dasar. Tanpa garis dasar, enam bulan setelah implementasi Anda tidak akan bisa membuktikan apakah ada yang membaik, dan proyek yang tidak bisa dibuktikan hasilnya adalah proyek yang anggarannya dipotong duluan tahun depan.",
     },
   ],
   faq: [
@@ -210,15 +210,15 @@ export const article: Article = {
     },
     {
       q: "Bagaimana kalau lokasi bongkar tidak ada sinyal?",
-      a: "Aplikasi driver harus bisa bekerja penuh dalam kondisi offline — merekam tanda tangan, foto, dan catatan kondisi ke penyimpanan lokal, lalu menyinkronkannya otomatis begitu perangkat kembali terhubung. Kalau sebuah sistem mensyaratkan koneksi saat serah terima, sistem itu tidak cocok untuk operasional lapangan di Indonesia.",
+      a: "Aplikasi driver harus bisa bekerja penuh dalam kondisi offline, merekam tanda tangan, foto, dan catatan kondisi ke penyimpanan lokal, lalu menyinkronkannya otomatis begitu perangkat kembali terhubung. Kalau sebuah sistem mensyaratkan koneksi saat serah terima, sistem itu tidak cocok untuk operasional lapangan di Indonesia.",
     },
     {
       q: "Berapa lama waktu implementasi ePOD sampai benar-benar dipakai driver?",
-      a: "Bagian teknisnya cepat, biasanya hitungan minggu. Yang menentukan lama-tidaknya adalah adopsi di lapangan. Rencanakan periode paralel — kertas dan digital berjalan bersamaan — sampai tingkat kepatuhan stabil, lalu hentikan yang kertas pada tanggal yang diumumkan jelas. Menjalankan keduanya tanpa batas waktu adalah cara paling pasti membuat keduanya berantakan.",
+      a: "Bagian teknisnya cepat, biasanya hitungan minggu. Yang menentukan lama-tidaknya adalah adopsi di lapangan. Rencanakan periode paralel (kertas dan digital berjalan bersamaan) sampai tingkat kepatuhan stabil, lalu hentikan yang kertas pada tanggal yang diumumkan jelas. Menjalankan keduanya tanpa batas waktu adalah cara paling pasti membuat keduanya berantakan.",
     },
     {
       q: "Apakah ePOD berarti harus mengganti seluruh sistem operasional?",
-      a: "Tidak harus. ePOD bisa berdiri sebagai modul terpisah. Tapi nilainya jauh berkurang kalau tidak tersambung ke penagihan — kalau bukti sudah digital namun invoice tetap dibuat manual dari data yang diketik ulang, Anda hanya memindahkan pekerjaan, bukan menghilangkannya.",
+      a: "Tidak harus. ePOD bisa berdiri sebagai modul terpisah. Tapi nilainya jauh berkurang kalau tidak tersambung ke penagihan, kalau bukti sudah digital namun invoice tetap dibuat manual dari data yang diketik ulang, Anda hanya memindahkan pekerjaan, bukan menghilangkannya.",
     },
   ],
   related: ["rekonsiliasi-invoice-forwarder-terlambat", "adopsi-aplikasi-driver", "customer-portal-logistik"],

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "../src/lib/seo";
+import { articles } from "../src/content/articles";
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
@@ -34,15 +35,28 @@ const routes: RouteEntry[] = [
   { path: "/paket", priority: 0.9, changeFrequency: "weekly", lastModified: "2026-07-10" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly", lastModified: "2026-07-09" },
   { path: "/kontak", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-07-09" },
+  { path: "/artikel", priority: 0.8, changeFrequency: "weekly", lastModified: "2026-08-03" },
   { path: "/kebijakan-privasi", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-07-09" },
   { path: "/syarat-ketentuan", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-07-09" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+  const staticRoutes: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${siteUrl}${route.path}`,
     lastModified: new Date(route.lastModified),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
+
+  // Articles carry their own dates, so unlike the pages above they need no
+  // hand-maintained table -- editing a piece and bumping its `updatedAt` is one
+  // action, and the sitemap follows.
+  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${siteUrl}/artikel/${article.slug}`,
+    lastModified: new Date(article.updatedAt || article.publishedAt),
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...articleRoutes];
 }

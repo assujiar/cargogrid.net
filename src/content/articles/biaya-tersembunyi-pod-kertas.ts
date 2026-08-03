@@ -15,7 +15,7 @@ export const article: Article = {
     "digitalisasi bukti pengiriman",
   ],
   category: "operasional",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-04-14",
   summary:
     "Tidak ada perusahaan yang punya baris anggaran bernama 'biaya POD hilang'. Justru karena itu angkanya bisa besar tanpa pernah ditanya. Tulisan ini memecahnya jadi empat komponen yang bisa Anda hitung sendiri dari data yang sudah ada di kantor Anda.",
   takeaways: [

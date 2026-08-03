@@ -15,7 +15,7 @@ export const article: Article = {
     "transparansi pengiriman",
   ],
   category: "komersial",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-06-04",
   summary:
     "Portal customer sering dianggap fitur pemanis. Dilihat dari teori antrean dan model kesenjangan layanan, ia sebenarnya intervensi operasional: ia memotong permintaan yang masuk ke tim Anda, sekaligus menutup salah satu sumber ketidakpuasan yang paling sering.",
   takeaways: [

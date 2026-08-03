@@ -44,6 +44,17 @@ export const articles: Article[] = registry;
 
 export const articleSlugs: string[] = registry.map((a) => a.slug);
 
+/**
+ * Cover art variant per slug, assigned by registry position. There are exactly
+ * as many motifs as articles, so every piece gets a structurally different
+ * picture rather than a jittered copy of its category's motif.
+ */
+const variantBySlug = new Map(registry.map((a, i) => [a.slug, i]));
+
+export function coverVariant(slug: string): number {
+  return variantBySlug.get(slug) ?? 0;
+}
+
 const bySlug = new Map(registry.map((a) => [a.slug, a]));
 
 export function getArticle(slug: string): Article | undefined {

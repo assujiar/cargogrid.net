@@ -15,7 +15,7 @@ export const article: Article = {
     "evaluasi mitra logistik",
   ],
   category: "komersial",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-05-27",
   summary:
     "Keputusan memakai armada sendiri atau subkontraktor biasanya diambil dengan membandingkan biaya per rit. Perbandingan itu menghilangkan seluruh biaya yang muncul justru karena Anda bertransaksi dengan pihak luar, dan biaya itulah yang biasanya menentukan.",
   takeaways: [

@@ -4,7 +4,7 @@ import ArticleBody from "./ArticleBody";
 import ArticleCoverArt from "./ArticleCoverArt";
 import { LAYOUTS, ACCENT_TEXT, ACCENT_BG } from "./articleLayouts";
 import { ARTICLE_CATEGORIES, readingMinutes, tableOfContents, type Article } from "../../content/articles/types";
-import { relatedArticles } from "../../content/articles";
+import { relatedArticles, coverVariant } from "../../content/articles";
 import { formatArticleDate } from "./formatArticleDate";
 
 /**
@@ -78,7 +78,7 @@ export default function ArticleView({ article }: { article: Article }) {
         <header>
           {spec.hero === "banner" && (
             <div className="nm-emboss mb-9 overflow-hidden rounded-3xl">
-              <ArticleCoverArt category={article.category} seed={article.slug} height={230} />
+              <ArticleCoverArt category={article.category} seed={article.slug} variant={coverVariant(article.slug)} height={230} />
             </div>
           )}
 
@@ -90,7 +90,7 @@ export default function ArticleView({ article }: { article: Article }) {
             <div className="mb-9 grid items-center gap-6 sm:grid-cols-[1fr_190px]">
               <div>{meta}</div>
               <div className="nm-emboss-sm overflow-hidden rounded-2xl">
-                <ArticleCoverArt category={article.category} seed={article.slug} height={110} />
+                <ArticleCoverArt category={article.category} seed={article.slug} variant={coverVariant(article.slug)} height={110} />
               </div>
             </div>
           )}
@@ -228,7 +228,7 @@ export default function ArticleView({ article }: { article: Article }) {
                   href={`/artikel/${item.slug}`}
                   className="nm-emboss-sm group overflow-hidden rounded-2xl bg-[#eef2f6]/40 transition-transform hover:scale-[1.02]"
                 >
-                  <ArticleCoverArt category={item.category} seed={item.slug} height={74} />
+                  <ArticleCoverArt category={item.category} seed={item.slug} variant={coverVariant(item.slug)} height={74} />
                   <div className="p-5">
                     <p className="mb-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] text-brand-teal">
                       {ARTICLE_CATEGORIES[item.category]}

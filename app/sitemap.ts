@@ -35,7 +35,7 @@ const routes: RouteEntry[] = [
   { path: "/paket", priority: 0.9, changeFrequency: "weekly", lastModified: "2026-07-10" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly", lastModified: "2026-07-09" },
   { path: "/kontak", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-07-09" },
-  { path: "/artikel", priority: 0.8, changeFrequency: "weekly", lastModified: "2026-08-03" },
+  { path: "/artikel", priority: 0.8, changeFrequency: "weekly", lastModified: "2026-08-03" }, // bump when a new article lands
   { path: "/kebijakan-privasi", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-07-09" },
   { path: "/syarat-ketentuan", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-07-09" },
 ];

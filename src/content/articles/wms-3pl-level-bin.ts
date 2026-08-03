@@ -15,7 +15,7 @@ export const article: Article = {
     "akurasi stok gudang",
   ],
   category: "gudang",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-07-16",
   summary:
     "Banyak gudang 3PL mencatat stok pada tingkat total: berapa banyak barang milik siapa. Itu cukup untuk laporan, tapi tidak cukup untuk menjalankan gudang, dan perbedaannya baru terasa ketika volume naik atau saat customer meminta tagihan penyimpanan dirinci.",
   takeaways: [

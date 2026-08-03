@@ -421,7 +421,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
     <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full flex-1 flex flex-col gap-8 relative z-10" id="detailed-questionnaire-page">
 
       {/* Main Container */}
-      <div className="nm-emboss bg-white/75 backdrop-blur-md rounded-3xl p-6 sm:p-10 border-0 flex flex-col gap-8 relative">
+      <div className="nm-emboss bg-white/75 backdrop-blur-md rounded-3xl p-6 sm:p-12 border-0 flex flex-col gap-10 relative">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-orange to-brand-teal rounded-t-3xl" />
 
         {/* Top Header info */}
@@ -434,12 +434,12 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
               <h1 className="font-display font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">
                 PT {inquiry.company.replace(/^PT\s+/, "")}
               </h1>
-              <p className="text-slate-500 text-xs font-semibold mt-1">
+              <p className="text-slate-500 text-[11px] font-medium mt-2">
                 {isEn ? "Registration ID: " : "ID Registrasi: "}<span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-600 font-bold">{inquiry.id}</span> • {isEn ? "System Status: " : "Status Sistem: "}<strong className="text-brand-teal">{inquiry.status}</strong>
               </p>
             </div>
 
-            <div className="nm-deboss bg-slate-100/50 p-4 rounded-2xl flex flex-col gap-1 text-xs">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 flex flex-col gap-1.5 text-xs">
               <span className="font-mono font-black text-slate-400 text-[10px] uppercase tracking-wider">{isEn ? "INITIAL REGISTRATION RECAP" : "REKAP REGISTRASI AWAL"}</span>
               <p className="font-bold text-slate-700">{isEn ? "Contact: " : "Kontak: "}<span className="font-medium text-slate-600">{inquiry.name} ({inquiry.role})</span></p>
               <p className="font-bold text-slate-700">{isEn ? "Volume: " : "Volume: "}<span className="font-medium text-slate-600">{inquiry.shipmentVolume} {isEn ? "shipments/month" : "shipment/bulan"}</span></p>
@@ -498,7 +498,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
             </div>
 
             {/* Step Content Wrapper */}
-            <form onSubmit={handleSubmitForm} className="space-y-6">
+            <form onSubmit={handleSubmitForm} className="space-y-8">
 
               <AnimatePresence mode="wait">
                 {step === 1 && (
@@ -508,14 +508,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.25 }}
-                    className="space-y-5"
+                    className="space-y-10"
                   >
                     <div>
-                      <h3 className="font-display font-black text-lg text-slate-900 flex items-center gap-2">
+                      <h3 className="font-display font-black text-xl text-slate-900 flex items-center gap-2.5">
                         <Building2 className="w-5 h-5 text-brand-teal" />
                         <span>{isEn ? "Category 1: Operational Profile & Logistics Scale" : "Kategori 1: Profil Operasional & Skala Logistik"}</span>
                       </h3>
-                      <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
+                      <p className="text-[13px] text-slate-500 leading-relaxed mt-2 pb-6 border-b border-slate-200/80">
                         {isEn
                           ? "This information helps us prepare a trial setup that matches your active routes and shipment volume."
                           : "Informasi ini membantu kami menyiapkan konfigurasi uji coba yang sesuai dengan rute aktif dan volume pengiriman Anda."}
@@ -523,11 +523,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     </div>
 
                     {/* Service Types Checklist */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                    <div className="flex flex-col gap-3.5">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Service Type (mode of transport/handling)*" : "Jenis Layanan (moda transportasi/penanganan)*"}
                       </label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         {[
                           { id: "Air Freight", en: "Air Freight" },
                           { id: "Sea Freight - FCL", en: "Sea Freight - FCL" },
@@ -546,16 +546,21 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               type="button"
                               key={svc}
                               onClick={() => toggleService(svc)}
-                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                              className={`group/opt flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-[13.5px] leading-snug transition-all cursor-pointer border ${
                                 checked
-                                  ? "nm-emboss-teal"
-                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                                  ? "border-brand-teal bg-brand-teal/10 font-bold text-brand-teal-hover shadow-[0_2px_10px_rgba(0,151,178,0.12)]"
+                                  : "border-slate-300/70 bg-white/70 font-semibold text-slate-600 hover:border-brand-teal/60 hover:bg-white hover:text-slate-900"
                               }`}
                             >
-                              <div className="flex items-center gap-2 justify-between">
-                                <span>{label}</span>
-                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
-                              </div>
+                              <span
+                                aria-hidden="true"
+                                className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
+                                  checked ? "border-brand-teal bg-brand-teal" : "border-slate-300 bg-white group-hover/opt:border-brand-teal/60"
+                                }`}
+                              >
+                                {checked && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
+                              </span>
+                              <span>{label}</span>
                             </button>
                           );
                         })}
@@ -563,11 +568,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     </div>
 
                     {/* Commodity Types Checklist */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                    <div className="flex flex-col gap-3.5">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Commodity Type (goods being shipped)*" : "Jenis Komoditas (barang yang diangkut)*"}
                       </label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         {[
                           { id: "General Cargo / Box", en: "General Cargo / Box" },
                           { id: "Bulk Cargo (Curah)", en: "Bulk Cargo (Dry Bulk)" },
@@ -586,16 +591,21 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               type="button"
                               key={cargo}
                               onClick={() => toggleCargo(cargo)}
-                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                              className={`group/opt flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-[13.5px] leading-snug transition-all cursor-pointer border ${
                                 checked
-                                  ? "nm-emboss-teal"
-                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                                  ? "border-brand-teal bg-brand-teal/10 font-bold text-brand-teal-hover shadow-[0_2px_10px_rgba(0,151,178,0.12)]"
+                                  : "border-slate-300/70 bg-white/70 font-semibold text-slate-600 hover:border-brand-teal/60 hover:bg-white hover:text-slate-900"
                               }`}
                             >
-                              <div className="flex items-center gap-2 justify-between">
-                                <span>{label}</span>
-                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
-                              </div>
+                              <span
+                                aria-hidden="true"
+                                className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
+                                  checked ? "border-brand-teal bg-brand-teal" : "border-slate-300 bg-white group-hover/opt:border-brand-teal/60"
+                                }`}
+                              >
+                                {checked && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
+                              </span>
+                              <span>{label}</span>
                             </button>
                           );
                         })}
@@ -603,11 +613,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     </div>
 
                     {/* Operational Scope */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                    <div className="flex flex-col gap-3.5">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Operational Scope*" : "Cakupan Wilayah Operasional*"}
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                         {[
                           { id: "domestic", labelId: "Domestik Saja", labelEn: "Domestic Only" },
                           { id: "international", labelId: "Internasional Saja", labelEn: "International Only" },
@@ -619,16 +629,21 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                               type="button"
                               key={scope.id}
                               onClick={() => setOperationScope(scope.id)}
-                              className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                              className={`group/opt flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-[13.5px] leading-snug transition-all cursor-pointer border ${
                                 checked
-                                  ? "nm-emboss-teal"
-                                  : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                                  ? "border-brand-teal bg-brand-teal/10 font-bold text-brand-teal-hover shadow-[0_2px_10px_rgba(0,151,178,0.12)]"
+                                  : "border-slate-300/70 bg-white/70 font-semibold text-slate-600 hover:border-brand-teal/60 hover:bg-white hover:text-slate-900"
                               }`}
                             >
-                              <div className="flex items-center gap-2 justify-between">
-                                <span>{isEn ? scope.labelEn : scope.labelId}</span>
-                                {checked && <Check className="w-3.5 h-3.5 text-white" />}
-                              </div>
+                              <span
+                                aria-hidden="true"
+                                className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                                  checked ? "border-brand-teal" : "border-slate-300 group-hover/opt:border-brand-teal/60"
+                                }`}
+                              >
+                                {checked && <span className="h-2.5 w-2.5 rounded-full bg-brand-teal" />}
+                              </span>
+                              <span>{isEn ? scope.labelEn : scope.labelId}</span>
                             </button>
                           );
                         })}
@@ -637,7 +652,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                     {/* Primary Routes Text */}
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="primary-routes" className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                      <label htmlFor="primary-routes" className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Dominant Logistics Route / Core Corridors*" : "Rute Logistik Dominan / Koridor Utama*"}
                       </label>
                       <input
@@ -655,7 +670,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Fleet Size */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "Estimated Active Fleet Size*" : "Perkiraan Jumlah Armada Aktif*"}
                         </label>
                         <select id="detailedquestionnaire-select-1" name="detailedquestionnaire-select-1" aria-label="detailedquestionnaire-select-1"
@@ -675,7 +690,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                       {/* Vendor Count */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "Number of Expedition / Subcontract Vendors*" : "Jumlah Vendor Ekspedisi / Subkontrak*"}
                         </label>
                         <select id="detailedquestionnaire-select-2" name="detailedquestionnaire-select-2" aria-label="detailedquestionnaire-select-2"
@@ -696,7 +711,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       {/* Expected Users */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "Estimated Number of Active Users*" : "Perkiraan Jumlah Pengguna Sistem (User)*"}
                         </label>
                         <select id="detailedquestionnaire-select-3" name="detailedquestionnaire-select-3" aria-label="detailedquestionnaire-select-3"
@@ -715,7 +730,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                       {/* Expected Roles Header */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "Involved Operational Roles*" : "Role / Peran yang Akan Terlibat*"}
                         </label>
                         <span className="text-[10px] text-slate-400 font-semibold leading-normal mt-0.5">
@@ -740,16 +755,21 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             type="button"
                             key={role.id}
                             onClick={() => toggleRole(role.id)}
-                            className={`p-3 rounded-xl text-left text-xs font-bold transition-all border-0 cursor-pointer ${
+                            className={`group/opt flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-[13.5px] leading-snug transition-all cursor-pointer border ${
                               active
-                                ? "nm-emboss-orange"
-                                : "nm-deboss bg-slate-50 text-slate-600 hover:text-slate-900"
+                                ? "border-brand-orange bg-brand-orange/10 font-bold text-brand-orange shadow-[0_2px_10px_rgba(203,52,33,0.12)]"
+                                : "border-slate-300/70 bg-white/70 font-semibold text-slate-600 hover:border-brand-orange/60 hover:bg-white hover:text-slate-900"
                             }`}
                           >
-                            <div className="flex items-center gap-2 justify-between">
-                              <span>{isEn ? role.labelEn : role.labelId}</span>
-                              {active && <Check className="w-3.5 h-3.5 text-white" />}
-                            </div>
+                            <span
+                              aria-hidden="true"
+                              className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
+                                active ? "border-brand-orange bg-brand-orange" : "border-slate-300 bg-white group-hover/opt:border-brand-orange/60"
+                              }`}
+                            >
+                              {active && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
+                            </span>
+                            <span>{isEn ? role.labelEn : role.labelId}</span>
                           </button>
                         );
                       })}
@@ -764,14 +784,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.25 }}
-                    className="space-y-5"
+                    className="space-y-10"
                   >
                     <div>
-                      <h3 className="font-display font-black text-lg text-slate-900 flex items-center gap-2">
+                      <h3 className="font-display font-black text-xl text-slate-900 flex items-center gap-2.5">
                         <Activity className="w-5 h-5 text-red-500" />
                         <span>{isEn ? "Category 2: Diagnosis & Field Pain Points Description" : "Kategori 2: Diagnosa & Deskripsi Masalah Lapangan"}</span>
                       </h3>
-                      <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
+                      <p className="text-[13px] text-slate-500 leading-relaxed mt-2 pb-6 border-b border-slate-200/80">
                         {isEn
                           ? "Describe the current manual workflows that often lead to cost leaks, lack of visibility, or data discrepancies."
                           : "Jelaskan alur kerja manual saat ini yang sering menimbulkan deviasi biaya, hilangnya transparansi, atau ketidaksesuaian data."}
@@ -781,7 +801,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     {/* RFQ Pain Details */}
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "1. Commercial & RFQ Pricing Workflow*" : "1. Alur RFQ & Penawaran Harga Sektor Komersial*"}
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., WhatsApp, Excel" : "Contoh: WhatsApp, Excel"}</span>
@@ -799,7 +819,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     {/* Dispatch Pain Details */}
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "2. Delivery Order & Driver Manifest Coordination*" : "2. Koordinasi Surat Jalan & Surat Perintah Supir*"}
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., manual typing" : "Contoh: Admin ngetik satu-satu"}</span>
@@ -817,7 +837,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     {/* Tracking Pain Details */}
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "3. Real-time Status Updates & Client Communication*" : "3. Update Status Real-time & Komunikasi Ke Customer*"}
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., constant customer phone calls" : "Contoh: Customer nanya berkali-kali"}</span>
@@ -835,7 +855,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     {/* Invoicing Pain Details */}
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "4. POD Retrieval & Invoicing/Billing Delays*" : "4. Kendala Serah Terima POD & Proses Invoice/Billing*"}
                         </label>
                         <span className="text-[10px] text-slate-400 font-mono">{isEn ? "e.g., lost physical documents, 2-week delays" : "Contoh: Bukti POD nyelip, telat 2 minggu"}</span>
@@ -854,7 +874,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       {/* Existing Customer Delivery Flow */}
                       <div className="flex flex-col gap-1.5">
                         <div className="flex items-center justify-between">
-                          <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                          <label className="block text-[15px] font-bold leading-snug text-slate-800">
                             {isEn ? "5. Existing End-to-End Customer Delivery Flow*" : "5. Alur Pengiriman & Flow Eksisting Customer (End-to-End)*"}
                           </label>
                           <span className="text-[10px] text-slate-400 font-mono">{isEn ? "Step-by-step workflow" : "Alur langkah-demi-langkah"}</span>
@@ -871,7 +891,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                       {/* Internal SOP state */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "6. Current Standard Operating Procedure (SOP)*" : "6. Kondisi SOP / Prosedur Operasional Saat Ini*"}
                         </label>
                         <textarea id="detailedquestionnaire-textarea-6" name="detailedquestionnaire-textarea-6" aria-label="detailedquestionnaire-textarea-6"
@@ -886,7 +906,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                       {/* Operational or Financial Impact of Biggest Challenge */}
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                        <label className="block text-[15px] font-bold leading-snug text-slate-800">
                           {isEn ? "7. Operational & Financial Impact of Challenges*" : "7. Dampak Operasional & Finansial dari Kendala Utama*"}
                         </label>
                         <textarea id="detailedquestionnaire-textarea-7" name="detailedquestionnaire-textarea-7" aria-label="detailedquestionnaire-textarea-7"
@@ -909,14 +929,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.25 }}
-                    className="space-y-5"
+                    className="space-y-10"
                   >
                     <div>
-                      <h3 className="font-display font-black text-lg text-slate-900 flex items-center gap-2">
+                      <h3 className="font-display font-black text-xl text-slate-900 flex items-center gap-2.5">
                         <Layers className="w-5 h-5 text-brand-orange" />
                         <span>{isEn ? "Category 3: Priority Solutions & Current Tools" : "Kategori 3: Prioritas Solusi & Tools Saat Ini"}</span>
                       </h3>
-                      <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
+                      <p className="text-[13px] text-slate-500 leading-relaxed mt-2 pb-6 border-b border-slate-200/80">
                         {isEn
                           ? "Select the CargoGrid capabilities you want to prioritize during your trial period, plus any tools you need to connect."
                           : "Pilih kapabilitas CargoGrid yang ingin Anda prioritaskan selama masa uji coba, serta tools lain yang perlu dihubungkan."}
@@ -924,8 +944,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     </div>
 
                     {/* Desired Modules Selection */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                    <div className="flex flex-col gap-3.5">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Priority CargoGrid Capabilities*" : "Kapabilitas CargoGrid Yang Diprioritaskan*"}
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -985,7 +1005,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                     {/* ERP System Dropdown */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Current Finance / Operations Tools*" : "Tools Keuangan / Operasional Saat Ini*"}
                       </label>
                       <select id="detailedquestionnaire-select-4" name="detailedquestionnaire-select-4" aria-label="detailedquestionnaire-select-4"
@@ -1006,7 +1026,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                     {/* Integration Requests */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Custom Workflows or Additional Integration Needs (Optional)" : "Kebutuhan Custom Alur Kerja atau Integrasi Tambahan (Opsional)"}
                       </label>
                       <textarea id="detailedquestionnaire-textarea-8" name="detailedquestionnaire-textarea-8" aria-label="detailedquestionnaire-textarea-8"
@@ -1020,7 +1040,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                     {/* Specific Custom Requests */}
                     <div className="flex flex-col gap-1.5 pt-2">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Specific Requests & Special Feature Demands (Optional)" : "Permintaan Spesifik & Kebutuhan Fitur Khusus (Opsional)"}
                       </label>
                       <textarea id="detailedquestionnaire-textarea-9" name="detailedquestionnaire-textarea-9" aria-label="detailedquestionnaire-textarea-9"
@@ -1041,14 +1061,14 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.25 }}
-                    className="space-y-5"
+                    className="space-y-10"
                   >
                     <div>
-                      <h3 className="font-display font-black text-lg text-slate-900 flex items-center gap-2">
+                      <h3 className="font-display font-black text-xl text-slate-900 flex items-center gap-2.5">
                         <Calendar className="w-5 h-5 text-brand-teal" />
                         <span>{isEn ? "Category 4: Meeting Preferences & Audit Confirmation" : "Kategori 4: Preferensi Jadwal Pertemuan & Konfirmasi Audit"}</span>
                       </h3>
-                      <p className="text-xs text-slate-500 font-semibold leading-relaxed mt-1">
+                      <p className="text-[13px] text-slate-500 leading-relaxed mt-2 pb-6 border-b border-slate-200/80">
                         {isEn
                           ? "Select up to 3 available time slots for your video conference audit confirmation session with a CargoGrid Senior Solutions partner."
                           : "Pilih maksimal 3 opsi jadwal ketersediaan waktu Anda untuk agenda teleconference konfirmasi audit bersama Senior Logistics Solutions partner CargoGrid."}
@@ -1056,11 +1076,11 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                     </div>
 
                     {/* Meeting Slots Grid */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-3.5">
                       <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider block">
                         {isEn ? "Available Time Slot Options (Choose 1 - 3 Slots)*" : "Pilihan Slot Waktu Ketersediaan (Pilih 1 - 3 Slot)*"}
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                         {AVAILABLE_MEETING_SLOTS.map((slot) => {
                           const selected = preferredSlots.includes(slot.id);
                           return (
@@ -1091,7 +1111,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
 
                     {/* Contact Person / Loop notes */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-xs text-slate-700 font-black font-mono uppercase tracking-wider">
+                      <label className="block text-[15px] font-bold leading-snug text-slate-800">
                         {isEn ? "Additional Attendance Notes (Who else from your team should be included?)" : "Catatan Kehadiran Tambahan (Siapa saja yang akan dilibatkan?)"}
                       </label>
                       <textarea id="detailedquestionnaire-textarea-10" name="detailedquestionnaire-textarea-10" aria-label="detailedquestionnaire-textarea-10"

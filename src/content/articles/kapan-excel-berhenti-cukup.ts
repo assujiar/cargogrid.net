@@ -15,7 +15,7 @@ export const article: Article = {
     "sistem manajemen transportasi",
   ],
   category: "sistem",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-07-23",
   summary:
     "Nasihat 'tinggalkan Excel' biasanya datang dari orang yang menjual penggantinya. Kenyataannya Excel adalah alat yang sangat baik sampai titik tertentu. Tulisan ini soal cara mengenali titik itu, dengan tanda yang bisa diperiksa, bukan perasaan.",
   takeaways: [

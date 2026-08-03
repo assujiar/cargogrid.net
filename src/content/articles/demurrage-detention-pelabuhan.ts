@@ -3,10 +3,10 @@ import type { Article } from "./types";
 export const article: Article = {
   slug: "demurrage-detention-pelabuhan",
   layout: "dossier",
-  title: "Demurrage dan Detention: Denda yang Hampir Selalu Bisa Dihindari, Tapi Jarang Dihitung",
-  metaTitle: "Demurrage & Detention: Anatomi Denda Kontainer di Pelabuhan | CargoGrid OS",
+  title: "Demurrage dan Detention: Denda yang Sebetulnya Bisa Dicegah, Tapi Jarang Benar-Benar Dihitung",
+  metaTitle: "Demurrage & Detention: Membedah Denda Kontainer di Pelabuhan | CargoGrid OS",
   description:
-    "Demurrage dan detention bukan biaya tak terduga, keduanya punya tanggal jatuh tempo yang diketahui sejak hari pertama. Kami bedah kenapa tetap terjadi dan bagaimana memantaunya.",
+    "Demurrage dan detention sebenarnya bukan kejutan, tanggal jatuh temponya sudah bisa dihitung sejak kontainer turun dari kapal. Artikel ini membedah kenapa denda ini tetap terjadi dan bagaimana cara memantaunya sebelum terlambat.",
   keywords: [
     "demurrage detention",
     "biaya demurrage kontainer",
@@ -17,43 +17,43 @@ export const article: Article = {
   category: "operasional",
   publishedAt: "2026-06-11",
   summary:
-    "Tidak seperti kerusakan barang atau cuaca buruk, demurrage punya sifat yang aneh: tanggal jatuh temponya sudah diketahui sejak kontainer dibongkar. Ia bukan kejadian tak terduga, melainkan tenggat yang terlewat. Itu membuatnya jauh lebih bisa dikendalikan daripada yang diperlakukan kebanyakan perusahaan.",
+    "Beda dengan kerusakan barang atau cuaca buruk yang datang tiba-tiba, demurrage punya sifat yang aneh: tanggal jatuh temponya sudah diketahui sejak hari kontainer dibongkar. Jadi ini bukan musibah yang datang tanpa aba-aba, melainkan tenggat yang kelewatan. Artinya, denda ini jauh lebih bisa dikendalikan daripada cara kebanyakan perusahaan memperlakukannya.",
   takeaways: [
-    "Demurrage dikenakan atas kontainer yang menetap di terminal; detention atas kontainer yang lama di luar. Keduanya sering tertukar dan salah dibebankan.",
-    "Free time berjalan dalam hari kalender, sehingga libur panjang memakan jatah tanpa ada pekerjaan yang berjalan.",
-    "Penyebab paling umum bukan keterlambatan truk, melainkan dokumen kepabeanan yang belum selesai.",
-    "Tanpa catatan penyebab per kejadian, denda ini akan dianggap biaya operasional biasa dan tidak pernah diperbaiki.",
+    "Demurrage dikenakan kalau kontainer masih menginap di terminal; detention kalau kontainer sudah keluar tapi belum juga dikembalikan. Dua hal berbeda, tapi sering tertukar dan salah dibebankan ke pihak yang keliru.",
+    "Free time dihitung dalam hari kalender, bukan hari kerja, jadi libur panjang tetap menggerus jatah waktu meski tidak ada aktivitas apa pun yang berjalan.",
+    "Penyebab paling sering bukan truk yang telat, tapi dokumen kepabeanan yang belum kelar, jauh sebelum truk sempat bergerak.",
+    "Tanpa catatan penyebab di tiap kejadian, denda ini akan terus dianggap biaya operasional biasa, dan karena itu tidak akan pernah benar-benar diperbaiki.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Coba tanyakan ke tim operasional Anda berapa total demurrage dan detention yang dibayar tahun lalu. Kalau jawabannya butuh waktu untuk dicari, itu sendiri sudah merupakan temuan. Biaya yang tidak dipantau tidak pernah dikelola, ia hanya dibayar.",
+      text: "Coba tanya langsung ke tim operasional Anda: berapa total demurrage dan detention yang dibayar tahun lalu? Kalau jawabannya butuh waktu untuk digali dari tumpukan invoice, itu sudah jadi temuan tersendiri. Biaya yang tidak dipantau tidak pernah benar-benar dikelola, ia cuma dibayar.",
     },
     {
       type: "p",
-      text: "Yang membuat kedua biaya ini menarik untuk dibahas: keduanya sepenuhnya dapat diprediksi. Anda tahu tanggal kontainer dibongkar. Anda tahu berapa hari free time yang diberikan. Karena itu Anda tahu, sejak hari pertama, kapan denda mulai berjalan. Tidak ada ketidakpastian sama sekali, yang ada hanya tenggat yang tidak dipantau.",
+      text: "Yang membuat kedua biaya ini menarik dibahas, keduanya sebetulnya bisa diprediksi seratus persen. Anda tahu tanggal kontainer dibongkar. Anda tahu berapa hari free time yang diberikan pelayaran. Artinya, sejak hari pertama, Anda sudah tahu persis kapan denda mulai berjalan. Tidak ada tebak-tebakan di sini, yang ada hanya tenggat yang luput dipantau.",
     },
     {
       type: "h2",
       id: "dasar-penjadwalan",
-      text: "Dasar: aturan tenggat terdekat dalam teori penjadwalan",
+      text: "Dasarnya: aturan tenggat terdekat dari teori penjadwalan",
     },
     {
       type: "p",
-      text: "Teori penjadwalan punya satu hasil yang sederhana dan terbukti secara matematis, dikenal sebagai aturan Jackson: bila sejumlah pekerjaan harus dikerjakan satu per satu oleh satu sumber daya, mengurutkannya berdasarkan tenggat terdekat lebih dulu menghasilkan keterlambatan maksimum yang paling kecil.",
+      text: "Teori penjadwalan punya satu temuan sederhana yang sudah terbukti secara matematis, dikenal sebagai aturan Jackson: kalau sejumlah pekerjaan harus dikerjakan satu per satu oleh satu sumber daya yang sama, mendahulukan pekerjaan dengan tenggat terdekat akan menghasilkan keterlambatan maksimum yang paling kecil.",
     },
     {
       type: "p",
-      text: "Terjemahannya ke meja dokumen Anda langsung. Antrean kontainer yang menunggu penyelesaian dokumen adalah persoalan penjadwalan satu sumber daya, dan tenggatnya sudah diketahui sejak kontainer dibongkar. Mengurutkan pekerjaan berdasarkan sisa free time, bukan berdasarkan tanggal tiba, adalah penerapan langsung aturan itu. Perubahan ini tidak menambah orang dan tidak menambah sistem, hanya mengubah urutan.",
+      text: "Terapkan langsung ke meja dokumen Anda. Antrean kontainer yang menunggu penyelesaian dokumen sebenarnya adalah persoalan penjadwalan satu sumber daya, dan tenggatnya sudah diketahui sejak kontainer dibongkar. Jadi, mengurutkan pekerjaan berdasarkan sisa free time, bukan berdasarkan tanggal kedatangan, adalah penerapan langsung dari aturan itu. Tidak perlu menambah orang, tidak perlu menambah sistem, cukup ubah urutan kerjanya.",
     },
     {
       type: "h2",
       id: "beda-demurrage-dan-detention",
-      text: "Beda demurrage dan detention, dan kenapa membedakannya penting",
+      text: "Beda demurrage dan detention, dan kenapa pembedaan ini penting",
     },
     {
       type: "p",
-      text: "Keduanya sering disebut bergantian dalam percakapan sehari-hari, padahal memicunya berbeda dan pihak yang bisa memperbaikinya juga berbeda.",
+      text: "Dalam obrolan sehari-hari, dua istilah ini sering dipakai bergantian seolah sama saja. Padahal pemicunya berbeda, dan pihak yang bisa memperbaikinya pun berbeda.",
     },
     {
       type: "table",
@@ -69,22 +69,22 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pembedaan ini bukan soal istilah. Kalau seluruh denda dicatat dalam satu akun bernama \"biaya pelabuhan\", Anda tidak akan pernah tahu apakah masalahnya ada di meja dokumen atau di pintu gudang. Dan dua masalah itu diperbaiki dengan cara yang sama sekali berbeda.",
+      text: "Ini bukan sekadar soal istilah. Kalau semua denda ditumpuk dalam satu akun bernama \"biaya pelabuhan\", Anda tidak akan pernah tahu apakah masalahnya ada di meja dokumen atau di pintu gudang. Padahal dua masalah itu butuh cara perbaikan yang sama sekali berbeda.",
     },
     {
       type: "h2",
       id: "free-time-berjalan-dalam-hari-kalender",
-      text: "Free time berjalan dalam hari kalender, termasuk saat kantor tutup",
+      text: "Free time berjalan dalam hari kalender, termasuk saat kantor libur",
     },
     {
       type: "p",
-      text: "Ini jebakan yang paling sering memakan korban dan paling mudah dihindari. Free time umumnya dihitung dalam hari kalender, bukan hari kerja. Kontainer yang dibongkar menjelang libur panjang kehilangan sebagian besar jatahnya sebelum ada satu pun pekerjaan yang bisa dikerjakan.",
+      text: "Ini jebakan yang paling sering memakan korban, padahal sebenarnya paling mudah dihindari. Free time umumnya dihitung dalam hari kalender, bukan hari kerja. Jadi kontainer yang dibongkar tepat menjelang libur panjang bisa kehabisan sebagian besar jatahnya, padahal belum ada satu pun pekerjaan yang sempat dikerjakan.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Periode paling mahal dalam setahun sudah diketahui dari sekarang",
-      body: "Libur Lebaran, Natal-Tahun Baru, dan cuti bersama panjang adalah tanggal yang sudah ada di kalender berbulan-bulan sebelumnya. Kontainer yang tiba tiga hari sebelum libur seminggu praktis kehilangan seluruh free time-nya. Untuk kiriman yang jadwal tibanya masih bisa digeser, menggesernya beberapa hari jauh lebih murah daripada membayar denda, dan keputusan itu harus diambil saat booking, bukan saat kontainer sudah di air.",
+      body: "Libur Lebaran, Natal-Tahun Baru, dan cuti bersama panjang itu tanggalnya sudah tertulis di kalender berbulan-bulan sebelumnya. Kalau kontainer tiba tiga hari sebelum libur seminggu, praktis seluruh free time-nya habis begitu saja. Untuk kiriman yang jadwalnya masih bisa digeser, menggeser kedatangan beberapa hari jauh lebih murah daripada membayar denda, tapi keputusan itu harus diambil saat booking, bukan setelah kontainer sudah di tengah laut.",
     },
     {
       type: "h2",
@@ -93,21 +93,21 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dari pengamatan pada operasional impor di Indonesia, urutannya cenderung seperti ini, dan urutan ini penting karena menentukan ke mana perbaikan diarahkan.",
+      text: "Dari pengamatan pada operasional impor di Indonesia, urutan penyebabnya cenderung konsisten seperti ini, dan urutan ini penting karena menentukan ke mana energi perbaikan sebaiknya diarahkan.",
     },
     {
       type: "ol",
       items: [
-        "**Dokumen belum lengkap saat kontainer tiba.** Invoice, packing list, atau dokumen asal yang belum diterima dari shipper. Kontainer sudah di terminal, tapi proses kepabeanan belum bisa dimulai. Ini penyebab nomor satu, dan akarnya ada di luar negeri.",
-        "**Jalur merah atau permintaan pemeriksaan.** Menambah beberapa hari yang tidak bisa dipercepat. Bisa diantisipasi kalau pola komoditas dan importir Anda dipantau.",
-        "**Perizinan tambahan.** Komoditas tertentu memerlukan izin dari kementerian teknis. Kalau baru diurus setelah kontainer tiba, keterlambatannya bisa panjang.",
-        "**Kapasitas gudang penerima penuh.** Kontainer sudah bisa keluar, tapi tidak ada tempat membongkarnya.",
-        "**Antrean pengembalian di depo.** Truk sudah membawa kontainer kosong, tapi depo antre. Sering luput dari perhitungan karena dianggap urusan trucking.",
+        "**Dokumen belum lengkap saat kontainer tiba.** Invoice, packing list, atau dokumen asal belum juga sampai dari shipper. Kontainer sudah duduk di terminal, tapi proses kepabeanan belum bisa dimulai sama sekali. Ini penyebab nomor satu, dan akar masalahnya justru ada di luar negeri.",
+        "**Jalur merah atau permintaan pemeriksaan.** Menambah beberapa hari yang memang tidak bisa dipercepat siapa pun. Tapi ini bisa diantisipasi kalau Anda memantau pola komoditas dan riwayat importir Anda sendiri.",
+        "**Perizinan tambahan.** Komoditas tertentu butuh izin dari kementerian teknis. Kalau baru diurus setelah kontainer tiba, keterlambatannya bisa jadi berlarut-larut.",
+        "**Kapasitas gudang penerima penuh.** Kontainer sebenarnya sudah bisa keluar, tapi tidak ada tempat untuk membongkarnya.",
+        "**Antrean pengembalian di depo.** Truk sudah membawa kontainer kosong ke depo, tapi antreannya mengular. Sering luput dari perhitungan karena dianggap sepenuhnya urusan trucking.",
       ],
     },
     {
       type: "p",
-      text: "Perhatikan bahwa hanya dua dari lima penyebab teratas berhubungan dengan armada. Ini menjelaskan kenapa menekan vendor trucking (reaksi yang paling umum) jarang mengubah angka tahunan.",
+      text: "Perhatikan, hanya dua dari lima penyebab di atas yang benar-benar berurusan dengan armada. Ini menjelaskan kenapa reaksi paling umum, yaitu menekan vendor trucking, jarang mengubah angka demurrage tahunan.",
     },
     {
       type: "h2",
@@ -116,21 +116,21 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Karena tidak ada yang bertugas memantaunya. Tanggal jatuh tempo free time biasanya ada di dokumen (di Delivery Order, di email pelayaran) tapi tidak ada di tempat orang bekerja sehari-hari.",
+      text: "Karena tidak ada yang benar-benar bertugas memantaunya. Tanggal jatuh tempo free time memang ada, tertulis di Delivery Order atau email pelayaran, tapi tidak muncul di tempat orang bekerja sehari-hari.",
     },
     {
       type: "p",
-      text: "Tim dokumen bekerja dari antrean dokumen. Tim operasional bekerja dari jadwal truk. Tidak satu pun dari kedua antrean itu diurutkan berdasarkan \"berapa hari lagi sebelum denda mulai\". Akibatnya kontainer yang tersisa satu hari free time diperlakukan sama dengan yang tersisa enam hari.",
+      text: "Tim dokumen bekerja dari antrean dokumen. Tim operasional bekerja dari jadwal truk. Tidak satu pun dari kedua antrean itu diurutkan berdasarkan \"tinggal berapa hari lagi sebelum denda mulai jalan\". Akibatnya, kontainer yang free time-nya tersisa satu hari diperlakukan sama saja dengan yang masih tersisa enam hari.",
     },
     {
       type: "quote",
-      text: "Denda ini tidak muncul karena orang tidak tahu tanggalnya. Ia muncul karena tanggal itu tidak pernah mengubah urutan pekerjaan siapa pun.",
+      text: "Denda ini bukan muncul karena orang tidak tahu tanggalnya. Ia muncul karena tanggal itu tidak pernah mengubah urutan kerja siapa pun.",
     },
     {
       type: "callout",
       tone: "insight",
       title: "Satu perubahan yang biasanya paling besar dampaknya",
-      body: "Urutkan daftar kerja harian tim dokumen berdasarkan sisa free time, bukan berdasarkan tanggal kontainer tiba. Perubahan ini tidak menambah orang, tidak menambah sistem, dan tidak menambah biaya. Ia hanya memindahkan pekerjaan yang paling mahal kalau terlambat ke urutan paling atas, dan itu bisa dikerjakan dengan spreadsheet.",
+      body: "Urutkan daftar kerja harian tim dokumen berdasarkan sisa free time, bukan berdasarkan tanggal kontainer tiba. Perubahan ini tidak menambah orang, tidak menambah sistem, dan tidak menambah biaya sama sekali. Ia cuma memindahkan pekerjaan yang paling mahal kalau telat ke urutan paling atas, dan itu bisa dikerjakan dengan spreadsheet biasa.",
     },
     {
       type: "h2",
@@ -139,20 +139,20 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau Anda hanya mencatat nominal, denda ini akan selamanya terlihat seperti biaya operasional yang wajar. Yang membuatnya bisa diperbaiki adalah mencatat konteksnya:",
+      text: "Kalau yang dicatat cuma nominalnya, denda ini akan selamanya terlihat seperti biaya operasional yang wajar-wajar saja. Yang membuatnya bisa diperbaiki adalah mencatat konteks di baliknya:",
     },
     {
       type: "ul",
       items: [
-        "**Jenis:** demurrage atau detention. Menentukan tim mana yang perlu dilibatkan.",
-        "**Jumlah hari lewat**, bukan hanya rupiah. Denda Rp 10 juta dari satu kontainer lewat 20 hari adalah masalah yang berbeda dari Rp 10 juta yang tersebar di 20 kontainer lewat 1 hari. Yang pertama adalah kasus tersangkut; yang kedua adalah proses yang selalu mepet.",
-        "**Penyebab utama**, dipilih dari daftar tetap. Bukan esai, lima pilihan sudah cukup.",
-        "**Siapa yang menanggung.** Kalau selalu perusahaan Anda, periksa kembali kontrak dengan customer. Sebagian penyebab, seperti dokumen dari shipper yang telat, sebetulnya bukan risiko Anda.",
+        "**Jenis:** demurrage atau detention. Ini menentukan tim mana yang perlu turun tangan.",
+        "**Jumlah hari lewat**, bukan cuma rupiahnya. Denda Rp 10 juta dari satu kontainer yang telat 20 hari adalah masalah yang sama sekali berbeda dari Rp 10 juta yang tersebar di 20 kontainer yang masing-masing telat 1 hari. Yang pertama kasus kontainer tersangkut; yang kedua tanda proses yang memang selalu mepet.",
+        "**Penyebab utama**, dipilih dari daftar baku, bukan ditulis bebas seperti esai. Lima pilihan saja sudah cukup.",
+        "**Siapa yang menanggung.** Kalau ternyata selalu perusahaan Anda yang menanggung, periksa ulang kontrak dengan customer. Sebagian penyebab, seperti dokumen dari shipper yang telat, sebenarnya bukan risiko yang seharusnya Anda tanggung.",
       ],
     },
     {
       type: "p",
-      text: "Setelah tiga bulan, distribusi kolom ketiga akan memberi tahu satu hal yang tidak bisa diketahui dengan cara lain: apakah Anda punya masalah dokumen, masalah gudang, atau masalah perencanaan jadwal. Ketiganya terasa sama di laporan keuangan, dan tidak ada satu pun yang bisa diperbaiki tanpa tahu yang mana.",
+      text: "Setelah berjalan tiga bulan, distribusi di kolom ketiga akan membongkar satu hal yang tidak bisa diketahui dengan cara lain: apakah masalah Anda sebenarnya ada di dokumen, di gudang, atau di perencanaan jadwal. Ketiganya terlihat sama saja di laporan keuangan, padahal tidak ada satu pun yang bisa diperbaiki kalau Anda belum tahu yang mana.",
     },
     {
       type: "h2",
@@ -161,11 +161,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Untuk importir dengan volume rutin, tambahan free time adalah salah satu poin negosiasi yang paling sering dilewatkan. Perhatian biasanya tertuju penuh pada tarif angkut, padahal tambahan beberapa hari free time bisa bernilai lebih besar daripada potongan tarif yang diperjuangkan mati-matian.",
+      text: "Bagi importir dengan volume rutin, tambahan free time adalah salah satu poin negosiasi yang paling sering terlewat begitu saja. Perhatian biasanya habis tersedot ke tarif angkut, padahal tambahan beberapa hari free time bisa bernilai jauh lebih besar daripada potongan tarif yang diperjuangkan mati-matian.",
     },
     {
       type: "p",
-      text: "Hitung sendiri sebelum negosiasi berikutnya: berapa total demurrage yang Anda bayar tahun lalu, dan berapa persen dari kejadian itu yang akan terhindar seandainya free time lebih panjang tiga hari. Kalau angkanya melebihi nilai potongan tarif yang biasa Anda perjuangkan, Anda tahu poin mana yang seharusnya dibawa lebih dulu ke meja.",
+      text: "Coba hitung sendiri sebelum negosiasi berikutnya: berapa total demurrage yang Anda bayar tahun lalu, dan berapa persen dari kejadian itu yang sebenarnya bisa terhindar seandainya free time-nya lebih panjang tiga hari saja. Kalau angka itu melebihi nilai potongan tarif yang biasa Anda perjuangkan mati-matian, berarti Anda sudah tahu poin mana yang seharusnya dibawa lebih dulu ke meja negosiasi.",
     },
     {
       type: "h2",
@@ -174,29 +174,29 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sebagian demurrage tidak bisa dihindari, dan mengejar angka nol justru menciptakan biaya baru. Pemeriksaan jalur merah, kepadatan pelabuhan musiman, dan kapal yang tiba lebih awal dari jadwal berada di luar kendali siapa pun di tim Anda.",
+      text: "Sebagian demurrage memang tidak bisa dihindari, dan mengejar angka nol justru bisa menciptakan biaya baru. Pemeriksaan jalur merah, kepadatan pelabuhan musiman, dan kapal yang datang lebih cepat dari jadwal, semuanya berada di luar kendali siapa pun di tim Anda.",
     },
     {
       type: "p",
-      text: "Target yang masuk akal bukan nol, melainkan memisahkan yang tak terhindarkan dari yang terhindarkan, lalu mengecilkan kelompok kedua sampai tersisa hanya kelompok pertama. Perusahaan yang mengejar nol biasanya berakhir menahan barang lebih lama di gudang sendiri, yang biayanya nyata tapi tidak muncul sebagai denda, sehingga terasa seperti kemenangan padahal bukan.",
+      text: "Target yang masuk akal bukan nol, melainkan memisahkan mana yang benar-benar tak terhindarkan dan mana yang sebenarnya masih bisa dicegah, lalu mengecilkan kelompok kedua sampai yang tersisa hanya kelompok pertama. Perusahaan yang ngotot mengejar nol biasanya justru berakhir menahan barang lebih lama di gudang sendiri, biaya yang nyata tapi tidak tercatat sebagai denda, jadi terasa seperti kemenangan padahal sebenarnya bukan.",
     },
   ],
   faq: [
     {
       q: "Berapa lama free time yang umum diberikan?",
-      a: "Bervariasi menurut pelayaran, jenis kontainer, rute, dan kesepakatan volume, reefer dan special equipment hampir selalu mendapat free time lebih pendek daripada kontainer kering. Jangan mengandalkan angka umum; periksa nilai yang tertulis di kontrak atau booking confirmation Anda sendiri, karena itulah angka yang akan ditagihkan.",
+      a: "Variasinya cukup lebar, tergantung pelayaran, jenis kontainer, rute, dan kesepakatan volume, reefer dan special equipment hampir selalu dapat free time lebih pendek daripada kontainer kering biasa. Jangan berpegang pada angka umum, periksa langsung nilai yang tertulis di kontrak atau booking confirmation Anda, karena itulah angka yang benar-benar akan ditagihkan.",
     },
     {
       q: "Siapa yang seharusnya menanggung demurrage: forwarder atau customer?",
-      a: "Ditentukan kontrak dan penyebabnya. Kalau keterlambatan berasal dari dokumen yang belum dikirim shipper atau izin yang belum diurus importir, umumnya bukan tanggungan forwarder. Masalahnya, tanpa catatan penyebab per kejadian, forwarder sering menanggungnya demi menjaga hubungan, dan setelah beberapa kali, itu berubah jadi kebiasaan yang sulit dinegosiasikan ulang.",
+      a: "Semua tergantung kontrak dan penyebabnya. Kalau keterlambatan berasal dari dokumen yang belum dikirim shipper atau izin yang belum diurus importir, biasanya itu bukan tanggungan forwarder. Masalahnya, tanpa catatan penyebab di tiap kejadian, forwarder sering ikut menanggung demi menjaga hubungan baik, dan setelah terjadi beberapa kali, itu diam-diam berubah jadi kebiasaan yang susah dinegosiasikan ulang.",
     },
     {
       q: "Apakah sistem bisa mencegah demurrage sepenuhnya?",
-      a: "Tidak. Sistem tidak mempercepat pemeriksaan bea cukai maupun mengurai antrean depo. Yang bisa dilakukan sistem adalah memastikan tidak ada kontainer yang lewat tenggatnya tanpa ada yang menyadari, yaitu menghapus kategori 'kecolongan', bukan kategori 'terlambat karena sebab di luar kendali'.",
+      a: "Tidak. Sistem tidak bisa mempercepat pemeriksaan bea cukai, juga tidak bisa mengurai antrean di depo. Yang bisa dilakukan sistem adalah memastikan tidak ada kontainer yang lewat tenggatnya tanpa disadari siapa pun, dengan kata lain menghilangkan kategori 'kecolongan', bukan kategori 'terlambat karena sebab di luar kendali'.",
     },
     {
       q: "Kami sudah pakai spreadsheet untuk memantau free time. Apa yang kurang?",
-      a: "Spreadsheet bekerja baik selama ada orang yang membukanya setiap hari. Yang biasanya gagal bukan spreadsheet-nya, melainkan kesinambungan pengisiannya saat volume naik atau saat orang yang biasa mengurus sedang cuti. Kalau pemantauan Anda bertahan melewati periode tersibuk tahun lalu, spreadsheet itu sudah memadai.",
+      a: "Spreadsheet sebenarnya bekerja baik-baik saja, selama ada orang yang rutin membukanya setiap hari. Yang biasanya gagal bukan spreadsheet-nya, tapi kesinambungannya, saat volume tiba-tiba naik atau saat orang yang biasa mengurusnya sedang cuti. Kalau pemantauan Anda tetap bertahan melewati periode paling sibuk tahun lalu, spreadsheet itu sudah cukup memadai.",
     },
   ],
   related: ["dokumen-kepabeanan-arsip-digital", "tracking-multimoda-indonesia", "biaya-tersembunyi-pod-kertas"],

@@ -131,17 +131,55 @@ DROP POLICY IF EXISTS "Public: Allow view of meetings" ON meetings;
 DROP POLICY IF EXISTS "Public: Allow email log insertion" ON email_logs;
 
 -- --- Admin Access Override Policy ---
--- In production, restrict admin management to authenticated CargoGrid accounts.
--- Replace 'authenticated' and custom claims as required for your organizational structure.
+-- Admin means "listed in admin_users", NOT merely "signed in". Granting these
+-- policies to the `authenticated` role with USING (true) would hand full read
+-- and write access over every customer record to any account that can log in --
+-- and with public sign-up enabled (the Supabase default) a stranger can create
+-- such an account unaided. That would reopen, from the authenticated side,
+-- exactly the exposure the SECURITY DEFINER functions below close for anon.
+--
+-- Membership is granted in SQL only: admin_users has no INSERT/UPDATE/DELETE
+-- policy, so no signed-in session can promote itself. See supabase_admin_access.sql
+-- for the standalone version of this block plus the grant/revoke recipes.
+
+CREATE TABLE IF NOT EXISTS public.admin_users (
+    user_id    UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    email      TEXT,
+    note       TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
+
+-- SECURITY DEFINER matters: the policies below call this while evaluating
+-- access, and a plain query against admin_users would re-enter that table's own
+-- RLS and recurse. Returns false for anon, since auth.uid() is null there.
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $$
+    SELECT EXISTS (SELECT 1 FROM public.admin_users WHERE user_id = auth.uid());
+$$;
+
+REVOKE ALL ON FUNCTION public.is_admin() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.is_admin() TO anon, authenticated;
+
+DROP POLICY IF EXISTS "Admin: read admin list" ON public.admin_users;
+CREATE POLICY "Admin: read admin list" ON public.admin_users
+    FOR SELECT TO authenticated USING (public.is_admin());
+
 DROP POLICY IF EXISTS "Admin: Full control of inquiries" ON inquiries;
 DROP POLICY IF EXISTS "Admin: Full control of questionnaires" ON questionnaires;
 DROP POLICY IF EXISTS "Admin: Full control of meetings" ON meetings;
 DROP POLICY IF EXISTS "Admin: Full control of email logs" ON email_logs;
 
-CREATE POLICY "Admin: Full control of inquiries" ON inquiries FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin: Full control of questionnaires" ON questionnaires FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin: Full control of meetings" ON meetings FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin: Full control of email logs" ON email_logs FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin: Full control of inquiries" ON inquiries
+    FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
+CREATE POLICY "Admin: Full control of questionnaires" ON questionnaires
+    FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
+CREATE POLICY "Admin: Full control of meetings" ON meetings
+    FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
+CREATE POLICY "Admin: Full control of email logs" ON email_logs
+    FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
 
 -- ==========================================
 -- Public-Safe RPC Functions (SECURITY DEFINER)

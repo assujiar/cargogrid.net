@@ -667,7 +667,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
                       {/* Fleet Size */}
                       <div className="flex flex-col gap-1.5">
                         <label className="block text-[15px] font-bold leading-snug text-slate-800">
@@ -706,9 +706,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                           <option value=">40 vendor">{isEn ? "More than 40 logistics vendors" : "Lebih dari 40 vendor logistik"}</option>
                         </select>
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       {/* Expected Users */}
                       <div className="flex flex-col gap-1.5">
                         <label className="block text-[15px] font-bold leading-snug text-slate-800">
@@ -727,7 +725,9 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                           <option value=">100 users">{isEn ? "More than 100 users" : "Lebih dari 100 pengguna"}</option>
                         </select>
                       </div>
+                    </div>
 
+                    <div className="pt-2">
                       {/* Expected Roles Header */}
                       <div className="flex flex-col gap-1.5">
                         <label className="block text-[15px] font-bold leading-snug text-slate-800">

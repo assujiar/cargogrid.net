@@ -3,10 +3,10 @@ import type { Article } from "./types";
 export const article: Article = {
   slug: "dokumen-kepabeanan-arsip-digital",
   layout: "brief",
-  title: "Arsip Dokumen Logistik: Dari Ordner Berdebu ke Sistem yang Bisa Ditanyai",
+  title: "Arsip Dokumen Logistik: dari Ordner Berdebu ke Sistem yang Bisa Ditanya",
   metaTitle: "Arsip Dokumen Kepabeanan & Logistik yang Bisa Dicari | CargoGrid OS",
   description:
-    "Menyimpan dokumen berbeda dari bisa menemukannya. Prinsip pengelolaan rekaman memberi tiga syarat yang menentukan apakah arsip Anda berguna saat audit datang.",
+    "Menyimpan dokumen dan bisa menemukannya adalah dua hal yang berbeda. Prinsip pengelolaan rekaman memberi tiga syarat yang menentukan apakah arsip Anda benar-benar berguna begitu audit datang mengetuk pintu.",
   keywords: [
     "arsip dokumen logistik",
     "dokumen kepabeanan PIB PEB",
@@ -17,21 +17,21 @@ export const article: Article = {
   category: "sistem",
   publishedAt: "2026-08-01",
   summary:
-    "Setiap perusahaan logistik menyimpan dokumen. Jauh lebih sedikit yang bisa menemukan dokumen tertentu dalam hitungan menit ketika auditor atau customer memintanya. Selisih antara menyimpan dan menemukan itulah yang menentukan nilai arsip Anda.",
+    "Hampir semua perusahaan logistik menyimpan dokumen. Yang jarang bisa mereka lakukan adalah menemukan satu dokumen tertentu dalam hitungan menit, persis ketika auditor atau customer memintanya. Jarak antara \"menyimpan\" dan \"menemukan\" itulah yang sebenarnya menentukan nilai arsip Anda.",
   takeaways: [
-    "Tiga syarat arsip yang berguna: dapat ditemukan, dapat dipercaya keasliannya, dan dapat dipertanggungjawabkan asal usulnya.",
-    "Penamaan berkas yang mengandalkan kebiasaan orang akan selalu terurai begitu jumlah orangnya bertambah.",
-    "Dokumen harus melekat pada transaksinya, bukan pada folder tanggal, agar bisa dicari lewat pertanyaan yang sebenarnya diajukan orang.",
-    "Kebijakan retensi yang tidak ditulis akan berubah menjadi menyimpan semuanya selamanya, dan itu bukan keputusan melainkan penundaan.",
+    "Arsip baru berguna kalau memenuhi tiga syarat sekaligus: dokumennya dapat ditemukan, dapat dipercaya keasliannya, dan jelas asal usulnya.",
+    "Penamaan berkas yang mengandalkan kedisiplinan orang cepat atau lambat akan terurai begitu jumlah orang yang terlibat bertambah.",
+    "Dokumen perlu melekat pada transaksinya, bukan sekadar tersimpan di folder tanggal, supaya bisa dicari lewat pertanyaan yang sebenarnya diajukan orang.",
+    "Kebijakan retensi yang tidak pernah dituliskan ujung-ujungnya berubah jadi \"simpan semua selamanya\" — dan itu bukan keputusan, melainkan keputusan yang ditunda.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Ada satu ujian sederhana yang bisa Anda lakukan sore ini. Pilih satu pengiriman acak dari delapan belas bulan lalu, lalu minta seseorang menemukan seluruh dokumennya: invoice, bukti pengiriman, dokumen kepabeanan, dan korespondensi persetujuan biaya tambahan. Catat waktunya.",
+      text: "Coba satu ujian sederhana sore ini. Ambil satu pengiriman acak dari delapan belas bulan lalu, lalu minta seseorang mengumpulkan seluruh dokumennya: invoice, bukti pengiriman, dokumen kepabeanan, sampai korespondensi persetujuan biaya tambahan. Hitung berapa lama waktu yang dibutuhkan.",
     },
     {
       type: "p",
-      text: "Di sebagian besar perusahaan, hasilnya berkisar antara dua puluh menit sampai tidak ketemu sama sekali. Kalau organisasi Anda termasuk yang tidak ketemu, itu bukan masalah kerapian. Itu risiko yang akan tertagih pada saat yang paling tidak nyaman.",
+      text: "Di kebanyakan perusahaan, hasilnya ada di antara dua puluh menit dan tidak ketemu sama sekali. Kalau organisasi Anda jatuh ke kategori kedua, itu bukan sekadar soal kerapian arsip. Itu risiko yang sedang menunggu momen paling tidak nyaman untuk muncul.",
     },
     {
       type: "h2",
@@ -40,25 +40,25 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Disiplin pengelolaan rekaman, yang tumbuh dari praktik kearsipan dan kemudian dibakukan dalam berbagai standar mutu, menetapkan bahwa sebuah dokumen baru bernilai sebagai rekaman kalau memenuhi beberapa sifat sekaligus. Untuk keperluan operasional logistik, tiga di antaranya paling menentukan.",
+      text: "Disiplin pengelolaan rekaman — yang lahir dari praktik kearsipan lalu dibakukan lewat berbagai standar mutu — menetapkan bahwa sebuah dokumen baru layak disebut rekaman kalau memenuhi beberapa sifat sekaligus. Untuk kebutuhan operasional logistik, tiga di antaranya yang paling menentukan.",
     },
     {
       type: "ol",
       items: [
-        "**Dapat ditemukan.** Ada cara sistematis menemukannya kembali tanpa bergantung pada ingatan orang tertentu.",
-        "**Dapat dipercaya keasliannya.** Ada keyakinan bahwa berkas yang Anda buka adalah versi yang benar dan tidak diubah setelah dibuat.",
-        "**Dapat dipertanggungjawabkan asal usulnya.** Diketahui siapa membuatnya, kapan, dan dari peristiwa apa dokumen itu berasal.",
+        "**Dapat ditemukan.** Ada cara sistematis untuk menemukannya kembali, tanpa harus bergantung pada ingatan satu orang tertentu.",
+        "**Dapat dipercaya keasliannya.** Ada keyakinan bahwa berkas yang Anda buka adalah versi yang benar, dan tidak berubah sejak pertama kali dibuat.",
+        "**Dapat dipertanggungjawabkan asal usulnya.** Jelas siapa yang membuatnya, kapan, dan dari peristiwa apa dokumen itu muncul.",
       ],
     },
     {
       type: "p",
-      text: "Menyimpan berkas hanya memenuhi nol dari tiga. Ini sebabnya folder bersama yang berisi puluhan ribu berkas hasil pindaian terasa seperti arsip, padahal fungsinya lebih dekat ke gudang barang yang tidak diberi label.",
+      text: "Sekadar menyimpan berkas baru memenuhi nol dari tiga syarat itu. Itulah sebabnya folder bersama berisi puluhan ribu hasil pindaian terasa seperti arsip, padahal fungsinya lebih mirip gudang barang tanpa label.",
     },
     {
       type: "callout",
       tone: "insight",
-      title: "Syarat kedua sering diabaikan sampai ada sengketa",
-      body: "Selama semuanya berjalan normal, tidak ada yang mempertanyakan apakah sebuah berkas pernah diubah. Pertanyaan itu muncul persis ketika ada perselisihan klaim atau pemeriksaan, yaitu saat Anda paling membutuhkan jawabannya. Berkas yang tersimpan di folder yang bisa ditimpa siapa saja tidak bisa menjawabnya, dan ketidakmampuan itu menjadi kelemahan posisi Anda.",
+      title: "Syarat kedua sering diabaikan, sampai muncul sengketa",
+      body: "Selama semuanya berjalan normal, tidak ada yang repot-repot bertanya apakah sebuah berkas pernah diubah. Pertanyaan itu baru muncul persis ketika ada perselisihan klaim atau pemeriksaan — momen ketika Anda paling butuh jawabannya. Berkas yang tersimpan di folder yang bisa ditimpa siapa saja tidak akan bisa menjawab, dan ketidakmampuan itu langsung melemahkan posisi Anda.",
     },
     {
       type: "h2",
@@ -67,31 +67,31 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Hampir setiap perusahaan pernah menyusun aturan penamaan. Biasanya rapi, biasanya masuk akal, dan biasanya bertahan beberapa bulan.",
+      text: "Hampir setiap perusahaan pernah menyusun aturan penamaan berkas. Biasanya rapi di atas kertas, biasanya masuk akal, dan biasanya bertahan tidak lebih dari beberapa bulan.",
     },
     {
       type: "p",
-      text: "Penyebab keruntuhannya bersifat struktural, bukan soal kedisiplinan. Aturan penamaan menuntut setiap orang menerapkan pemahaman yang sama pada setiap berkas, setiap kali, termasuk saat sedang terburu buru. Jumlah kesempatan untuk menyimpang bertambah seiring jumlah berkas dikali jumlah orang, sementara kemauan untuk mengikutinya tetap. Ada satu titik ketika laju penyimpangan melampaui laju perbaikan, dan setelah titik itu arsip tidak pernah kembali rapi.",
+      text: "Penyebab keruntuhannya bukan soal kedisiplinan, tapi struktural. Aturan penamaan menuntut setiap orang menerapkan pemahaman yang persis sama pada setiap berkas, setiap kali, termasuk saat sedang buru-buru. Semakin banyak berkas dikali semakin banyak orang, semakin banyak pula kesempatan untuk menyimpang, sementara kemauan mengikuti aturan tidak ikut bertambah. Ada satu titik ketika laju penyimpangan melampaui laju perbaikan — dan setelah titik itu, arsip tidak pernah rapi lagi.",
     },
     {
       type: "p",
-      text: "Yang lebih menentukan lagi, penamaan berkas hanya mendukung satu cara pencarian, yaitu urutan nama. Padahal pertanyaan nyata yang muncul di kantor berbentuk lain sama sekali.",
+      text: "Yang lebih menentukan, penamaan berkas hanya mendukung satu cara pencarian: urutan nama. Padahal pertanyaan yang benar-benar muncul di kantor sehari-hari berbentuk lain sama sekali.",
     },
     {
       type: "table",
-      caption: "Pertanyaan yang benar benar diajukan orang, dan apakah folder bisa menjawabnya",
+      caption: "Pertanyaan yang benar-benar diajukan orang, dan apakah folder bisa menjawabnya",
       head: ["Pertanyaan", "Folder tanggal", "Dokumen melekat pada transaksi"],
       rows: [
         ["Semua dokumen untuk job 4471", "Cari manual di beberapa folder", "Terbuka dalam satu klik"],
-        ["Semua POD milik customer X bulan Mei", "Hampir tidak mungkin", "Filter dua kolom"],
-        ["Invoice mana yang belum ada PODnya", "Tidak bisa dijawab", "Daftar otomatis"],
-        ["Siapa mengunggah dokumen ini dan kapan", "Tidak tercatat", "Tercatat"],
-        ["Versi mana yang final", "Tebakan dari nama berkas", "Riwayat versi"],
+        ["Semua POD milik customer X bulan Mei", "Nyaris mustahil", "Filter dua kolom"],
+        ["Invoice mana yang belum ada PODnya", "Tidak bisa dijawab", "Muncul otomatis dalam daftar"],
+        ["Siapa mengunggah dokumen ini dan kapan", "Tidak tercatat", "Tercatat rapi"],
+        ["Versi mana yang final", "Tebak-tebakan dari nama berkas", "Ada riwayat versi"],
       ],
     },
     {
       type: "p",
-      text: "Kolom kanan tidak menuntut teknologi mahal. Yang membedakannya hanya satu keputusan desain: dokumen disimpan sebagai lampiran dari sebuah transaksi, bukan sebagai berkas yang berdiri sendiri di dalam hierarki folder.",
+      text: "Kolom kanan tidak menuntut teknologi mahal. Yang membedakannya cuma satu keputusan desain: dokumen disimpan sebagai lampiran dari sebuah transaksi, bukan sebagai berkas yang berdiri sendiri di dalam hierarki folder.",
     },
     {
       type: "h2",
@@ -100,11 +100,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Perubahan ini sederhana untuk dijelaskan dan besar akibatnya. Alih alih bertanya di folder mana berkas ini disimpan, sistem menyimpan hubungan: berkas ini adalah bukti pengiriman untuk job 4471, diunggah oleh Rina pada 14 Mei pukul 16.20.",
+      text: "Perubahannya sederhana untuk dijelaskan, tapi akibatnya besar. Alih-alih bertanya di folder mana berkas ini disimpan, sistem menyimpan hubungannya: berkas ini adalah bukti pengiriman untuk job 4471, diunggah oleh Rina pada 14 Mei pukul 16.20.",
     },
     {
       type: "p",
-      text: "Karena hubungan itu tercatat, seluruh pertanyaan di tabel tadi bisa dijawab tanpa ada yang perlu menebak. Dan yang sering luput diperhatikan, pertanyaan terbalik pun ikut terjawab: job mana yang dokumennya belum lengkap. Pertanyaan ini mustahil dijawab oleh struktur folder, karena folder hanya tahu apa yang ada, tidak pernah tahu apa yang seharusnya ada tapi belum.",
+      text: "Karena hubungan itu tercatat, semua pertanyaan di tabel tadi bisa terjawab tanpa ada yang perlu menebak. Dan yang sering luput, pertanyaan sebaliknya pun ikut terjawab: job mana yang dokumennya belum lengkap. Pertanyaan ini mustahil dijawab oleh struktur folder, sebab folder cuma tahu apa yang ada — ia tidak pernah tahu apa yang seharusnya ada tapi belum.",
     },
     {
       type: "quote",
@@ -117,19 +117,19 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dokumen impor dan ekspor punya sifat yang membedakannya dari dokumen operasional biasa. Ia berkaitan dengan kewajiban terhadap otoritas, punya jangka waktu penyimpanan yang diatur, dan sewaktu waktu dapat diminta dalam pemeriksaan.",
+      text: "Dokumen impor dan ekspor punya sifat yang membedakannya dari dokumen operasional biasa. Ia menyangkut kewajiban ke otoritas, punya jangka waktu penyimpanan yang diatur, dan bisa sewaktu-waktu diminta saat pemeriksaan.",
     },
     {
       type: "p",
-      text: "Beberapa hal yang perlu dipastikan, dan sebaiknya diperiksa bersama konsultan kepabeanan Anda karena ketentuannya dapat berubah:",
+      text: "Beberapa hal berikut perlu dipastikan — dan sebaiknya dicek ulang bersama konsultan kepabeanan Anda, karena ketentuannya bisa berubah:",
     },
     {
       type: "ul",
       items: [
-        "**Jangka waktu penyimpanan yang berlaku** untuk dokumen kepabeanan dan dokumen pendukungnya. Ini ditetapkan dalam peraturan, bukan ditentukan kebijakan internal, dan sanksi ketidaktersediaannya nyata.",
-        "**Kelengkapan satu berkas per pengiriman.** Pemeriksaan biasanya menelusuri satu transaksi secara utuh, dari dokumen pemberitahuan sampai bukti bayar. Satu mata rantai yang hilang membuat seluruh rangkaian sulit dipertahankan.",
-        "**Keterkaitan dengan pembukuan.** Nilai pada dokumen kepabeanan harus dapat direkonsiliasi dengan catatan pembelian dan penjualan. Kalau keduanya hidup di dunia yang terpisah, rekonsiliasi menjadi pekerjaan berhari hari setiap kali diminta.",
-        "**Kejelasan siapa yang menyimpan.** Bila menggunakan jasa PPJK, sepakati secara tertulis salinan mana yang menjadi tanggung jawab siapa. Asumsi bahwa pihak lain menyimpannya adalah asumsi yang mahal.",
+        "**Jangka waktu penyimpanan yang berlaku** untuk dokumen kepabeanan beserta dokumen pendukungnya. Ini ditetapkan oleh peraturan, bukan kebijakan internal, dan sanksi bila tidak tersedia sifatnya nyata.",
+        "**Kelengkapan satu berkas per pengiriman.** Pemeriksaan biasanya menelusuri satu transaksi secara utuh, dari dokumen pemberitahuan sampai bukti bayar. Satu mata rantai saja yang hilang membuat seluruh rangkaian sulit dipertahankan.",
+        "**Keterkaitan dengan pembukuan.** Nilai pada dokumen kepabeanan harus bisa direkonsiliasi dengan catatan pembelian dan penjualan. Kalau keduanya hidup di dunia yang terpisah, rekonsiliasi berubah jadi pekerjaan berhari-hari setiap kali diminta.",
+        "**Kejelasan siapa yang menyimpan.** Kalau menggunakan jasa PPJK, sepakati secara tertulis salinan mana menjadi tanggung jawab siapa. Berasumsi pihak lain yang menyimpannya adalah asumsi yang bisa jadi mahal harganya.",
       ],
     },
     {
@@ -139,25 +139,25 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Karena penyimpanan digital murah, godaan untuk menyimpan segalanya selamanya menjadi besar. Ini terlihat seperti kehati hatian, padahal ia menciptakan tiga masalah baru.",
+      text: "Karena penyimpanan digital murah, godaan untuk menyimpan segalanya selamanya jadi besar. Ini kelihatan seperti kehati-hatian, padahal justru menciptakan tiga masalah baru.",
     },
     {
       type: "ol",
       items: [
-        "**Pencarian melambat.** Semakin banyak yang disimpan, semakin banyak hasil yang harus disaring, dan semakin sering orang menyerah lalu bertanya ke rekannya.",
-        "**Risiko kebocoran membesar.** Data pribadi dan komersial yang sudah tidak dibutuhkan tetap menjadi tanggung jawab Anda selama masih tersimpan.",
-        "**Keputusan tidak pernah diambil.** Menyimpan semuanya bukan kebijakan. Ia penundaan kebijakan, dan penundaan itu diwariskan ke orang berikutnya dalam keadaan yang lebih sulit.",
+        "**Pencarian melambat.** Semakin banyak yang disimpan, semakin banyak hasil yang harus disaring, dan semakin sering orang menyerah lalu bertanya langsung ke rekannya.",
+        "**Risiko kebocoran membesar.** Data pribadi dan komersial yang sebetulnya sudah tidak dibutuhkan tetap menjadi tanggung jawab Anda selama masih tersimpan.",
+        "**Keputusan tidak pernah diambil.** Menyimpan semuanya bukan kebijakan — itu penundaan kebijakan, dan penundaan itu diwariskan ke orang berikutnya dalam keadaan yang lebih sulit.",
       ],
     },
     {
       type: "p",
-      text: "Kebijakan retensi yang memadai tidak perlu rumit. Untuk tiap jenis dokumen, tetapkan berapa lama disimpan aktif, berapa lama diarsipkan, dan apa yang terjadi setelahnya. Yang penting kebijakan itu tertulis, disetujui, dan benar benar dijalankan, karena kebijakan yang ada di dokumen tapi tidak pernah dieksekusi justru memperburuk posisi Anda dibanding tidak punya kebijakan sama sekali.",
+      text: "Kebijakan retensi yang memadai tidak perlu rumit. Untuk tiap jenis dokumen, tentukan berapa lama disimpan aktif, berapa lama diarsipkan, dan apa yang terjadi setelahnya. Yang penting kebijakan itu tertulis, disetujui, dan benar-benar dijalankan — sebab kebijakan yang cuma ada di atas kertas tapi tidak pernah dieksekusi justru membuat posisi Anda lebih buruk dibanding tidak punya kebijakan sama sekali.",
     },
     {
       type: "callout",
       tone: "example",
       title: "Langkah awal yang tidak menuntut sistem apa pun",
-      body: "Ambil sepuluh pengiriman acak dari tahun lalu. Untuk masing masing, coba kumpulkan berkas lengkapnya dan catat berapa lama serta apa saja yang tidak ditemukan. Hasilnya memberi dua hal sekaligus: gambaran nyata kondisi arsip Anda, dan daftar jenis dokumen yang paling sering hilang. Perbaikan yang paling berdampak hampir selalu terpusat pada satu atau dua jenis dokumen tertentu, bukan tersebar merata.",
+      body: "Ambil sepuluh pengiriman acak dari tahun lalu. Untuk masing-masing, coba kumpulkan berkas lengkapnya, lalu catat berapa lama waktunya dan apa saja yang tidak ditemukan. Hasilnya memberi dua hal sekaligus: gambaran nyata kondisi arsip Anda, dan daftar jenis dokumen yang paling sering hilang. Perbaikan yang paling berdampak hampir selalu terpusat pada satu atau dua jenis dokumen tertentu, bukan tersebar merata.",
     },
     {
       type: "h2",
@@ -166,33 +166,33 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pertanyaan yang selalu muncul saat beralih ke arsip digital adalah bagaimana nasib berkas fisik bertahun tahun yang sudah menumpuk. Godaannya adalah memindai semuanya, dan itu biasanya keputusan yang keliru.",
+      text: "Pertanyaan yang selalu muncul saat beralih ke arsip digital adalah bagaimana nasib berkas fisik bertahun-tahun yang sudah menumpuk. Godaannya adalah memindai semuanya sekaligus, dan itu biasanya keputusan yang keliru.",
     },
     {
       type: "p",
-      text: "Dokumen lama jarang dibuka, dan yang perlu dibuka biasanya berkaitan dengan sengketa atau pemeriksaan yang jumlahnya sedikit. Memindai puluhan ribu lembar untuk berjaga jaga adalah biaya besar di muka untuk manfaat yang tersebar sangat tipis.",
+      text: "Dokumen lama jarang dibuka lagi, dan yang perlu dibuka biasanya berkaitan dengan sengketa atau pemeriksaan yang jumlahnya kecil. Memindai puluhan ribu lembar untuk berjaga-jaga adalah biaya besar di depan, untuk manfaat yang tersebar sangat tipis.",
     },
     {
       type: "p",
-      text: "Pendekatan yang biasanya lebih masuk akal: mulai digital dari tanggal tertentu ke depan, simpan yang lama dalam bentuk fisik dengan indeks sederhana yang cukup untuk menemukan kotaknya, lalu pindai berdasarkan permintaan ketika memang dibutuhkan. Dengan cara ini biaya mengikuti kebutuhan yang terbukti, bukan kebutuhan yang dibayangkan.",
+      text: "Pendekatan yang biasanya lebih masuk akal: mulai digital dari tanggal tertentu ke depan, simpan yang lama dalam bentuk fisik dengan indeks sederhana yang cukup untuk menemukan kotaknya, lalu pindai berdasarkan permintaan begitu memang dibutuhkan. Dengan cara ini, biaya mengikuti kebutuhan yang terbukti nyata, bukan kebutuhan yang baru dibayangkan.",
     },
   ],
   faq: [
     {
       q: "Apakah dokumen hasil pindaian punya kekuatan yang sama dengan aslinya?",
-      a: "Untuk keperluan internal dan sebagian besar keperluan komersial, salinan digital umumnya memadai sepanjang dapat ditunjukkan keasliannya. Untuk keperluan kepabeanan dan perpajakan, ketentuannya diatur tersendiri dan dapat berubah, sehingga sebaiknya dipastikan ke konsultan kepabeanan atau pajak Anda. Yang perlu dihindari adalah mengambil kesimpulan umum dari praktik satu perusahaan lain.",
+      a: "Untuk keperluan internal dan sebagian besar keperluan komersial, salinan digital umumnya cukup, selama keasliannya bisa ditunjukkan. Untuk keperluan kepabeanan dan perpajakan, ketentuannya diatur tersendiri dan bisa berubah, jadi sebaiknya dipastikan langsung ke konsultan kepabeanan atau pajak Anda. Yang perlu dihindari adalah menarik kesimpulan umum dari praktik satu perusahaan lain saja.",
     },
     {
       q: "Berapa lama dokumen logistik perlu disimpan?",
-      a: "Jangka waktunya berbeda menurut jenis dokumen dan diatur oleh ketentuan perpajakan serta kepabeanan yang berlaku. Susun daftar per jenis dokumen bersama konsultan Anda, lalu tuliskan dalam kebijakan retensi. Menyamaratakan semua dokumen dengan satu jangka waktu terpanjang memang aman secara kepatuhan, tetapi menimbulkan biaya penyimpanan dan risiko data yang tidak perlu.",
+      a: "Jangka waktunya berbeda-beda menurut jenis dokumen, dan diatur oleh ketentuan perpajakan serta kepabeanan yang berlaku. Susun daftarnya per jenis dokumen bersama konsultan Anda, lalu tuliskan dalam kebijakan retensi. Menyamaratakan semua dokumen dengan satu jangka waktu terpanjang memang aman dari sisi kepatuhan, tapi menimbulkan biaya penyimpanan dan risiko data yang sebenarnya tidak perlu.",
     },
     {
       q: "Bagaimana memastikan dokumen tidak diubah setelah diunggah?",
-      a: "Yang dibutuhkan adalah penyimpanan yang mencatat setiap perubahan dan tidak mengizinkan berkas ditimpa diam diam. Unggahan baru sebaiknya menjadi versi baru, bukan menggantikan yang lama, sehingga riwayatnya tetap ada. Folder bersama biasa tidak memberikan sifat ini, dan itulah kelemahan utamanya sebagai arsip.",
+      a: "Yang dibutuhkan adalah sistem penyimpanan yang mencatat setiap perubahan dan tidak mengizinkan berkas ditimpa diam-diam. Unggahan baru sebaiknya menjadi versi baru, bukan menggantikan yang lama, sehingga riwayatnya tetap utuh. Folder bersama biasa tidak memberikan sifat ini, dan itulah kelemahan utamanya sebagai arsip.",
     },
     {
       q: "Apakah Google Drive atau OneDrive cukup untuk arsip dokumen logistik?",
-      a: "Keduanya memberi penyimpanan yang andal dan riwayat versi, yang sudah memenuhi sebagian syarat. Yang tidak diberikan adalah keterkaitan dokumen dengan transaksi, sehingga pertanyaan seperti job mana yang dokumennya belum lengkap tetap tidak bisa dijawab. Untuk banyak perusahaan, kombinasi keduanya masuk akal: penyimpanan di layanan tersebut, keterkaitan dicatat di sistem operasional.",
+      a: "Keduanya memberi penyimpanan yang andal dan riwayat versi, yang sudah memenuhi sebagian syarat. Yang tidak diberikan adalah keterkaitan dokumen dengan transaksi, sehingga pertanyaan seperti job mana yang dokumennya belum lengkap tetap tidak terjawab. Untuk banyak perusahaan, kombinasi keduanya masuk akal: penyimpanan tetap di layanan tersebut, sementara keterkaitannya dicatat di sistem operasional.",
     },
   ],
   related: ["demurrage-detention-pelabuhan", "biaya-tersembunyi-pod-kertas", "integrasi-erp-akuntansi-logistik"],

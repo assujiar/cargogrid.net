@@ -6,7 +6,7 @@ export const article: Article = {
   title: "Menyambungkan Sistem Logistik ke Akuntansi: Empat Keputusan yang Menentukan Hasilnya",
   metaTitle: "Integrasi Sistem Logistik dengan Software Akuntansi | CargoGrid OS",
   description:
-    "Integrasi ke Accurate, Jurnal, atau SAP jarang gagal karena teknis. Ia gagal karena empat keputusan desain yang tidak pernah dibicarakan di awal.",
+    "Integrasi ke Accurate, Jurnal, atau SAP jarang gagal gara-gara sisi teknisnya. Yang membuatnya gagal adalah empat keputusan desain yang tidak pernah dibahas di awal.",
   keywords: [
     "integrasi ERP logistik",
     "integrasi accurate logistik",
@@ -17,21 +17,21 @@ export const article: Article = {
   category: "sistem",
   publishedAt: "2026-07-29",
   summary:
-    "Pertanyaan \"bisa integrasi dengan Accurate?\" hampir selalu dijawab \"bisa\", dan jawaban itu benar sekaligus tidak berguna. Yang menentukan berhasil atau tidaknya adalah empat keputusan yang jarang ditanyakan sebelum kontrak ditandatangani.",
+    "Pertanyaan \"bisa integrasi dengan Accurate?\" hampir selalu dijawab \"bisa\" begitu saja, dan jawaban itu benar sekaligus nyaris tidak membantu. Yang sebenarnya menentukan berhasil atau tidaknya integrasi adalah empat keputusan yang jarang ditanyakan sebelum kontrak diteken.",
   takeaways: [
-    "Tentukan sistem mana yang jadi sumber kebenaran untuk tiap jenis data, sebelum menyentuh teknis apa pun.",
-    "Data induk yang tidak seragam adalah penyebab kegagalan integrasi yang paling umum, bukan API.",
-    "Sinkronisasi dua arah jauh lebih mahal untuk dipelihara daripada satu arah, dan jarang sepadan.",
-    "Tanpa penanganan kegagalan yang terlihat, integrasi akan berhenti diam-diam dan baru ketahuan saat tutup buku.",
+    "Sebelum menyentuh sisi teknis apa pun, tentukan dulu sistem mana yang jadi sumber kebenaran untuk tiap jenis data.",
+    "Penyebab paling umum integrasi gagal bukan API, melainkan data induk yang tidak seragam antar sistem.",
+    "Sinkronisasi dua arah kedengarannya canggih, tapi biaya pemeliharaannya jauh lebih mahal daripada satu arah, dan jarang sepadan.",
+    "Tanpa penanganan kegagalan yang terlihat jelas, integrasi bisa berhenti diam-diam, dan baru ketahuan saat tutup buku.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Dalam setiap proses pemilihan sistem logistik, ada satu pertanyaan yang pasti muncul: \"Bisa integrasi dengan software akuntansi kami?\" Jawabannya hampir selalu \"bisa\". Jawaban itu benar, dan hampir tidak berguna, seperti menjawab \"bisa\" untuk pertanyaan apakah dua kota bisa dihubungkan jalan.",
+      text: "Di setiap proses pemilihan sistem logistik, hampir pasti muncul satu pertanyaan: \"Bisa integrasi dengan software akuntansi kami?\" Jawabannya nyaris selalu \"bisa\". Jawaban itu benar, tapi juga nyaris tidak berguna, tidak beda jauh dengan menjawab \"bisa\" ketika ditanya apakah dua kota bisa dihubungkan dengan jalan.",
     },
     {
       type: "p",
-      text: "Yang menentukan hasilnya bukan kemampuan teknis, melainkan empat keputusan desain yang biasanya baru dibicarakan setelah proyek berjalan, saat mengubahnya sudah mahal.",
+      text: "Yang sebenarnya menentukan hasilnya bukan kemampuan teknis, melainkan empat keputusan desain, keputusan yang biasanya baru dibahas setelah proyek berjalan, tepat pada saat mengubahnya sudah mahal.",
     },
     {
       type: "h2",
@@ -40,11 +40,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Perancangan basis data punya prinsip lama bahwa satu fakta sebaiknya disimpan di satu tempat. Ketika fakta yang sama hidup di dua sistem yang keduanya boleh mengubahnya, perbedaan di antara keduanya bukan kemungkinan melainkan kepastian, dan yang tersisa hanya pertanyaan kapan.",
+      text: "Dalam perancangan basis data, ada prinsip lama yang bunyinya sederhana: satu fakta sebaiknya disimpan di satu tempat saja. Begitu fakta yang sama hidup di dua sistem, dan keduanya sama-sama boleh mengubahnya, perbedaan di antara keduanya bukan lagi sekadar kemungkinan, melainkan kepastian. Yang tersisa cuma soal waktu, kapan itu terjadi.",
     },
     {
       type: "p",
-      text: "Prinsip kedua datang dari sistem terdistribusi. Sebuah operasi disebut idempoten bila menjalankannya berulang kali memberi hasil yang sama dengan menjalankannya sekali. Ini penting karena integrasi pasti pernah gagal di tengah jalan, dan pemulihannya menuntut pengiriman ulang. Tanpa sifat idempoten, satu kali kirim ulang menggandakan transaksi, dan kerusakan akibat pemulihan menjadi lebih besar daripada kerusakan aslinya.",
+      text: "Prinsip kedua datang dari dunia sistem terdistribusi: idempoten. Sebuah operasi disebut idempoten kalau dijalankan berkali-kali pun hasilnya tetap sama dengan dijalankan sekali. Ini penting karena cepat atau lambat integrasi pasti gagal di tengah jalan, dan cara memulihkannya adalah dengan mengirim ulang data yang sempat terputus. Tanpa sifat idempoten, satu kali kirim ulang saja bisa menggandakan transaksi, dan kerusakan akibat \"perbaikan\" itu justru lebih besar daripada kerusakan aslinya.",
     },
     {
       type: "h2",
@@ -53,28 +53,28 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau data customer ada di sistem logistik dan juga di software akuntansi, dan keduanya bisa diedit, maka suatu saat keduanya akan berbeda. Bukan mungkin, pasti. Pertanyaannya hanya kapan, dan versi mana yang akhirnya dipercaya.",
+      text: "Bayangkan data customer yang sama tersimpan di sistem logistik dan juga di software akuntansi, dan keduanya bisa diedit bebas. Cepat atau lambat, dua versi itu akan berbeda. Bukan mungkin, tapi pasti. Yang jadi pertanyaan cuma kapan itu terjadi, dan versi mana yang akhirnya dipercaya.",
     },
     {
       type: "p",
-      text: "Karena itu keputusan pertama, sebelum apa pun yang bersifat teknis: untuk setiap jenis data, tetapkan satu sistem yang berhak mengubahnya. Sistem lain hanya menerima.",
+      text: "Karena itu, sebelum membahas apa pun yang bersifat teknis, ambil dulu keputusan pertama: untuk setiap jenis data, tetapkan satu sistem yang berhak mengubahnya. Sistem yang lain cukup menerima.",
     },
     {
       type: "table",
       caption: "Pembagian yang biasanya paling bertahan",
       head: ["Jenis data", "Sumber kebenaran", "Alasan"],
       rows: [
-        ["Data customer & vendor", "Akuntansi", "NPWP, alamat pajak, dan termin hidup di sana"],
-        ["Data job & shipment", "Logistik", "Akuntansi tidak punya konsep ini"],
-        ["Tarif jual & beli", "Logistik", "Berubah jauh lebih sering daripada siklus akuntansi"],
-        ["Invoice", "Logistik menerbitkan, akuntansi mencatat", "Nomor faktur pajak tetap dari akuntansi"],
-        ["Pembayaran masuk", "Akuntansi", "Rekonsiliasi bank terjadi di sana"],
-        ["Chart of account", "Akuntansi", "Tidak boleh ada duanya"],
+        ["Data customer & vendor", "Akuntansi", "NPWP, alamat pajak, dan termin pembayaran memang hidupnya di sana"],
+        ["Data job & shipment", "Logistik", "Akuntansi tidak mengenal konsep ini"],
+        ["Tarif jual & beli", "Logistik", "Berubah jauh lebih sering dibanding siklus akuntansi"],
+        ["Invoice", "Logistik menerbitkan, akuntansi mencatat", "Nomor faktur pajaknya tetap terbit dari akuntansi"],
+        ["Pembayaran masuk", "Akuntansi", "Rekonsiliasi bank memang terjadi di sana"],
+        ["Chart of account", "Akuntansi", "Tidak boleh ada dua versi"],
       ],
     },
     {
       type: "p",
-      text: "Baris kelima sering memicu perdebatan. Tim operasional ingin melihat status pembayaran di sistem logistik agar bisa menahan pengiriman untuk customer yang menunggak. Itu kebutuhan yang sah, tapi jawabannya adalah menampilkan data dari akuntansi, bukan memungkinkan pengeditannya di sana.",
+      text: "Baris kelima biasanya yang paling sering memicu perdebatan. Tim operasional ingin melihat status pembayaran langsung di sistem logistik, supaya bisa menahan pengiriman untuk customer yang menunggak. Itu kebutuhan yang wajar, tapi solusinya adalah menampilkan data dari akuntansi di layar logistik, bukan membuka akses untuk mengeditnya di sana.",
     },
     {
       type: "h2",
@@ -83,21 +83,21 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ini penyebab kegagalan integrasi yang paling sering, dan paling membosankan, sehingga paling sering ditunda.",
+      text: "Ini penyebab kegagalan integrasi yang paling sering terjadi, sekaligus yang paling membosankan untuk dikerjakan, jadi paling sering ditunda-tunda.",
     },
     {
       type: "p",
-      text: "Di sistem logistik, customer tercatat sebagai \"PT Maju Jaya\". Di akuntansi, \"PT. Maju Jaya Sentosa\". Keduanya merujuk perusahaan yang sama. Tidak ada API yang bisa menebak itu. Integrasi akan gagal mencocokkan, lalu membuat entitas baru, dan sekarang Anda punya dua customer di akuntansi dengan piutang yang terpecah.",
+      text: "Contoh sederhananya begini: di sistem logistik, customer tercatat sebagai \"PT Maju Jaya\". Di akuntansi, namanya \"PT. Maju Jaya Sentosa\". Padahal keduanya perusahaan yang sama persis. Tidak ada API yang bisa menebak itu. Yang terjadi, integrasi gagal mencocokkan kedua nama itu, lalu membuat entitas baru, dan sekarang Anda punya dua customer di akuntansi dengan piutang yang terpecah jadi dua.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Pekerjaan ini tidak bisa didelegasikan ke vendor",
-      body: "Vendor sistem bisa membangun jembatannya, tapi tidak bisa memutuskan bahwa 'PT Maju Jaya' dan 'PT. Maju Jaya Sentosa' adalah entitas yang sama. Itu keputusan bisnis yang hanya bisa diambil orang di perusahaan Anda. Sediakan waktu untuk membersihkan daftar customer dan vendor sebelum integrasi, bukan sesudah. Membersihkan sesudah berarti membersihkan dua sistem sekaligus, plus transaksi yang terlanjur salah.",
+      body: "Vendor sistem bisa membangun jembatan penghubungnya, tapi mereka tidak bisa memutuskan bahwa 'PT Maju Jaya' dan 'PT. Maju Jaya Sentosa' itu perusahaan yang sama. Itu keputusan bisnis, dan hanya orang di perusahaan Anda yang bisa mengambilnya. Sediakan waktu untuk membersihkan daftar customer dan vendor sebelum integrasi berjalan, bukan sesudahnya. Membersihkan sesudahnya berarti membereskan dua sistem sekaligus, ditambah transaksi yang sudah kadung salah.",
     },
     {
       type: "p",
-      text: "Cara praktis: pakai satu pengenal unik yang tidak bergantung pada penulisan nama. NPWP adalah kandidat terbaik untuk entitas berbadan hukum di Indonesia, karena ia tunggal, tidak berubah, dan sudah ada di kedua sistem untuk keperluan pajak.",
+      text: "Cara praktis mengatasinya: pakai satu pengenal unik yang tidak bergantung pada cara penulisan nama. Untuk entitas berbadan hukum di Indonesia, NPWP adalah kandidat terbaik, karena sifatnya tunggal, tidak berubah-ubah, dan sudah ada di kedua sistem untuk keperluan pajak.",
     },
     {
       type: "h2",
@@ -106,15 +106,15 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sinkronisasi dua arah terdengar lebih canggih dan lebih fleksibel. Ia juga jauh lebih mahal untuk dipelihara, karena setiap perubahan di kedua sisi harus memiliki aturan penyelesaian konflik.",
+      text: "Sinkronisasi dua arah kedengarannya lebih canggih dan lebih fleksibel. Tapi ia juga jauh lebih mahal untuk dipelihara, karena setiap perubahan yang terjadi di kedua sisi harus punya aturan penyelesaian konflik yang jelas.",
     },
     {
       type: "p",
-      text: "Contohnya konkret: alamat customer diubah di sistem logistik pukul 10.00, dan diubah berbeda di akuntansi pukul 10.05. Mana yang menang? Yang terbaru? Yang berasal dari sumber kebenaran? Yang diubah oleh pengguna dengan peran lebih tinggi? Setiap jawaban punya konsekuensi, dan semuanya harus diputuskan di muka, untuk setiap kolom.",
+      text: "Bayangkan skenario ini: alamat customer diubah di sistem logistik pukul 10.00, lalu diubah lagi dengan versi berbeda di akuntansi pukul 10.05. Mana yang menang? Yang paling baru diubah? Yang berasal dari sumber kebenaran? Atau yang diubah oleh pengguna dengan peran lebih tinggi? Setiap jawaban punya konsekuensinya sendiri, dan semuanya harus sudah diputuskan di muka, untuk setiap kolom data.",
     },
     {
       type: "p",
-      text: "Untuk sebagian besar perusahaan logistik, arus satu arah per jenis data sudah cukup dan jauh lebih tahan lama: data induk mengalir dari akuntansi ke logistik, transaksi mengalir dari logistik ke akuntansi. Tidak ada yang mengalir bolak-balik, sehingga tidak ada konflik yang perlu diselesaikan.",
+      text: "Untuk sebagian besar perusahaan logistik, arus satu arah per jenis data sudah cukup, dan jauh lebih tahan lama: data induk mengalir dari akuntansi ke logistik, transaksi mengalir dari logistik ke akuntansi. Tidak ada yang mengalir bolak-balik, jadi tidak ada konflik yang perlu diselesaikan sama sekali.",
     },
     {
       type: "h2",
@@ -123,11 +123,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Integrasi akan gagal. Server akuntansi diperbarui, jaringan putus, ada field yang tiba-tiba wajib diisi. Pertanyaannya bukan apakah, melainkan apa yang terjadi setelahnya.",
+      text: "Cepat atau lambat, integrasi akan gagal. Server akuntansi diperbarui, jaringan putus sesaat, atau tiba-tiba ada field yang jadi wajib diisi. Pertanyaannya bukan apakah itu akan terjadi, melainkan apa yang terjadi setelahnya.",
     },
     {
       type: "p",
-      text: "Pola kegagalan yang paling merusak adalah kegagalan senyap: integrasi berhenti bekerja, tidak ada yang diberi tahu, dan operasional berjalan normal selama tiga minggu. Baru saat tutup buku ketahuan ada 60 invoice yang tidak pernah masuk ke akuntansi. Merekonstruksinya memakan waktu berhari-hari, dan sebagian data sudah berubah.",
+      text: "Pola kegagalan yang paling merusak adalah kegagalan senyap: integrasi berhenti bekerja, tidak ada yang diberi tahu, dan operasional tetap berjalan normal selama tiga minggu penuh. Baru ketika tutup buku, ketahuan ada 60 invoice yang ternyata tidak pernah masuk ke akuntansi. Merekonstruksinya makan waktu berhari-hari, dan sebagian datanya sudah keburu berubah.",
     },
     {
       type: "quote",
@@ -135,21 +135,21 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Yang harus ada, dan layak ditanyakan ke vendor mana pun sebelum kontrak:",
+      text: "Berikut yang wajib ada, dan layak ditanyakan ke vendor mana pun sebelum kontrak diteken:",
     },
     {
       type: "ul",
       items: [
-        "**Antrean yang terlihat**, berisi transaksi yang gagal dikirim, dengan alasan kegagalan yang bisa dibaca orang non-teknis.",
-        "**Percobaan ulang otomatis** untuk kegagalan sementara, dengan jeda bertingkat.",
-        "**Pemberitahuan aktif** ke orang tertentu, bukan hanya catatan di log yang tidak pernah dibuka.",
-        "**Kemampuan mengirim ulang secara manual** setelah masalah diperbaiki, tanpa perlu memanggil vendor.",
-        "**Pencegahan duplikasi**, sehingga kirim ulang tidak menghasilkan dua entri untuk transaksi yang sama.",
+        "**Antrean yang terlihat**, yang menampilkan transaksi mana saja yang gagal terkirim, lengkap dengan alasan kegagalan yang bisa dibaca orang non-teknis.",
+        "**Percobaan ulang otomatis** untuk kegagalan yang sifatnya sementara, dengan jeda yang bertingkat.",
+        "**Pemberitahuan aktif** ke orang yang bertanggung jawab, bukan sekadar catatan di log yang tidak pernah dibuka siapa pun.",
+        "**Kemampuan mengirim ulang secara manual** begitu masalahnya sudah dibereskan, tanpa harus memanggil vendor lagi.",
+        "**Pencegahan duplikasi**, supaya kirim ulang tidak berujung pada dua entri untuk transaksi yang sama.",
       ],
     },
     {
       type: "p",
-      text: "Poin terakhir sering terlewat dan menimbulkan masalah yang lebih parah daripada kegagalan aslinya. Kalau sistem tidak punya penanda unik per transaksi, satu kali kirim ulang bisa menggandakan pendapatan Anda di pembukuan.",
+      text: "Poin terakhir ini yang paling sering terlewat, padahal akibatnya bisa lebih parah daripada kegagalan aslinya. Kalau sistem tidak punya penanda unik per transaksi, satu kali kirim ulang saja sudah cukup untuk menggandakan pendapatan Anda di pembukuan.",
     },
     {
       type: "h2",
@@ -158,15 +158,15 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di Indonesia, penomoran faktur pajak punya aturan tersendiri dan konsekuensi kepatuhan yang nyata. Ini alasan kuat untuk membiarkan penerbitan faktur pajak tetap di sistem akuntansi atau aplikasi pajak, meskipun invoice komersialnya disusun di sistem logistik.",
+      text: "Di Indonesia, penomoran faktur pajak punya aturannya sendiri, dengan konsekuensi kepatuhan yang nyata kalau sampai salah. Ini alasan kuat untuk tetap membiarkan penerbitan faktur pajak berada di sistem akuntansi atau aplikasi pajak, meskipun invoice komersialnya disusun di sistem logistik.",
     },
     {
       type: "p",
-      text: "Pola yang biasanya paling aman: sistem logistik menyusun invoice beserta seluruh rinciannya, mengirimkannya ke akuntansi, lalu akuntansi menerbitkan faktur pajak dan mengembalikan nomornya. Sistem logistik menyimpan nomor itu untuk keperluan rujukan dan penagihan.",
+      text: "Pola yang biasanya paling aman berjalan seperti ini: sistem logistik menyusun invoice lengkap dengan seluruh rinciannya, mengirimkannya ke akuntansi, lalu akuntansi yang menerbitkan faktur pajak dan mengembalikan nomornya. Sistem logistik cukup menyimpan nomor itu untuk keperluan rujukan dan penagihan.",
     },
     {
       type: "p",
-      text: "Godaannya adalah memindahkan penomoran ke sistem logistik agar semuanya di satu tempat. Sebaiknya ditahan. Aturan perpajakan berubah, dan software pajak yang memang khusus dibuat untuk itu akan menyesuaikan lebih cepat daripada sistem logistik yang kebetulan juga menangani pajak.",
+      text: "Godaannya memang ada: memindahkan penomoran ke sistem logistik supaya semuanya rapi di satu tempat. Sebaiknya godaan itu ditahan. Aturan perpajakan terus berubah, dan software pajak yang memang dibuat khusus untuk itu akan menyesuaikan lebih cepat daripada sistem logistik yang kebetulan juga menangani urusan pajak.",
     },
     {
       type: "h2",
@@ -175,35 +175,35 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Integrasi punya biaya tetap: pembangunan, pengujian, dan (yang paling sering diremehkan) pemeliharaan setiap kali salah satu sistem diperbarui.",
+      text: "Integrasi selalu punya biaya tetap: membangunnya, mengujinya, dan (yang paling sering diremehkan) memeliharanya setiap kali salah satu sistem diperbarui.",
     },
     {
       type: "p",
-      text: "Kalau Anda menerbitkan 40 invoice sebulan, memasukkannya secara manual memakan waktu beberapa jam, dan tidak ada integrasi yang bisa menandinginya secara ekonomi. Titik impasnya biasanya baru terlampaui pada volume beberapa ratus transaksi per bulan, atau ketika kesalahan penyalinan mulai muncul secara teratur.",
+      text: "Kalau Anda hanya menerbitkan 40 invoice sebulan, memasukkannya satu per satu secara manual cuma makan waktu beberapa jam, dan tidak ada integrasi yang bisa menandinginya secara ekonomi. Titik impasnya biasanya baru terlampaui pada volume beberapa ratus transaksi per bulan, atau ketika kesalahan salin-tempel mulai muncul secara teratur.",
     },
     {
       type: "callout",
       tone: "example",
       title: "Jalan tengah yang sering cukup",
-      body: "Ekspor terstruktur ke berkas yang bisa diimpor akuntansi (sekali sehari atau sekali seminggu) menyelesaikan sebagian besar masalah penyalinan tanpa biaya pemeliharaan integrasi langsung. Ia tidak seketika, tapi konsisten, dan tidak pernah rusak diam-diam karena selalu ada orang yang menjalankannya. Untuk banyak perusahaan menengah, ini titik henti yang tepat.",
+      body: "Ekspor terstruktur ke berkas yang bisa diimpor akuntansi, sekali sehari atau sekali seminggu, sudah menyelesaikan sebagian besar masalah salin-tempel tanpa harus menanggung biaya pemeliharaan integrasi langsung. Caranya memang tidak seketika, tapi konsisten, dan tidak akan pernah rusak diam-diam karena selalu ada orang yang menjalankannya. Untuk banyak perusahaan menengah, inilah titik henti yang pas.",
     },
   ],
   faq: [
     {
       q: "Berapa lama waktu yang wajar untuk integrasi ke software akuntansi?",
-      a: "Bagian teknisnya biasanya bukan yang terlama. Yang menentukan durasi adalah pembersihan data induk dan penyepakatan pemetaan akun. Kalau vendor memberikan estimasi tanpa lebih dulu memeriksa daftar customer dan chart of account Anda, estimasi itu belum memperhitungkan bagian yang paling memakan waktu.",
+      a: "Bagian teknisnya justru biasanya bukan yang paling lama. Yang benar-benar menentukan durasi adalah pembersihan data induk dan penyepakatan pemetaan akun. Kalau ada vendor yang memberi estimasi waktu tanpa lebih dulu memeriksa daftar customer dan chart of account Anda, estimasi itu berarti belum memperhitungkan bagian yang paling memakan waktu.",
     },
     {
       q: "Apakah semua software akuntansi punya API?",
-      a: "Sebagian besar produk populer di Indonesia menyediakan API atau setidaknya mekanisme impor terstruktur, tetapi cakupan dan batasannya berbeda-beda, ada yang membatasi frekuensi panggilan, ada yang tidak mengekspos semua jenis transaksi. Minta dokumentasi API-nya sebelum kontrak, bukan sesudah, dan pastikan jenis transaksi yang Anda butuhkan memang tersedia.",
+      a: "Sebagian besar produk populer di Indonesia sudah menyediakan API, atau setidaknya mekanisme impor terstruktur. Tapi cakupan dan batasannya berbeda-beda: ada yang membatasi frekuensi panggilan, ada juga yang tidak mengekspos semua jenis transaksi. Minta dokumentasi API-nya sebelum kontrak diteken, bukan sesudahnya, dan pastikan jenis transaksi yang Anda butuhkan memang benar-benar tersedia.",
     },
     {
       q: "Bagaimana menangani perbedaan periode antara operasional dan akuntansi?",
-      a: "Sepakati aturan tanggal pengakuan sejak awal: apakah transaksi memakai tanggal job selesai atau tanggal invoice. Selisih ini yang paling sering menimbulkan perbedaan angka antara laporan operasional dan laporan keuangan di akhir bulan, dan perbedaan itu akan terus muncul setiap periode kalau aturannya tidak pernah ditulis.",
+      a: "Sepakati sejak awal aturan tanggal pengakuannya: apakah transaksi memakai tanggal job selesai atau tanggal invoice. Selisih semacam inilah yang paling sering memicu perbedaan angka antara laporan operasional dan laporan keuangan di akhir bulan, dan perbedaan itu akan terus berulang setiap periode kalau aturannya tidak pernah dituliskan dengan jelas.",
     },
     {
       q: "Apakah lebih baik memakai satu sistem yang mencakup logistik dan akuntansi sekaligus?",
-      a: "Ada nilainya, tidak ada integrasi yang perlu dipelihara, dan tidak ada selisih periode. Tetapi modul akuntansi di dalam sistem logistik biasanya kalah matang dibanding software akuntansi khusus, terutama pada urusan perpajakan lokal yang aturannya sering berubah. Untuk perusahaan yang akuntannya sudah nyaman dengan alat yang ada, integrasi umumnya lebih murah daripada migrasi.",
+      a: "Ada nilai plusnya: tidak ada integrasi yang perlu dipelihara, dan tidak ada lagi selisih periode. Tapi modul akuntansi di dalam sistem logistik biasanya kalah matang dibanding software akuntansi khusus, terutama untuk urusan perpajakan lokal yang aturannya sering berubah. Untuk perusahaan yang akuntannya sudah nyaman dengan alat yang dipakai sekarang, integrasi umumnya masih lebih murah daripada harus migrasi.",
     },
   ],
   related: ["rekonsiliasi-invoice-forwarder-terlambat", "kapan-excel-berhenti-cukup", "memilih-software-logistik-pilot-30-hari"],

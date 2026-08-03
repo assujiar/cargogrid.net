@@ -354,18 +354,24 @@ export function getModuleLabel(key: string, lang: 'id' | 'en' = 'id'): string {
     const map: Record<string, string> = {
       commercial: "Commercial (RFQ, CRM)",
       ops: "Operations (TMS, Dispatch)",
-      tracking: "Tracking (Visibility, Real-time)",
+      tracking: "Customer Portal & Loyalty",
       finance: "Finance (Invoicing, Profitability)",
-      warehouse: "Warehouse (WMS, Inventory)"
+      warehouse: "Warehouse (WMS, Inventory)",
+      hris: "HRIS & Service Ticketing",
+      procurement: "Procurement & Vendor Management",
+      analytics: "Intelligence & Enterprise Analytics"
     };
     return map[key] || key;
   } else {
     const map: Record<string, string> = {
       commercial: "Commercial (RFQ, CRM)",
       ops: "Operations (TMS, Dispatch)",
-      tracking: "Tracking (Visibility, Real-time)",
+      tracking: "Customer Portal & Loyalty",
       finance: "Finance (Invoicing, Profitability)",
-      warehouse: "Warehouse (WMS, Inventory)"
+      warehouse: "Warehouse (WMS, Inventory)",
+      hris: "HRIS & Service Ticketing",
+      procurement: "Procurement & Vendor Management",
+      analytics: "Intelligence & Enterprise Analytics"
     };
     return map[key] || key;
   }

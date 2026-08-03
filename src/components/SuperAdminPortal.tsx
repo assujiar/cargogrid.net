@@ -832,7 +832,7 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                                   <p className="font-bold text-slate-700">Estimasi Pengguna: <span className="font-medium text-slate-600">{selectedInquiryQuestionnaire.totalExpectedUsers}</span></p>
                                 )}
                                 {selectedInquiryQuestionnaire.rolesInvolved && selectedInquiryQuestionnaire.rolesInvolved.length > 0 && (
-                                  <p className="font-bold text-slate-700">Role Terlibat: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.rolesInvolved).map(r => r === "sales" ? "Sales" : r === "ops" ? "Ops/Dispatcher" : r === "finance" ? "Finance" : r === "warehouse" ? "Warehouse" : r === "driver" ? "Driver" : "Management").join(", ")}</span></p>
+                                  <p className="font-bold text-slate-700">Role Terlibat: <span className="font-medium text-slate-600">{(selectedInquiryQuestionnaire.rolesInvolved).map(getRoleLabel).join(", ")}</span></p>
                                 )}
                               </div>
 
@@ -1549,13 +1549,29 @@ function getPainLabel(key: string): string {
   return map[key] || key;
 }
 
+function getRoleLabel(key: string): string {
+  const map: Record<string, string> = {
+    sales: "Sales",
+    ops: "Ops/Dispatcher",
+    finance: "Finance",
+    warehouse: "Warehouse",
+    driver: "Driver",
+    hr: "HR & Personalia",
+    management: "Management"
+  };
+  return map[key] || key;
+}
+
 function getModuleLabel(key: string): string {
   const map: Record<string, string> = {
     commercial: "Commercial (RFQ, CRM)",
     ops: "Operations (TMS, Dispatch)",
-    tracking: "Tracking (Visibility, Real-time)",
+    tracking: "Customer Portal & Loyalty",
     finance: "Finance (Invoicing, Profitability)",
-    warehouse: "Warehouse (WMS, Inventory)"
+    warehouse: "Warehouse (WMS, Inventory)",
+    hris: "HRIS & Service Ticketing",
+    procurement: "Procurement & Vendor Management",
+    analytics: "Intelligence & Enterprise Analytics"
   };
   return map[key] || key;
 }

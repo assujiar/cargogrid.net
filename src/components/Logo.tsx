@@ -22,6 +22,12 @@ export default function Logo({ className = "", size = "md" }: LogoProps) {
       <img
         src={LOGO_SRC}
         alt="CargoGrid"
+        // Intrinsic ratio of the source SVG's viewBox (300x225). The rendered
+        // size still comes from the `h-* w-auto` classes; these attributes only
+        // give the browser an aspect ratio to reserve space with before the
+        // asset arrives, so the logo never shifts the layout in.
+        width={400}
+        height={300}
         className={`${logoSize} object-contain`}
         loading="eager"
       />

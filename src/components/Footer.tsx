@@ -27,9 +27,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="md:col-span-3 flex flex-col gap-3 text-left">
-            <h4 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
+            <h2 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
               {isEn ? "Page Navigation" : "Navigasi Halaman"}
-            </h4>
+            </h2>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <Link href="/tantangan" className="hover:text-brand-orange transition-colors font-bold">
                 {isEn ? "Core Bottlenecks" : "Penyebab Masalah"}
@@ -60,9 +60,9 @@ export default function Footer() {
 
           {/* Contacts info */}
           <div className="md:col-span-4 flex flex-col gap-3 text-left">
-            <h4 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
+            <h2 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
               {isEn ? "Contact & Support" : "Kontak & Dukungan"}
-            </h4>
+            </h2>
             <ul className="space-y-2 text-xs">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-brand-teal flex-shrink-0" aria-hidden="true" />
@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Lower footer */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-[11px] text-slate-500 font-mono font-bold border-t border-slate-300">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-[11px] text-slate-600 font-mono font-bold border-t border-slate-300">
           <div>&copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved &bull; Configurable Logistics Platform.</div>
           <div className="flex items-center flex-wrap gap-x-4 gap-y-2 justify-center">
             <Link href="/kebijakan-privasi" className="hover:text-brand-orange transition-colors font-extrabold">
@@ -100,7 +100,7 @@ export default function Footer() {
               {isEn ? "Terms & Conditions" : "Syarat & Ketentuan"}
             </Link>
             <span>&bull;</span>
-            <span className="text-slate-500 font-extrabold">{isEn ? "SLA Guaranteed" : "Layanan SLA Terjamin"}</span>
+            <span className="text-slate-600 font-extrabold">{isEn ? "SLA Guaranteed" : "Layanan SLA Terjamin"}</span>
           </div>
         </div>
       </div>

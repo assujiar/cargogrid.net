@@ -68,9 +68,9 @@ export default function CookieConsentBanner() {
             <Cookie className="w-5 h-5" aria-hidden="true" />
           </div>
           <div className="flex-1">
-            <h4 className="font-display font-black text-sm text-slate-900 flex items-center gap-1.5">
+            <h2 className="font-display font-black text-sm text-slate-900 flex items-center gap-1.5">
               <span>{isEn ? "Cookie & Consent Preferences" : "Persetujuan Cookie & Analitik"}</span>
-            </h4>
+            </h2>
             <p className="text-slate-600 text-xs font-semibold leading-relaxed mt-1.5">
               {isEn ? (
                 "We use secure cookies to analyze traffic, understand marketing sources, and improve your consultation experience. Choose your privacy comfort level below."
@@ -83,7 +83,7 @@ export default function CookieConsentBanner() {
             type="button"
             onClick={handleRejectAll}
             aria-label={isEn ? "Dismiss and reject non-essential cookies" : "Tutup dan tolak cookie opsional"}
-            className="text-slate-400 hover:text-slate-600 transition-colors p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal rounded"
+            className="text-slate-600 hover:text-slate-900 transition-colors p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal rounded"
           >
             <X className="w-4 h-4" aria-hidden="true" />
           </button>
@@ -101,7 +101,7 @@ export default function CookieConsentBanner() {
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 text-xs">
                 <div>
                   <span className="font-bold text-slate-800 block">{isEn ? "Necessary Cookies" : "Kuki Fungsional Utama"}</span>
-                  <span className="text-[10px] text-slate-500 font-semibold">{isEn ? "Required for platform security and state" : "Diperlukan untuk keamanan dan fungsionalitas"}</span>
+                  <span className="text-[10px] text-slate-600 font-semibold">{isEn ? "Required for platform security and state" : "Diperlukan untuk keamanan dan fungsionalitas"}</span>
                 </div>
                 <div className="px-2 py-1 bg-slate-200 text-slate-600 font-mono text-[9px] font-black rounded uppercase">
                   {isEn ? "Required" : "Wajib"}
@@ -111,7 +111,7 @@ export default function CookieConsentBanner() {
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 text-xs">
                 <div>
                   <span className="font-bold text-slate-800 block">{isEn ? "Analytics Tracking" : "Analisis Pengunjung"}</span>
-                  <span className="text-[10px] text-slate-500 font-semibold">{isEn ? "Allows us to track system performance & page flows" : "Membantu kami memantau performa & alur halaman"}</span>
+                  <span className="text-[10px] text-slate-600 font-semibold">{isEn ? "Allows us to track system performance & page flows" : "Membantu kami memantau performa & alur halaman"}</span>
                 </div>
                 <button
                   type="button"
@@ -128,7 +128,7 @@ export default function CookieConsentBanner() {
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 text-xs">
                 <div>
                   <span className="font-bold text-slate-800 block">{isEn ? "Marketing Source" : "Sumber Marketing"}</span>
-                  <span className="text-[10px] text-slate-500 font-semibold">{isEn ? "Links marketing source to evaluation submissions" : "Menghubungkan sumber marketing dengan formulir audit"}</span>
+                  <span className="text-[10px] text-slate-600 font-semibold">{isEn ? "Links marketing source to evaluation submissions" : "Menghubungkan sumber marketing dengan formulir audit"}</span>
                 </div>
                 <button
                   type="button"
@@ -169,7 +169,7 @@ export default function CookieConsentBanner() {
               <button
                 type="button"
                 onClick={handleRejectAll}
-                className="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-700 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+                className="px-3 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
               >
                 {isEn ? "Reject Non-Essential" : "Tolak Opsional"}
               </button>

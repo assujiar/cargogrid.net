@@ -1,10 +1,15 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import { MotionConfig } from "motion/react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import CookieConsentBanner from "../CookieConsentBanner";
+
+// The banner is fixed to the bottom of the viewport and gated behind a stored
+// consent flag, so it is never part of the first paint — its markup and the
+// animation code it drives do not belong in the initial payload.
+const CookieConsentBanner = dynamic(() => import("../CookieConsentBanner"), { ssr: false });
 
 interface SiteShellProps {
   children: React.ReactNode;

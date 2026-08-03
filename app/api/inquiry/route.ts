@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServiceSupabase, getSupabaseHost, describeFetchFailure, truncateDetail } from "@/src/lib/supabaseService";
 import { toInquiry, type InquiryRow } from "@/src/lib/inquiryRow";
 import { generateHtmlEmailTemplate } from "@/src/lib/emailTemplates";
-import { sendMail } from "@/src/lib/mailer";
+import { sendMail, isSmtpConfigured } from "@/src/lib/mailer";
 import type { Inquiry } from "@/src/lib/storage";
 
 export const runtime = "nodejs";
@@ -109,8 +109,15 @@ export async function POST(request: NextRequest) {
  * Exists because the interesting failure is upstream of this app — if the
  * Supabase host does not resolve, every submission fails identically and the
  * only clue the browser gets is "fetch failed". This says so directly, without
- * writing a row. Returns only the host (already a NEXT_PUBLIC_ value) and the
- * transport error; never a key.
+ * writing a row.
+ *
+ * `smtp` reports only whether HOST/USER/PASS are all present. Delivery is
+ * deliberately best-effort and non-blocking, so a half-configured mailer is
+ * otherwise invisible until someone notices the welcome emails never arrived —
+ * and the only other way to find out is to send real mail to a real inbox.
+ *
+ * Returns the host (already a NEXT_PUBLIC_ value) and the transport error;
+ * never a key, and never the mail credentials.
  */
 export async function GET() {
   const host = getSupabaseHost();
@@ -118,7 +125,13 @@ export async function GET() {
 
   if (!supabase) {
     return NextResponse.json(
-      { ok: false, configured: false, host, reason: "Supabase env vars are missing or malformed on the server" },
+      {
+        ok: false,
+        configured: false,
+        host,
+        smtp: isSmtpConfigured(),
+        reason: "Supabase env vars are missing or malformed on the server",
+      },
       { status: 503 },
     );
   }
@@ -132,14 +145,14 @@ export async function GET() {
 
     if (error) {
       return NextResponse.json(
-        { ok: false, configured: true, reachable: false, host, reason: truncateDetail(error.message) },
+        { ok: false, configured: true, reachable: false, host, smtp: isSmtpConfigured(), reason: truncateDetail(error.message) },
         { status: 502 },
       );
     }
-    return NextResponse.json({ ok: true, configured: true, reachable: true, host });
+    return NextResponse.json({ ok: true, configured: true, reachable: true, host, smtp: isSmtpConfigured() });
   } catch (err) {
     return NextResponse.json(
-      { ok: false, configured: true, reachable: false, host, reason: describeFetchFailure(err) },
+      { ok: false, configured: true, reachable: false, host, smtp: isSmtpConfigured(), reason: describeFetchFailure(err) },
       { status: 502 },
     );
   }

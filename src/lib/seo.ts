@@ -124,6 +124,77 @@ export function faqPageJsonLd() {
   };
 }
 
+interface ArticleJsonLdInput {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  updatedAt?: string;
+  keywords: string[];
+  faq?: { q: string; a: string }[];
+}
+
+/**
+ * Article + FAQPage schema for a single post.
+ *
+ * Emitted as one @graph rather than two separate script tags so the FAQ can
+ * reference the article it belongs to via isPartOf, instead of floating as an
+ * unattached FAQ block on the same URL.
+ */
+export function articleJsonLd(input: ArticleJsonLdInput) {
+  const url = `${siteUrl}/artikel/${input.slug}`;
+
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "Article",
+      "@id": `${url}/#article`,
+      headline: input.title,
+      description: input.description,
+      url,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      datePublished: input.publishedAt,
+      dateModified: input.updatedAt || input.publishedAt,
+      inLanguage: "id-ID",
+      keywords: input.keywords.join(", "),
+      image: `${siteUrl}/opengraph-image`,
+      author: { "@id": `${siteUrl}/#organization` },
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    organizationJsonLd(),
+  ];
+
+  if (input.faq && input.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}/#faq`,
+      isPartOf: { "@id": `${url}/#article` },
+      mainEntity: input.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    });
+  }
+
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+/** Breadcrumb for a page nested one level below a section, e.g. /artikel/<slug>. */
+export function nestedBreadcrumbJsonLd(
+  section: { path: string; label: string },
+  page: { path: string; label: string },
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: section.label, item: `${siteUrl}${section.path}` },
+      { "@type": "ListItem", position: 3, name: page.label, item: `${siteUrl}${page.path}` },
+    ],
+  };
+}
+
 export function breadcrumbJsonLd(path: string, label: string) {
   return {
     "@context": "https://schema.org",

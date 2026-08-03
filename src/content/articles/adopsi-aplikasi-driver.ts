@@ -15,7 +15,7 @@ export const article: Article = {
     "aplikasi sopir truk indonesia",
   ],
   category: "operasional",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-07-02",
   summary:
     "Aplikasi driver jarang gagal karena kurang fitur. Ia gagal karena melanggar dua syarat yang, menurut model penerimaan teknologi yang sudah puluhan tahun diuji, menentukan apakah sebuah alat akan dipakai: manfaat yang dirasakan dan kemudahan yang dirasakan.",
   takeaways: [

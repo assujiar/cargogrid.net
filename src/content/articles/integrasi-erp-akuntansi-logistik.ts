@@ -15,7 +15,7 @@ export const article: Article = {
     "API sistem logistik",
   ],
   category: "sistem",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-07-29",
   summary:
     "Pertanyaan \"bisa integrasi dengan Accurate?\" hampir selalu dijawab \"bisa\", dan jawaban itu benar sekaligus tidak berguna. Yang menentukan berhasil atau tidaknya adalah empat keputusan yang jarang ditanyakan sebelum kontrak ditandatangani.",
   takeaways: [

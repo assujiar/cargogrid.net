@@ -15,7 +15,7 @@ export const article: Article = {
     "harga pokok jasa logistik",
   ],
   category: "keuangan",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-05-08",
   summary:
     "Margin bulanan yang sehat bisa menyembunyikan bahwa sepertiga job Anda merugi dan ditutupi sepertiga lainnya. Selama angkanya hanya muncul di tingkat bulanan, tidak seorang pun bisa mengambil keputusan yang mengubahnya.",
   takeaways: [

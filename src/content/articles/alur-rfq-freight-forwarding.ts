@@ -15,7 +15,7 @@ export const article: Article = {
     "manajemen tarif logistik",
   ],
   category: "komersial",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-05-19",
   summary:
     "Di tender freight forwarding, quotation pertama yang lengkap sering menang sebelum quotation termurah sempat dibaca. Tulisan ini memecah alur RFQ jadi tujuh tahap, dan menunjukkan tahap mana yang sebenarnya memakan waktu Anda.",
   takeaways: [

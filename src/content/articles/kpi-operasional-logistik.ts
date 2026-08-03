@@ -15,7 +15,7 @@ export const article: Article = {
     "laporan kinerja 3PL",
   ],
   category: "operasional",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-07-09",
   summary:
     "Setiap laporan bulanan ke customer menampilkan angka on-time delivery yang tinggi. Angka itu jarang dibantah, dan hampir sama jarangnya dipercaya. Tulisan ini soal cara menyusun indikator yang bertahan saat diperiksa.",
   takeaways: [

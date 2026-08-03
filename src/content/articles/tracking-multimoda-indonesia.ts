@@ -15,7 +15,7 @@ export const article: Article = {
     "real time tracking kargo",
   ],
   category: "operasional",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-06-23",
   summary:
     "\"Real-time tracking\" berarti hal yang sangat berbeda di truk, di kapal, dan di gudang. Menyatukan ketiganya tanpa memahami perbedaannya menghasilkan dashboard yang terlihat lengkap tapi menyesatkan pemakainya.",
   takeaways: [

@@ -15,7 +15,7 @@ export const article: Article = {
     "manajemen kontainer impor",
   ],
   category: "operasional",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-06-11",
   summary:
     "Tidak seperti kerusakan barang atau cuaca buruk, demurrage punya sifat yang aneh: tanggal jatuh temponya sudah diketahui sejak kontainer dibongkar. Ia bukan kejadian tak terduga, melainkan tenggat yang terlewat. Itu membuatnya jauh lebih bisa dikendalikan daripada yang diperlakukan kebanyakan perusahaan.",
   takeaways: [

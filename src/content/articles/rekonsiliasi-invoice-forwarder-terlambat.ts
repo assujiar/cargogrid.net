@@ -15,7 +15,7 @@ export const article: Article = {
     "cash flow perusahaan logistik",
   ],
   category: "keuangan",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-04-28",
   summary:
     "Termin 30 hari yang jadi 60 jarang disebabkan customer nakal. Umumnya ada 20–30 hari yang habis sebelum invoice sempat diterbitkan, dan periode itu tidak muncul di laporan umur piutang mana pun, karena secara teknis piutangnya belum ada.",
   takeaways: [

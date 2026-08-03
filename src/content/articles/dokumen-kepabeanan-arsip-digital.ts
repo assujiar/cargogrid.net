@@ -15,7 +15,7 @@ export const article: Article = {
     "audit dokumen logistik",
   ],
   category: "sistem",
-  publishedAt: "2026-08-03",
+  publishedAt: "2026-08-01",
   summary:
     "Setiap perusahaan logistik menyimpan dokumen. Jauh lebih sedikit yang bisa menemukan dokumen tertentu dalam hitungan menit ketika auditor atau customer memintanya. Selisih antara menyimpan dan menemukan itulah yang menentukan nilai arsip Anda.",
   takeaways: [

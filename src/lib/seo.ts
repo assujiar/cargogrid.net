@@ -23,6 +23,17 @@ interface BuildMetadataInput {
   keywords?: string[];
 }
 
+// Served by app/opengraph-image.tsx. Referenced explicitly rather than left to
+// Next's file convention: every page below sets its own `openGraph` object,
+// which replaces the parent segment's — so the auto-injected image silently
+// disappeared from all of them, leaving summary_large_image cards with no image.
+export const ogImage = {
+  url: `${siteUrl}/opengraph-image`,
+  width: 1200,
+  height: 630,
+  type: "image/png",
+};
+
 export function buildMetadata({ path, title, description, keywords }: BuildMetadataInput): Metadata {
   const url = `${siteUrl}${path}`;
   return {
@@ -39,11 +50,13 @@ export function buildMetadata({ path, title, description, keywords }: BuildMetad
       type: "website",
       siteName,
       locale: "id_ID",
+      images: [{ ...ogImage, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImage.url],
     },
   };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   getInquiries,
@@ -64,18 +64,91 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
   const [newPassword, setNewPassword] = useState("");
 
+  // Read inside the auth effect without making it a dependency: re-subscribing
+  // on every language toggle would re-run the admin check and flash the
+  // "checking session" screen over a dashboard that is already open.
+  const langRef = useRef(lang);
+  useEffect(() => {
+    langRef.current = lang;
+  }, [lang]);
+
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getSession().then(({ data }) => {
+
+    /**
+     * Holding a session is not the same as being an admin.
+     *
+     * Supabase enables public sign-up by default, so "signed in" is something a
+     * stranger can arrange for themselves. The tables are guarded by RLS via
+     * public.is_admin(), which means a non-admin already sees nothing — but it
+     * sees that nothing from inside the dashboard, as an empty screen that
+     * looks like a bug rather than a refusal. Ask the same question the
+     * policies ask, and refuse at the door.
+     *
+     * Fails closed: if the check cannot be completed, no dashboard. The one
+     * scenario that produces is a deploy where supabase_admin_access.sql has
+     * not been applied yet, so the error message names that cause directly
+     * rather than leaving a locked-out operator guessing.
+     */
+    const resolveAccess = async (session: unknown, isRecovery: boolean) => {
+      if (!session) {
+        if (mounted) {
+          setIsLoggedIn(false);
+          setIsAuthLoading(false);
+        }
+        return;
+      }
+
+      // A recovery session exists only to set a new password; the portal is not
+      // shown either way, so skip the round-trip.
+      if (isRecovery) {
+        if (mounted) setIsAuthLoading(false);
+        return;
+      }
+
+      // Hold the loading screen while the check runs, so a successful sign-in
+      // never flashes the login form back at the user mid-verification.
+      setIsAuthLoading(true);
+      const { data, error } = await supabase.rpc("is_admin");
       if (!mounted) return;
-      setIsLoggedIn(Boolean(data.session));
+
+      if (error) {
+        setIsLoggedIn(false);
+        setLoginError(
+          langRef.current === "en"
+            ? "Cannot verify admin access. The is_admin() function is missing from the database — apply supabase_admin_access.sql."
+            : "Tidak dapat memverifikasi akses admin. Fungsi is_admin() belum ada di database — jalankan supabase_admin_access.sql.",
+        );
+        setIsAuthLoading(false);
+        return;
+      }
+
+      if (data === true) {
+        setIsLoggedIn(true);
+        setIsAuthLoading(false);
+        return;
+      }
+
+      setIsLoggedIn(false);
+      setLoginError(
+        langRef.current === "en"
+          ? "This account is not registered as an administrator."
+          : "Akun ini tidak terdaftar sebagai administrator.",
+      );
       setIsAuthLoading(false);
+      // Drop the session rather than leaving a signed-in non-admin sitting on
+      // the login screen, where a refresh would look like a broken loop.
+      await supabase.auth.signOut();
+    };
+
+    supabase.auth.getSession().then(({ data }) => {
+      void resolveAccess(data.session, false);
     });
 
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY") setIsPasswordRecovery(true);
-      setIsLoggedIn(Boolean(session));
-      setIsAuthLoading(false);
+      const isRecovery = event === "PASSWORD_RECOVERY";
+      if (isRecovery) setIsPasswordRecovery(true);
+      void resolveAccess(session, isRecovery);
     });
 
     return () => {

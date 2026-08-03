@@ -5,6 +5,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "./shared/LanguageProvider";
+import { companyAddressLine } from "../lib/companyInfo";
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -76,13 +77,14 @@ export default function Footer() {
                   +62877 8898 0088
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-brand-teal flex-shrink-0" aria-hidden="true" />
-                <span className="font-bold text-slate-700">
-                  {isEn
-                    ? "Sudirman Central Business District (SCBD), South Jakarta, Indonesia"
-                    : "Sudirman Central Business District (SCBD), Jakarta Selatan"}
-                </span>
+              {/* items-start (not items-center): the address wraps to 2-3 lines
+                  at every breakpoint, and centring would float the pin against
+                  the middle of the block instead of its first line. */}
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 mt-0.5 text-brand-teal flex-shrink-0" aria-hidden="true" />
+                <address className="not-italic font-bold text-slate-700 leading-relaxed">
+                  {isEn ? companyAddressLine.en : companyAddressLine.id}
+                </address>
               </li>
             </ul>
           </div>

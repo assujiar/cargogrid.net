@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useLanguage } from "../shared/LanguageProvider";
+import { companyAddressLine } from "../../lib/companyInfo";
 
 export default function TermsBody() {
   const { lang } = useLanguage();
@@ -184,14 +185,14 @@ export default function TermsBody() {
         <p className="text-slate-500 font-semibold text-xs pt-4 border-t border-slate-200">
           {isEn ? (
             <>
-              CargoGrid OS Indonesia &bull; Sudirman Central Business District (SCBD), South Jakarta, Indonesia &bull; Contact:{" "}
+              CargoGrid OS Indonesia &bull; {companyAddressLine.en} &bull; Contact:{" "}
               <a href="mailto:service@cargogrid.net" className="text-brand-teal font-bold hover:underline">
                 service@cargogrid.net
               </a>
             </>
           ) : (
             <>
-              CargoGrid OS Indonesia &bull; Sudirman Central Business District (SCBD), Jakarta Selatan &bull; Kontak:{" "}
+              CargoGrid OS Indonesia &bull; {companyAddressLine.id} &bull; Kontak:{" "}
               <a href="mailto:service@cargogrid.net" className="text-brand-teal font-bold hover:underline">
                 service@cargogrid.net
               </a>

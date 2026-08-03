@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { faqList } from "../data";
+import { companyAddress, companyAddressLine, companyPhone, companyEmail } from "./companyInfo";
 
 // The apex domain (cargogrid.net) 308-redirects to www in production, so
 // canonical/OG/JSON-LD URLs point directly at the domain that actually
@@ -7,14 +8,12 @@ import { faqList } from "../data";
 // social unfurlers that don't follow redirects before reading meta tags.
 export const siteUrl = "https://www.cargogrid.net";
 export const siteName = "CargoGrid OS";
-export const companyAddress = {
-  streetAddress: "Sudirman Central Business District (SCBD)",
-  addressLocality: "Jakarta Selatan",
-  addressRegion: "DKI Jakarta",
-  addressCountry: "ID",
-};
-export const companyPhone = "+62877 8898 0088";
-export const companyEmail = "service@cargogrid.net";
+
+// Company contact details live in a dependency-free module so client components
+// can import them without pulling `src/data.ts` into the browser bundle. The
+// JSON-LD builders below consume them; re-exporting keeps existing `lib/seo`
+// importers working unchanged.
+export { companyAddress, companyAddressLine, companyPhone, companyEmail };
 
 interface BuildMetadataInput {
   path: string;

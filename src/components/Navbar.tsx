@@ -90,9 +90,9 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setLang("id")}
                 aria-pressed={lang === "id"}
-                aria-label="Bahasa Indonesia"
+                aria-label="ID - Bahasa Indonesia"
                 className={`px-2.5 py-1 text-[10px] font-mono font-black rounded-full transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
-                  lang === "id" ? "bg-brand-teal text-white shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  lang === "id" ? "bg-brand-teal text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 ID
@@ -101,9 +101,9 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setLang("en")}
                 aria-pressed={lang === "en"}
-                aria-label="English"
+                aria-label="EN - English"
                 className={`px-2.5 py-1 text-[10px] font-mono font-black rounded-full transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
-                  lang === "en" ? "bg-brand-teal text-white shadow-sm" : "text-slate-500 hover:text-slate-900"
+                  lang === "en" ? "bg-brand-teal text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 EN
@@ -131,9 +131,9 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setLang("id")}
                 aria-pressed={lang === "id"}
-                aria-label="Bahasa Indonesia"
+                aria-label="ID - Bahasa Indonesia"
                 className={`px-2 py-0.5 text-[9px] font-mono font-black rounded-full transition-all ${
-                  lang === "id" ? "bg-brand-teal text-white" : "text-slate-500"
+                  lang === "id" ? "bg-brand-teal text-white" : "text-slate-600"
                 }`}
               >
                 ID
@@ -142,9 +142,9 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setLang("en")}
                 aria-pressed={lang === "en"}
-                aria-label="English"
+                aria-label="EN - English"
                 className={`px-2 py-0.5 text-[9px] font-mono font-black rounded-full transition-all ${
-                  lang === "en" ? "bg-brand-teal text-white" : "text-slate-500"
+                  lang === "en" ? "bg-brand-teal text-white" : "text-slate-600"
                 }`}
               >
                 EN
@@ -184,7 +184,7 @@ export default function Navbar() {
             ))}
             <div className="pt-4 border-t border-slate-200/60 space-y-3">
               <div className="flex justify-between items-center px-4">
-                <span className="text-xs text-slate-500 font-bold flex items-center gap-1.5">
+                <span className="text-xs text-slate-600 font-bold flex items-center gap-1.5">
                   <Globe className="w-3.5 h-3.5" aria-hidden="true" /> Language / Bahasa
                 </span>
                 <div className="flex bg-slate-200 p-0.5 rounded-full" role="group" aria-label={isEn ? "Switch language" : "Ganti bahasa"}>

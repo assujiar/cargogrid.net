@@ -18,10 +18,15 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+// Not preloaded: the mono face is only used for small badges, metric labels and
+// timestamps, never for the headline or subheadline that decide LCP. Preloading
+// it put a third font download on the critical path competing for bandwidth
+// with the two faces that do gate first paint.
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

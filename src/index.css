@@ -5,8 +5,14 @@
   --font-display: var(--font-space-grotesk), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
   
-  --color-brand-teal: #0097b2;
-  --color-brand-teal-hover: #007d94;
+  /* Darkened from #0097b2, which only reached 3.0:1 against the #eaf0f6 page
+     surface and 3.5:1 behind white button text — both below WCAG AA's 4.5:1.
+     This value clears AA in each direction (5.2:1 as text, 6.0:1 as a button
+     fill). `--color-brand-teal-accent` keeps the original bright tone for
+     purely decorative fills that carry no text. */
+  --color-brand-teal: #006d80;
+  --color-brand-teal-hover: #00566b;
+  --color-brand-teal-accent: #0097b2;
   --color-brand-orange: #cb3421;
   --color-brand-orange-hover: #a52313;
   
@@ -98,7 +104,7 @@ html {
 
 /* Interactive accent button with glowing border bevel */
 .nm-btn-accent {
-  background: linear-gradient(135deg, #0097b2 0%, #00b4d8 100%);
+  background: linear-gradient(135deg, #005c6d 0%, #007a91 100%);
   box-shadow: 8px 8px 18px rgba(205, 212, 219, 0.9), -8px -8px 18px #ffffff, inset 1px 1px 3px rgba(255, 255, 255, 0.5);
   color: #ffffff;
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -125,43 +131,57 @@ html {
 
 .nm-input:focus {
   outline: none;
-  box-shadow: inset 6px 6px 14px #cdd4db, inset -6px -6px 14px #ffffff, 0 0 0 3px rgba(0, 151, 178, 0.25);
-  border-color: rgba(0, 151, 178, 0.4);
+  box-shadow: inset 6px 6px 14px #cdd4db, inset -6px -6px 14px #ffffff, 0 0 0 3px rgba(0, 109, 128, 0.55);
+  border-color: rgba(0, 109, 128, 0.7);
 }
 
-/* Pulsing micro-LED accent indicators */
+/* Pulsing micro-LED accent indicators.
+   The halo is an absolutely-positioned ::after ring animated on transform +
+   opacity only, so it runs entirely on the compositor. The previous version
+   animated box-shadow spread, which the compositor cannot handle — every frame
+   forced a main-thread paint of the halo. */
 @keyframes led-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 151, 178, 0.7);
+    transform: scale(1);
+    opacity: 0.7;
   }
-  70% {
-    box-shadow: 0 0 0 8px rgba(0, 151, 178, 0);
-  }
+  70%,
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 151, 178, 0);
+    transform: scale(2.6);
+    opacity: 0;
   }
 }
 
-.nm-led-teal {
-  background-color: #0097b2;
+.nm-led-teal,
+.nm-led-orange {
+  position: relative;
+}
+
+.nm-led-teal::after,
+.nm-led-orange::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: inherit;
+  pointer-events: none;
   animation: led-pulse 2s infinite;
 }
 
-@keyframes led-pulse-orange {
-  0% {
-    box-shadow: 0 0 0 0 rgba(203, 52, 33, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 8px rgba(203, 52, 33, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(203, 52, 33, 0);
-  }
+.nm-led-teal {
+  background-color: var(--color-brand-teal-accent);
 }
 
 .nm-led-orange {
-  background-color: #cb3421;
-  animation: led-pulse-orange 2s infinite;
+  background-color: var(--color-brand-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nm-led-teal::after,
+  .nm-led-orange::after {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 /* Base style overrides */
@@ -187,13 +207,13 @@ body {
   border: 2px solid #eaf0f6;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0097b2;
+  background: var(--color-brand-teal);
 }
 
 /* Selection Highlight */
 ::selection {
-  background: rgba(0, 151, 178, 0.2);
-  color: #007d94;
+  background: rgba(0, 109, 128, 0.2);
+  color: var(--color-brand-teal);
 }
 
 /* Accessible disclosure panel (pricing reveal cards, FAQ) — content stays in the
@@ -221,6 +241,46 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .cg-disclosure-panel {
     transition: none;
+  }
+}
+
+/* Hero entrance animations (see src/components/HeroSection.tsx). CSS rather
+   than motion/react so the hero renders — and LCP settles — without waiting on
+   hydration; both animate transform/opacity only, so they stay composited. */
+@keyframes cg-enter-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cg-enter-float {
+  from {
+    opacity: 0;
+    transform: translate3d(-20px, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cg-enter-zoom {
+  animation: cg-enter-zoom 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cg-enter-float {
+  animation: cg-enter-float 600ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-enter-zoom,
+  .cg-enter-float {
+    animation: none;
   }
 }
 

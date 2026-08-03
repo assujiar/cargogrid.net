@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Play, Activity, Users, Truck } from "lucide-react";
-import { motion } from "motion/react";
 import { useLanguage } from "./shared/LanguageProvider";
 
 export default function HeroSection() {
@@ -48,12 +47,12 @@ export default function HeroSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Text Column */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 flex flex-col gap-6 text-left" 
+          {/* Left Text Column.
+              Deliberately not animated: the headline and subheadline here are
+              the LCP candidates, and any entrance animation starts them at
+              opacity 0, so LCP cannot register until the animation has run. */}
+          <div
+            className="lg:col-span-7 flex flex-col gap-6 text-left"
             id="hero-left-col"
           >
             
@@ -123,23 +122,17 @@ export default function HeroSection() {
               </div>
             </div>
 
-          </motion.div>
+          </div>
 
           {/* Right Visual Column (Neumorphic Dashboard Panel - Asymmetrically Elevated) */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-5 relative lg:border-l lg:border-slate-300 lg:pl-12 lg:-translate-y-6 lg:mt-4 z-10" 
+          <div
+            className="cg-enter-zoom lg:col-span-5 relative lg:border-l lg:border-slate-300 lg:pl-12 lg:-translate-y-6 lg:mt-4 z-10"
             id="hero-right-col"
           >
             
             {/* High-fidelity Asymmetric Floating micro-widget - Elite Developer Design */}
-            <motion.div
-              initial={{ opacity: 0, x: -20, y: 40 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
-              className="absolute -bottom-8 -left-8 hidden xl:flex flex-col p-4.5 rounded-2xl nm-emboss bg-white/95 border-0 max-w-[210px] z-30 shadow-md text-left"
+            <div
+              className="cg-enter-float absolute -bottom-8 -left-8 hidden xl:flex flex-col p-4.5 rounded-2xl nm-emboss bg-white/95 border-0 max-w-[210px] z-30 shadow-md text-left"
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="relative flex h-2 w-2">
@@ -153,13 +146,13 @@ export default function HeroSection() {
               <div className="font-sans text-xs font-black text-slate-800">
                 Truk-09 (Surabaya)
               </div>
-              <p className="text-[10px] text-slate-500 font-semibold mt-1 leading-normal">
+              <p className="text-[10px] text-slate-600 font-semibold mt-1 leading-normal">
                 {isEn ? "Speed: 68 km/h • ETA: 12:45" : "Kecepatan: 68 km/j • ETA: 12:45"}
               </p>
               <div className="w-full bg-slate-200 h-1.5 rounded-full mt-2 overflow-hidden">
                 <div className="bg-brand-teal h-full w-4/5 animate-pulse" />
               </div>
-            </motion.div>
+            </div>
 
             {/* Interactive Grid Card (Raised tactile surface) */}
             <div className="relative nm-emboss rounded-3xl p-6 sm:p-7 overflow-hidden group">
@@ -173,7 +166,7 @@ export default function HeroSection() {
                     <span className="w-3 h-3 rounded-full bg-amber-400 block nm-deboss-sm"></span>
                     <span className="w-3 h-3 rounded-full bg-emerald-400 block nm-deboss-sm"></span>
                   </div>
-                  <span className="text-slate-400 font-bold text-[10px] nm-deboss-sm px-4 py-1 rounded-full text-center w-36 overflow-hidden">cargogrid-system</span>
+                  <span className="text-slate-600 font-bold text-[10px] nm-deboss-sm px-4 py-1 rounded-full text-center w-36 overflow-hidden">cargogrid-system</span>
                 </div>
                 <span className="px-3 py-1 nm-emboss-sm rounded-full text-[9px] font-extrabold text-brand-teal tracking-wider uppercase">
                   {isEn ? "System Active" : "Sistem Aktif"}
@@ -183,20 +176,20 @@ export default function HeroSection() {
               {/* Dynamic Metrics Grid (Debossed sunken cards) */}
               <div className="grid grid-cols-2 gap-4 py-4 border-b border-slate-200/80">
                 <div className="nm-deboss rounded-2xl p-4 flex flex-col justify-between bg-[#f5f8fc]/40">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block font-extrabold">{isEn ? "Total Transactions" : "Total Transaksi"}</span>
+                  <span className="text-[10px] font-mono text-slate-600 uppercase tracking-wider block font-extrabold">{isEn ? "Total Transactions" : "Total Transaksi"}</span>
                   <div className="text-2xl font-mono font-black text-slate-900 mt-1">
                     {shipmentsCount.toLocaleString()}
                   </div>
-                  <span className="text-[9px] text-emerald-600 font-mono font-bold flex items-center gap-1 mt-1">
+                  <span className="text-[9px] text-emerald-700 font-mono font-bold flex items-center gap-1 mt-1">
                     <span>&bull; {isEn ? "Live Update" : "Update Terkini"}</span>
                   </span>
                 </div>
                 <div className="nm-deboss rounded-2xl p-4 flex flex-col justify-between bg-[#f5f8fc]/40">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block font-extrabold">{isEn ? "Active Fleets" : "Armada Berjalan"}</span>
+                  <span className="text-[10px] font-mono text-slate-600 uppercase tracking-wider block font-extrabold">{isEn ? "Active Fleets" : "Armada Berjalan"}</span>
                   <div className="text-2xl font-mono font-black text-brand-teal mt-1">
                     {activeTrucks} {isEn ? "Units" : "Unit"}
                   </div>
-                  <span className="text-[9px] text-emerald-600 font-mono font-bold flex items-center gap-1 mt-1">
+                  <span className="text-[9px] text-emerald-700 font-mono font-bold flex items-center gap-1 mt-1">
                     <span>&bull; {isEn ? "On Schedule" : "Sesuai Jadwal"}</span>
                   </span>
                 </div>
@@ -204,7 +197,7 @@ export default function HeroSection() {
 
               {/* Real-time Logistics Stream */}
               <div className="py-4 space-y-3.5 text-xs text-left">
-                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block font-extrabold">{isEn ? "Recent System Activities" : "Aktivitas Sistem Terkini"}</span>
+                <span className="text-[10px] font-mono text-slate-600 uppercase tracking-widest block font-extrabold">{isEn ? "Recent System Activities" : "Aktivitas Sistem Terkini"}</span>
                 
                 {/* Event 1 (Tactile Outset Card) */}
                 <div
@@ -218,7 +211,7 @@ export default function HeroSection() {
                       <span className="font-bold text-slate-800">Request #2026-90412</span>
                       <span className="text-[9px] font-mono text-brand-teal font-extrabold uppercase nm-emboss-sm px-2 py-0.5 rounded-full">{isEn ? "New" : "Baru"}</span>
                     </div>
-                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    <p className="text-[11px] text-slate-600 font-medium mt-0.5">
                       {isEn ? "Quotation generated automatically based on vendor contract rates." : "Quotation dikirimkan otomatis berdasarkan rate kontrak vendor."}
                     </p>
                   </div>
@@ -236,7 +229,7 @@ export default function HeroSection() {
                       <span className="font-bold text-slate-800">{isEn ? "Delivery Note #CG-9104" : "Surat Jalan #CG-9104"}</span>
                       <span className="text-[9px] font-mono text-brand-orange font-extrabold uppercase nm-emboss-sm px-2 py-0.5 rounded-full">{isEn ? "In Transit" : "Dalam Perjalanan"}</span>
                     </div>
-                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    <p className="text-[11px] text-slate-600 font-medium mt-0.5">
                       {isEn ? "Truck in transit on Jakarta to Surabaya route via Trans-Java Toll." : "Truk dalam perjalanan rute Jakarta ke Surabaya via Tol Trans Jawa."}
                     </p>
                   </div>
@@ -246,15 +239,15 @@ export default function HeroSection() {
                 <div
                   className="flex items-start gap-3 nm-emboss-sm p-3.5 rounded-2xl bg-white/40 transition-transform duration-200 hover:-translate-y-0.5 will-change-transform"
                 >
-                  <div className="p-2 rounded-xl nm-deboss text-emerald-600 flex-shrink-0 mt-0.5">
+                  <div className="p-2 rounded-xl nm-deboss text-emerald-700 flex-shrink-0 mt-0.5">
                     <Activity className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-center">
                       <span className="font-bold text-slate-800">{isEn ? "Billing & Invoicing" : "Billing / Tagihan"}</span>
-                      <span className="text-[9px] font-mono text-emerald-600 font-extrabold uppercase nm-emboss-sm px-2 py-0.5 rounded-full">{isEn ? "Invoice Ready" : "Siap Invoice"}</span>
+                      <span className="text-[9px] font-mono text-emerald-700 font-extrabold uppercase nm-emboss-sm px-2 py-0.5 rounded-full">{isEn ? "Invoice Ready" : "Siap Invoice"}</span>
                     </div>
-                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                    <p className="text-[11px] text-slate-600 font-medium mt-0.5">
                       {isEn ? "ePOD successfully validated, invoice draft posted to daily ledger." : "ePOD berhasil divalidasi, draft invoice otomatis masuk ke buku besar harian."}
                     </p>
                   </div>
@@ -263,7 +256,7 @@ export default function HeroSection() {
 
               {/* Progress Tracker (Sunken container) */}
               <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-500 flex items-center gap-2 font-bold">
+                <span className="text-slate-600 flex items-center gap-2 font-bold">
                   <span className="inline-block w-2.5 h-2.5 rounded-full nm-led-teal" />
                   <span>{isEn ? "POD Turnaround Speed:" : "Kecepatan Penyelesaian POD:"}</span>
                 </span>
@@ -272,7 +265,7 @@ export default function HeroSection() {
 
             </div>
 
-          </motion.div>
+          </div>
 
         </div>
       </div>

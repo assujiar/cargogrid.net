@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "adopsi-aplikasi-driver",
+  layout: "essay",
   title: "Kenapa Aplikasi Driver Gagal Dipakai di Lapangan: Penjelasan dari Teori Penerimaan Teknologi",
   metaTitle: "Adopsi Aplikasi Driver: Penyebab Kegagalan & Cara Mengatasinya | CargoGrid OS",
   description:

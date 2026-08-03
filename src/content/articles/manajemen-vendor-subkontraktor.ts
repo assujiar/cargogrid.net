@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "manajemen-vendor-subkontraktor",
+  layout: "essay",
   title: "Manajemen Vendor dan Subkontraktor: Membaca Ulang Hubungan Anda lewat Teori Biaya Transaksi",
   metaTitle: "Manajemen Vendor & Subkontraktor Logistik | CargoGrid OS",
   description:

@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "demurrage-detention-pelabuhan",
+  layout: "dossier",
   title: "Demurrage dan Detention: Denda yang Hampir Selalu Bisa Dihindari, Tapi Jarang Dihitung",
   metaTitle: "Demurrage & Detention: Anatomi Denda Kontainer di Pelabuhan | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Yang membuat kedua biaya ini menarik untuk dibahas: keduanya sepenuhnya dapat diprediksi. Anda tahu tanggal kontainer dibongkar. Anda tahu berapa hari free time yang diberikan. Karena itu Anda tahu, sejak hari pertama, kapan denda mulai berjalan. Tidak ada ketidakpastian sama sekali, yang ada hanya tenggat yang tidak dipantau.",
+    },
+    {
+      type: "h2",
+      id: "dasar-penjadwalan",
+      text: "Dasar: aturan tenggat terdekat dalam teori penjadwalan",
+    },
+    {
+      type: "p",
+      text: "Teori penjadwalan punya satu hasil yang sederhana dan terbukti secara matematis, dikenal sebagai aturan Jackson: bila sejumlah pekerjaan harus dikerjakan satu per satu oleh satu sumber daya, mengurutkannya berdasarkan tenggat terdekat lebih dulu menghasilkan keterlambatan maksimum yang paling kecil.",
+    },
+    {
+      type: "p",
+      text: "Terjemahannya ke meja dokumen Anda langsung. Antrean kontainer yang menunggu penyelesaian dokumen adalah persoalan penjadwalan satu sumber daya, dan tenggatnya sudah diketahui sejak kontainer dibongkar. Mengurutkan pekerjaan berdasarkan sisa free time, bukan berdasarkan tanggal tiba, adalah penerapan langsung aturan itu. Perubahan ini tidak menambah orang dan tidak menambah sistem, hanya mengubah urutan.",
     },
     {
       type: "h2",

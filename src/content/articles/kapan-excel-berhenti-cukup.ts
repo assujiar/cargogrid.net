@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "kapan-excel-berhenti-cukup",
+  layout: "essay",
   title: "Kapan Excel Berhenti Cukup untuk Operasional Logistik: Tanda-tanda yang Sering Diabaikan",
   metaTitle: "Kapan Excel Tidak Lagi Cukup untuk Operasional Logistik | CargoGrid OS",
   description:
@@ -35,6 +36,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Tapi Excel punya satu asumsi yang tertanam dalam desainnya: bahwa satu orang membuka satu file pada satu waktu. Selama asumsi itu benar, Excel unggul. Ketika asumsi itu tidak lagi benar, semua kekuatannya berbalik jadi beban.",
+    },
+    {
+      type: "h2",
+      id: "dasar-biaya-koordinasi",
+      text: "Dasar: biaya koordinasi tumbuh lebih cepat daripada jumlah orang",
+    },
+    {
+      type: "p",
+      text: "Ada hubungan yang sudah lama dikenal dalam manajemen proyek: jumlah jalur komunikasi antar anggota tim tumbuh mengikuti n dikali n dikurang satu dibagi dua. Tiga orang punya tiga jalur, enam orang punya lima belas, sepuluh orang punya empat puluh lima. Jumlah orang bertambah secara linear, kebutuhan koordinasi bertambah jauh lebih cepat.",
+    },
+    {
+      type: "p",
+      text: "Spreadsheet adalah alat yang sangat baik ketika jumlah jalur itu masih sedikit. Ia juga punya kelemahan yang dikenal dalam sistem basis data sebagai lost update, yaitu ketika dua orang membuka data yang sama dan perubahan yang satu menimpa perubahan yang lain tanpa ada yang tahu. Kedua hal ini menjelaskan kenapa titik patah Excel ditentukan oleh jumlah orang yang perlu melihat kebenaran yang sama, bukan oleh jumlah baris.",
     },
     {
       type: "h2",

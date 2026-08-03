@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "biaya-tersembunyi-pod-kertas",
+  layout: "feature",
   title: "Anatomi Biaya POD Kertas: Menghitung Rupiah yang Hilang di Setiap Lembar",
   metaTitle: "Biaya Tersembunyi POD Kertas di Operasional Logistik | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Tulisan ini tidak akan memberi Anda angka industri. Angka semacam itu jarang berguna, karena struktur biaya forwarder yang jalan 300 shipment sebulan berbeda jauh dari trucking company dengan 40 truk. Yang akan saya berikan adalah kerangka empat komponen, dan cara mengambil setiap angkanya dari data yang sudah ada di kantor Anda minggu ini.",
+    },
+    {
+      type: "h2",
+      id: "dasar-biaya-tanpa-akun",
+      text: "Dasar: biaya yang tidak punya kode akun tidak punya pemilik",
+    },
+    {
+      type: "p",
+      text: "Akuntansi biaya mengenal perbedaan antara biaya yang tercatat sebagai pengeluaran dan biaya yang muncul sebagai penurunan kinerja. Yang pertama punya kode akun, punya anggaran, dan punya orang yang bertanggung jawab menekannya. Yang kedua nyata tetapi tersebar, sehingga tidak pernah masuk agenda siapa pun.",
+    },
+    {
+      type: "p",
+      text: "POD kertas hampir seluruhnya masuk kategori kedua. Karena itu kerangka yang dipakai di sini bukan mencari satu angka tunggal, melainkan memecahnya menjadi empat komponen yang masing masing sudah punya tempat di laporan Anda: biaya modal atas piutang yang tertahan, jam kerja yang terpakai, kerugian klaim yang tidak terbukti, dan waktu yang habis menjawab pertanyaan. Setelah dipecah, tiap komponen bisa diukur dengan data yang sudah ada.",
     },
     {
       type: "h2",

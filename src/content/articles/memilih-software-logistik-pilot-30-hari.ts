@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "memilih-software-logistik-pilot-30-hari",
+  layout: "feature",
   title: "Pilot 30 Hari atau Implementasi Sekaligus? Cara Memilih Software Logistik Tanpa Bertaruh",
   metaTitle: "Memilih Software Logistik: Pilot 30 Hari vs Big Bang | CargoGrid OS",
   description:

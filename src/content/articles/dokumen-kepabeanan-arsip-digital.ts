@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "dokumen-kepabeanan-arsip-digital",
+  layout: "brief",
   title: "Arsip Dokumen Logistik: Dari Ordner Berdebu ke Sistem yang Bisa Ditanyai",
   metaTitle: "Arsip Dokumen Kepabeanan & Logistik yang Bisa Dicari | CargoGrid OS",
   description:

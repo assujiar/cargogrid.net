@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "alur-rfq-freight-forwarding",
+  layout: "primer",
   title: "Anatomi RFQ Freight Forwarding: Kenapa Quotation Anda Kalah Sebelum Harganya Dibaca",
   metaTitle: "Alur RFQ Freight Forwarding: Dari Email Masuk sampai Quotation | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Dalam praktiknya, sebagian besar RFQ diputuskan oleh dua hal sebelum harga jadi pertimbangan: apakah quotation Anda datang cukup cepat untuk ikut dibandingkan, dan apakah isinya cukup lengkap untuk bisa dibandingkan. Yang datang di hari ketiga saat shortlist sudah disusun tidak kalah karena mahal. Ia tidak ikut dinilai.",
+    },
+    {
+      type: "h2",
+      id: "dasar-waktu-tunggu",
+      text: "Dasar: waktu respons hampir seluruhnya adalah waktu tunggu",
+    },
+    {
+      type: "p",
+      text: "Dalam analisis proses, total waktu penyelesaian sebuah pekerjaan dipecah menjadi waktu proses, yaitu saat pekerjaan itu benar benar dikerjakan, dan waktu tunggu, yaitu saat pekerjaan diam menunggu sesuatu. Pada hampir semua proses administratif yang belum pernah diperiksa, waktu tunggu mendominasi dan selisihnya biasanya besar.",
+    },
+    {
+      type: "p",
+      text: "Konsekuensinya penting untuk pilihan perbaikan. Menambah orang atau mempercepat penyusunan harga hanya menyentuh waktu proses, yang porsinya kecil. Perbaikan yang berarti datang dari memotong waktu tunggu, dan itu berarti mengurangi berapa kali sebuah RFQ harus berhenti untuk menunggu jawaban dari pihak lain.",
     },
     {
       type: "h2",

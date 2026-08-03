@@ -49,7 +49,11 @@ function renderInline(text: string): React.ReactNode[] {
   });
 }
 
-export default function ArticleBody({ blocks }: { blocks: Block[] }) {
+export default function ArticleBody({ blocks, dropCap = false }: { blocks: Block[]; dropCap?: boolean }) {
+  // Index of the first paragraph, so the drop cap lands on the opening line and
+  // not on whatever paragraph happens to come first after a heading.
+  const firstParagraph = blocks.findIndex((b) => b.type === "p");
+
   return (
     <div className="flex flex-col">
       {blocks.map((block, index) => {
@@ -72,12 +76,21 @@ export default function ArticleBody({ blocks }: { blocks: Block[] }) {
               </h3>
             );
 
-          case "p":
+          case "p": {
+            const isOpening = dropCap && index === firstParagraph;
             return (
-              <p key={index} className="text-[15px] sm:text-base leading-[1.85] text-slate-600 mb-5">
+              <p
+                key={index}
+                className={`text-[15px] sm:text-base leading-[1.85] text-slate-600 mb-5${
+                  isOpening
+                    ? " first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:font-display first-letter:text-[3.4rem] first-letter:font-black first-letter:leading-[0.82] first-letter:text-slate-900"
+                    : ""
+                }`}
+              >
                 {renderInline(block.text)}
               </p>
             );
+          }
 
           case "ul":
             return (

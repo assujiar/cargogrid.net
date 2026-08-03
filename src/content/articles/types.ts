@@ -23,8 +23,17 @@ export interface ArticleFaq {
   a: string;
 }
 
+/**
+ * Editorial treatment. Fifteen pieces rendered through one template read as a
+ * content farm however good the writing is, so each article declares how it
+ * wants to be presented: hero shape, column width, type scale, and where the
+ * table of contents sits.
+ */
+export type ArticleLayout = "feature" | "essay" | "brief" | "dossier" | "primer";
+
 export interface Article {
   slug: string;
+  layout: ArticleLayout;
   /** H1 and social title. */
   title: string;
   /** Browser/SERP title. Kept separate so it can carry the brand suffix without bloating the H1. */

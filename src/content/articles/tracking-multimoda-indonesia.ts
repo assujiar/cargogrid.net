@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "tracking-multimoda-indonesia",
+  layout: "primer",
   title: "Kenapa Tracking Multimoda di Indonesia Sulit Disatukan: dan Apa yang Realistis Dijanjikan ke Customer",
   metaTitle: "Tracking Multimoda Indonesia: Batas Teknis & Solusi Realistis | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Ini bukan kekurangan software tertentu. Ini sifat dari sumber datanya, dan tidak ada vendor yang bisa mengubahnya. Yang bisa dibedakan antar sistem adalah seberapa jujur mereka menampilkan perbedaan itu.",
+    },
+    {
+      type: "h2",
+      id: "dasar-kesegaran-data",
+      text: "Dasar: frekuensi data harus dibandingkan dengan irama keputusan",
+    },
+    {
+      type: "p",
+      text: "Dalam perancangan sistem pemantauan ada prinsip yang sederhana: nilai sebuah pengukuran ditentukan oleh hubungan antara seberapa sering ia diperbarui dan seberapa sering keputusan diambil berdasarkan ia. Data yang diperbarui jauh lebih cepat daripada irama keputusan tidak menambah informasi yang berguna, hanya menambah biaya.",
+    },
+    {
+      type: "p",
+      text: "Ini menjelaskan dua hal sekaligus. Pertama, kenapa menaikkan frekuensi GPS dari lima menit ke satu menit jarang mengubah apa pun, karena keputusan customer diambil dalam hitungan jam. Kedua, kenapa satu tambahan kecil, yaitu menampilkan umur data di sebelah setiap status, memberi manfaat yang jauh lebih besar daripada integrasi baru. Tanpa umur data, pembaca tidak bisa menilai apakah angka yang dilihatnya masih relevan untuk keputusan yang sedang ia ambil.",
     },
     {
       type: "h2",

@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "customer-portal-logistik",
+  layout: "brief",
   title: "Customer Portal Logistik: Menghentikan Pertanyaan yang Seharusnya Tidak Perlu Ditanyakan",
   metaTitle: "Customer Portal untuk Perusahaan Logistik | CargoGrid OS",
   description:

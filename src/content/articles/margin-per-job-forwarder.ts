@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "margin-per-job-forwarder",
+  layout: "brief",
   title: "Margin Per Job: Kenapa Baru Ketahuan Akhir Bulan, dan Apa Akibatnya",
   metaTitle: "Menghitung Margin Per Job di Perusahaan Logistik | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Margin agregat punya sifat menenangkan yang berbahaya. Angka 14% terasa sehat. Tetapi 14% bisa berarti semua job menghasilkan 14%, atau berarti setengah job menghasilkan 25% dan setengah lagi menghasilkan 3%. Keduanya menghasilkan laporan yang identik, dan menuntut tindakan yang sepenuhnya berbeda.",
+    },
+    {
+      type: "h2",
+      id: "dasar-agregasi",
+      text: "Dasar: kenapa angka gabungan bisa menyesatkan arah keputusan",
+    },
+    {
+      type: "p",
+      text: "Statistik mengenal fenomena yang dikenal sebagai paradoks Simpson, yaitu ketika sebuah pola yang terlihat pada data gabungan berbalik arah begitu data dipecah menjadi kelompok kelompoknya. Bentuk yang lebih ringan dari gejala yang sama terjadi setiap kali sebaran diringkas menjadi satu rata rata.",
+    },
+    {
+      type: "p",
+      text: "Margin agregat adalah ringkasan semacam itu. Ia menjawab pertanyaan berapa, dan tidak pernah menjawab pertanyaan di mana. Karena keputusan yang perlu Anda ambil selalu berbentuk di mana, yaitu customer mana, rute mana, sales mana, maka angka gabungan secara struktural tidak sanggup memandunya, seberapa pun akurat perhitungannya.",
     },
     {
       type: "h2",

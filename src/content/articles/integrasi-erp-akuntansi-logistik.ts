@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "integrasi-erp-akuntansi-logistik",
+  layout: "primer",
   title: "Menyambungkan Sistem Logistik ke Akuntansi: Empat Keputusan yang Menentukan Hasilnya",
   metaTitle: "Integrasi Sistem Logistik dengan Software Akuntansi | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Yang menentukan hasilnya bukan kemampuan teknis, melainkan empat keputusan desain yang biasanya baru dibicarakan setelah proyek berjalan, saat mengubahnya sudah mahal.",
+    },
+    {
+      type: "h2",
+      id: "dasar-sumber-tunggal",
+      text: "Dasar: sumber kebenaran tunggal dan sifat idempoten",
+    },
+    {
+      type: "p",
+      text: "Perancangan basis data punya prinsip lama bahwa satu fakta sebaiknya disimpan di satu tempat. Ketika fakta yang sama hidup di dua sistem yang keduanya boleh mengubahnya, perbedaan di antara keduanya bukan kemungkinan melainkan kepastian, dan yang tersisa hanya pertanyaan kapan.",
+    },
+    {
+      type: "p",
+      text: "Prinsip kedua datang dari sistem terdistribusi. Sebuah operasi disebut idempoten bila menjalankannya berulang kali memberi hasil yang sama dengan menjalankannya sekali. Ini penting karena integrasi pasti pernah gagal di tengah jalan, dan pemulihannya menuntut pengiriman ulang. Tanpa sifat idempoten, satu kali kirim ulang menggandakan transaksi, dan kerusakan akibat pemulihan menjadi lebih besar daripada kerusakan aslinya.",
     },
     {
       type: "h2",

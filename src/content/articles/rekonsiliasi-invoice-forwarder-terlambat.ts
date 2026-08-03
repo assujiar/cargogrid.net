@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "rekonsiliasi-invoice-forwarder-terlambat",
+  layout: "dossier",
   title: "Kenapa Invoice Forwarder Baru Cair 60 Hari: Padahal Terminnya 30",
   metaTitle: "Penyebab Invoice Forwarder Telat Cair & Cara Memangkasnya | CargoGrid OS",
   description:
@@ -37,6 +38,19 @@ export const article: Article = {
       tone: "insight",
       title: "Ukur dari tanggal job selesai, bukan tanggal invoice",
       body: "Ambil 50 job terakhir yang sudah lunas. Untuk masing-masing, hitung selisih hari antara tanggal job selesai dan tanggal uang masuk rekening. Rata-ratanya adalah siklus kas Anda yang sesungguhnya. Bandingkan dengan termin di kontrak. Selisih keduanya adalah pekerjaan rumah yang selama ini tidak terlihat.",
+    },
+    {
+      type: "h2",
+      id: "dasar-siklus-kas",
+      text: "Dasar: siklus konversi kas, dan bagian yang tidak terlihat di laporan piutang",
+    },
+    {
+      type: "p",
+      text: "Dalam manajemen keuangan, siklus konversi kas mengukur berapa lama uang perusahaan terkunci sejak dikeluarkan sampai kembali tertagih. Salah satu komponennya adalah days sales outstanding, yang dihitung sejak tanggal invoice.",
+    },
+    {
+      type: "p",
+      text: "Di sinilah masalahnya untuk perusahaan logistik. Peristiwa yang mengunci uang Anda bukan penerbitan invoice, melainkan pelaksanaan jasa, dan keduanya bisa berjarak berminggu minggu. Karena rumus bakunya mulai menghitung dari tanggal invoice, seluruh jeda sebelum invoice terbit berada di luar pengukuran. Ia tidak muncul di laporan umur piutang bukan karena disembunyikan, tetapi karena secara akuntansi piutangnya memang belum lahir.",
     },
     {
       type: "h2",

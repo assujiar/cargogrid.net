@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "wms-3pl-level-bin",
+  layout: "dossier",
   title: "Stok Agregat vs Ledger Level Bin: Perbedaan yang Menentukan Nasib Gudang 3PL",
   metaTitle: "WMS untuk 3PL: Kenapa Stok Level Bin Menentukan Segalanya | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Di gudang yang mencatat stok secara agregat, jawabannya bergantung pada siapa yang bertugas. Di gudang yang mencatat sampai level bin, jawabannya sama untuk siapa pun.",
+    },
+    {
+      type: "h2",
+      id: "dasar-indeks-dan-sampling",
+      text: "Dasar: lokasi adalah indeks, dan verifikasi adalah persoalan sampling",
+    },
+    {
+      type: "p",
+      text: "Dua prinsip menjelaskan sebagian besar isi tulisan ini. Yang pertama datang dari cara data dicari. Mencari satu item di antara sekumpulan item tanpa penunjuk lokasi menuntut pemeriksaan satu per satu, dan usahanya tumbuh sebanding dengan jumlah item. Begitu ada penunjuk lokasi, pencarian berubah menjadi langsung menuju tempatnya, dan jumlah item nyaris tidak berpengaruh lagi.",
+    },
+    {
+      type: "p",
+      text: "Yang kedua datang dari statistik. Memverifikasi seluruh populasi selalu mungkin tetapi mahal, sedangkan memeriksa sebagian secara berkala memberi keyakinan yang memadai dengan biaya jauh lebih kecil, asalkan diketahui bagian mana yang sudah diperiksa. Stok opname penuh adalah pemeriksaan populasi, cycle count adalah sampling terjadwal. Yang membuat cycle count mungkin bukan kecepatan menghitung, melainkan adanya lokasi yang membuat setiap bagian bisa dibatasi dan ditelusuri.",
     },
     {
       type: "h2",

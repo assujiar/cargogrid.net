@@ -2,6 +2,7 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "kpi-operasional-logistik",
+  layout: "feature",
   title: "KPI Logistik yang Benar-benar Dibaca Customer: dan Yang Hanya Menghias Laporan",
   metaTitle: "KPI Operasional Logistik yang Berguna & yang Menyesatkan | CargoGrid OS",
   description:
@@ -31,6 +32,19 @@ export const article: Article = {
     {
       type: "p",
       text: "Selisih itu jarang disebabkan manipulasi. Ia muncul karena kata \"tepat waktu\" tidak pernah didefinisikan bersama, dan setiap pihak mengisi kekosongan itu dengan asumsi yang wajar menurut sudut pandangnya sendiri.",
+    },
+    {
+      type: "h2",
+      id: "dasar-goodhart",
+      text: "Dasar: hukum Goodhart dan dua jenis penyimpangan",
+    },
+    {
+      type: "p",
+      text: "Hukum Goodhart menyatakan bahwa ketika sebuah ukuran dijadikan target, ia berhenti menjadi ukuran yang baik. Bukan karena orang berniat curang, melainkan karena setiap definisi punya celah, dan tekanan untuk mencapai angka akan menemukan celah itu dengan sendirinya. Inilah alasan definisi tertulis lebih menentukan daripada besaran targetnya.",
+    },
+    {
+      type: "p",
+      text: "Prinsip kedua datang dari pengendalian mutu statistik yang dikembangkan Shewhart dan kemudian dipopulerkan Deming, yaitu pembedaan antara variasi sebab umum dan variasi sebab khusus. Variasi sebab umum melekat pada proses dan hanya bisa dikurangi dengan mengubah prosesnya. Variasi sebab khusus berasal dari kejadian tertentu yang bisa ditelusuri. Menanggapi variasi sebab umum seolah ia kejadian khusus, misalnya menegur tim setiap kali angka turun sedikit, justru menambah kegaduhan tanpa memperbaiki apa pun.",
     },
     {
       type: "h2",

@@ -4,7 +4,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "../src/index.css";
 import { LanguageProvider } from "../src/components/shared/LanguageProvider";
 import UtmCapture from "../src/components/shared/UtmCapture";
-import { siteGraphJsonLd, siteUrl } from "../src/lib/seo";
+import { ogImage, siteGraphJsonLd, siteUrl } from "../src/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,6 +46,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "CargoGrid OS",
     locale: "id_ID",
+    images: [{ ...ogImage, alt: "CargoGrid OS — Sistem Operasi Logistik Enterprise Terintegrasi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [ogImage.url],
   },
   icons: {
     icon: [

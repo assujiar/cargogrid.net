@@ -3,12 +3,6 @@ import PageJourneyNav from "../../src/components/chrome/PageJourneyNav";
 import LeadCaptureForm from "../../src/components/LeadCaptureForm";
 import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
-// LeadCaptureForm transitively requires Supabase env vars at module-load time
-// (see src/lib/supabase.ts). Those are only guaranteed to be present at
-// runtime in the deployed environment, not at `next build` time, so this
-// route is rendered per-request rather than statically prerendered.
-export const dynamic = "force-dynamic";
-
 export const metadata = buildMetadata({
   path: "/kontak",
   title: "Kontak & Audit Sistem Gratis — CargoGrid OS",

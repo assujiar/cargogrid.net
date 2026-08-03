@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { sendMail } from "@/src/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -10,31 +10,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing to, subject, or html" }, { status: 400 });
   }
 
-  const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT || 465);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || user;
-  const secure = process.env.SMTP_SECURE !== undefined
-    ? process.env.SMTP_SECURE === "true"
-    : port === 465;
-
-  if (!host || !user || !pass) {
-    return NextResponse.json({ error: "SMTP is not configured on the server" }, { status: 503 });
+  const result = await sendMail({ to, subject, html });
+  if (!result.ok) {
+    return NextResponse.json({ error: result.error }, { status: result.status || 502 });
   }
 
-  const transporter = nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: { user, pass },
-  });
-
-  try {
-    await transporter.sendMail({ from, to, subject, html });
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("Failed to send email via SMTP", error);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 502 });
-  }
+  return NextResponse.json({ ok: true });
 }

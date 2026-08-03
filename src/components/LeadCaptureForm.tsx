@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Check, ClipboardList, ShieldCheck, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getStoredUtmParams } from "../lib/tracking";
+import { submitInquiry, InquirySubmitError } from "../lib/inquiryClient";
 import { useLanguage } from "./shared/LanguageProvider";
 
 export default function LeadCaptureForm() {
@@ -27,16 +28,18 @@ export default function LeadCaptureForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [qualification, setQualification] = useState<"high" | "medium" | "standard">("standard");
   const [newInquiryId, setNewInquiryId] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Verify fields
     if (!formData.name || !formData.company || !formData.email || !formData.phone) {
-      alert(isEn ? "Please complete all required fields." : "Harap lengkapi semua field yang wajib diisi.");
+      setSubmitError(isEn ? "Please complete all required fields." : "Harap lengkapi semua field yang wajib diisi.");
       return;
     }
 
+    setSubmitError("");
     setIsSubmitting(true);
 
     // Apply Qualification Rules from Blueprint Section 11
@@ -58,12 +61,9 @@ export default function LeadCaptureForm() {
     const utm = getStoredUtmParams();
 
     try {
-      // Loaded on submit only — keeps the Supabase SDK out of this page's
-      // initial JS bundle, since most visitors view/fill the form without
-      // ever submitting it.
-      const { addInquiry } = await import("../lib/storage");
-      // Save inquiry with active language context and UTM attributes
-      const newInq = await addInquiry({
+      // Posts to the same-origin /api/inquiry route; the server does the
+      // Supabase write and sends the notification emails.
+      const newInq = await submitInquiry({
         name: formData.name,
         company: formData.company,
         role: formData.role,
@@ -83,7 +83,17 @@ export default function LeadCaptureForm() {
       setIsSubmitted(true);
     } catch (error) {
       console.error("Failed to submit inquiry", error);
-      alert(isEn ? "Unable to submit your inquiry. Please try again." : "Gagal mengirim inquiry. Silakan coba lagi.");
+      const isNetwork = error instanceof InquirySubmitError && error.isNetwork;
+      if (isNetwork) {
+        setSubmitError(isEn
+          ? "We could not reach the CargoGrid server. Please check your internet connection and try again, or email service@cargogrid.net."
+          : "Kami tidak dapat menghubungi server CargoGrid. Silakan periksa koneksi internet Anda dan coba lagi, atau email ke service@cargogrid.net.");
+      } else {
+        const detail = error instanceof Error ? error.message : "";
+        setSubmitError(isEn
+          ? `Unable to submit your inquiry${detail ? ` (${detail})` : ""}. Please try again or email service@cargogrid.net.`
+          : `Gagal mengirim inquiry${detail ? ` (${detail})` : ""}. Silakan coba lagi atau email ke service@cargogrid.net.`);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -347,6 +357,16 @@ export default function LeadCaptureForm() {
                         </select>
                       </div>
                     </div>
+
+                    {submitError && (
+                      <div
+                        role="alert"
+                        aria-live="assertive"
+                        className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-[11px] font-bold leading-relaxed text-red-700"
+                      >
+                        {submitError}
+                      </div>
+                    )}
 
                     {/* Submit Button */}
                     <motion.button

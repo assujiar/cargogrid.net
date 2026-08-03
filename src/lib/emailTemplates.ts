@@ -356,7 +356,9 @@ export function getModuleLabel(key: string, lang: 'id' | 'en' = 'id'): string {
       ops: "Operations (TMS, Dispatch)",
       tracking: "Tracking (Visibility, Real-time)",
       finance: "Finance (Invoicing, Profitability)",
-      warehouse: "Warehouse (WMS, Inventory)"
+      warehouse: "Warehouse (WMS, Inventory)",
+      hris: "HRIS (Employee Data, Attendance)",
+      analytics: "Executive Dashboard & Analytics"
     };
     return map[key] || key;
   } else {
@@ -365,7 +367,9 @@ export function getModuleLabel(key: string, lang: 'id' | 'en' = 'id'): string {
       ops: "Operations (TMS, Dispatch)",
       tracking: "Tracking (Visibility, Real-time)",
       finance: "Finance (Invoicing, Profitability)",
-      warehouse: "Warehouse (WMS, Inventory)"
+      warehouse: "Warehouse (WMS, Inventory)",
+      hris: "HRIS (Data Karyawan, Absensi)",
+      analytics: "Executive Dashboard & Analytics"
     };
     return map[key] || key;
   }

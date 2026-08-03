@@ -747,6 +747,7 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                         { id: "finance", labelId: "Tim Finance & Billing", labelEn: "Finance & Accounting" },
                         { id: "warehouse", labelId: "Tim Admin Gudang", labelEn: "Warehouse & Inventory" },
                         { id: "driver", labelId: "Supir & Lapangan", labelEn: "Drivers & Fleet Staff" },
+                        { id: "hr", labelId: "Tim HR & Personalia", labelEn: "HR & People Operations" },
                         { id: "management", labelId: "Direksi & Management", labelEn: "Executive & Management" }
                       ].map((role) => {
                         const active = rolesInvolved.includes(role.id);
@@ -974,6 +975,16 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             id: "warehouse",
                             title: isEn ? "Warehouse Management (Multi-client WMS, Stock Audits & Live Racks)" : "Warehouse Management (Multi-client WMS, Stok Opname, Live Rack)",
                             desc: isEn ? "Barcode tracking, pick-and-pack management, and warehouse capacity monitoring." : "Pelacakan barcode, manajemen pick-and-pack, dan monitoring kapasitas gudang."
+                          },
+                          {
+                            id: "hris",
+                            title: isEn ? "HRIS (Employee Data, Attendance & Field Team Management)" : "HRIS (Data Karyawan, Absensi & Manajemen Tim Lapangan)",
+                            desc: isEn ? "Keeps staff, driver and field crew records in the same system as the operations they run." : "Menyatukan data staf, supir, dan kru lapangan dengan operasional yang mereka jalankan."
+                          },
+                          {
+                            id: "analytics",
+                            title: isEn ? "Executive Dashboard & Analytics" : "Executive Dashboard & Analytics",
+                            desc: isEn ? "Operational and financial performance in one view for management." : "Kinerja operasional dan keuangan dalam satu tampilan untuk manajemen."
                           }
                         ].map((m) => {
                           const checked = desiredModules.includes(m.id);

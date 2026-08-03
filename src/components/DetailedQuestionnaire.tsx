@@ -963,8 +963,8 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                           },
                           {
                             id: "tracking",
-                            title: isEn ? "Tracking & Visibility (Self-Service Client Tracking Portal)" : "Tracking & Visibility (Portal Live Tracking Mandiri untuk Client)",
-                            desc: isEn ? "Dedicated tracking links so clients can verify POD status without calling CS." : "Link tracking khusus sehingga client bisa cek status POD tanpa telepon CS."
+                            title: isEn ? "Customer Portal & Loyalty (Tracking, Documents & Online Booking)" : "Customer Portal & Loyalty (Tracking, Dokumen & Booking Online)",
+                            desc: isEn ? "Self-service shipment tracking, document centre, invoice and payment status, online RFQ and booking, claim tickets, plus loyalty tiers and service feedback." : "Tracking mandiri, pusat dokumen, status invoice dan pembayaran, RFQ dan booking online, tiket klaim, plus tier loyalty dan umpan balik layanan."
                           },
                           {
                             id: "finance",
@@ -977,14 +977,19 @@ export default function DetailedQuestionnaire({ initialInquiryId, onNavigateToAd
                             desc: isEn ? "Barcode tracking, pick-and-pack management, and warehouse capacity monitoring." : "Pelacakan barcode, manajemen pick-and-pack, dan monitoring kapasitas gudang."
                           },
                           {
+                            id: "procurement",
+                            title: isEn ? "Procurement & Vendor Management (Tender, PO & Vendor Scorecard)" : "Procurement & Vendor Management (Tender, PO & Scorecard Vendor)",
+                            desc: isEn ? "Vendor onboarding, RFQ and bidding, rate contracts, purchase orders, bill matching, and scorecards by price, timeliness and claims." : "Onboarding vendor, RFQ dan tender, kontrak rate, Purchase Order, pencocokan tagihan, serta scorecard berdasarkan harga, ketepatan waktu, dan klaim."
+                          },
+                          {
                             id: "hris",
-                            title: isEn ? "HRIS (Employee Data, Attendance & Field Team Management)" : "HRIS (Data Karyawan, Absensi & Manajemen Tim Lapangan)",
-                            desc: isEn ? "Keeps staff, driver and field crew records in the same system as the operations they run." : "Menyatukan data staf, supir, dan kru lapangan dengan operasional yang mereka jalankan."
+                            title: isEn ? "HRIS & Service Ticketing (Workforce, Attendance & Internal Tickets)" : "HRIS & Service Ticketing (Kepegawaian, Absensi & Tiket Internal)",
+                            desc: isEn ? "Employee master, attendance, leave, shift and roster, driver qualification and certification, KPI reviews, asset assignment, plus internal and customer complaint tickets with SLA tracking." : "Data karyawan, absensi, cuti, shift dan roster, kualifikasi serta sertifikasi supir, review KPI, penugasan aset, ditambah tiket internal dan komplain customer dengan pelacakan SLA."
                           },
                           {
                             id: "analytics",
-                            title: isEn ? "Executive Dashboard & Analytics" : "Executive Dashboard & Analytics",
-                            desc: isEn ? "Operational and financial performance in one view for management." : "Kinerja operasional dan keuangan dalam satu tampilan untuk manajemen."
+                            title: isEn ? "Intelligence & Enterprise Analytics (Executive Dashboard)" : "Intelligence & Enterprise Analytics (Executive Dashboard)",
+                            desc: isEn ? "Lane and service profitability, quotation win-loss, customer lifetime value, churn indicators, ETA and delay prediction, cash-flow forecast, and anomaly detection." : "Profitabilitas per lane dan layanan, analisis menang-kalah quotation, nilai customer jangka panjang, indikator churn, prediksi ETA dan keterlambatan, proyeksi arus kas, serta deteksi anomali."
                           }
                         ].map((m) => {
                           const checked = desiredModules.includes(m.id);

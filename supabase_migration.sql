@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS inquiries (
     role VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(100) NOT NULL,
-    company_type VARCHAR(100) NOT NULL, -- e.g. 'forwarder', '3pl', 'trucking', 'inhouse', 'other'
+    company_type VARCHAR(100) NOT NULL, -- forwarder | 3pl | trucking | inhouse | courier | other
     shipment_volume VARCHAR(100) NOT NULL, -- e.g. '<100', '100-500', '500-1000', '1000+'
-    biggest_pain VARCHAR(100) NOT NULL, -- e.g. 'rfq', 'tracking', 'pod', 'warehouse', 'billing', 'margin'
+    biggest_pain VARCHAR(100) NOT NULL, -- rfq | tracking | pod | warehouse | billing | margin
     status VARCHAR(50) NOT NULL DEFAULT 'Inquiry Masuk', -- 'Inquiry Masuk', 'Draft Kuesioner', 'Kuesioner Selesai', 'Meeting Scheduled'
     lang VARCHAR(10) DEFAULT 'id', -- Language preference ('id' or 'en')
     utm_source VARCHAR(255),
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS questionnaires (
     pain_billing_details TEXT, -- Delay times in POD return and invoicing
 
     -- Kategori 3: Kebutuhan Solusi & Integrasi
-    desired_modules TEXT[] DEFAULT '{}', -- Modules of CargoGrid e.g. ['commercial', 'ops', 'tracking', 'finance']
+    desired_modules TEXT[] DEFAULT '{}', -- Subset of: commercial, ops, tracking, finance, warehouse, procurement, hris, analytics
     erp_system VARCHAR(255) DEFAULT 'None', -- e.g. 'SAP', 'Oracle', 'Xero', 'Accurate', 'None'
     custom_requirements TEXT, -- Any custom workflow customization requests
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS questionnaires (
     existing_customer_flow TEXT, -- Alur perjalanan barang & invoice saat ini
     business_process_sop TEXT, -- Status standard operating procedures (SOP tertulis vs informal)
     total_expected_users VARCHAR(100), -- Estimasi jumlah pengguna (e.g., '20-50', '100+')
-    roles_involved TEXT[] DEFAULT '{}', -- Peran internal yang terlibat dalam sistem
+    roles_involved TEXT[] DEFAULT '{}', -- Subset of: sales, ops, finance, warehouse, driver, hr, management
     top_problem_impact TEXT, -- Kerugian/dampak terbesar akibat kendala operasional
     specific_requests TEXT, -- Modul, kustomisasi, atau integrasi hardware khusus
 
@@ -106,6 +106,10 @@ CREATE TABLE IF NOT EXISTS email_logs (
     type VARCHAR(50) NOT NULL,
     sent_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+-- The value sets noted against the choice columns above are enforced by
+-- supabase_value_constraints.sql. Run that after this file; comments alone
+-- reject nothing and drift out of date the moment the form changes.
 
 -- Enable Row Level Security (RLS) on all tables
 ALTER TABLE inquiries ENABLE ROW LEVEL SECURITY;

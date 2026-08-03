@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServiceSupabase } from "@/src/lib/supabaseService";
+import { getServiceSupabase, getSupabaseHost, describeFetchFailure, truncateDetail } from "@/src/lib/supabaseService";
 import { toInquiry, type InquiryRow } from "@/src/lib/inquiryRow";
 import { generateHtmlEmailTemplate } from "@/src/lib/emailTemplates";
 import { sendMail } from "@/src/lib/mailer";
@@ -71,7 +71,12 @@ export async function POST(request: NextRequest) {
 
   if (error) {
     console.error("create_inquiry failed", error);
-    return NextResponse.json({ error: error.message || "Failed to store inquiry" }, { status: 502 });
+    // `detail` is for whoever runs the site (it lands in the browser console and
+    // the Vercel logs); the visitor-facing copy stays generic.
+    return NextResponse.json(
+      { error: "Could not store the inquiry", detail: truncateDetail(error.message) || "Unknown Supabase error" },
+      { status: 502 },
+    );
   }
 
   const inquiry = toInquiry(data as InquiryRow);
@@ -96,6 +101,48 @@ export async function POST(request: NextRequest) {
   ]);
 
   return NextResponse.json({ inquiry });
+}
+
+/**
+ * Connectivity check for the inquiry pipeline: `GET /api/inquiry`.
+ *
+ * Exists because the interesting failure is upstream of this app — if the
+ * Supabase host does not resolve, every submission fails identically and the
+ * only clue the browser gets is "fetch failed". This says so directly, without
+ * writing a row. Returns only the host (already a NEXT_PUBLIC_ value) and the
+ * transport error; never a key.
+ */
+export async function GET() {
+  const host = getSupabaseHost();
+  const supabase = getServiceSupabase();
+
+  if (!supabase) {
+    return NextResponse.json(
+      { ok: false, configured: false, host, reason: "Supabase env vars are missing or malformed on the server" },
+      { status: 503 },
+    );
+  }
+
+  try {
+    // Any RPC round-trip proves the transport works; a Postgres-level error
+    // still means we reached the database, which is what this check is about.
+    const { error } = await supabase.rpc("get_inquiry_by_id", {
+      p_id: "00000000-0000-0000-0000-000000000000",
+    }).maybeSingle();
+
+    if (error) {
+      return NextResponse.json(
+        { ok: false, configured: true, reachable: false, host, reason: truncateDetail(error.message) },
+        { status: 502 },
+      );
+    }
+    return NextResponse.json({ ok: true, configured: true, reachable: true, host });
+  } catch (err) {
+    return NextResponse.json(
+      { ok: false, configured: true, reachable: false, host, reason: describeFetchFailure(err) },
+      { status: 502 },
+    );
+  }
 }
 
 async function deliver(

@@ -83,16 +83,18 @@ export default function LeadCaptureForm() {
       setIsSubmitted(true);
     } catch (error) {
       console.error("Failed to submit inquiry", error);
-      const isNetwork = error instanceof InquirySubmitError && error.isNetwork;
-      if (isNetwork) {
+      if (error instanceof InquirySubmitError && error.isNetwork) {
         setSubmitError(isEn
           ? "We could not reach the CargoGrid server. Please check your internet connection and try again, or email service@cargogrid.net."
           : "Kami tidak dapat menghubungi server CargoGrid. Silakan periksa koneksi internet Anda dan coba lagi, atau email ke service@cargogrid.net.");
+      } else if (error instanceof InquirySubmitError && error.isUserFixable) {
+        setSubmitError(error.message);
       } else {
-        const detail = error instanceof Error ? error.message : "";
+        // Server-side failure — the technical cause is already in the console,
+        // so give the visitor a route that still works instead of internals.
         setSubmitError(isEn
-          ? `Unable to submit your inquiry${detail ? ` (${detail})` : ""}. Please try again or email service@cargogrid.net.`
-          : `Gagal mengirim inquiry${detail ? ` (${detail})` : ""}. Silakan coba lagi atau email ke service@cargogrid.net.`);
+          ? "Our system could not record your inquiry right now. Please email service@cargogrid.net or WhatsApp us and we will register you manually."
+          : "Sistem kami sedang tidak dapat menyimpan inquiry Anda. Silakan email ke service@cargogrid.net atau hubungi WhatsApp kami, dan tim akan mendaftarkan Anda secara manual.");
       }
     } finally {
       setIsSubmitting(false);

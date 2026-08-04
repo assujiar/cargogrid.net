@@ -18,7 +18,7 @@ export const article: Article = {
   category: "gudang",
   publishedAt: "2026-06-08",
   summary:
-    "Di banyak gudang, SKU yang paling sering dipesan justru tersimpan paling jauh dari titik pengiriman — warisan tata letak asal taruh bertahun-tahun lalu, saat gudang baru dibuka dan belum ada yang memikirkan pola permintaannya. ABC analysis, turunan prinsip Pareto, menjelaskan cara menyusun ulang penempatan itu dari data frekuensi pengambilan yang sebagian besar gudang sebenarnya sudah punya. Tulisan ini membahas cara mengaudit slotting dari data yang ada, dan kapan reslotting benar-benar sepadan mengganggu operasional yang berjalan.",
+    "Di banyak gudang, SKU yang paling sering dipesan justru tersimpan paling jauh dari titik pengiriman. Ini warisan tata letak asal taruh bertahun-tahun lalu, saat gudang baru dibuka dan belum ada yang memikirkan pola permintaannya. ABC analysis, turunan prinsip Pareto, menjelaskan cara menyusun ulang penempatan itu dari data frekuensi pengambilan yang sebagian besar gudang sebenarnya sudah punya. Tulisan ini membahas cara mengaudit slotting dari data yang ada, dan kapan reslotting benar-benar sepadan mengganggu operasional yang berjalan.",
   takeaways: [
     "Waktu berjalan biasanya menyita sekitar separuh dari total waktu picking, jauh melebihi waktu mengambil barangnya sendiri. Jarak rak ke titik proses adalah pengungkit terbesar produktivitas picking harian.",
     "ABC analysis, turunan prinsip Pareto, menyusun SKU berdasarkan frekuensi pengambilan: kelas A ditaruh paling dekat titik proses, kelas C boleh menempati rak paling jauh.",
@@ -99,11 +99,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Jarak tempuh berlebih tidak berhenti sebagai angka waktu semata. Picker yang berjalan paling jauh juga yang paling cepat lelah, dan kelelahan berkorelasi dengan naiknya salah ambil serta salah hitung jumlah — baru terlihat belakangan, saat customer komplain kekurangan barang atau retur datang karena item yang salah terkirim.",
+      text: "Jarak tempuh berlebih tidak berhenti sebagai angka waktu semata. Picker yang berjalan paling jauh juga yang paling cepat lelah, dan kelelahan berkorelasi dengan naiknya salah ambil serta salah hitung jumlah. Ini baru terlihat belakangan, saat customer komplain kekurangan barang atau retur datang karena item yang salah terkirim.",
     },
     {
       type: "p",
-      text: "Area dekat meja packing juga makin padat karena picker berebut jalur yang sama menuju rak-rak yang jauh, sementara ruang di dekat titik proses dipakai menyimpan SKU yang jarang bergerak. Kapasitas gudang jadi lebih rendah dari yang seharusnya bisa dicapai — jumlah raknya sudah cukup, letaknya saja yang belum sesuai fungsi.",
+      text: "Area dekat meja packing juga makin padat karena picker berebut jalur yang sama menuju rak-rak yang jauh, sementara ruang di dekat titik proses dipakai menyimpan SKU yang jarang bergerak. Kapasitas gudang jadi lebih rendah dari yang seharusnya bisa dicapai: jumlah raknya sudah cukup, letaknya saja yang belum sesuai fungsi.",
     },
     {
       type: "h2",
@@ -148,7 +148,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Satu catatan penting: frekuensi bukan satu-satunya faktor. SKU kelas A yang besar dan berat tetap butuh ruang penempatan yang aman untuk diangkut. Slotting yang baik menimbang frekuensi bersama ukuran, berat, dan cara penanganan tiap barang — kedekatan jarak saja tidak cukup.",
+      text: "Satu catatan penting: frekuensi bukan satu-satunya faktor. SKU kelas A yang besar dan berat tetap butuh ruang penempatan yang aman untuk diangkut. Slotting yang baik menimbang frekuensi bersama ukuran, berat, dan cara penanganan tiap barang. Kedekatan jarak saja tidak cukup.",
     },
     {
       type: "callout",
@@ -167,7 +167,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Rata-rata 42 SKU kelas A tadi dipesan 14 kali per hari, dengan selisih jarak tempuh sekitar 65 meter menuju lokasi baru yang lebih dekat. Pada kecepatan jalan 1,2 meter per detik, selisih itu setara 54 detik per pengambilan — dikalikan 42 SKU dan 14 pengambilan per hari, totalnya sekitar 8,8 jam kerja yang dihemat setiap hari, mendekati satu tenaga kerja penuh. Dengan upah harian Rp150.000, itu setara Rp3,3 juta per bulan. Kalau reslotting menghabiskan tambahan dua hari kerja senilai Rp6 juta untuk lembur dan downtime parsial, titik impasnya tercapai kurang dari dua bulan.",
+      text: "Rata-rata 42 SKU kelas A tadi dipesan 14 kali per hari, dengan selisih jarak tempuh sekitar 65 meter menuju lokasi baru yang lebih dekat. Pada kecepatan jalan 1,2 meter per detik, selisih itu setara 54 detik per pengambilan. Dikalikan 42 SKU dan 14 pengambilan per hari, totalnya sekitar 8,8 jam kerja yang dihemat setiap hari, mendekati satu tenaga kerja penuh. Dengan upah harian Rp150.000, itu setara Rp3,3 juta per bulan. Kalau reslotting menghabiskan tambahan dua hari kerja senilai Rp6 juta untuk lembur dan downtime parsial, titik impasnya tercapai kurang dari dua bulan.",
     },
     {
       type: "table",

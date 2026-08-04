@@ -71,7 +71,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dari sini lahir aturan praktis: **rute dan jenis pekerjaan yang paling standar adalah kandidat terbaik untuk disubkontrakkan; yang paling khusus sebaiknya dipegang sendiri.** Kenyataan di lapangan sering terbalik. Armada sendiri dihabiskan untuk rute gemuk yang justru standar, sementara pekerjaan rumit malah dilempar ke vendor karena dianggap merepotkan.",
+      text: "Dari sini lahir aturan praktis: **rute dan jenis pekerjaan yang paling standar adalah kandidat terbaik untuk disubkontrakkan. Yang paling khusus sebaiknya dipegang sendiri.** Kenyataan di lapangan sering terbalik. Armada sendiri dihabiskan untuk rute gemuk yang justru standar, sementara pekerjaan rumit malah dilempar ke vendor karena dianggap merepotkan.",
     },
     {
       type: "h3",

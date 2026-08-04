@@ -4,21 +4,21 @@ import Image from "next/image";
  * Article cover art.
  *
  * Each article has a hand-made illustration at
- * public/article-illustration/<slug>.png. `object-position: top` because
- * every one of these puts its title and primary subject in the upper
- * portion, with supporting detail panels below — cropping from the top
- * keeps the identifying part of the picture in frame at the shorter sizes.
+ * public/article-illustration/<slug>.png, natively a 4:3 landscape. The
+ * wrapper is sized off that same ratio and the image uses `object-fit:
+ * contain`, so the whole illustration always shows — no cropping — at
+ * whatever width the caller's layout gives it.
  */
 
-export default function ArticleCoverArt({ seed, height = 150 }: { seed: string; height?: number }) {
+export default function ArticleCoverArt({ seed }: { seed: string }) {
   return (
-    <div style={{ position: "relative", width: "100%", height }}>
+    <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 3" }}>
       <Image
         src={`/article-illustration/${seed}.png`}
         alt=""
         fill
         sizes="(min-width: 1024px) 768px, 100vw"
-        style={{ objectFit: "cover", objectPosition: "top" }}
+        style={{ objectFit: "contain" }}
       />
     </div>
   );

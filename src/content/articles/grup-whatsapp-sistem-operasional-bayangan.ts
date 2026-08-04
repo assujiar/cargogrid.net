@@ -6,7 +6,7 @@ export const article: Article = {
   title: "Grup WhatsApp yang Diam-Diam Jadi Sistem Operasional Bayangan Perusahaan Anda",
   metaTitle: "Grup WhatsApp sebagai Sistem Operasional Bayangan | CargoGrid OS",
   description:
-    "Assign job, konfirmasi muat, dan posisi truk berjalan lewat grup WhatsApp — sampai riwayat chatnya jadi satu-satunya sistem, dan bisa hilang kapan saja.",
+    "Assign job, konfirmasi muat, dan posisi truk berjalan lewat grup WhatsApp, sampai riwayat chatnya jadi satu-satunya sistem, dan bisa hilang kapan saja.",
   keywords: [
     "shadow it logistik",
     "sistem operasional whatsapp",

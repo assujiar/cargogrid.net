@@ -19,7 +19,7 @@ export const article: Article = {
   summary:
     "Aplikasi driver jarang gagal karena kekurangan fitur. Kegagalannya biasanya berasal dari dua syarat yang, menurut model penerimaan teknologi yang sudah teruji puluhan tahun, menentukan apakah sebuah alat benar-benar akan dipakai atau ditinggalkan: manfaat yang dirasakan, dan kemudahan yang dirasakan.",
   takeaways: [
-    "Menurut Technology Acceptance Model, niat memakai sebuah alat ditentukan oleh manfaat yang dirasakan dan kemudahan yang dirasakan — dan keduanya dinilai dari sudut pandang pemakai, bukan pembeli.",
+    "Menurut Technology Acceptance Model, niat memakai sebuah alat ditentukan oleh manfaat yang dirasakan dan kemudahan yang dirasakan. Keduanya dinilai dari sudut pandang pemakai, bukan pembeli.",
     "Driver adalah pemakai yang tidak ikut membeli, sehingga manfaat yang dihitung untuk perusahaan tidak otomatis terasa oleh driver di lapangan.",
     "Jumlah ketukan yang dibutuhkan per pengiriman adalah ukuran kemudahan paling jujur, dan paling gampang dihitung sendiri.",
     "Kemampuan bekerja offline adalah syarat mutlak sejak hari pertama: satu kali gagal saat tidak ada sinyal sudah cukup membuat aplikasinya ditinggalkan untuk seterusnya.",
@@ -27,7 +27,7 @@ export const article: Article = {
   blocks: [
     {
       type: "p",
-      text: "Bulan pertama biasanya terasa seperti kemenangan: aplikasi driver baru sudah terpasang di semua ponsel, tim ops sudah dilatih, dan selama dua minggu pertama semua orang memakainya dengan rajin. Lalu, pelan-pelan, sesuatu berubah. Update status mulai telat, foto POD mulai kosong, dan tiga bulan kemudian koordinasi lapangan diam-diam kembali ke WhatsApp dan telepon seperti sebelum aplikasi itu ada — sementara tagihan langganannya tetap terpotong setiap bulan, entah dipakai atau tidak.",
+      text: "Bulan pertama biasanya terasa seperti kemenangan: aplikasi driver baru sudah terpasang di semua ponsel, tim ops sudah dilatih, dan selama dua minggu pertama semua orang memakainya dengan rajin. Lalu, pelan-pelan, sesuatu berubah. Update status mulai telat, foto POD mulai kosong, dan tiga bulan kemudian koordinasi lapangan diam-diam kembali ke WhatsApp dan telepon seperti sebelum aplikasi itu ada, sementara tagihan langganannya tetap terpotong setiap bulan, entah dipakai atau tidak.",
     },
     {
       type: "p",
@@ -45,8 +45,8 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "**Perceived usefulness** — seberapa yakin ia bahwa alat ini betul-betul membuat pekerjaannya lebih ringan atau lebih baik.",
-        "**Perceived ease of use** — seberapa yakin ia bahwa memakainya tidak akan menambah repot.",
+        "**Perceived usefulness**: seberapa yakin ia bahwa alat ini betul-betul membuat pekerjaannya lebih ringan atau lebih baik.",
+        "**Perceived ease of use**: seberapa yakin ia bahwa memakainya tidak akan menambah repot.",
       ],
     },
     {
@@ -57,7 +57,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Kenapa ini persoalan khas aplikasi driver",
-      body: "Pada kebanyakan software perusahaan, yang membeli dan yang memakai kurang lebih orang yang sama, sehingga manfaat bagi organisasi otomatis ikut terasa oleh pemakainya. Aplikasi driver memutus hubungan itu: manajemen yang membeli, driver yang memakai. Semua angka yang dihitung dalam proposal — piutang cair lebih cepat, klaim yang berkurang, laporan yang lebih rapi — semuanya jatuh ke perusahaan, tidak satu pun menyentuh driver di lapangan. Dalam bahasa TAM, itu berarti perceived usefulness di mata pemakai sesungguhnya sudah mendekati nol sejak hari pertama aplikasi itu dipasang.",
+      body: "Pada kebanyakan software perusahaan, yang membeli dan yang memakai kurang lebih orang yang sama, sehingga manfaat bagi organisasi otomatis ikut terasa oleh pemakainya. Aplikasi driver memutus hubungan itu: manajemen yang membeli, driver yang memakai. Semua angka yang dihitung dalam proposal (piutang cair lebih cepat, klaim yang berkurang, laporan yang lebih rapi) semuanya jatuh ke perusahaan, tidak satu pun menyentuh driver di lapangan. Dalam bahasa TAM, itu berarti perceived usefulness di mata pemakai sesungguhnya sudah mendekati nol sejak hari pertama aplikasi itu dipasang.",
     },
     {
       type: "h2",
@@ -66,13 +66,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau TAM ini benar, tugas pertama adalah menemukan satu hal yang membuat hari kerja driver terasa lebih ringan — jauh sebelum menambah fitur baru untuk kebutuhan kantor. Empat hal berikut terbukti masuk akal karena langsung menjawab keluhan yang sudah lama ada di lapangan:",
+      text: "Kalau TAM ini benar, tugas pertama adalah menemukan satu hal yang membuat hari kerja driver terasa lebih ringan, jauh sebelum menambah fitur baru untuk kebutuhan kantor. Empat hal berikut terbukti masuk akal karena langsung menjawab keluhan yang sudah lama ada di lapangan:",
     },
     {
       type: "ul",
       items: [
-        "**Bukti kerja yang tak terbantahkan.** Driver sering kena tuduhan kehilangan POD, atau dituduh mengaku sudah mengantar padahal belum sampai. Kalau aplikasinya otomatis menyimpan foto dan jam kejadian, catatan itu justru melindungi driver itu sendiri saat terjadi perselisihan — sesuatu yang jauh lebih ia butuhkan ketimbang sekadar dianggap alat pengawasan dari kantor.",
-        "**Kepastian uang jalan atau komisi cair.** Begitu penyelesaian pekerjaan tercatat otomatis dan langsung memicu perhitungan pembayaran, driver punya alasan sendiri untuk memastikan catatannya akurat — uangnya bergantung pada itu.",
+        "**Bukti kerja yang tak terbantahkan.** Driver sering kena tuduhan kehilangan POD, atau dituduh mengaku sudah mengantar padahal belum sampai. Kalau aplikasinya otomatis menyimpan foto dan jam kejadian, catatan itu justru melindungi driver itu sendiri saat terjadi perselisihan, sesuatu yang jauh lebih ia butuhkan ketimbang sekadar dianggap alat pengawasan dari kantor.",
+        "**Kepastian uang jalan atau komisi cair.** Begitu penyelesaian pekerjaan tercatat otomatis dan langsung memicu perhitungan pembayaran, driver punya alasan sendiri untuk memastikan catatannya akurat. Uangnya bergantung pada itu.",
         "**Telepon dari kantor jadi lebih jarang.** Status yang ia isi sendiri bisa menjawab pertanyaan yang biasanya diulang lima kali lewat telepon: posisi di mana, sudah bongkar belum, kapan sampai. Menukar satu ketukan dengan lima telepon yang tidak perlu itu tawaran yang gampang diterima siapa saja.",
         "**Rute dan alamat yang jelas.** Ini menghemat waktu yang sungguhan berharga, terutama untuk lokasi baru yang belum pernah ia datangi, dan waktu adalah mata uang yang paling dihargai driver.",
       ],
@@ -88,7 +88,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Masalahnya, perceived ease of use nyaris mustahil dinilai lewat diskusi di ruang rapat — siapa pun yang merancang aplikasi hampir selalu merasa hasil rancangannya sudah cukup mudah. Untungnya ada satu angka objektif yang bisa dihitung tanpa perlu berdebat: jumlah ketukan dan ketikan yang dibutuhkan untuk menyelesaikan satu pengiriman, dari awal sampai selesai.",
+      text: "Masalahnya, perceived ease of use nyaris mustahil dinilai lewat diskusi di ruang rapat. Siapa pun yang merancang aplikasi hampir selalu merasa hasil rancangannya sudah cukup mudah. Untungnya ada satu angka objektif yang bisa dihitung tanpa perlu berdebat: jumlah ketukan dan ketikan yang dibutuhkan untuk menyelesaikan satu pengiriman, dari awal sampai selesai.",
     },
     {
       type: "p",
@@ -96,17 +96,17 @@ export const article: Article = {
     },
     {
       type: "quote",
-      text: "Aplikasi driver tidak bersaing dengan aplikasi driver lain. Pesaing sesungguhnya adalah WhatsApp — dan WhatsApp itu gampang sekali dipakai.",
+      text: "Aplikasi driver tidak bersaing dengan aplikasi driver lain. Pesaing sesungguhnya adalah WhatsApp, dan WhatsApp itu gampang sekali dipakai.",
     },
     {
       type: "p",
-      text: "Ini konsekuensi TAM yang sering luput diperhatikan: pemakai menilai kemudahan secara relatif, dibandingkan dengan cara yang sudah ia kuasai selama ini. Aplikasi dengan dua belas ketukan akan kalah oleh kebiasaan lima ketukan, seberapa pun lengkap data yang dihasilkannya, dan kekalahannya terjadi diam-diam — tanpa penolakan yang pernah diucapkan terbuka.",
+      text: "Ini konsekuensi TAM yang sering luput diperhatikan: pemakai menilai kemudahan secara relatif, dibandingkan dengan cara yang sudah ia kuasai selama ini. Aplikasi dengan dua belas ketukan akan kalah oleh kebiasaan lima ketukan, seberapa pun lengkap data yang dihasilkannya, dan kekalahannya terjadi diam-diam, tanpa penolakan yang pernah diucapkan terbuka.",
     },
     {
       type: "callout",
       tone: "example",
       title: "Batas kasar yang masuk akal",
-      body: "Sebagai patokan kasar: kalau menyelesaikan satu pengiriman dalam kondisi normal sudah butuh lebih dari lima sampai tujuh ketukan, adopsi akan terus terasa seperti perjuangan menanjak. Uji setiap field wajib isi dengan satu pertanyaan sederhana: keputusan apa yang berubah kalau data ini tidak ada? Field yang gagal lolos pertanyaan itu sebenarnya sedang “membeli” data yang tidak akan pernah dipakai — dan alat pembayarannya adalah mata uang paling mahal yang dimiliki perusahaan: kesediaan pemakainya sendiri.",
+      body: "Sebagai patokan kasar: kalau menyelesaikan satu pengiriman dalam kondisi normal sudah butuh lebih dari lima sampai tujuh ketukan, adopsi akan terus terasa seperti perjuangan menanjak. Uji setiap field wajib isi dengan satu pertanyaan sederhana: keputusan apa yang berubah kalau data ini tidak ada? Field yang gagal lolos pertanyaan itu sebenarnya sedang “membeli” data yang tidak akan pernah dipakai. Alat pembayarannya adalah mata uang paling mahal yang dimiliki perusahaan: kesediaan pemakainya sendiri.",
     },
     {
       type: "h2",
@@ -115,11 +115,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Banyak titik bongkar di Indonesia duduk di kawasan industri, di dalam gudang berdinding beton tebal, atau di area pelabuhan — tempat-tempat yang sinyal selulernya memang tidak bisa diandalkan. Untuk sebagian rute, kondisi seperti ini adalah kondisi normal sehari-hari yang harus diperhitungkan sejak awal, bukan pengecualian langka yang bisa diabaikan begitu saja.",
+      text: "Banyak titik bongkar di Indonesia duduk di kawasan industri, di dalam gudang berdinding beton tebal, atau di area pelabuhan, tempat-tempat yang sinyal selulernya memang tidak bisa diandalkan. Untuk sebagian rute, kondisi seperti ini adalah kondisi normal sehari-hari yang harus diperhitungkan sejak awal, bukan pengecualian langka yang bisa diabaikan begitu saja.",
     },
     {
       type: "p",
-      text: "Logika ini bisa ditarik langsung dari TAM. Satu kali gagal di momen paling kritis — driver sudah menyerahkan barang, penerima sudah menunggu tanda tangan, tapi aplikasinya cuma berputar-putar dan menolak menyimpan data — meninggalkan bekas yang jauh lebih dalam ketimbang sepuluh kali berhasil berturut-turut. Sesudah kejadian seperti itu, driver mulai memotret POD pakai kamera biasa “buat jaga-jaga saja”. Begitu kebiasaan itu terbentuk, aplikasinya sudah kalah: ia jadi pekerjaan tambahan di atas cara lama, alih-alih menggantikannya.",
+      text: "Logika ini bisa ditarik langsung dari TAM. Satu kali gagal di momen paling kritis (driver sudah menyerahkan barang, penerima sudah menunggu tanda tangan, tapi aplikasinya cuma berputar-putar dan menolak menyimpan data) meninggalkan bekas yang jauh lebih dalam ketimbang sepuluh kali berhasil berturut-turut. Sesudah kejadian seperti itu, driver mulai memotret POD pakai kamera biasa “buat jaga-jaga saja”. Begitu kebiasaan itu terbentuk, aplikasinya sudah kalah: ia jadi pekerjaan tambahan di atas cara lama, alih-alih menggantikannya.",
     },
     {
       type: "p",
@@ -167,25 +167,25 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Baris terakhir di tabel itu layak digarisbawahi tersendiri. Selama koordinator masih menerima foto POD lewat WhatsApp dan langsung memprosesnya tanpa banyak tanya, WhatsApp pada praktiknya masih menjadi sistem resmi perusahaan, dan aplikasi barunya cuma akan dipakai oleh driver yang paling patuh saja. Menutup jalur lama memang terasa berat untuk diputuskan. Tapi tanpa keputusan itu, tidak ada perubahan yang benar-benar bertahan — dan menutupnya jadi jauh lebih ringan begitu kelompok kecil di awal tadi sudah membuktikan bahwa cara barunya memang bekerja.",
+      text: "Baris terakhir di tabel itu layak digarisbawahi tersendiri. Selama koordinator masih menerima foto POD lewat WhatsApp dan langsung memprosesnya tanpa banyak tanya, WhatsApp pada praktiknya masih menjadi sistem resmi perusahaan, dan aplikasi barunya cuma akan dipakai oleh driver yang paling patuh saja. Menutup jalur lama memang terasa berat untuk diputuskan. Tapi tanpa keputusan itu, tidak ada perubahan yang benar-benar bertahan. Menutupnya jadi jauh lebih ringan begitu kelompok kecil di awal tadi sudah membuktikan bahwa cara barunya memang bekerja.",
     },
   ],
   faq: [
     {
       q: "Perlukah menyediakan ponsel khusus untuk driver?",
-      a: "Untuk armada milik sendiri, umumnya tidak perlu — hampir semua driver sekarang sudah punya ponsel Android yang cukup memadai. Yang justru wajib diperhatikan adalah versi Android minimum dan ukuran instalasi aplikasinya, karena perangkat lama dengan penyimpanan terbatas jauh lebih sering jadi kendala nyata dibanding soal driver tidak punya ponsel sama sekali. Untuk subkontraktor, memaksakan perangkat khusus hampir selalu berujung penolakan.",
+      a: "Untuk armada milik sendiri, umumnya tidak perlu, karena hampir semua driver sekarang sudah punya ponsel Android yang cukup memadai. Yang justru wajib diperhatikan adalah versi Android minimum dan ukuran instalasi aplikasinya, karena perangkat lama dengan penyimpanan terbatas jauh lebih sering jadi kendala nyata dibanding soal driver tidak punya ponsel sama sekali. Untuk subkontraktor, memaksakan perangkat khusus hampir selalu berujung penolakan.",
     },
     {
       q: "Bagaimana kalau drivernya sama sekali belum terbiasa pakai aplikasi?",
-      a: "Rancang alurnya supaya bisa diselesaikan tanpa perlu membaca teks apa pun — ikon besar, satu tindakan per layar, urutan langkah yang sama persis setiap kali dipakai. Cara mengujinya: minta driver yang paling gagap teknologi menyelesaikan satu pengiriman sendirian, tanpa dibantu siapa pun. Kalau ia berhasil, driver lain di armada hampir pasti lebih mudah lagi. Ini juga cara paling langsung untuk mengukur perceived ease of use, dibanding sekadar menebak-nebak dari ruang rapat.",
+      a: "Rancang alurnya supaya bisa diselesaikan tanpa perlu membaca teks apa pun: ikon besar, satu tindakan per layar, urutan langkah yang sama persis setiap kali dipakai. Cara mengujinya: minta driver yang paling gagap teknologi menyelesaikan satu pengiriman sendirian, tanpa dibantu siapa pun. Kalau ia berhasil, driver lain di armada hampir pasti lebih mudah lagi. Ini juga cara paling langsung untuk mengukur perceived ease of use, dibanding sekadar menebak-nebak dari ruang rapat.",
     },
     {
       q: "Apakah pelacakan lokasi terus-menerus benar-benar diperlukan?",
-      a: "Jarang benar-benar diperlukan. Untuk sebagian besar kebutuhan operasional, mencatat lokasi di titik-titik peristiwa penting saja — tiba di lokasi, mulai bongkar, selesai — sudah cukup untuk menjawab hampir semua pertanyaan customer. Pelacakan terus-menerus justru menguras baterai ponsel, menimbulkan kekhawatiran soal privasi, dan pada akhirnya menurunkan perceived usefulness di mata driver yang memakainya.",
+      a: "Jarang benar-benar diperlukan. Untuk sebagian besar kebutuhan operasional, mencatat lokasi di titik-titik peristiwa penting saja (tiba di lokasi, mulai bongkar, selesai) sudah cukup untuk menjawab hampir semua pertanyaan customer. Pelacakan terus-menerus justru menguras baterai ponsel, menimbulkan kekhawatiran soal privasi, dan pada akhirnya menurunkan perceived usefulness di mata driver yang memakainya.",
     },
     {
       q: "Berapa lama sampai adopsinya bisa dibilang berhasil?",
-      a: "Patokannya adalah angka: berapa persen pengiriman yang tercatat lengkap lewat aplikasi setiap minggu. Pantau kurvanya. Kalau grafiknya naik lalu mendatar di bawah target, biasanya ada satu hambatan spesifik yang menahannya — perangkat tertentu, lokasi tertentu, atau jenis pengiriman tertentu — dan cara tercepat menemukannya adalah bertanya langsung ke driver dengan angka paling rendah.",
+      a: "Patokannya adalah angka: berapa persen pengiriman yang tercatat lengkap lewat aplikasi setiap minggu. Pantau kurvanya. Kalau grafiknya naik lalu mendatar di bawah target, biasanya ada satu hambatan spesifik yang menahannya (perangkat tertentu, lokasi tertentu, atau jenis pengiriman tertentu), dan cara tercepat menemukannya adalah bertanya langsung ke driver dengan angka paling rendah.",
     },
   ],
   related: ["biaya-tersembunyi-pod-kertas", "tracking-multimoda-indonesia", "memilih-software-logistik-pilot-30-hari"],

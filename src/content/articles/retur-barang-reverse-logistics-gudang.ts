@@ -18,12 +18,12 @@ export const article: Article = {
   category: "gudang",
   publishedAt: "2026-06-15",
   summary:
-    "Di banyak gudang, retur customer menumpuk di satu sudut tanpa proses yang jelas — kondisinya jarang diperiksa tertib, dan staf sendiri tidak yakin barang itu boleh dijual lagi, harus diperbaiki, diklaim ke vendor, atau dihapus buku. Reverse logistics nyaris selalu didesain belakangan dibanding arus barang masuk, padahal ongkosnya nyata: ruang gudang yang terpakai, waktu staf yang terkuras, dan nilai barang yang terus menyusut selama menumpuk. Tulisan ini menguraikan alur keputusan retur yang jelas, SLA yang menegakkannya, dan cara mengukur value recovery rate untuk tahu apakah proses itu benar-benar bekerja.",
+    "Di banyak gudang, retur customer menumpuk di satu sudut tanpa proses yang jelas: kondisinya jarang diperiksa tertib, dan staf sendiri tidak yakin barang itu boleh dijual lagi, harus diperbaiki, diklaim ke vendor, atau dihapus buku. Reverse logistics nyaris selalu didesain belakangan dibanding arus barang masuk, padahal ongkosnya nyata: ruang gudang yang terpakai, waktu staf yang terkuras, dan nilai barang yang terus menyusut selama menumpuk. Tulisan ini menguraikan alur keputusan retur yang jelas, SLA yang menegakkannya, dan cara mengukur value recovery rate untuk tahu apakah proses itu benar-benar bekerja.",
   takeaways: [
     "Forward logistics mendapat SOP, KPI, dan dashboard sejak hari pertama sistem dirancang. Retur dibiarkan tumbuh tanpa proses sampai tumpukannya sendiri yang memaksa keputusan.",
     "Barang retur yang menumpuk menanggung tiga ongkos sekaligus: ruang gudang yang terpakai, jam kerja staf yang terkuras, dan nilai barang yang terus menyusut setiap hari ia menunggu.",
     "Setiap retur butuh jalur keputusan yang jelas sejak masuk gudang: direstock, diperbaiki, diklaim ke vendor, atau dihapus buku. Tanpa jalur itu, retur berhenti di tengah jalan dan menumpuk di sana.",
-    "Value recovery rate — porsi nilai retur yang berhasil diselamatkan lewat restock, perbaikan, dan klaim — adalah angka yang menyingkap apakah proses retur benar-benar bekerja atau cuma bergerak di tempat.",
+    "Value recovery rate (porsi nilai retur yang berhasil diselamatkan lewat restock, perbaikan, dan klaim) adalah angka yang menyingkap apakah proses retur benar-benar bekerja atau cuma bergerak di tempat.",
   ],
   blocks: [
     {
@@ -32,7 +32,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Menunggu apa, tak ada yang benar-benar tahu. Staf tahu barang itu ada di sana, tapi tak satu pun berani memutuskan: boleh dijual lagi, harus diperbaiki, diklaim ke vendor, atau memang harus dihapus dari pembukuan. Jawabannya selalu sama: “itu urusan bagian lain” — dan tak ada yang tahu persis bagian lain itu siapa.",
+      text: "Menunggu apa, tak ada yang benar-benar tahu. Staf tahu barang itu ada di sana, tapi tak satu pun berani memutuskan: boleh dijual lagi, harus diperbaiki, diklaim ke vendor, atau memang harus dihapus dari pembukuan. Jawabannya selalu sama: “itu urusan bagian lain”, dan tak ada yang tahu persis bagian lain itu siapa.",
     },
     {
       type: "h2",
@@ -41,15 +41,15 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pola ini nyaris selalu berulang, bukan cuma di Karawang. Setiap kali perusahaan logistik merancang proses baru, arus masuk dapat perhatian penuh sejak hari pertama: SOP inbound ditulis rapi, KPI bongkar ditentukan, dashboard dibuat untuk memantaunya. Alasannya sederhana — arus masuk terhubung langsung ke pendapatan. Arus retur nyaris tak pernah dapat perlakuan serupa.",
+      text: "Pola ini nyaris selalu berulang, bukan cuma di Karawang. Setiap kali perusahaan logistik merancang proses baru, arus masuk dapat perhatian penuh sejak hari pertama: SOP inbound ditulis rapi, KPI bongkar ditentukan, dashboard dibuat untuk memantaunya. Alasannya sederhana: arus masuk terhubung langsung ke pendapatan. Arus retur nyaris tak pernah dapat perlakuan serupa.",
     },
     {
       type: "p",
-      text: "Kesenjangan ini punya nama dalam kajian rantai pasok: reverse logistics selalu tertinggal dalam kematangan proses dibanding forward logistics, meski volumenya bisa sama besar. Penyebabnya soal insentif, bukan teknis — forward logistics adalah pusat laba yang terlihat semua orang; reverse logistics cuma pusat biaya yang tak wajib segera diselesaikan.",
+      text: "Kesenjangan ini punya nama dalam kajian rantai pasok: reverse logistics selalu tertinggal dalam kematangan proses dibanding forward logistics, meski volumenya bisa sama besar. Penyebabnya soal insentif, bukan teknis: forward logistics adalah pusat laba yang terlihat semua orang; reverse logistics cuma pusat biaya yang tak wajib segera diselesaikan.",
     },
     {
       type: "p",
-      text: "Akibatnya, proses retur di banyak gudang berkembang ad hoc. Aturan mainnya disepakati lisan dan berbeda tergantung siapa yang shift, tak pernah dituliskan karena dianggap belum cukup penting. Begitu volume retur naik — musim promo, produk ditarik dari pasaran, customer baru yang lebih sering komplain — proses lisan itu langsung kewalahan.",
+      text: "Akibatnya, proses retur di banyak gudang berkembang ad hoc. Aturan mainnya disepakati lisan dan berbeda tergantung siapa yang shift, tak pernah dituliskan karena dianggap belum cukup penting. Begitu volume retur naik (musim promo, produk ditarik dari pasaran, customer baru yang lebih sering komplain), proses lisan itu langsung kewalahan.",
     },
     {
       type: "h2",
@@ -64,7 +64,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "**Ruang gudang yang terpakai.** Meter persegi yang menyimpan retur tak jelas nasibnya adalah meter persegi yang tak bisa disewakan ke customer lain.",
-        "**Waktu staf yang terkuras berulang.** Setiap ada permintaan mendadak soal ruang, staf yang sama membongkar ulang tumpukan itu dan menjawab pertanyaan yang sama seperti bulan lalu — tanpa keputusan baru yang dihasilkan.",
+        "**Waktu staf yang terkuras berulang.** Setiap ada permintaan mendadak soal ruang, staf yang sama membongkar ulang tumpukan itu dan menjawab pertanyaan yang sama seperti bulan lalu, tanpa keputusan baru yang dihasilkan.",
         "**Nilai barang yang terus menyusut.** Produk mendekati kedaluwarsa kian dekat ke batas aman jual, kemasan penyok makin rusak tiap dipindah forklift, barang musiman kehilangan relevansi begitu musimnya lewat.",
       ],
     },
@@ -76,7 +76,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Ilustrasi: berapa sebenarnya biaya 340 karton yang menunggu 14 minggu",
-      body: "Misalkan 340 karton itu menempati ruang setara 10 posisi palet seharga Rp 350 ribu per bulan — 3,5 bulan berarti Rp 12,3 juta pendapatan sewa hilang begitu saja. Tambahkan Rp 1,75 juta untuk 5 jam kerja gabungan dua staf per minggu mengurus tumpukan itu, dan sekitar Rp 20 juta nilai barang yang hilang karena seperlima isinya mendekati kedaluwarsa dan separuhnya terlanjur lewat batas aman jual begitu akhirnya diperiksa. Total sekitar Rp 34 juta ongkos nyata, di luar Rp 187 juta modal yang masih mengendap tanpa kejelasan nasib.",
+      body: "Misalkan 340 karton itu menempati ruang setara 10 posisi palet seharga Rp 350 ribu per bulan. Selama 3,5 bulan, itu berarti Rp 12,3 juta pendapatan sewa hilang begitu saja. Tambahkan Rp 1,75 juta untuk 5 jam kerja gabungan dua staf per minggu mengurus tumpukan itu, dan sekitar Rp 20 juta nilai barang yang hilang karena seperlima isinya mendekati kedaluwarsa dan separuhnya terlanjur lewat batas aman jual begitu akhirnya diperiksa. Total sekitar Rp 34 juta ongkos nyata, di luar Rp 187 juta modal yang masih mengendap tanpa kejelasan nasib.",
     },
     {
       type: "h2",
@@ -116,14 +116,14 @@ export const article: Article = {
       items: [
         "**Kriteria tidak tertulis.** Tanpa standar tertulis soal apa yang disebut “masih layak dijual”, setiap orang menerapkan ambang batasnya sendiri, dan staf baru cenderung menahan diri karena tak yakin keputusannya didukung atasan.",
         "**Tidak ada pemilik proses.** Retur berada di persimpangan gudang, customer service, dan finance. Tanggung jawab yang tersebar ke tiga pihak membuat, pada praktiknya, tak satu pun merasa itu tugasnya.",
-        "**Takut mengambil keputusan yang salah.** Menulis retur sebagai write-off berarti mengakui ada nilai hilang, dan sebagian staf enggan tanda tangannya tercantum di keputusan itu — menumpuknya terasa lebih aman, meski sama sekali tak netral.",
+        "**Takut mengambil keputusan yang salah.** Menulis retur sebagai write-off berarti mengakui ada nilai hilang, dan sebagian staf enggan tanda tangannya tercantum di keputusan itu. Menumpuknya terasa lebih aman, meski sama sekali tak netral.",
       ],
     },
     {
       type: "callout",
       tone: "insight",
-      title: "Diam bukan pilihan yang aman — ia cuma pilihan yang tidak terlihat",
-      body: "Menunda keputusan retur tak menghindarkan gudang dari kerugian. Nilai barang tetap tergerus waktu dan kedaluwarsa yang makin dekat, hanya belum tertulis di pembukuan — menunda keputusan cuma menunda kapan kerugian itu diakui resmi.",
+      title: "Diam bukan pilihan yang aman: ia cuma pilihan yang tidak terlihat",
+      body: "Menunda keputusan retur tak menghindarkan gudang dari kerugian. Nilai barang tetap tergerus waktu dan kedaluwarsa yang makin dekat, hanya belum tertulis di pembukuan. Menunda keputusan cuma menunda kapan kerugian itu diakui resmi.",
     },
     {
       type: "h2",
@@ -138,7 +138,7 @@ export const article: Article = {
       type: "ol",
       items: [
         "**Terima dan catat dalam 24 jam.** Scan atau catat dengan referensi ke nomor pengiriman atau komplain asal, atau retur jadi barang tanpa identitas sejak hari pertama.",
-        "**Periksa kondisi fisik dalam 3 hari kerja.** Foto kondisi barang, catat jenis kerusakan, dan tentukan itu tanggung jawab vendor atau bukan — bukti inilah yang menentukan bisa-tidaknya klaim diajukan.",
+        "**Periksa kondisi fisik dalam 3 hari kerja.** Foto kondisi barang, catat jenis kerusakan, dan tentukan itu tanggung jawab vendor atau bukan. Bukti inilah yang menentukan bisa-tidaknya klaim diajukan.",
         "**Tetapkan jalur keputusan dalam 5 hari kerja.** Restock, perbaikan, klaim, atau hapus buku, berdasarkan kriteria tertulis, bukan menunggu rapat mendadak.",
         "**Eksekusi dalam 7 hari kerja berikutnya.** Barang restock kembali ke rak jual, barang klaim dikirim balik ke vendor dengan dokumen, barang write-off dikeluarkan sesuai kebijakan pemusnahan atau donasi.",
       ],
@@ -154,17 +154,17 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Setelah alur keputusan dan SLA berjalan, satu angka bisa memberi tahu apakah semuanya benar berfungsi atau cuma rapi di atas kertas: value recovery rate. Rumusnya sederhana — nilai retur yang diselamatkan lewat restock, perbaikan terjual, dan klaim cair dari vendor, dibagi total nilai retur yang diterima pada periode sama.",
+      text: "Setelah alur keputusan dan SLA berjalan, satu angka bisa memberi tahu apakah semuanya benar berfungsi atau cuma rapi di atas kertas: value recovery rate. Rumusnya sederhana: nilai retur yang diselamatkan lewat restock, perbaikan terjual, dan klaim cair dari vendor, dibagi total nilai retur yang diterima pada periode sama.",
     },
     {
       type: "callout",
       tone: "example",
       title: "Contoh perhitungan: sesuaikan dengan angka gudang Anda sendiri",
-      body: "Misalkan dalam satu kuartal gudang menerima retur senilai Rp 500 juta: Rp 210 juta direstock dan terjual, Rp 60 juta terjual setelah rework, Rp 90 juta diklaim balik ke vendor, sisanya Rp 140 juta dihapus buku. Value recovery rate: (210+60+90) dibagi 500, sekitar 72% — angka yang jadi acuan dari kuartal ke kuartal, bukan angka absolutnya.",
+      body: "Misalkan dalam satu kuartal gudang menerima retur senilai Rp 500 juta: Rp 210 juta direstock dan terjual, Rp 60 juta terjual setelah rework, Rp 90 juta diklaim balik ke vendor, sisanya Rp 140 juta dihapus buku. Value recovery rate: (210+60+90) dibagi 500, sekitar 72%. Itu angka yang jadi acuan dari kuartal ke kuartal, bukan angka absolutnya.",
     },
     {
       type: "p",
-      text: "Value recovery rate saja belum cukup. Perlu didampingi satu angka lagi: rata-rata lama waktu retur mengendap sejak diterima sampai keputusan final. Recovery rate tinggi tapi rata-rata mengendap 40 hari tetap menandakan proses lambat — satu angka mengukur seberapa banyak nilai terselamatkan, satu lagi mengukur seberapa cepat itu terjadi.",
+      text: "Value recovery rate saja belum cukup. Perlu didampingi satu angka lagi: rata-rata lama waktu retur mengendap sejak diterima sampai keputusan final. Recovery rate tinggi tapi rata-rata mengendap 40 hari tetap menandakan proses lambat. Satu angka mengukur seberapa banyak nilai terselamatkan, satu lagi mengukur seberapa cepat itu terjadi.",
     },
     {
       type: "h2",
@@ -177,7 +177,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Praktik yang paling berhasil menempatkan satu pemilik proses tunggal — supervisor gudang, atau koordinator retur kalau volumenya besar — dengan wewenang penuh mengambil keputusan berdasar empat jalur dan kriteria yang disepakati. Customer service tetap menerima komplain, finance tetap memproses klaim yang disetujui, tapi disposisi fisik barang ada di tangan yang sama setiap kali.",
+      text: "Praktik yang paling berhasil menempatkan satu pemilik proses tunggal (supervisor gudang, atau koordinator retur kalau volumenya besar) dengan wewenang penuh mengambil keputusan berdasar empat jalur dan kriteria yang disepakati. Customer service tetap menerima komplain, finance tetap memproses klaim yang disetujui, tapi disposisi fisik barang ada di tangan yang sama setiap kali.",
     },
     {
       type: "p",
@@ -204,11 +204,11 @@ export const article: Article = {
   faq: [
     {
       q: "Apakah semua retur harus diperiksa fisik satu per satu, atau bisa disortir cepat dulu?",
-      a: "Triase cepat berdasarkan kode alasan retur — salah kirim, kelebihan stok toko, atau klaim kerusakan — memisahkan yang bisa langsung direstock dari yang butuh pemeriksaan lebih dalam. Untuk retur yang mengarah ke klaim vendor atau hapus buku, pemeriksaan fisik dengan foto kondisi tetap wajib, karena itu bukti yang menentukan klaim bisa diajukan dan write-off bisa dipertanggungjawabkan saat audit.",
+      a: "Triase cepat berdasarkan kode alasan retur (salah kirim, kelebihan stok toko, atau klaim kerusakan) memisahkan yang bisa langsung direstock dari yang butuh pemeriksaan lebih dalam. Untuk retur yang mengarah ke klaim vendor atau hapus buku, pemeriksaan fisik dengan foto kondisi tetap wajib, karena itu bukti yang menentukan klaim bisa diajukan dan write-off bisa dipertanggungjawabkan saat audit.",
     },
     {
       q: "Siapa yang seharusnya menentukan retur masuk jalur yang mana?",
-      a: "Idealnya satu pemilik proses tunggal — supervisor gudang atau koordinator retur kalau volumenya besar — dengan kriteria tertulis yang sama dipakai siapa pun yang bertugas. Kalau keputusan tersebar ke customer service, finance, dan gudang sekaligus tanpa kejelasan siapa punya kata akhir, hasilnya biasanya bukan keputusan lebih cepat, melainkan saling menunggu.",
+      a: "Idealnya satu pemilik proses tunggal, yaitu supervisor gudang atau koordinator retur kalau volumenya besar, dengan kriteria tertulis yang sama dipakai siapa pun yang bertugas. Kalau keputusan tersebar ke customer service, finance, dan gudang sekaligus tanpa kejelasan siapa punya kata akhir, hasilnya biasanya bukan keputusan lebih cepat, melainkan saling menunggu.",
     },
     {
       q: "Berapa lama SLA proses retur yang wajar, dari diterima sampai selesai?",
@@ -216,7 +216,7 @@ export const article: Article = {
     },
     {
       q: "Bagaimana kalau retur butuh klaim ke vendor, tapi vendornya lambat merespons?",
-      a: "Tetapkan tenggat internal menunggu respons vendor, misalnya 30 hari. Lewat tenggat tanpa jawaban, barang sebaiknya direklasifikasi — dijual diskon kalau kondisinya masih memungkinkan, atau dihapus buku kalau tidak — sambil klaim tetap dikejar terpisah oleh tim vendor relation. Ukur juga rata-rata waktu respons tiap vendor; yang konsisten lambat adalah data berguna saat negosiasi kontrak berikutnya.",
+      a: "Tetapkan tenggat internal menunggu respons vendor, misalnya 30 hari. Lewat tenggat tanpa jawaban, barang sebaiknya direklasifikasi: dijual diskon kalau kondisinya masih memungkinkan, atau dihapus buku kalau tidak, sambil klaim tetap dikejar terpisah oleh tim vendor relation. Ukur juga rata-rata waktu respons tiap vendor; yang konsisten lambat adalah data berguna saat negosiasi kontrak berikutnya.",
     },
   ],
   related: ["wms-3pl-level-bin", "biaya-tersembunyi-pod-kertas", "customer-portal-logistik"],

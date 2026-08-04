@@ -6,7 +6,7 @@ export const article: Article = {
   title: "Uang Jalan dan Kas Kecil Sopir: Merancang Sistem Supaya Jujur Jadi Pilihan Termudah",
   metaTitle: "Cara Mengelola Uang Jalan dan Kas Kecil Sopir Truk | CargoGrid OS",
   description:
-    "Sopir minta tambahan uang jalan karena struk hilang, admin pusing rekonsiliasi akhir bulan — begini merancang sistem agar pelaporan jujur jadi pilihan termudah.",
+    "Sopir minta tambahan uang jalan karena struk hilang, admin pusing rekonsiliasi akhir bulan. Begini merancang sistem agar pelaporan jujur jadi pilihan termudah.",
   keywords: [
     "uang jalan sopir truk",
     "kas kecil operasional logistik",
@@ -20,7 +20,7 @@ export const article: Article = {
   summary:
     "Sopir menelepon minta tambahan uang jalan karena struk basah kena hujan atau nota BBM yang tak sempat diminta. Di kantor, selisih kecil itu menumpuk jadi kecurigaan berulang antara admin dan sopir. Akar soalnya ada di desain sistem: kantor tidak mungkin mengawasi tiap rupiah pengeluaran sopir di lapangan. Artikel ini membedah dua struktur uang jalan yang umum dipakai, insentif masing-masing, serta cara pencatatan digital dan ambang audit membuat pelaporan jujur jadi pilihan paling gampang.",
   takeaways: [
-    "Struk yang hilang di jalan dan nota yang digelembungkan di kantor terlihat sama persis di atas kertas — keduanya sama-sama selisih yang tidak terjelaskan, padahal penyebabnya bisa jauh berbeda.",
+    "Struk yang hilang di jalan dan nota yang digelembungkan di kantor terlihat sama persis di atas kertas. Keduanya sama-sama selisih yang tidak terjelaskan, padahal penyebabnya bisa jauh berbeda.",
     "Flat rate memindahkan risiko biaya ke sopir dan bisa mendorongnya memotong jalur atau istirahat; reimbursement penuh memindahkan risiko ke kantor dan membuka celah nota fiktif.",
     "Bukti yang direkam persis saat kejadian, lewat foto berstempel waktu dan lokasi, menghapus alasan paling umum di balik selisih: struk yang keburu rusak atau hilang sebelum sempat disetorkan.",
     "Memverifikasi setiap nota dengan ketat yang sama menghabiskan lebih banyak jam admin daripada nilai recehan yang diperiksa; ambang audit bertingkat berdasarkan penyimpangan dari rata-rata rute jauh lebih efisien.",
@@ -32,7 +32,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di kantor, pola ini berujung sama tiap akhir bulan. Admin mencocokkan total uang jalan yang keluar dengan bukti yang terkumpul, dan selisihnya nyaris tidak pernah nol — sebagian wajar (parkir liar memang tidak berkuitansi), sebagian lagi tidak terjelaskan sama sekali. Dari situ muncul kecurigaan dua arah: kantor curiga sopir menyimpan sisa uang, sopir curiga kantor sengaja mempersulit klaim.",
+      text: "Di kantor, pola ini berujung sama tiap akhir bulan. Admin mencocokkan total uang jalan yang keluar dengan bukti yang terkumpul, dan selisihnya nyaris tidak pernah nol: sebagian wajar (parkir liar memang tidak berkuitansi), sebagian lagi tidak terjelaskan sama sekali. Dari situ muncul kecurigaan dua arah: kantor curiga sopir menyimpan sisa uang, sopir curiga kantor sengaja mempersulit klaim.",
     },
     {
       type: "p",
@@ -49,11 +49,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Persoalan ini punya dua bentuk. Sebelum uang dikeluarkan, kantor tak pernah tahu pasti ongkos wajar suatu perjalanan — parkir di titik bongkar itu Rp15.000 atau sebenarnya cuma Rp5.000? Ekonom menyebut ini **adverse selection**, informasi timpang sebelum transaksi. Setelah uang dikeluarkan, kantor juga tak tahu persis untuk apa saja uang itu dipakai — ini **moral hazard**, tindakan tersembunyi setelah kesepakatan dibuat.",
+      text: "Persoalan ini punya dua bentuk. Sebelum uang dikeluarkan, kantor tak pernah tahu pasti ongkos wajar suatu perjalanan: parkir di titik bongkar itu Rp15.000 atau sebenarnya cuma Rp5.000? Ekonom menyebut ini **adverse selection**, informasi timpang sebelum transaksi. Setelah uang dikeluarkan, kantor juga tak tahu persis untuk apa saja uang itu dipakai. Ini **moral hazard**, tindakan tersembunyi setelah kesepakatan dibuat.",
     },
     {
       type: "p",
-      text: "Gejala kedua bentuk asimetri ini identik: struk yang tidak lengkap. Sopir yang benar-benar kehilangan struk kena hujan terlihat sama persis dengan sopir yang sengaja tidak meminta struk supaya sisa uangnya bisa dikantongi. Menaruh akuntan di kursi penumpang tiap truk jelas tidak realistis — yang bisa diubah adalah desain sistemnya.",
+      text: "Gejala kedua bentuk asimetri ini identik: struk yang tidak lengkap. Sopir yang benar-benar kehilangan struk kena hujan terlihat sama persis dengan sopir yang sengaja tidak meminta struk supaya sisa uangnya bisa dikantongi. Menaruh akuntan di kursi penumpang tiap truk jelas tidak realistis. Yang bisa diubah adalah desain sistemnya.",
     },
     {
       type: "h2",
@@ -66,7 +66,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Keduanya memindahkan risiko ke pihak berbeda. Flat rate menaruh risiko biaya di pundak sopir — hemat jadi haknya, membengkak ia yang menombok. Reimbursement menaruh risiko itu sepenuhnya di pundak kantor.",
+      text: "Keduanya memindahkan risiko ke pihak berbeda. Flat rate menaruh risiko biaya di pundak sopir: hemat jadi haknya, membengkak ia yang menombok. Reimbursement menaruh risiko itu sepenuhnya di pundak kantor.",
     },
     {
       type: "table",
@@ -74,9 +74,9 @@ export const article: Article = {
       head: ["Dimensi", "Flat rate per rute", "Reimbursement penuh"],
       rows: [
         ["Siapa menanggung risiko biaya membengkak", "Sopir", "Perusahaan"],
-        ["Beban administrasi", "Rendah — tidak perlu verifikasi tiap struk", "Tinggi — tiap struk perlu dicocokkan"],
+        ["Beban administrasi", "Rendah: tidak perlu verifikasi tiap struk", "Tinggi: tiap struk perlu dicocokkan"],
         ["Insentif yang muncul", "Dorongan berhemat, tapi berisiko memotong jalur atau prosedur", "Tidak ada dorongan berhemat, berisiko nota digelembungkan"],
-        ["Beban arus kas sopir", "Rendah — nominal diterima di muka", "Tinggi — sopir menombok dulu sebelum diganti"],
+        ["Beban arus kas sopir", "Rendah: nominal diterima di muka", "Tinggi: sopir menombok dulu sebelum diganti"],
         ["Paling cocok untuk", "Rute rutin dengan pola biaya yang bisa diprediksi", "Rute baru, atau komponen biaya yang secara alami berubah-ubah"],
       ],
     },
@@ -87,11 +87,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di atas kertas, flat rate terlihat rapi karena sopir otomatis terdorong berhemat — sisa uang jalan jadi miliknya. Masalahnya, cara berhemat itu tidak selalu sejalan dengan kepentingan perusahaan: ada yang memilih jalur non-tol yang lebih jauh demi menyimpan selisih uang tol, ada yang memangkas istirahat atau melewatkan makan supaya cepat selesai, ada pula yang nekat parkir di bahu jalan terlarang daripada membayar parkir resmi.",
+      text: "Di atas kertas, flat rate terlihat rapi karena sopir otomatis terdorong berhemat: sisa uang jalan jadi miliknya. Masalahnya, cara berhemat itu tidak selalu sejalan dengan kepentingan perusahaan: ada yang memilih jalur non-tol yang lebih jauh demi menyimpan selisih uang tol, ada yang memangkas istirahat atau melewatkan makan supaya cepat selesai, ada pula yang nekat parkir di bahu jalan terlarang daripada membayar parkir resmi.",
     },
     {
       type: "p",
-      text: "Sebaliknya, ketika kondisi berubah di luar dugaan — macet parah, tarif tol naik mendadak, jalan ditutup — sopir menanggung sendiri selisihnya. Selisih kecil, ia diam menyimpan kekecewaan. Selisih besar, ia menelepon minta tambahan, persis seperti adegan di awal tadi. Flat rate tanpa ruang pengecualian pada akhirnya menciptakan kembali celah yang tadinya ingin dihindari.",
+      text: "Sebaliknya, ketika kondisi berubah di luar dugaan (macet parah, tarif tol naik mendadak, jalan ditutup), sopir menanggung sendiri selisihnya. Selisih kecil, ia diam menyimpan kekecewaan. Selisih besar, ia menelepon minta tambahan, persis seperti adegan di awal tadi. Flat rate tanpa ruang pengecualian pada akhirnya menciptakan kembali celah yang tadinya ingin dihindari.",
     },
     {
       type: "h2",
@@ -100,11 +100,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Reimbursement penuh punya masalah kebalikannya: karena semua biaya diganti sesuai struk, sopir tidak punya alasan berhemat — kenapa pilih warung murah kalau warung mahal juga diganti penuh? Celah ini membuka ruang nota fiktif: nota kosong dari warung langganan, atau nominal yang ditulis lebih besar dari yang sebenarnya dibayar.",
+      text: "Reimbursement penuh punya masalah kebalikannya: karena semua biaya diganti sesuai struk, sopir tidak punya alasan berhemat. Kenapa pilih warung murah kalau warung mahal juga diganti penuh? Celah ini membuka ruang nota fiktif: nota kosong dari warung langganan, atau nominal yang ditulis lebih besar dari yang sebenarnya dibayar.",
     },
     {
       type: "p",
-      text: "Skema ini juga membebani arus kas sopir: ia menombok dulu, menunggu verifikasi, baru diganti — kadang berhari-hari. Untuk perjalanan jauh yang mahal, sopir bergaji pas-pasan bisa kehabisan uang sebelum reimbursement cair, lalu menelepon minta talangan. Reimbursement yang niatnya menjamin sopir tak pernah rugi, pada praktiknya justru membuatnya jadi pihak paling dulu kehabisan uang.",
+      text: "Skema ini juga membebani arus kas sopir: ia menombok dulu, menunggu verifikasi, baru diganti, kadang berhari-hari. Untuk perjalanan jauh yang mahal, sopir bergaji pas-pasan bisa kehabisan uang sebelum reimbursement cair, lalu menelepon minta talangan. Reimbursement yang niatnya menjamin sopir tak pernah rugi, pada praktiknya justru membuatnya jadi pihak paling dulu kehabisan uang.",
     },
     {
       type: "h2",
@@ -134,11 +134,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Setiap kali sopir mengeluarkan uang, ia cukup memotret struk atau lokasi kejadian lewat aplikasi — timestamp dan titik GPS otomatis menempel. Struk yang basah kena hujan pun sudah tersimpan fotonya di server sebelum kertasnya sempat luntur. Untuk pengeluaran yang tak pernah dapat nota resmi — retribusi liar, uang keamanan parkir — foto lokasi dan catatan singkat sudah cukup jadi bukti.",
+      text: "Setiap kali sopir mengeluarkan uang, ia cukup memotret struk atau lokasi kejadian lewat aplikasi: timestamp dan titik GPS otomatis menempel. Struk yang basah kena hujan pun sudah tersimpan fotonya di server sebelum kertasnya sempat luntur. Untuk pengeluaran yang tak pernah dapat nota resmi (retribusi liar, uang keamanan parkir), foto lokasi dan catatan singkat sudah cukup jadi bukti.",
     },
     {
       type: "p",
-      text: "Waktu pencatatannya yang membuat pendekatan ini bertahan: bukti direkam persis saat kejadian, tidak perlu diingat-ingat dan dikumpulkan lagi di akhir perjalanan. Begitu jeda itu hilang, alasan paling umum — “struknya hilang” — kehilangan tempat untuk muncul.",
+      text: "Waktu pencatatannya yang membuat pendekatan ini bertahan: bukti direkam persis saat kejadian, tidak perlu diingat-ingat dan dikumpulkan lagi di akhir perjalanan. Begitu jeda itu hilang, alasan paling umum (“struknya hilang”) kehilangan tempat untuk muncul.",
     },
     {
       type: "callout",
@@ -153,7 +153,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Begitu pencatatan sudah digital, memverifikasi tiap nota satu per satu jadi pekerjaan berlebihan — bisa ratusan transaksi per minggu untuk armada sedang. Cara yang lebih efisien: tetapkan garis dasar historis per rute, lalu periksa hanya klaim yang menyimpang jauh dari garis itu.",
+      text: "Begitu pencatatan sudah digital, memverifikasi tiap nota satu per satu jadi pekerjaan berlebihan: bisa ratusan transaksi per minggu untuk armada sedang. Cara yang lebih efisien: tetapkan garis dasar historis per rute, lalu periksa hanya klaim yang menyimpang jauh dari garis itu.",
     },
     {
       type: "p",
@@ -185,7 +185,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kombinasi ini menaruh tiap jenis biaya di tangan pihak yang paling mampu mengendalikannya. Sopir paling tahu cara berhemat untuk makan dan parkir hariannya sendiri, cocok untuk flat rate. Tarif tol dan harga BBM ditentukan negara dan pasar — sopir sama sekali tak bisa mengendalikannya, sehingga reimbursement lebih adil untuk keduanya.",
+      text: "Kombinasi ini menaruh tiap jenis biaya di tangan pihak yang paling mampu mengendalikannya. Sopir paling tahu cara berhemat untuk makan dan parkir hariannya sendiri, cocok untuk flat rate. Tarif tol dan harga BBM ditentukan negara dan pasar. Sopir sama sekali tak bisa mengendalikannya, sehingga reimbursement lebih adil untuk keduanya.",
     },
     {
       type: "callout",
@@ -201,11 +201,11 @@ export const article: Article = {
   faq: [
     {
       q: "Apakah flat rate berarti sopir bebas memakai sisa uang jalan untuk keperluan pribadi?",
-      a: "Selama nominalnya ditetapkan realistis berdasarkan data historis, sisa uang yang tak terpakai memang sah jadi hak sopir — itu justru insentif yang membuat skema ini bekerja. Masalah muncul kalau nominalnya terlalu rendah sejak awal, sehingga sopir terpaksa memotong biaya penting seperti istirahat atau jalur resmi.",
+      a: "Selama nominalnya ditetapkan realistis berdasarkan data historis, sisa uang yang tak terpakai memang sah jadi hak sopir. Itu justru insentif yang membuat skema ini bekerja. Masalah muncul kalau nominalnya terlalu rendah sejak awal, sehingga sopir terpaksa memotong biaya penting seperti istirahat atau jalur resmi.",
     },
     {
       q: "Berapa nominal flat rate yang wajar untuk satu rute?",
-      a: "Ambil data pengeluaran aktual rute itu dari tiga sampai enam bulan terakhir, lalu pakai angka di sekitar median atau persentil ke-60 supaya tak gampang terdistorsi perjalanan yang ekstrem. Tinjau ulang tiap kali tarif tol atau harga BBM berubah signifikan — nominal yang dibiarkan tetap bertahun-tahun perlahan memancing sopir mencari jalan pintas.",
+      a: "Ambil data pengeluaran aktual rute itu dari tiga sampai enam bulan terakhir, lalu pakai angka di sekitar median atau persentil ke-60 supaya tak gampang terdistorsi perjalanan yang ekstrem. Tinjau ulang tiap kali tarif tol atau harga BBM berubah signifikan. Nominal yang dibiarkan tetap bertahun-tahun perlahan memancing sopir mencari jalan pintas.",
     },
     {
       q: "Bagaimana kalau sopir tetap tidak bisa mendapat bukti untuk pengeluaran kecil, meski sudah pakai aplikasi?",

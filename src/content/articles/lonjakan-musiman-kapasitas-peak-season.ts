@@ -19,10 +19,10 @@ export const article: Article = {
   category: "komersial",
   publishedAt: "2026-07-07",
   summary:
-    "Menjelang Lebaran, kapasitas armada dan gudang Anda kewalahan dan customer komplain keterlambatan — padahal lima bulan sebelumnya, kapasitas ekstra untuk Harbolnas berakhir menganggur jadi biaya sia-sia. Newsvendor problem, prinsip klasik riset operasi soal berapa banyak kapasitas cadangan optimal disiapkan menghadapi permintaan tak pasti, menjelaskan kenapa dua kejadian berlawanan ini bisa terjadi berurutan. Tulisan ini membahas cara memakai data historis, kontrak kapasitas fleksibel, dan komunikasi lebih awal ke customer untuk menentukan buffer yang masuk akal.",
+    "Menjelang Lebaran, kapasitas armada dan gudang Anda kewalahan dan customer komplain keterlambatan, padahal lima bulan sebelumnya kapasitas ekstra untuk Harbolnas berakhir menganggur jadi biaya sia-sia. Newsvendor problem, prinsip klasik riset operasi soal berapa banyak kapasitas cadangan optimal disiapkan menghadapi permintaan tak pasti, menjelaskan kenapa dua kejadian berlawanan ini bisa terjadi berurutan. Tulisan ini membahas cara memakai data historis, kontrak kapasitas fleksibel, dan komunikasi lebih awal ke customer untuk menentukan buffer yang masuk akal.",
   takeaways: [
     "Kapasitas cadangan musim puncak bersifat mudah rusak: begitu jendela waktunya lewat, kapasitas yang tak terpakai kehilangan nilainya seketika, sama seperti koran yang tak laku di sore hari.",
-    "Rasio kritis — perbandingan ongkos kekurangan kapasitas dengan ongkos kelebihan kapasitas — menentukan persentil data historis mana yang layak jadi target buffer, bukan rata-rata dan bukan skenario terburuk.",
+    "Rasio kritis, yaitu perbandingan ongkos kekurangan kapasitas dengan ongkos kelebihan kapasitas, menentukan persentil data historis mana yang layak jadi target buffer, bukan rata-rata dan bukan skenario terburuk.",
     "Data lonjakan lima musim terakhir sudah cukup membangun distribusi yang jauh lebih andal ketimbang menebak berdasar insting atau menambah persentase tetap tiap tahun.",
     "Kontrak kapasitas fleksibel dengan biaya siaga jauh lebih murah dibanding sewa penuh, dan itu mengubah rasio kritis sehingga buffer yang ekonomis bisa dipasang lebih tinggi.",
   ],
@@ -33,11 +33,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Customer komplain keterlambatan datang beruntun sepanjang minggu itu. Yang bikin cerita ini pahit: lima bulan sebelumnya, menjelang Harbolnas 2025, tim yang sama sudah menyewa 15 truk ekstra selama tiga minggu, mengantisipasi lonjakan seperti dua musim sebelumnya yang biasa tembus 65–70% di atas rata-rata. Realisasinya cuma naik 48%. Truk sewaan nganggur di pool, sementara tagihan sewa harian tetap berjalan penuh — sekitar Rp172 juta dari komitmen Rp315 juta jadi biaya tanpa hasil.",
+      text: "Customer komplain keterlambatan datang beruntun sepanjang minggu itu. Yang bikin cerita ini pahit: lima bulan sebelumnya, menjelang Harbolnas 2025, tim yang sama sudah menyewa 15 truk ekstra selama tiga minggu, mengantisipasi lonjakan seperti dua musim sebelumnya yang biasa tembus 65–70% di atas rata-rata. Realisasinya cuma naik 48%. Truk sewaan nganggur di pool, sementara tagihan sewa harian tetap berjalan penuh: sekitar Rp172 juta dari komitmen Rp315 juta jadi biaya tanpa hasil.",
     },
     {
       type: "p",
-      text: "Dua kejadian ini berlawanan arah persis, dan itu bukan kebetulan buruk semata. Keduanya lahir dari akar yang sama: tidak ada angka jelas yang menjawab pertanyaan paling mendasar — seberapa besar kapasitas cadangan yang masuk akal disiapkan, padahal permintaan musim puncak tidak pernah bisa ditebak persis.",
+      text: "Dua kejadian ini berlawanan arah persis, dan itu bukan kebetulan buruk semata. Keduanya lahir dari akar yang sama, yaitu tidak adanya angka jelas yang menjawab pertanyaan paling mendasar: seberapa besar kapasitas cadangan yang masuk akal disiapkan, padahal permintaan musim puncak tidak pernah bisa ditebak persis.",
     },
     {
       type: "h2",
@@ -54,7 +54,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Newsvendor problem mengajarkan bahwa kapasitas optimal ditentukan oleh perbandingan dua ongkos: ongkos kekurangan melawan ongkos kelebihan. Titik keseimbangannya disebut **rasio kritis**, dan angka itu menentukan persentil dari distribusi permintaan historis yang layak dijadikan target — bukan rata-rata, apalagi skenario terburuk yang pernah tercatat.",
+      text: "Newsvendor problem mengajarkan bahwa kapasitas optimal ditentukan oleh perbandingan dua ongkos: ongkos kekurangan melawan ongkos kelebihan. Titik keseimbangannya disebut **rasio kritis**, dan angka itu menentukan persentil dari distribusi permintaan historis yang layak dijadikan target, bukan rata-rata, apalagi skenario terburuk yang pernah tercatat.",
     },
     {
       type: "h2",
@@ -80,7 +80,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Rasio Kritis dari Angka di Atas",
-      body: "Rasio kritis dihitung dari Cu dibagi (Cu ditambah Co): 90.000 ÷ (90.000 + 22.500) = 0,80. Target kapasitas seharusnya mengarah ke persentil ke-80 dari distribusi historis lonjakan. Begitu ongkos kelebihan berhasil diturunkan — misalnya lewat kontrak fleksibel yang dibahas nanti — target persentilnya ikut naik, karena menyiagakan kapasitas ekstra jadi lebih murah.",
+      body: "Rasio kritis dihitung dari Cu dibagi (Cu ditambah Co): 90.000 ÷ (90.000 + 22.500) = 0,80. Target kapasitas seharusnya mengarah ke persentil ke-80 dari distribusi historis lonjakan. Begitu ongkos kelebihan berhasil diturunkan (misalnya lewat kontrak fleksibel yang dibahas nanti), target persentilnya ikut naik, karena menyiagakan kapasitas ekstra jadi lebih murah.",
     },
     {
       type: "h2",
@@ -89,7 +89,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Satu musim puncak tidak pernah cukup jadi dasar keputusan. Lima musim terakhir — dari Lebaran 2024 sampai Lebaran 2026 yang baru lewat — sudah cukup melihat pola, alih-alih bergantung pada satu titik data yang gampang menyesatkan.",
+      text: "Satu musim puncak tidak pernah cukup jadi dasar keputusan. Lima musim terakhir, dari Lebaran 2024 sampai Lebaran 2026 yang baru lewat, sudah cukup melihat pola, alih-alih bergantung pada satu titik data yang gampang menyesatkan.",
     },
     {
       type: "table",
@@ -105,11 +105,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Diurutkan dari yang paling kecil: 48%, 52%, 65%, 71%, 109%. Rata-rata sederhananya sekitar 69%. Tapi rasio kritis 0,80 menunjuk ke persentil ke-80, yaitu 71% — nilai terbesar keempat dari lima data yang ada.",
+      text: "Diurutkan dari yang paling kecil: 48%, 52%, 65%, 71%, 109%. Rata-rata sederhananya sekitar 69%. Tapi rasio kritis 0,80 menunjuk ke persentil ke-80, yaitu 71%, nilai terbesar keempat dari lima data yang ada.",
     },
     {
       type: "p",
-      text: "Gabungan armada milik sendiri dan kontrak tetap sanggup menangani sampai 1.400 order per hari. Target buffer 71% di atas baseline 1.150 berarti kapasitas total sekitar 2.000 order per hari, tambahan 600 order di atas kapasitas inti — setara 15 truk ekstra, persis jumlah yang disewa penuh menjelang Harbolnas 2025.",
+      text: "Gabungan armada milik sendiri dan kontrak tetap sanggup menangani sampai 1.400 order per hari. Target buffer 71% di atas baseline 1.150 berarti kapasitas total sekitar 2.000 order per hari, tambahan 600 order di atas kapasitas inti, setara 15 truk ekstra, persis jumlah yang disewa penuh menjelang Harbolnas 2025.",
     },
     {
       type: "p",
@@ -157,7 +157,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Gap antara buffer yang dikomit penuh (71%, sekitar 2.000 order/hari) dan skenario ekstrem (109%, sekitar 2.400 order/hari) sekitar 400 order per hari, setara 10 truk. Menyewa penuh kapasitas sebesar itu untuk skenario yang cuma terjadi sekali dalam lima kali jelas mahal — di sinilah kontrak kapasitas fleksibel jadi masuk akal.",
+      text: "Gap antara buffer yang dikomit penuh (71%, sekitar 2.000 order/hari) dan skenario ekstrem (109%, sekitar 2.400 order/hari) sekitar 400 order per hari, setara 10 truk. Menyewa penuh kapasitas sebesar itu untuk skenario yang cuma terjadi sekali dalam lima kali jelas mahal. Di sinilah kontrak kapasitas fleksibel jadi masuk akal.",
     },
     {
       type: "p",
@@ -167,11 +167,11 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Skema Siaga untuk 10 Truk Cadangan",
-      body: "Bandingkan dua skema untuk 10 truk cadangan selama 20 hari window Harbolnas. Skema sewa penuh: 10 × Rp900.000 × 20 hari = Rp180 juta, dibayar penuh apa pun realisasinya. Skema siaga: 10 truk × Rp150.000 × 20 hari = Rp30 juta biaya siaga, ditambah tarif penuh hanya untuk truk-hari yang ditarik. Kalau realisasinya cuma 4 truk selama 5 hari puncak (20 truk-hari), totalnya Rp30 juta + Rp18 juta = Rp48 juta — sekitar seperempat dari skema sewa penuh.",
+      body: "Bandingkan dua skema untuk 10 truk cadangan selama 20 hari window Harbolnas. Skema sewa penuh: 10 × Rp900.000 × 20 hari = Rp180 juta, dibayar penuh apa pun realisasinya. Skema siaga: 10 truk × Rp150.000 × 20 hari = Rp30 juta biaya siaga, ditambah tarif penuh hanya untuk truk-hari yang ditarik. Kalau realisasinya cuma 4 truk selama 5 hari puncak (20 truk-hari), totalnya Rp30 juta + Rp18 juta = Rp48 juta, sekitar seperempat dari skema sewa penuh.",
     },
     {
       type: "p",
-      text: "Catatan lima musim di atas menjelaskan insiden Harbolnas 2025 lebih tepat: buffer 15 truk yang disewa saat itu sebetulnya sudah dekat rasio kritis yang benar. Yang keliru adalah bentuk komitmennya — seluruhnya disewa penuh, padahal skema siaga akan membuat realisasi rendah seperti itu jauh lebih murah ditanggung.",
+      text: "Catatan lima musim di atas menjelaskan insiden Harbolnas 2025 lebih tepat: buffer 15 truk yang disewa saat itu sebetulnya sudah dekat rasio kritis yang benar. Yang keliru adalah bentuk komitmennya: seluruhnya disewa penuh, padahal skema siaga akan membuat realisasi rendah seperti itu jauh lebih murah ditanggung.",
     },
     {
       type: "h2",
@@ -223,11 +223,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pantau dua angka untuk menandai apakah proses ini berjalan benar. Pertama, service level yang tercapai dibanding persentil yang ditargetkan — kalau targetnya P80 tapi keterlambatan tetap tinggi, ongkos kekurangan kemungkinan dihitung terlalu rendah. Kedua, tingkat pemakaian buffer yang sudah dikomit — kalau truk siaga nyaris tidak pernah ditarik tiga musim berturut-turut, target persentilnya kemungkinan kelewat tinggi, dan sebagian komitmen bisa digeser ke skema siaga yang lebih murah.",
+      text: "Pantau dua angka untuk menandai apakah proses ini berjalan benar. Pertama, service level yang tercapai dibanding persentil yang ditargetkan: kalau targetnya P80 tapi keterlambatan tetap tinggi, ongkos kekurangan kemungkinan dihitung terlalu rendah. Kedua, tingkat pemakaian buffer yang sudah dikomit: kalau truk siaga nyaris tidak pernah ditarik tiga musim berturut-turut, target persentilnya kemungkinan kelewat tinggi, dan sebagian komitmen bisa digeser ke skema siaga yang lebih murah.",
     },
     {
       type: "quote",
-      text: "Kapasitas yang menganggur kelihatan jelas di laporan biaya bulan berikutnya. Customer yang diam-diam pindah karena kecewa musim lalu tidak pernah muncul di laporan mana pun — sampai omzetnya ikut hilang.",
+      text: "Kapasitas yang menganggur kelihatan jelas di laporan biaya bulan berikutnya. Customer yang diam-diam pindah karena kecewa musim lalu tidak pernah muncul di laporan mana pun, sampai omzetnya ikut hilang.",
     },
   ],
   faq: [

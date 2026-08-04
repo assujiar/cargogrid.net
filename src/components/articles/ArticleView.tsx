@@ -74,30 +74,17 @@ export default function ArticleView({ article }: { article: Article }) {
           </Link>
         </nav>
 
-        {/* --- Hero, five different shapes --- */}
+        {/* --- Hero: same full illustration everywhere, layout-specific accent below --- */}
         <header>
-          {/* Every treatment gets the illustration; "split" pairs it with the
-              meta row instead, so it's excluded here and handled below. */}
-          {spec.hero !== "split" && (
-            <div className="nm-emboss mb-9 overflow-hidden rounded-3xl">
-              <ArticleCoverArt seed={article.slug} />
-            </div>
-          )}
+          <div className="nm-emboss mb-9 overflow-hidden rounded-3xl">
+            <ArticleCoverArt seed={article.slug} />
+          </div>
 
           {spec.hero === "rule" && (
             <div className={`mb-8 h-1.5 w-24 rounded-full ${accentBg}`} />
           )}
 
-          {spec.hero === "split" && (
-            <div className="mb-9 grid items-center gap-6 sm:grid-cols-[1fr_190px]">
-              <div>{meta}</div>
-              <div className="nm-emboss-sm overflow-hidden rounded-2xl">
-                <ArticleCoverArt seed={article.slug} />
-              </div>
-            </div>
-          )}
-
-          {spec.hero !== "split" && <div className="mb-6">{meta}</div>}
+          <div className="mb-6">{meta}</div>
 
           {spec.hero === "panel" ? (
             <div className="nm-emboss rounded-3xl bg-[#eef2f6]/50 p-7 sm:p-10">{headline}</div>

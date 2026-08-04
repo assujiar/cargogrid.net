@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, Clock } from "lucide-react";
-import { articles, coverVariant } from "../../content/articles";
+import { articles } from "../../content/articles";
 import { ARTICLE_CATEGORIES, readingMinutes, type ArticleCategory } from "../../content/articles/types";
 import { formatArticleDate } from "./formatArticleDate";
 import ArticleCoverArt from "./ArticleCoverArt";
@@ -73,7 +73,7 @@ export default function ArticleIndexView() {
                             whileHover={{ scale: 1.06 }}
                             transition={{ type: "spring", stiffness: 260, damping: 26 }}
                           >
-                            <ArticleCoverArt category={item.category} seed={item.slug} variant={coverVariant(item.slug)} />
+                            <ArticleCoverArt seed={item.slug} height={200} />
                           </motion.div>
                           <div className="pointer-events-none absolute inset-0 bg-brand-teal/0 transition-colors duration-300 group-hover:bg-brand-teal/10" />
                         </div>

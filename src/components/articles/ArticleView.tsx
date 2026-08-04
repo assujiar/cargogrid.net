@@ -76,7 +76,9 @@ export default function ArticleView({ article }: { article: Article }) {
 
         {/* --- Hero, five different shapes --- */}
         <header>
-          {spec.hero === "banner" && (
+          {/* Every treatment gets the illustration; "split" pairs it with the
+              meta row instead, so it's excluded here and handled below. */}
+          {spec.hero !== "split" && (
             <div className="nm-emboss mb-9 overflow-hidden rounded-3xl">
               <ArticleCoverArt seed={article.slug} height={320} />
             </div>

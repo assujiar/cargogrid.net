@@ -767,12 +767,43 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
                         <div className="flex flex-col gap-1 text-[11px] font-semibold text-slate-500 mt-2">
                           <span className="flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5 text-slate-400" /> Kontak: {selectedInquiry.name} ({selectedInquiry.role})</span>
                           <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-slate-400" /> Phone: {selectedInquiry.phone} • Email: {selectedInquiry.email}</span>
-                          {(selectedInquiry.utmSource || selectedInquiry.utmCampaign || selectedInquiry.utmMedium) && (
+                          {(selectedInquiry.utmSource || selectedInquiry.utmCampaign || selectedInquiry.utmMedium ||
+                            selectedInquiry.firstUtmSource || selectedInquiry.landingPage || selectedInquiry.referrer ||
+                            selectedInquiry.clickId || selectedInquiry.visitCount) && (
                             <div className="mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-wrap gap-x-3 gap-y-1.5 text-[9px] text-slate-600 font-mono font-bold">
                               <span className="text-slate-400 text-[8px] uppercase tracking-wider block w-full mb-0.5">Campaign Attribution:</span>
                               {selectedInquiry.utmSource && <span>Source: <strong className="text-brand-orange">{selectedInquiry.utmSource}</strong></span>}
                               {selectedInquiry.utmMedium && <span>Medium: <strong className="text-brand-teal">{selectedInquiry.utmMedium}</strong></span>}
                               {selectedInquiry.utmCampaign && <span>Campaign: <strong className="text-indigo-600">{selectedInquiry.utmCampaign}</strong></span>}
+
+                              {/* First touch is only worth the row when it differs from the
+                                  last touch — when they match, repeating it is noise. */}
+                              {selectedInquiry.firstUtmSource && selectedInquiry.firstUtmSource !== selectedInquiry.utmSource && (
+                                <span className="w-full">
+                                  First touch: <strong className="text-slate-800">{selectedInquiry.firstUtmSource}</strong>
+                                  {selectedInquiry.firstUtmCampaign && <> / {selectedInquiry.firstUtmCampaign}</>}
+                                </span>
+                              )}
+                              {selectedInquiry.referrer && <span>Referrer: <strong className="text-slate-800">{selectedInquiry.referrer}</strong></span>}
+                              {selectedInquiry.landingPage && <span>Landing: <strong className="text-slate-800">{selectedInquiry.landingPage}</strong></span>}
+                              {typeof selectedInquiry.visitCount === "number" && (
+                                <span>
+                                  Kunjungan:{" "}
+                                  <strong className={selectedInquiry.visitCount > 1 ? "text-emerald-600" : "text-slate-800"}>
+                                    {selectedInquiry.visitCount}x
+                                  </strong>
+                                </span>
+                              )}
+                              {selectedInquiry.clickId && (
+                                <span className="w-full break-all">
+                                  Ad click: <strong className="text-slate-800">{selectedInquiry.clickId}</strong>
+                                </span>
+                              )}
+                              {selectedInquiry.gaClientId && (
+                                <span className="w-full break-all">
+                                  GA client: <strong className="text-slate-800">{selectedInquiry.gaClientId}</strong>
+                                </span>
+                              )}
                             </div>
                           )}
                         </div>

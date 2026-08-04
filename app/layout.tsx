@@ -4,6 +4,8 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "../src/index.css";
 import { LanguageProvider } from "../src/components/shared/LanguageProvider";
 import UtmCapture from "../src/components/shared/UtmCapture";
+import AnalyticsProvider from "../src/components/shared/AnalyticsProvider";
+import { CONSENT_BOOTSTRAP_SCRIPT, GTM_ID, hasGtm, isAnalyticsConfigured } from "../src/lib/gtag";
 import { ogImage, siteGraphJsonLd, siteUrl } from "../src/lib/seo";
 
 const inter = Inter({
@@ -80,6 +82,29 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="id">
       <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+        {/* Must be the first script in the document: Consent Mode only keeps a
+            tag cookieless if the denied-by-default state is on the dataLayer
+            before that tag initialises. Rendered inline and synchronously for
+            that reason — next/script would run it after hydration, by which
+            point gtag.js may already have written an identifier. */}
+        {isAnalyticsConfigured && (
+          <script
+            id="consent-bootstrap"
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: CONSENT_BOOTSTRAP_SCRIPT }}
+          />
+        )}
+        {hasGtm && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        )}
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
@@ -89,6 +114,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <UtmCapture />
           {children}
         </LanguageProvider>
+        <AnalyticsProvider />
       </body>
     </html>
   );

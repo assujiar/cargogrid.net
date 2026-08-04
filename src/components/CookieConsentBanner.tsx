@@ -3,7 +3,12 @@
 import React, { useState, useEffect } from "react";
 import { Cookie, X, Settings2 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { getCookieConsent, saveCookieConsent, CookieConsent } from "../lib/tracking";
+import {
+  getCookieConsent,
+  saveCookieConsent,
+  CookieConsent,
+  OPEN_CONSENT_PREFERENCES_EVENT,
+} from "../lib/tracking";
 import { useLanguage } from "./shared/LanguageProvider";
 
 export default function CookieConsentBanner() {
@@ -21,13 +26,36 @@ export default function CookieConsentBanner() {
   useEffect(() => {
     const savedConsent = getCookieConsent();
     setConsent(savedConsent);
+    if (savedConsent) {
+      setPrefAnalytics(savedConsent.analytics);
+      setPrefMarketing(savedConsent.marketing);
+    }
+
+    // Withdrawing consent has to be as easy as granting it, and once a choice
+    // is stored the banner never auto-opens again — the footer link reopens it
+    // through this event, straight into the granular view so the visitor can
+    // see and change what they previously allowed.
+    const reopen = () => {
+      const current = getCookieConsent();
+      setPrefAnalytics(current?.analytics ?? false);
+      setPrefMarketing(current?.marketing ?? false);
+      setShowPreferences(true);
+      setShowBanner(true);
+    };
+    window.addEventListener(OPEN_CONSENT_PREFERENCES_EVENT, reopen);
+
     if (!savedConsent) {
       // Delay slightly for premium UX entrance
       const timer = setTimeout(() => {
         setShowBanner(true);
       }, 1500);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener(OPEN_CONSENT_PREFERENCES_EVENT, reopen);
+      };
     }
+
+    return () => window.removeEventListener(OPEN_CONSENT_PREFERENCES_EVENT, reopen);
   }, []);
 
   const handleAcceptAll = () => {
@@ -141,6 +169,16 @@ export default function CookieConsentBanner() {
                   <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${prefMarketing ? "translate-x-4" : "translate-x-0"}`} />
                 </button>
               </div>
+
+              {/* Shown only when revisiting the panel: the record of what was
+                  agreed and when is the evidence UU PDP 27/2022 expects a
+                  controller to be able to produce. */}
+              {consent && (
+                <p className="text-[9px] text-slate-500 font-mono font-bold px-1">
+                  {isEn ? "Last updated: " : "Terakhir diperbarui: "}
+                  {new Date(consent.timestamp).toLocaleString(isEn ? "en-GB" : "id-ID")}
+                </p>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

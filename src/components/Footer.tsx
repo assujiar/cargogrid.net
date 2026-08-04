@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "./shared/LanguageProvider";
 import { companyAddressLine } from "../lib/companyInfo";
+import { openCookiePreferences } from "../lib/tracking";
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -101,6 +102,17 @@ export default function Footer() {
             <Link href="/syarat-ketentuan" className="hover:text-brand-orange transition-colors font-extrabold">
               {isEn ? "Terms & Conditions" : "Syarat & Ketentuan"}
             </Link>
+            <span>&bull;</span>
+            {/* The only way back into the consent dialog once a choice has been
+                stored — without it, a visitor could grant consent but never
+                withdraw it. */}
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              className="hover:text-brand-orange transition-colors font-extrabold cursor-pointer bg-transparent border-0 p-0 font-mono text-[11px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal rounded"
+            >
+              {isEn ? "Cookie Preferences" : "Preferensi Cookie"}
+            </button>
             <span>&bull;</span>
             <span className="text-slate-600 font-extrabold">{isEn ? "SLA Guaranteed" : "Layanan SLA Terjamin"}</span>
           </div>

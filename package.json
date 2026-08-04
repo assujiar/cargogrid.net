@@ -9,7 +9,8 @@
     "start": "next start",
     "clean": "rm -rf .next out dist server.js",
     "lint": "tsc --noEmit",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:tracking": "node e2e/tracking.smoke.mjs"
   },
   "browserslist": [
     "chrome >= 111",

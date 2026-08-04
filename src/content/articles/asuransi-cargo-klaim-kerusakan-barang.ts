@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "asuransi-cargo-klaim-kerusakan-barang",
   layout: "dossier",
   title: "Klaim Asuransi Cargo Ditolak: Packing dan Dokumentasi yang Menentukan Cair Tidaknya Ganti Rugi",
-  metaTitle: "Klaim Asuransi Cargo Ditolak: Cara Membaca Polis Sebelum Kejadian | CargoGrid OS",
+  metaTitle: "Klaim Asuransi Cargo Ditolak: Cara Membaca Polis",
   description:
     "Klaim asuransi cargo bisa ditolak karena packing dianggap tak sesuai polis atau dokumentasi serah terima bolong. Cara membaca polis sebelum kejadian, bukan sesudah.",
   keywords: [

@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "manajemen-vendor-subkontraktor",
   layout: "essay",
   title: "Manajemen Vendor dan Subkontraktor: Menimbang Ulang Hubungan Anda lewat Teori Biaya Transaksi",
-  metaTitle: "Panduan Manajemen Vendor & Subkontraktor Logistik | CargoGrid OS",
+  metaTitle: "Panduan Manajemen Vendor & Subkontraktor Logistik",
   description:
     "Kapan idealnya pakai armada sendiri, kapan lebih baik disubkontrakkan ke vendor luar? Teori biaya transaksi menjawabnya lebih tajam ketimbang sekadar membandingkan tarif per rit.",
   keywords: [

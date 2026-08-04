@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "adopsi-aplikasi-driver",
   layout: "essay",
   title: "Kenapa Aplikasi Driver Sering Ditinggalkan di Lapangan, Menurut Teori Penerimaan Teknologi",
-  metaTitle: "Kenapa Adopsi Aplikasi Driver Gagal dan Cara Memperbaikinya | CargoGrid OS",
+  metaTitle: "Kenapa Adopsi Aplikasi Driver Gagal dan Cara Memperbaikinya",
   description:
     "Aplikasi driver dengan fitur paling lengkap sekalipun sering kalah oleh WhatsApp yang sederhana. Technology Acceptance Model menjelaskan sebabnya, sekaligus tiga ungkit yang bisa langsung dipraktikkan di lapangan.",
   keywords: [

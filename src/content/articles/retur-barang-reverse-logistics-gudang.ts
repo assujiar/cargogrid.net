@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "retur-barang-reverse-logistics-gudang",
   layout: "essay",
   title: "Retur yang Menumpuk di Sudut Gudang: Ongkos Nyata dari Reverse Logistics yang Tak Pernah Didesain",
-  metaTitle: "Reverse Logistics Gudang: Alur Keputusan Retur Barang | CargoGrid OS",
+  metaTitle: "Reverse Logistics Gudang: Alur Keputusan Retur Barang",
   description:
     "Retur menumpuk tanpa proses jelas menggerus ruang gudang, waktu staf, dan nilai barang. Ini alur keputusan, SLA, dan cara mengukur value recovery rate.",
   keywords: [

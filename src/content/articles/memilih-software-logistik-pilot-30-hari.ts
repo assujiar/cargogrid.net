@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "memilih-software-logistik-pilot-30-hari",
   layout: "feature",
   title: "Pilot 30 Hari atau Full Implementasi Langsung? Cara Memilih Software Logistik Tanpa Tebak-Tebakan",
-  metaTitle: "Pilot 30 Hari vs Full Implementasi Software Logistik | CargoGrid OS",
+  metaTitle: "Pilot 30 Hari vs Full Implementasi Software Logistik",
   description:
     "Presentasi vendor logistik dirancang supaya selalu terlihat meyakinkan, sehingga nyaris tidak menunjukkan apa yang sungguh akan terjadi setelah sistem itu dipakai tim Anda sendiri. Artikel ini membahas cara merancang pilot yang benar-benar bisa gagal, karena justru dari situlah sebuah uji coba jadi berarti.",
   keywords: [

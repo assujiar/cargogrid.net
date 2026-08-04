@@ -5,7 +5,7 @@ export const article: Article = {
   layout: "primer",
   title:
     "Kapasitas Peak Season yang Selalu Salah Tebak: Kenapa Buffer Tahun Lalu Menganggur, Musim Ini Malah Kurang",
-  metaTitle: "Kapasitas Peak Season: Newsvendor Problem dan Buffer yang Pas | CargoGrid OS",
+  metaTitle: "Kapasitas Peak Season: Newsvendor Problem dan Buffer",
   description:
     "Kapasitas ekstra Harbolnas menganggur, giliran Lebaran malah kurang. Newsvendor problem menjelaskan cara menentukan buffer kapasitas yang pas dari data historis.",
   keywords: [

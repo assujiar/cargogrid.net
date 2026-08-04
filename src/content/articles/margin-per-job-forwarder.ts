@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "margin-per-job-forwarder",
   layout: "brief",
   title: "Margin Per Job: Kenapa Kerugian Baru Ketahuan di Akhir Bulan, dan Apa Dampaknya",
-  metaTitle: "Cara Menghitung Margin Per Job untuk Perusahaan Logistik | CargoGrid OS",
+  metaTitle: "Cara Menghitung Margin Per Job untuk Perusahaan Logistik",
   description:
     "Margin bulanan yang terlihat sehat sering menyembunyikan kenyataan yang lebih pahit: sepertiga job Anda mungkin justru merugi, ditutupi oleh sepertiga job lain yang untung besar. Customer yang menggerus margin terus dilayani, dan sales dinilai dari angka omzet yang sebenarnya menyesatkan.",
   keywords: [

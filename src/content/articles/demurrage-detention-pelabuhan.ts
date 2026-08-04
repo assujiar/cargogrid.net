@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "demurrage-detention-pelabuhan",
   layout: "dossier",
   title: "Demurrage dan Detention: Denda yang Tenggatnya Sudah Diketahui Sejak Hari Pertama",
-  metaTitle: "Demurrage & Detention: Mengurai Denda Kontainer di Pelabuhan | CargoGrid OS",
+  metaTitle: "Demurrage & Detention: Mengurai Denda Kontainer di Pelabuhan",
   description:
     "Demurrage dan detention itu bukan kejutan - tanggal jatuh temponya sudah bisa dihitung sejak kontainer turun dari kapal. Artikel ini membedah kenapa denda ini tetap saja terjadi dan bagaimana memantaunya sebelum terlambat.",
   keywords: [

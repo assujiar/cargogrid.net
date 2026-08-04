@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "integrasi-erp-akuntansi-logistik",
   layout: "primer",
   title: "Menghubungkan Sistem Logistik dan Akuntansi: Empat Keputusan yang Sebenarnya Menentukan Hasil",
-  metaTitle: "Cara Integrasi Sistem Logistik ke Software Akuntansi | CargoGrid OS",
+  metaTitle: "Cara Integrasi Sistem Logistik ke Software Akuntansi",
   description:
     "Integrasi ke Accurate, Jurnal, atau SAP jarang gagal karena sisi teknisnya. Empat keputusan desain yang jarang dibahas di awal justru yang menentukan berhasil tidaknya.",
   keywords: [

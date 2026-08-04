@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "tracking-multimoda-indonesia",
   layout: "primer",
   title: "Kenapa Tracking Multimoda di Indonesia Sulit Disatukan, dan Janji Apa yang Realistis ke Customer",
-  metaTitle: "Tracking Multimoda Indonesia: Batas Teknis dan Janji yang Realistis | CargoGrid OS",
+  metaTitle: "Tracking Multimoda Indonesia: Batas dan Janji Realistis",
   description:
     "Tracking laut, darat, dan udara berjalan di atas sumber data yang mutu dan frekuensinya jauh berbeda satu sama lain. Kenali batas tiap moda supaya janji yang Anda berikan ke customer benar-benar bisa ditepati.",
   keywords: [

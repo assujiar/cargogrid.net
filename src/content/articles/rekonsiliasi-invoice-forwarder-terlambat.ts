@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "rekonsiliasi-invoice-forwarder-terlambat",
   layout: "dossier",
   title: "Termin Invoice Forwarder Cuma 30 Hari, Kenapa Uangnya Baru Cair di Hari ke-60?",
-  metaTitle: "Kenapa Invoice Forwarder Telat Cair, dan Cara Memangkasnya | CargoGrid OS",
+  metaTitle: "Kenapa Invoice Forwarder Telat Cair, dan Cara Memangkasnya",
   description:
     "Jarak antara termin di kontrak dan tanggal uang benar-benar cair biasanya sudah terbentuk sebelum invoice itu sendiri terbit. Artikel ini membedah lima titik jeda tersebut satu per satu, dan Anda bisa mulai mengukurnya sendiri minggu ini.",
   keywords: [

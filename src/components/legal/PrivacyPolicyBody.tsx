@@ -54,9 +54,20 @@ export default function PrivacyPolicyBody() {
                 data points at delivery sites, and metadata — applicable to active pilot/production tenants.
               </li>
               <li>
-                <strong>Website Analytics and Cookies:</strong> IP addresses, browser cookies, device fingerprints, and UTM
-                campaign parameters used to measure marketing performance and attribute system audit requests, subject to the
-                cookie consent choices you make on this website.
+                <strong>Website Analytics and Cookies:</strong> IP addresses, browser cookies, device and browser
+                characteristics, pages viewed, scroll depth, and UTM campaign parameters used to measure marketing
+                performance and attribute system audit requests, subject to the cookie consent choices you make on this
+                website.
+              </li>
+              <li>
+                <strong>Google Analytics 4 and Google Tag Manager:</strong> We use Google Analytics 4 (and, where enabled,
+                Google Tag Manager) with Google Consent Mode v2. Analytics and advertising cookies stay switched off until
+                you grant them in the cookie banner; if you decline, measurement continues without cookies or identifiers.
+                When granted, Google sets the <code>_ga</code> and <code>_ga_*</code> cookies (default lifetime 2 years) and
+                may process your data outside Indonesia. We never send your name, email, phone number or company name to
+                Google. Where you granted analytics consent we store the Google Analytics client identifier alongside your
+                audit request, so we can see which campaign and which pages led to it. You can withdraw or change your
+                consent at any time through the &quot;Cookie Preferences&quot; link in the site footer.
               </li>
             </>
           ) : (
@@ -77,9 +88,21 @@ export default function PrivacyPolicyBody() {
                 tenant pilot/produksi yang aktif.
               </li>
               <li>
-                <strong>Analitik Website &amp; Cookies:</strong> Alamat IP, data kuki (cookies) browser, sidik jari perangkat,
-                serta parameter kampanye pemasaran UTM yang kami gunakan untuk mengukur performa marketing dan mengaitkan
-                permintaan audit sistem, sesuai dengan pilihan persetujuan cookie yang Anda pilih di situs ini.
+                <strong>Analitik Website &amp; Cookies:</strong> Alamat IP, data kuki (cookies) browser, karakteristik
+                perangkat dan browser, halaman yang dibuka, kedalaman scroll, serta parameter kampanye pemasaran UTM yang
+                kami gunakan untuk mengukur performa marketing dan mengaitkan permintaan audit sistem, sesuai dengan pilihan
+                persetujuan cookie yang Anda pilih di situs ini.
+              </li>
+              <li>
+                <strong>Google Analytics 4 &amp; Google Tag Manager:</strong> Kami menggunakan Google Analytics 4 (dan, bila
+                diaktifkan, Google Tag Manager) dengan Google Consent Mode v2. Cookie analitik dan iklan tidak aktif sampai
+                Anda menyetujuinya pada banner cookie; bila Anda menolak, pengukuran tetap berjalan tanpa cookie dan tanpa
+                identitas apa pun. Bila Anda menyetujui, Google menempatkan cookie <code>_ga</code> dan <code>_ga_*</code>
+                (masa berlaku bawaan 2 tahun) dan dapat memproses data Anda di luar wilayah Indonesia. Kami tidak pernah
+                mengirimkan nama, email, nomor telepon, atau nama perusahaan Anda ke Google. Apabila Anda menyetujui analitik,
+                kami menyimpan pengenal (client ID) Google Analytics bersama data permintaan audit Anda agar kami dapat
+                mengetahui kampanye dan halaman mana yang mengantarkan permintaan tersebut. Anda dapat menarik atau mengubah
+                persetujuan kapan saja melalui tautan &quot;Preferensi Cookie&quot; di bagian footer situs ini.
               </li>
             </>
           )}

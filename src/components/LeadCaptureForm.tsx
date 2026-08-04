@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Check, ClipboardList, ShieldCheck, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { getStoredUtmParams } from "../lib/tracking";
+import { getAttributionSnapshot } from "../lib/tracking";
+import { trackEvent } from "../lib/gtag";
 import { submitInquiry, InquirySubmitError } from "../lib/inquiryClient";
 import { useLanguage } from "./shared/LanguageProvider";
 
@@ -29,6 +30,20 @@ export default function LeadCaptureForm() {
   const [qualification, setQualification] = useState<"high" | "medium" | "standard">("standard");
   const [newInquiryId, setNewInquiryId] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const formStarted = useRef(false);
+
+  /**
+   * GA4's `form_start`, fired on the first focus anywhere in the form.
+   *
+   * Bound once on the <form> in the capture phase rather than per field: the
+   * form has eight controls and the interesting number is how many visitors
+   * begin at all versus how many finish, not which field they touched first.
+   */
+  const handleFormStart = () => {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    trackEvent("form_start", { form_id: "lead-capture-form", form_name: "system_audit_registration" });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,8 +72,12 @@ export default function LeadCaptureForm() {
 
     setQualification(priority);
 
-    // Retrieve active UTM tracking parameters
-    const utm = getStoredUtmParams();
+    // Everything known about how this visitor got here: first- and last-touch
+    // campaign, ad click id, landing page, referrer and — where analytics
+    // consent was granted — the GA4 ids that join this lead to its full
+    // browsing history. Internally time-boxed, so a blocked tag cannot stall
+    // the submission.
+    const attribution = await getAttributionSnapshot();
 
     try {
       // Posts to the same-origin /api/inquiry route; the server does the
@@ -73,14 +92,28 @@ export default function LeadCaptureForm() {
         shipmentVolume: formData.shipmentVolume,
         biggestPain: formData.biggestPain,
         lang: lang,
-        utmSource: utm.utmSource || undefined,
-        utmMedium: utm.utmMedium || undefined,
-        utmCampaign: utm.utmCampaign || undefined,
-        utmTerm: utm.utmTerm || undefined,
-        utmContent: utm.utmContent || undefined
+        ...attribution
       });
       setNewInquiryId(newInq.id);
       setIsSubmitted(true);
+
+      // GA4's recommended conversion event. Only the qualification enums travel
+      // with it — company type, volume, pain point, priority. The visitor's
+      // name, email, phone and company deliberately do not: sending them would
+      // breach Google's no-PII policy and put the property at risk of
+      // suspension, and none of them make the report more useful. `inquiry_id`
+      // is the opaque join key back to Supabase for offline conversion import.
+      trackEvent("generate_lead", {
+        inquiry_id: newInq.id,
+        lead_priority: priority,
+        company_type: formData.companyType,
+        shipment_volume: formData.shipmentVolume,
+        biggest_pain: formData.biggestPain,
+        interested_package: formData.interestedPackage,
+        visit_count: attribution.visitCount,
+        first_utm_source: attribution.firstUtmSource,
+        utm_source: attribution.utmSource,
+      });
     } catch (error) {
       console.error("Failed to submit inquiry", error);
       if (error instanceof InquirySubmitError && error.isNetwork) {
@@ -196,6 +229,7 @@ export default function LeadCaptureForm() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.98 }}
                     onSubmit={handleSubmit}
+                    onFocusCapture={handleFormStart}
                     className="space-y-4"
                     id="lead-capture-form"
                   >

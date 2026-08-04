@@ -15,6 +15,21 @@ const asString = (value: unknown): string => (typeof value === "string" ? value.
 const asOptionalString = (value: unknown): string | undefined => asString(value) || undefined;
 
 /**
+ * Attribution fields are attacker-controllable — they originate in the query
+ * string of whatever URL the visitor was sent. They are stored, so they get
+ * capped: the columns are VARCHAR(255) and an oversized value would fail the
+ * insert and cost us the lead over a field nobody reads in isolation.
+ */
+const asCappedString = (value: unknown, max = 255): string | undefined =>
+  asString(value).slice(0, max) || undefined;
+
+const asVisitCount = (value: unknown): number | undefined => {
+  const parsed = typeof value === "number" ? value : Number.parseInt(asString(value), 10);
+  if (!Number.isFinite(parsed) || parsed < 1) return undefined;
+  return Math.min(Math.trunc(parsed), 10_000);
+};
+
+/**
  * Creates a lead-capture inquiry.
  *
  * This runs server-side on purpose. The browser used to call the Supabase REST
@@ -49,6 +64,15 @@ export async function POST(request: NextRequest) {
     utmCampaign: asOptionalString(body.utmCampaign),
     utmTerm: asOptionalString(body.utmTerm),
     utmContent: asOptionalString(body.utmContent),
+    firstUtmSource: asCappedString(body.firstUtmSource),
+    firstUtmMedium: asCappedString(body.firstUtmMedium),
+    firstUtmCampaign: asCappedString(body.firstUtmCampaign),
+    clickId: asCappedString(body.clickId, 512),
+    landingPage: asCappedString(body.landingPage, 512),
+    referrer: asCappedString(body.referrer),
+    gaClientId: asCappedString(body.gaClientId, 64),
+    gaSessionId: asCappedString(body.gaSessionId, 64),
+    visitCount: asVisitCount(body.visitCount),
   };
 
   const missing = (["name", "company", "email", "phone"] as const).filter((field) => !payload[field]);
@@ -67,6 +91,11 @@ export async function POST(request: NextRequest) {
     p_company_type: payload.companyType, p_shipment_volume: payload.shipmentVolume, p_biggest_pain: payload.biggestPain,
     p_lang: payload.lang, p_utm_source: payload.utmSource, p_utm_medium: payload.utmMedium,
     p_utm_campaign: payload.utmCampaign, p_utm_term: payload.utmTerm, p_utm_content: payload.utmContent,
+    p_first_utm_source: payload.firstUtmSource, p_first_utm_medium: payload.firstUtmMedium,
+    p_first_utm_campaign: payload.firstUtmCampaign, p_click_id: payload.clickId,
+    p_landing_page: payload.landingPage, p_referrer: payload.referrer,
+    p_ga_client_id: payload.gaClientId, p_ga_session_id: payload.gaSessionId,
+    p_visit_count: payload.visitCount,
   }).single();
 
   if (error) {

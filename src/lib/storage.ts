@@ -21,11 +21,30 @@ export interface Inquiry {
   createdAt: string;
   updatedAt: string;
   lang?: 'id' | 'en';
+  /** Last-touch campaign: what the visitor clicked on the visit they converted. */
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
   utmTerm?: string;
   utmContent?: string;
+  /** First-touch campaign: what originally brought this browser to the site.
+   *  Kept separately because a B2B cycle spans weeks and the two rarely match —
+   *  crediting only the last click hides whatever actually created the demand. */
+  firstUtmSource?: string;
+  firstUtmMedium?: string;
+  firstUtmCampaign?: string;
+  /** Ad-platform click identifier as `provider:value` (e.g. `gclid:Cj0KC...`).
+   *  This is the key for importing the closed deal back into Google Ads. */
+  clickId?: string;
+  /** Path the visitor first landed on, and the external origin that sent them. */
+  landingPage?: string;
+  referrer?: string;
+  /** GA4 identifiers — set only when the visitor granted analytics consent.
+   *  They join this lead to its full browsing history in GA4/BigQuery. */
+  gaClientId?: string;
+  gaSessionId?: string;
+  /** Distinct visits before submitting. A high count is a real buying signal. */
+  visitCount?: number;
 }
 
 export interface Questionnaire {

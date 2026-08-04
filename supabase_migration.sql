@@ -29,6 +29,19 @@ CREATE TABLE IF NOT EXISTS inquiries (
     utm_campaign VARCHAR(255),
     utm_term VARCHAR(255),
     utm_content VARCHAR(255),
+    -- First-touch attribution: the campaign that originally found this browser.
+    -- Stored beside the last-touch columns above because in a B2B cycle the two
+    -- are usually different campaigns, and only crediting the last click hides
+    -- whatever actually generated the demand.
+    first_utm_source VARCHAR(255),
+    first_utm_medium VARCHAR(255),
+    first_utm_campaign VARCHAR(255),
+    click_id VARCHAR(512), -- 'gclid:...', 'fbclid:...' — key for offline conversion import
+    landing_page VARCHAR(512), -- path + query of the first page seen
+    referrer VARCHAR(255), -- external referrer origin only, never a full URL
+    ga_client_id VARCHAR(64), -- GA4 client ID; NULL when analytics consent was declined
+    ga_session_id VARCHAR(64),
+    visit_count INTEGER, -- distinct sessions before converting
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -198,7 +211,12 @@ CREATE OR REPLACE FUNCTION public.create_inquiry(
     p_name VARCHAR, p_company VARCHAR, p_role VARCHAR, p_email VARCHAR, p_phone VARCHAR,
     p_company_type VARCHAR, p_shipment_volume VARCHAR, p_biggest_pain VARCHAR, p_lang VARCHAR DEFAULT 'id',
     p_utm_source VARCHAR DEFAULT NULL, p_utm_medium VARCHAR DEFAULT NULL, p_utm_campaign VARCHAR DEFAULT NULL,
-    p_utm_term VARCHAR DEFAULT NULL, p_utm_content VARCHAR DEFAULT NULL
+    p_utm_term VARCHAR DEFAULT NULL, p_utm_content VARCHAR DEFAULT NULL,
+    p_first_utm_source VARCHAR DEFAULT NULL, p_first_utm_medium VARCHAR DEFAULT NULL,
+    p_first_utm_campaign VARCHAR DEFAULT NULL, p_click_id VARCHAR DEFAULT NULL,
+    p_landing_page VARCHAR DEFAULT NULL, p_referrer VARCHAR DEFAULT NULL,
+    p_ga_client_id VARCHAR DEFAULT NULL, p_ga_session_id VARCHAR DEFAULT NULL,
+    p_visit_count INTEGER DEFAULT NULL
 ) RETURNS inquiries
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 DECLARE
@@ -206,10 +224,14 @@ DECLARE
 BEGIN
     INSERT INTO inquiries (
         name, company, role, email, phone, company_type, shipment_volume, biggest_pain,
-        lang, utm_source, utm_medium, utm_campaign, utm_term, utm_content
+        lang, utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+        first_utm_source, first_utm_medium, first_utm_campaign, click_id,
+        landing_page, referrer, ga_client_id, ga_session_id, visit_count
     ) VALUES (
         p_name, p_company, p_role, p_email, p_phone, p_company_type, p_shipment_volume, p_biggest_pain,
-        COALESCE(p_lang, 'id'), p_utm_source, p_utm_medium, p_utm_campaign, p_utm_term, p_utm_content
+        COALESCE(p_lang, 'id'), p_utm_source, p_utm_medium, p_utm_campaign, p_utm_term, p_utm_content,
+        p_first_utm_source, p_first_utm_medium, p_first_utm_campaign, p_click_id,
+        p_landing_page, p_referrer, p_ga_client_id, p_ga_session_id, p_visit_count
     )
     RETURNING * INTO v_row;
     RETURN v_row;

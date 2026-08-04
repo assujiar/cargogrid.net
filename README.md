@@ -18,3 +18,43 @@ View your app in AI Studio: https://ai.studio/apps/c154037a-e8bc-46f4-8946-30eee
 2. Set Supabase and optional SMTP keys in Vercel Environment Variables, mirroring `.env.example` for local `.env.local` development
 3. Run the app:
    `npm run dev`
+
+## Analytics & visitor tracking
+
+GA4 and Google Tag Manager are wired to Google Consent Mode v2. Both are opt-in
+per deployment: with `NEXT_PUBLIC_GA_MEASUREMENT_ID` and `NEXT_PUBLIC_GTM_ID`
+unset, no Google script is injected at all, so local dev and previews never
+reach production reporting.
+
+**Setup**
+
+1. Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` (and optionally `NEXT_PUBLIC_GTM_ID`) in
+   Vercel — see `.env.example` for what each one does and how they interact.
+2. Run `supabase_ga_tracking_migration.sql` once in the Supabase SQL Editor to
+   add the attribution columns and update `create_inquiry()`. A project created
+   fresh from `supabase_migration.sql` already has them.
+3. In GA4, mark `generate_lead` as a key event.
+
+**How consent works.** The tag boots denied-by-default from an inline script at
+the top of `<body>` (`CONSENT_BOOTSTRAP_SCRIPT` in `src/lib/gtag.ts`) — it has
+to run before gtag.js, or cookies are written before the visitor has chosen. A
+visitor who declines is still measured, cookielessly and without identifiers.
+Consent can be withdrawn any time via "Preferensi Cookie" in the footer.
+
+**Events sent:** `page_view` (SPA-aware), `scroll_depth` (25/50/75/90),
+`cta_click`, `contact_click` (whatsapp/email/phone), outbound `click`,
+`form_start`, `generate_lead`, `consent_update`. When GTM is enabled each is
+mirrored as a `cg_`-prefixed dataLayer event for ad pixels to trigger on.
+
+**No PII ever goes to Google** — only qualification enums. The GA4 client ID is
+stored beside the lead in Supabase (when analytics consent was granted), which
+is what joins a submitted form back to the campaign and pages that produced it.
+
+**Testing.** Against a production build (the consent bootstrap is
+server-rendered, so `next dev` is not representative):
+
+```bash
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-TEST NEXT_PUBLIC_GTM_ID=GTM-TEST npm run build
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-TEST NEXT_PUBLIC_GTM_ID=GTM-TEST npx next start -p 3111 &
+npm run test:tracking
+```

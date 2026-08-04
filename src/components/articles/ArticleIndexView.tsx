@@ -73,7 +73,7 @@ export default function ArticleIndexView() {
                             whileHover={{ scale: 1.06 }}
                             transition={{ type: "spring", stiffness: 260, damping: 26 }}
                           >
-                            <ArticleCoverArt category={item.category} seed={item.slug} />
+                            <ArticleCoverArt seed={item.slug} height={200} />
                           </motion.div>
                           <div className="pointer-events-none absolute inset-0 bg-brand-teal/0 transition-colors duration-300 group-hover:bg-brand-teal/10" />
                         </div>

@@ -57,6 +57,21 @@ export default function ArticleCoverArt({
           <stop offset="0%" stopColor={from} />
           <stop offset="100%" stopColor={to} />
         </linearGradient>
+        {/* Shared object-shading gradients. Fixed ids are safe to repeat across
+            the many ArticleCoverArt instances on one page (index, related-reads)
+            because every instance defines identical stops. */}
+        <linearGradient id="cg-teal-sheen" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#3dbdd4" />
+          <stop offset="100%" stopColor="#006d80" />
+        </linearGradient>
+        <linearGradient id="cg-orange-sheen" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#e2604a" />
+          <stop offset="100%" stopColor="#a52313" />
+        </linearGradient>
+        <linearGradient id="cg-slate-sheen" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#64768a" />
+          <stop offset="100%" stopColor="#2f3b48" />
+        </linearGradient>
       </defs>
       <rect width="400" height="150" fill={`url(#${gid})`} />
       {Scene && <Scene />}

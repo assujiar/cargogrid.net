@@ -185,5 +185,5 @@ export const article: Article = {
       a: "Tetap tampilkan, lengkap dengan penanda bahwa statusnya belum pasti. Kolom yang dibiarkan kosong akan diisi sendiri oleh customer dengan dugaan terburuk, dan itu berujung telepon ke meja Anda. Keterangan sesederhana \"menunggu konfirmasi mitra di tujuan\" sudah cukup meredam pertanyaan itu, karena menunjukkan bahwa keadaannya diketahui dan sedang ditangani, bukan diabaikan.",
     },
   ],
-  related: ["customer-portal-logistik", "demurrage-detention-pelabuhan", "adopsi-aplikasi-driver"],
+  related: ["customer-portal-logistik", "perawatan-armada-preventif-vs-reaktif", "adopsi-aplikasi-driver"],
 };

@@ -206,5 +206,5 @@ export const article: Article = {
       a: "Ada nilai plusnya: tidak ada integrasi yang perlu dipelihara, dan tidak ada lagi selisih periode. Modul akuntansi di dalam sistem logistik biasanya kalah matang dibanding software akuntansi khusus, terutama untuk urusan perpajakan lokal yang aturannya sering berubah. Untuk perusahaan yang akuntannya sudah nyaman dengan alat yang dipakai sekarang, integrasi umumnya masih lebih murah dibanding migrasi penuh.",
     },
   ],
-  related: ["rekonsiliasi-invoice-forwarder-terlambat", "kapan-excel-berhenti-cukup", "memilih-software-logistik-pilot-30-hari"],
+  related: ["akses-sistem-saat-karyawan-resign", "kapan-excel-berhenti-cukup", "memilih-software-logistik-pilot-30-hari"],
 };

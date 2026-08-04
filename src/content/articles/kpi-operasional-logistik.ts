@@ -218,5 +218,5 @@ export const article: Article = {
       a: "Untuk customer besar, biasanya iya, dan itu memang bagian dari biaya melayani mereka, biaya yang sebaiknya Anda hitung dan masukkan ke analisis margin per job. Yang wajib dijaga ketat: angka yang dikirim dalam format mereka harus berasal dari sumber data yang sama persis dengan laporan internal Anda. Menyusun ulang laporan secara manual untuk tiap customer adalah cara paling cepat menghasilkan dua angka berbeda untuk satu hal yang sebenarnya sama.",
     },
   ],
-  related: ["margin-per-job-forwarder", "wms-3pl-level-bin", "customer-portal-logistik"],
+  related: ["margin-per-job-forwarder", "slotting-tata-letak-gudang-produktivitas-picking", "customer-portal-logistik"],
 };

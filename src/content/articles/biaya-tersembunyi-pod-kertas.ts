@@ -235,5 +235,5 @@ export const article: Article = {
       a: "Tidak harus. ePOD bisa berdiri sendiri sebagai modul terpisah. Tapi nilainya berkurang banyak kalau tidak tersambung ke penagihan. Begitu buktinya sudah digital namun invoice tetap dibuat manual dari data yang diketik ulang, Anda sebenarnya cuma memindahkan pekerjaan itu ke tempat lain; pekerjaannya sendiri tidak hilang.",
     },
   ],
-  related: ["rekonsiliasi-invoice-forwarder-terlambat", "adopsi-aplikasi-driver", "customer-portal-logistik"],
+  related: ["rekonsiliasi-invoice-forwarder-terlambat", "asuransi-cargo-klaim-kerusakan-barang", "customer-portal-logistik"],
 };

@@ -212,5 +212,5 @@ export const article: Article = {
       a: "Justru sebaliknya, karena ketika rate hanya tersimpan di kepala dan file pribadi seseorang, kepergian orang itu benar-benar menghilangkan aset perusahaan. Sistem terpusat dengan hak akses berjenjang membuat pengetahuannya tetap tinggal di perusahaan, sementara aksesnya sendiri bisa dicabut dalam hitungan detik.",
     },
   ],
-  related: ["margin-per-job-forwarder", "manajemen-vendor-subkontraktor", "memilih-software-logistik-pilot-30-hari"],
+  related: ["margin-per-job-forwarder", "manajemen-vendor-subkontraktor", "negosiasi-tarif-tahunan-kontrak-shipper"],
 };

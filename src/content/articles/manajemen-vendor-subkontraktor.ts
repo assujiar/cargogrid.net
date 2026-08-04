@@ -187,5 +187,5 @@ export const article: Article = {
       a: "Dokumennya tidak perlu tebal. Satu halaman yang memuat tarif berlaku, tanggung jawab atas kerusakan, tenggat penyerahan POD, tenggat penagihan, dan aturan biaya tambahan saja sudah menutup sebagian besar sumber sengketa. Kontrak tebal yang tidak pernah dibaca justru cuma memberi rasa aman yang keliru.",
     },
   ],
-  related: ["margin-per-job-forwarder", "alur-rfq-freight-forwarding", "kpi-operasional-logistik"],
+  related: ["margin-per-job-forwarder", "alur-rfq-freight-forwarding", "lonjakan-musiman-kapasitas-peak-season"],
 };

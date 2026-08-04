@@ -199,5 +199,5 @@ export const article: Article = {
       a: "Spreadsheet sebenarnya bekerja cukup baik, asalkan ada orang yang rutin membukanya setiap hari tanpa lewat. Yang biasanya gagal adalah kesinambungannya - saat volume tiba-tiba melonjak, atau saat orang yang biasa mengurusnya sedang cuti panjang. Kalau pemantauan Anda tetap jalan melewati periode paling sibuk tahun lalu tanpa bolong, spreadsheet itu sudah cukup memadai untuk sekarang.",
     },
   ],
-  related: ["dokumen-kepabeanan-arsip-digital", "tracking-multimoda-indonesia", "biaya-tersembunyi-pod-kertas"],
+  related: ["odol-timbangan-jembatan-muatan-lebih", "tracking-multimoda-indonesia", "biaya-tersembunyi-pod-kertas"],
 };

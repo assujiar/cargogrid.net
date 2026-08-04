@@ -190,5 +190,5 @@ export const article: Article = {
       a: "Bisa, dan cukup banyak yang berjalan seperti itu. Konsekuensinya, data inbound dan outbound harus dimasukkan dua kali: sekali di WMS, sekali lagi di sistem yang menangani penagihan. Selama volumenya masih rendah, ini masih tertahankan. Begitu volume naik, proses input ganda ini justru jadi sumber selisih yang paling sering muncul antara laporan gudang dan laporan penagihan.",
     },
   ],
-  related: ["kpi-operasional-logistik", "kapan-excel-berhenti-cukup", "customer-portal-logistik"],
+  related: ["kpi-operasional-logistik", "retur-barang-reverse-logistics-gudang", "customer-portal-logistik"],
 };

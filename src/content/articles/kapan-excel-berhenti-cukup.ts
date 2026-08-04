@@ -210,5 +210,5 @@ export const article: Article = {
       a: "Dengarkan dulu isi keberatannya, sebab penolakan dari orang operasional sering kali benar secara teknis. Keluhan seperti 'sistem tidak bisa menangani kasus X' biasanya sedang menunjuk pengecualian nyata yang memang belum terakomodasi di sistem baru. Perlakukan itu sebagai daftar persyaratan yang masih perlu dilengkapi. Itu jauh lebih produktif daripada memperlakukannya sebagai resistensi yang harus dipatahkan.",
     },
   ],
-  related: ["memilih-software-logistik-pilot-30-hari", "margin-per-job-forwarder", "integrasi-erp-akuntansi-logistik"],
+  related: ["memilih-software-logistik-pilot-30-hari", "grup-whatsapp-sistem-operasional-bayangan", "integrasi-erp-akuntansi-logistik"],
 };

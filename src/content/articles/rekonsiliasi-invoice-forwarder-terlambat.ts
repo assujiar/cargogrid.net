@@ -222,5 +222,5 @@ export const article: Article = {
       a: "Sistem terintegrasi menghapus jeda penyalinan data dan jeda pengumpulan dokumen, yang pada contoh di atas nilainya sekitar 10 hari. Ia tidak menyentuh siklus pembayaran customer maupun keterlambatan vendor, jadi wajar kalau perbaikannya hanya menyentuh sebagian jeda. Kalau ada vendor sistem yang menjanjikan semua beres sekaligus, minta saja mereka jelaskan caranya.",
     },
   ],
-  related: ["biaya-tersembunyi-pod-kertas", "margin-per-job-forwarder", "manajemen-vendor-subkontraktor"],
+  related: ["biaya-tersembunyi-pod-kertas", "margin-per-job-forwarder", "uang-jalan-kas-kecil-sopir"],
 };

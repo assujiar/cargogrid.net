@@ -12,12 +12,12 @@ import { formatArticleDate } from "./formatArticleDate";
  * none of it needs to reach the browser as JavaScript.
  *
  * The visible arrangement comes from the article's own `layout`, resolved
- * through articleLayouts.ts. Fifteen pieces poured through one identical
+ * through articleLayouts.ts. Twenty-five pieces poured through one identical
  * template read as a content farm no matter how good the writing is.
  *
  * Articles are Indonesian only, unlike the marketing pages: the search demand
- * this content targets is Indonesian, and translating fifteen long pieces would
- * double the surface without widening the audience.
+ * this content targets is Indonesian, and translating twenty-five long pieces
+ * would double the surface without widening the audience.
  */
 export default function ArticleView({ article }: { article: Article }) {
   const spec = LAYOUTS[article.layout];

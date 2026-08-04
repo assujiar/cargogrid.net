@@ -1,4 +1,14 @@
 import type { Article } from "./types";
+import { article as odolTimbanganJembatanMuatanLebih } from "./odol-timbangan-jembatan-muatan-lebih";
+import { article as perawatanArmadaPreventifVsReaktif } from "./perawatan-armada-preventif-vs-reaktif";
+import { article as uangJalanKasKecilSopir } from "./uang-jalan-kas-kecil-sopir";
+import { article as asuransiCargoKlaimKerusakanBarang } from "./asuransi-cargo-klaim-kerusakan-barang";
+import { article as negosiasiTarifTahunanKontrakShipper } from "./negosiasi-tarif-tahunan-kontrak-shipper";
+import { article as lonjakanMusimanKapasitasPeakSeason } from "./lonjakan-musiman-kapasitas-peak-season";
+import { article as grupWhatsappSistemOperasionalBayangan } from "./grup-whatsapp-sistem-operasional-bayangan";
+import { article as aksesSistemSaatKaryawanResign } from "./akses-sistem-saat-karyawan-resign";
+import { article as returBarangReverseLogisticsGudang } from "./retur-barang-reverse-logistics-gudang";
+import { article as slottingTataLetakGudangProduktivitasPicking } from "./slotting-tata-letak-gudang-produktivitas-picking";
 import { article as biayaTersembunyiPodKertas } from "./biaya-tersembunyi-pod-kertas";
 import { article as rekonsiliasiInvoiceForwarderTerlambat } from "./rekonsiliasi-invoice-forwarder-terlambat";
 import { article as marginPerJobForwarder } from "./margin-per-job-forwarder";
@@ -20,9 +30,19 @@ import { article as memilihSoftwareLogistikPilot30Hari } from "./memilih-softwar
  *
  * Ordered newest-intent-first for the index page. Each article lives in its own
  * module so a single piece can be edited, reviewed and diffed without touching
- * the other fourteen.
+ * the other twenty-four.
  */
 const registry: Article[] = [
+  odolTimbanganJembatanMuatanLebih,
+  perawatanArmadaPreventifVsReaktif,
+  uangJalanKasKecilSopir,
+  asuransiCargoKlaimKerusakanBarang,
+  negosiasiTarifTahunanKontrakShipper,
+  lonjakanMusimanKapasitasPeakSeason,
+  grupWhatsappSistemOperasionalBayangan,
+  aksesSistemSaatKaryawanResign,
+  returBarangReverseLogisticsGudang,
+  slottingTataLetakGudangProduktivitasPicking,
   biayaTersembunyiPodKertas,
   rekonsiliasiInvoiceForwarderTerlambat,
   marginPerJobForwarder,

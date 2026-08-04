@@ -2,7 +2,7 @@
  * Article content model.
  *
  * Articles are structured data, not HTML strings: the renderer decides how a
- * heading or a table looks, so all 15 pieces stay visually consistent with the
+ * heading or a table looks, so all 25 pieces stay visually consistent with the
  * rest of the site and none of them can inject markup. Inline emphasis is the
  * one exception, handled by a deliberately tiny `**bold**` convention that the
  * renderer splits on — see ArticleBody.
@@ -24,7 +24,7 @@ export interface ArticleFaq {
 }
 
 /**
- * Editorial treatment. Fifteen pieces rendered through one template read as a
+ * Editorial treatment. Twenty-five pieces rendered through one template read as a
  * content farm however good the writing is, so each article declares how it
  * wants to be presented: hero shape, column width, type scale, and where the
  * table of contents sits.

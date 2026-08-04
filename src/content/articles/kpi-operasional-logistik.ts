@@ -27,7 +27,7 @@ export const article: Article = {
   blocks: [
     {
       type: "p",
-      text: "Halaman pertama laporan kinerja bulanan ke customer nyaris selalu memuat angka on-time delivery, dan angka itu nyaris selalu berada di atas 95%. Tapi begitu customer menghitung sendiri dari sisi mereka, hasilnya biasanya lebih rendah — kadang jauh lebih rendah.",
+      text: "Halaman pertama laporan kinerja bulanan ke customer nyaris selalu memuat angka on-time delivery, dan angka itu nyaris selalu berada di atas 95%. Tapi begitu customer menghitung sendiri dari sisi mereka, hasilnya biasanya lebih rendah, kadang jauh lebih rendah.",
     },
     {
       type: "p",
@@ -40,11 +40,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Hukum Goodhart bilang begini: begitu sebuah ukuran dijadikan target, ia berhenti menjadi ukuran yang baik. Setiap definisi pasti punya celah, dan begitu ada tekanan untuk mengejar angka, celah itu akan ditemukan — tanpa perlu ada siapa pun yang berniat curang. Itulah kenapa definisi tertulis jauh lebih menentukan ketimbang seberapa tinggi target dipasang.",
+      text: "Hukum Goodhart bilang begini: begitu sebuah ukuran dijadikan target, ia berhenti menjadi ukuran yang baik. Setiap definisi pasti punya celah, dan begitu ada tekanan untuk mengejar angka, celah itu akan ditemukan, tanpa perlu ada siapa pun yang berniat curang. Itulah kenapa definisi tertulis jauh lebih menentukan ketimbang seberapa tinggi target dipasang.",
     },
     {
       type: "p",
-      text: "Prinsip kedua berasal dari dunia pengendalian mutu statistik, dirintis Shewhart dan dipopulerkan Deming: variasi sebab umum harus dibedakan dari variasi sebab khusus. Variasi sebab umum melekat pada proses itu sendiri — cara satu-satunya menguranginya adalah mengubah prosesnya, sementara menegur orangnya sama sekali tidak akan membantu. Variasi sebab khusus datang dari kejadian tertentu yang sumbernya bisa dilacak. Masalah muncul kalau variasi sebab umum diperlakukan seolah kejadian khusus: setiap kali angka turun sedikit, tim ditegur, dan yang bertambah cuma kegaduhan; perbaikan sungguhan tidak pernah datang lewat cara itu.",
+      text: "Prinsip kedua berasal dari dunia pengendalian mutu statistik, dirintis Shewhart dan dipopulerkan Deming: variasi sebab umum harus dibedakan dari variasi sebab khusus. Variasi sebab umum melekat pada proses itu sendiri: cara satu-satunya menguranginya adalah mengubah prosesnya, sementara menegur orangnya sama sekali tidak akan membantu. Variasi sebab khusus datang dari kejadian tertentu yang sumbernya bisa dilacak. Masalah muncul kalau variasi sebab umum diperlakukan seolah kejadian khusus: setiap kali angka turun sedikit, tim ditegur, dan yang bertambah cuma kegaduhan; perbaikan sungguhan tidak pernah datang lewat cara itu.",
     },
     {
       type: "h2",
@@ -59,10 +59,10 @@ export const article: Article = {
       type: "ol",
       items: [
         "**Tepat waktu itu diukur dari tanggal yang mana?** Tanggal yang dijanjikan sejak booking, atau tanggal baru setelah customer sendiri telat menyiapkan barangnya? Keduanya sama-sama sah dipakai, tapi hasil akhirnya bisa jomplang jauh.",
-        "**Keterlambatan yang disebabkan customer sendiri, masuk hitungan atau tidak?** Misalnya truk menunggu enam jam di gerbang karena gudang customer belum siap menerima — apakah pengiriman itu tetap dicatat on-time?",
-        "**Berapa besar toleransi yang masih diterima?** Tiba pukul 17.05 padahal janjinya pukul 17.00 — itu dihitung on-time, atau sudah dianggap telat?",
+        "**Keterlambatan yang disebabkan customer sendiri, masuk hitungan atau tidak?** Misalnya truk menunggu enam jam di gerbang karena gudang customer belum siap menerima. Apakah pengiriman itu tetap dicatat on-time?",
+        "**Berapa besar toleransi yang masih diterima?** Tiba pukul 17.05 padahal janjinya pukul 17.00, apakah itu dihitung on-time atau sudah dianggap telat?",
         "**Satuan penghitungannya per apa?** Per pengiriman, per baris pesanan, atau per unit barang? Satu pengiriman berisi 200 karton dengan 3 karton yang kurang bisa terlihat nyaris sempurna atau cukup buruk, tergantung satuan mana yang dipilih.",
-        "**Kejadian di luar kendali diperlakukan bagaimana?** Banjir, jalan ditutup, antrean panjang di pelabuhan — semua itu dikeluarkan dari perhitungan, atau tetap dimasukkan tapi dilaporkan sebagai kategori terpisah?",
+        "**Kejadian di luar kendali diperlakukan bagaimana?** Banjir, jalan ditutup, atau antrean panjang di pelabuhan, apakah semua itu dikeluarkan dari perhitungan, atau tetap dimasukkan tapi dilaporkan sebagai kategori terpisah?",
       ],
     },
     {
@@ -78,7 +78,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Rata-rata waktu pengiriman 2,1 hari kedengarannya solid di atas kertas. Tapi tidak ada customer yang mengalami \"rata-rata\" — mereka mengalami tiap pengiriman satu demi satu, dan pengalaman yang paling nempel di kepala selalu yang paling buruk, bukan yang paling umum.",
+      text: "Rata-rata waktu pengiriman 2,1 hari kedengarannya solid di atas kertas. Tapi tidak ada customer yang mengalami \"rata-rata\". Mereka mengalami tiap pengiriman satu demi satu, dan pengalaman yang paling nempel di kepala selalu yang paling buruk, bukan yang paling umum.",
     },
     {
       type: "p",
@@ -98,7 +98,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau harus memilih satu angka saja, pilih P90. Angka ini menangkap pengalaman yang cukup sering terjadi untuk dianggap berarti, tapi tidak gampang terdistorsi oleh satu kejadian yang benar-benar di luar kebiasaan. P90 juga lebih tahan dimanipulasi — beda dengan rata-rata yang bisa dipoles cukup dengan mempercepat pengiriman yang sebenarnya memang sudah cepat.",
+      text: "Kalau harus memilih satu angka saja, pilih P90. Angka ini menangkap pengalaman yang cukup sering terjadi untuk dianggap berarti, tapi tidak gampang terdistorsi oleh satu kejadian yang benar-benar di luar kebiasaan. P90 juga lebih tahan dimanipulasi. Beda dengan rata-rata yang bisa dipoles cukup dengan mempercepat pengiriman yang sebenarnya memang sudah cepat.",
     },
     {
       type: "h2",
@@ -113,8 +113,8 @@ export const article: Article = {
       type: "ul",
       items: [
         "**Waktu respons RFQ (P90).** Mengukur berapa lama quotation terkirim, dihitung dari 10% RFQ dengan respons paling lambat.",
-        "**Tingkat kemenangan, disertai alasan setiap kekalahan.** Tanpa alasan kalah, angka kemenangan cuma jadi hiasan slide — tidak memandu tindakan apa pun.",
-        "**Jumlah RFQ yang tidak pernah dijawab.** Di laporan biasanya tertulis nol, padahal angka sebenarnya jarang benar-benar nol — kebanyakan cuma belum pernah dicatat.",
+        "**Tingkat kemenangan, disertai alasan setiap kekalahan.** Tanpa alasan kalah, angka kemenangan cuma jadi hiasan slide, tidak memandu tindakan apa pun.",
+        "**Jumlah RFQ yang tidak pernah dijawab.** Di laporan biasanya tertulis nol, padahal angka sebenarnya jarang benar-benar nol, kebanyakan cuma belum pernah dicatat.",
       ],
     },
     {
@@ -168,8 +168,8 @@ export const article: Article = {
       items: [
         "**Indikator yang warnanya selalu hijau.** Kalau sepanjang tahun angkanya tidak pernah keluar dari target, kemungkinan besar ia tidak sedang mengukur apa pun yang benar-benar bervariasi.",
         "**Indikator tanpa pemilik.** Selama tidak ada satu nama pun yang bisa ditunjuk bertanggung jawab, tidak akan pernah ada yang menindaklanjutinya kalau angkanya memburuk.",
-        "**Total volume tanpa konteks.** Jumlah shipment naik 12% — itu kabar baik atau justru tanda bahaya? Pertanyaan itu mustahil dijawab tanpa melihat margin dan kapasitas yang menopangnya.",
-        "**Indikator yang datanya dikumpulkan manual setiap bulan.** Pengisiannya biasanya berhenti duluan justru di bulan tersibuk — persis ketika informasi itu paling dibutuhkan.",
+        "**Total volume tanpa konteks.** Jumlah shipment naik 12%. Itu kabar baik atau justru tanda bahaya? Pertanyaan itu mustahil dijawab tanpa melihat margin dan kapasitas yang menopangnya.",
+        "**Indikator yang datanya dikumpulkan manual setiap bulan.** Pengisiannya biasanya berhenti duluan justru di bulan tersibuk, persis ketika informasi itu paling dibutuhkan.",
       ],
     },
     {
@@ -197,7 +197,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Uji sederhana untuk tiap indikator di laporan Anda",
-      body: "Ajukan pertanyaan ini untuk setiap angka di laporan Anda: kalau angka ini memburuk 20% bulan depan, siapa yang akan melakukan apa? Kalau tidak ada jawaban yang spesifik, indikator itu sedang tidak bekerja — hapus saja, atau tetapkan pemiliknya sekarang juga. Laporan berisi lima indikator yang semuanya punya jawaban jelas jauh lebih berguna daripada laporan dua puluh indikator yang sebagian besar tidak punya jawaban sama sekali.",
+      body: "Ajukan pertanyaan ini untuk setiap angka di laporan Anda: kalau angka ini memburuk 20% bulan depan, siapa yang akan melakukan apa? Kalau tidak ada jawaban yang spesifik, indikator itu sedang tidak bekerja. Hapus saja, atau tetapkan pemiliknya sekarang juga. Laporan berisi lima indikator yang semuanya punya jawaban jelas jauh lebih berguna daripada laporan dua puluh indikator yang sebagian besar tidak punya jawaban sama sekali.",
     },
   ],
   faq: [
@@ -207,7 +207,7 @@ export const article: Article = {
     },
     {
       q: "Apakah SLA di kontrak harus sama persis dengan KPI internal?",
-      a: "Tidak harus sama, dan sering kali memang sebaiknya berbeda. SLA di kontrak adalah komitmen minimum yang membawa konsekuensi komersial, sementara target internal sebaiknya dipasang lebih ketat supaya Anda masih punya ruang gerak sebelum benar-benar menyentuh batas kontrak. Yang harus persis sama hanyalah definisi dan cara menghitungnya — perbedaan di titik itulah yang biasanya berujung sengketa.",
+      a: "Tidak harus sama, dan sering kali memang sebaiknya berbeda. SLA di kontrak adalah komitmen minimum yang membawa konsekuensi komersial, sementara target internal sebaiknya dipasang lebih ketat supaya Anda masih punya ruang gerak sebelum benar-benar menyentuh batas kontrak. Yang harus persis sama hanyalah definisi dan cara menghitungnya. Perbedaan di titik itulah yang biasanya berujung sengketa.",
     },
     {
       q: "Bagaimana cara mengukur kinerja subkontraktor yang tidak punya sistem sendiri?",
@@ -215,7 +215,7 @@ export const article: Article = {
     },
     {
       q: "Customer minta laporan dalam format mereka sendiri, apakah harus dituruti?",
-      a: "Untuk customer besar, biasanya iya — dan itu memang bagian dari biaya melayani mereka, biaya yang sebaiknya Anda hitung dan masukkan ke analisis margin per job. Yang wajib dijaga ketat: angka yang dikirim dalam format mereka harus berasal dari sumber data yang sama persis dengan laporan internal Anda. Menyusun ulang laporan secara manual untuk tiap customer adalah cara paling cepat menghasilkan dua angka berbeda untuk satu hal yang sebenarnya sama.",
+      a: "Untuk customer besar, biasanya iya, dan itu memang bagian dari biaya melayani mereka, biaya yang sebaiknya Anda hitung dan masukkan ke analisis margin per job. Yang wajib dijaga ketat: angka yang dikirim dalam format mereka harus berasal dari sumber data yang sama persis dengan laporan internal Anda. Menyusun ulang laporan secara manual untuk tiap customer adalah cara paling cepat menghasilkan dua angka berbeda untuk satu hal yang sebenarnya sama.",
     },
   ],
   related: ["margin-per-job-forwarder", "wms-3pl-level-bin", "customer-portal-logistik"],

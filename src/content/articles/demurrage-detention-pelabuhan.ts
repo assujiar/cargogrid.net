@@ -19,7 +19,7 @@ export const article: Article = {
   summary:
     "Berbeda dari kerusakan barang atau cuaca buruk yang datang tiba-tiba, demurrage justru punya sifat yang ganjil: tanggal jatuh temponya sudah bisa dihitung sejak hari kontainer turun dari kapal. Yang sebenarnya terjadi bukan musibah tanpa aba-aba, melainkan tenggat yang kelewatan begitu saja. Artinya, denda ini jauh lebih bisa dikendalikan daripada cara kebanyakan perusahaan memperlakukannya selama ini.",
   takeaways: [
-    "Demurrage berjalan selama kontainer masih menginap di terminal; detention berjalan setelah kontainer keluar tapi belum juga dikembalikan. Keduanya sering tertukar dalam percakapan sehari-hari, sehingga dendanya kerap salah dibebankan ke pihak yang sebenarnya tidak bersalah.",
+    "Demurrage berjalan selama kontainer masih menginap di terminal. Detention berjalan setelah kontainer keluar tapi belum juga dikembalikan. Keduanya sering tertukar dalam percakapan sehari-hari, sehingga dendanya kerap salah dibebankan ke pihak yang sebenarnya tidak bersalah.",
     "Free time dihitung memakai hari kalender, sehingga libur panjang tetap menggerus jatah waktu itu meskipun kantor sedang tutup dan tidak ada satu pun proses yang berjalan.",
     "Penyebab yang paling sering muncul adalah dokumen kepabeanan yang belum kelar, jauh sebelum truk sempat bergerak sama sekali. Tudingan bahwa truk yang telat justru sering meleset dari akar masalah yang sebenarnya.",
     "Tanpa catatan penyebab pada tiap kejadian, denda ini akan terus dianggap ongkos operasional yang wajar, sehingga tidak akan pernah benar-benar diperbaiki dari akarnya.",
@@ -145,7 +145,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "**Jenis denda.** Demurrage atau detention - ini yang menentukan tim mana yang harus turun tangan lebih dulu.",
-        "**Jumlah hari keterlambatan**, bukan hanya nilai rupiahnya. Denda Rp 10 juta dari satu kontainer yang telat 20 hari adalah masalah yang sama sekali berbeda dengan Rp 10 juta yang tersebar merata di 20 kontainer yang masing-masing cuma telat sehari. Kasus pertama berarti ada kontainer yang benar-benar tersangkut; kasus kedua justru menandakan proses yang memang selalu mepet dari awal.",
+        "**Jumlah hari keterlambatan**, bukan hanya nilai rupiahnya. Denda Rp 10 juta dari satu kontainer yang telat 20 hari adalah masalah yang sama sekali berbeda dengan Rp 10 juta yang tersebar merata di 20 kontainer yang masing-masing cuma telat sehari. Kasus pertama berarti ada kontainer yang benar-benar tersangkut. Kasus kedua justru menandakan proses yang memang selalu mepet dari awal.",
         "**Penyebab utama**, dipilih dari lima kategori baku yang sudah disiapkan sebelumnya, supaya semua kejadian bisa dibandingkan apple-to-apple tanpa harus menafsirkan narasi bebas tiap orang.",
         "**Pihak yang menanggung.** Kalau polanya menunjukkan perusahaan Anda yang selalu menanggung, itu sinyal untuk meninjau ulang kontrak dengan customer. Sebagian penyebab, misalnya dokumen dari shipper yang telat, semestinya tidak dibebankan ke perusahaan Anda sama sekali.",
       ],

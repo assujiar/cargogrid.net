@@ -20,9 +20,9 @@ export const article: Article = {
   summary:
     "Seorang admin operasional resign, dan bersamanya ikut terbawa nomor WhatsApp Business yang dipakai puluhan customer serta password akun bersama untuk TMS. Tulisan ini soal kenapa kredensial semacam itu jarang dirancang melekat ke peran sejak awal, dan bagaimana perusahaan kecil-menengah memperbaikinya lewat checklist offboarding dan audit akses berkala, tanpa perlu tim IT.",
   takeaways: [
-    "Bus factor — berapa orang perlu keluar sebelum sebuah sistem berhenti berjalan — untuk banyak titik akses krusial di perusahaan logistik kecil sering kali cuma satu.",
+    "Bus factor, yaitu berapa orang perlu keluar sebelum sebuah sistem berhenti berjalan, untuk banyak titik akses krusial di perusahaan logistik kecil sering kali cuma satu.",
     "Akar masalahnya jarang soal integritas karyawan. Ia soal desain akses yang menempel ke identitas pribadi, padahal seharusnya menempel ke peran kerja.",
-    "Checklist offboarding paling berguna dijalankan sebelum hari terakhir karyawan, bukan sesudahnya — terutama untuk akun bersama dan WhatsApp Business.",
+    "Checklist offboarding paling berguna dijalankan sebelum hari terakhir karyawan, bukan sesudahnya, terutama untuk akun bersama dan WhatsApp Business.",
     "Audit akses berkala tidak butuh tim IT: satu spreadsheet dan satu jam per kuartal cukup untuk menangkap akses yang menumpuk atau tertinggal.",
   ],
   blocks: [
@@ -32,11 +32,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Senin pagi, dispatcher mencoba membalas chat customer soal ETA kontainer yang telat naik kapal. Pesan itu masuk ke WhatsApp Business, tapi akun itu login di HP pribadi Nada, dan nomornya sudah tidak aktif sejak dia ganti kartu untuk pekerjaan baru. Untuk memindahkan nomor itu ke SIM kantor, WhatsApp minta kode OTP dikirim ke nomor lama itu juga — nomor yang sama yang sudah tidak bisa dihubungi.",
+      text: "Senin pagi, dispatcher mencoba membalas chat customer soal ETA kontainer yang telat naik kapal. Pesan itu masuk ke WhatsApp Business, tapi akun itu login di HP pribadi Nada, dan nomornya sudah tidak aktif sejak dia ganti kartu untuk pekerjaan baru. Untuk memindahkan nomor itu ke SIM kantor, WhatsApp minta kode OTP dikirim ke nomor lama itu juga, padahal nomor itu sudah tidak bisa dihubungi.",
     },
     {
       type: "p",
-      text: "Masalah kedua muncul begitu pemilik usaha mencoba masuk ke dashboard TMS untuk menerbitkan invoice yang tertunda. Login admin yang dipakai bersama ternyata terdaftar atas email pribadi Nada, dan tombol lupa password mengirim link reset ke alamat yang sama. Dua hari penuh, operasional perusahaan itu praktis buta: tidak bisa membalas customer, tidak bisa membuka modul invoicing, tanpa satu pun password cadangan — sebab password cadangan itu memang tidak pernah ada.",
+      text: "Masalah kedua muncul begitu pemilik usaha mencoba masuk ke dashboard TMS untuk menerbitkan invoice yang tertunda. Login admin yang dipakai bersama ternyata terdaftar atas email pribadi Nada, dan tombol lupa password mengirim link reset ke alamat yang sama. Dua hari penuh, operasional perusahaan itu praktis buta: tidak bisa membalas customer, tidak bisa membuka modul invoicing, tanpa satu pun password cadangan, sebab password cadangan itu memang tidak pernah ada.",
     },
     {
       type: "h2",
@@ -45,7 +45,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di dunia pengembangan software, ada istilah untuk situasi semacam ini: bus factor. Angkanya menjawab satu pertanyaan sederhana — berapa banyak orang yang harus tertabrak bus, dalam arti kiasan resign, sakit keras, atau cuti panjang, sebelum sebuah proyek berhenti berjalan sama sekali. Semakin kecil angkanya, semakin rapuh sistemnya.",
+      text: "Di dunia pengembangan software, ada istilah untuk situasi semacam ini: bus factor. Angkanya menjawab satu pertanyaan sederhana: berapa banyak orang yang harus tertabrak bus, dalam arti kiasan resign, sakit keras, atau cuti panjang, sebelum sebuah proyek berhenti berjalan sama sekali. Semakin kecil angkanya, semakin rapuh sistemnya.",
     },
     {
       type: "p",
@@ -53,7 +53,7 @@ export const article: Article = {
     },
     {
       type: "quote",
-      text: "Sistem yang cuma bisa dijalankan satu orang bukan sistem yang berfungsi — itu ketergantungan yang kebetulan belum pernah diuji.",
+      text: "Sistem yang cuma bisa dijalankan satu orang bukan sistem yang berfungsi. Itu ketergantungan yang kebetulan belum pernah diuji.",
     },
     {
       type: "h2",
@@ -70,7 +70,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Budaya saling percaya di tim kecil ikut memperkuat pola ini. Mempertanyakan kenapa sebuah akses cuma dipegang satu orang terasa seperti curiga tanpa alasan, padahal semua orang saling kenal bertahun-tahun. Pertanyaan itu baru muncul justru ketika orang itu sudah keluar pintu — dan saat itu jawabannya sudah terlambat.",
+      text: "Budaya saling percaya di tim kecil ikut memperkuat pola ini. Mempertanyakan kenapa sebuah akses cuma dipegang satu orang terasa seperti curiga tanpa alasan, padahal semua orang saling kenal bertahun-tahun. Pertanyaan itu baru muncul justru ketika orang itu sudah keluar pintu, dan saat itu jawabannya sudah terlambat.",
     },
     {
       type: "h2",
@@ -130,7 +130,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Ilustrasi biaya dua hari akses terkunci",
-      body: "Asumsikan sebuah forwarder kecil menangani rata-rata 14 job aktif per hari senilai total sekitar Rp60 juta. Ketika WhatsApp Business terkunci dua hari penuh, delapan customer tidak mendapat balasan sama sekali, dan tiga di antaranya memindahkan job hari itu ke forwarder lain — setara kehilangan omzet Rp14 juta. Bersamaan itu, modul invoicing yang terkunci menahan tagihan senilai Rp180 juta selama empat hari, cukup membuat jadwal gajian ikut mundur kalau kas sedang pas-pasan.",
+      body: "Asumsikan sebuah forwarder kecil menangani rata-rata 14 job aktif per hari senilai total sekitar Rp60 juta. Ketika WhatsApp Business terkunci dua hari penuh, delapan customer tidak mendapat balasan sama sekali, dan tiga di antaranya memindahkan job hari itu ke forwarder lain, setara kehilangan omzet Rp14 juta. Bersamaan itu, modul invoicing yang terkunci menahan tagihan senilai Rp180 juta selama empat hari, cukup membuat jadwal gajian ikut mundur kalau kas sedang pas-pasan.",
     },
     {
       type: "p",
@@ -143,15 +143,15 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Perbaikannya bukan soal mempercayai orang tertentu lebih dari yang lain — masalahnya memang tidak pernah soal kepercayaan personal. Perbaikannya soal desain: akses melekat ke peran dalam organisasi, sehingga orang yang menjabat peran itu bisa berganti tanpa membongkar ulang seluruh pengaturan.",
+      text: "Perbaikannya bukan soal mempercayai orang tertentu lebih dari yang lain. Masalahnya memang tidak pernah soal kepercayaan personal. Perbaikannya soal desain: akses melekat ke peran dalam organisasi, sehingga orang yang menjabat peran itu bisa berganti tanpa membongkar ulang seluruh pengaturan.",
     },
     {
       type: "p",
-      text: "Praktiknya sederhana. Nomor WhatsApp Business didaftarkan pakai SIM card atas nama perusahaan, sehingga siapa pun yang menjabat admin operasional otomatis memegangnya. Sistem penting dibuatkan alamat email khusus perusahaan — ops@, admin@, finance@ — bukan menumpang di email pribadi karyawan yang kebetulan pertama mendaftar. Tiap sistem diberi login terpisah per orang, alih-alih satu password yang dihafal beramai-ramai, supaya siapa mengakses apa tetap terlacak.",
+      text: "Praktiknya sederhana. Nomor WhatsApp Business didaftarkan pakai SIM card atas nama perusahaan, sehingga siapa pun yang menjabat admin operasional otomatis memegangnya. Sistem penting dibuatkan alamat email khusus perusahaan (ops@, admin@, finance@), bukan menumpang di email pribadi karyawan yang kebetulan pertama mendaftar. Tiap sistem diberi login terpisah per orang, alih-alih satu password yang dihafal beramai-ramai, supaya siapa mengakses apa tetap terlacak.",
     },
     {
       type: "p",
-      text: "Prinsip yang sama berlaku juga saat seseorang naik jabatan atau pindah departemen, bukan cuma saat resign. Kepala gudang yang promosi jadi manajer cabang seharusnya kehilangan akses ke sistem picking harian begitu perannya berubah — akses yang menumpuk dari peran lama justru jadi celah keamanan tersendiri, sekalipun orangnya masih di perusahaan yang sama.",
+      text: "Prinsip yang sama berlaku juga saat seseorang naik jabatan atau pindah departemen, bukan cuma saat resign. Kepala gudang yang promosi jadi manajer cabang seharusnya kehilangan akses ke sistem picking harian begitu perannya berubah. Akses yang menumpuk dari peran lama justru jadi celah keamanan tersendiri, sekalipun orangnya masih di perusahaan yang sama.",
     },
     {
       type: "h2",
@@ -160,14 +160,14 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Checklist berikut dirancang supaya bisa Anda jalankan tanpa departemen IT khusus, cukup oleh satu orang — biasanya pemilik usaha atau manajer operasional — dalam waktu kurang dari satu jam untuk setiap karyawan yang keluar atau pindah peran.",
+      text: "Checklist berikut dirancang supaya bisa Anda jalankan tanpa departemen IT khusus, cukup oleh satu orang (biasanya pemilik usaha atau manajer operasional) dalam waktu kurang dari satu jam untuk setiap karyawan yang keluar atau pindah peran.",
     },
     {
       type: "ol",
       items: [
-        "**Begitu resign atau rotasi diketahui,** susun daftar akses yang dipegang orang itu — sistem, akun bersama, WhatsApp Business, email, kunci fisik — di hari pengumuman, bukan menjelang hari terakhir.",
+        "**Begitu resign atau rotasi diketahui,** susun daftar akses yang dipegang orang itu (sistem, akun bersama, WhatsApp Business, email, kunci fisik) di hari pengumuman, bukan menjelang hari terakhir.",
         "**Tentukan penerima akses berikutnya** untuk tiap baris di daftar itu sebelum hari terakhir tiba, supaya tidak ada jeda transisi.",
-        "**Ganti password akun bersama** — TMS/WMS, e-banking, portal vendor — tepat di hari kerja terakhir.",
+        "**Ganti password akun bersama** (TMS/WMS, e-banking, portal vendor) tepat di hari kerja terakhir.",
         "**Pastikan WhatsApp Business ada di SIM milik perusahaan**, bukan nomor pribadi siapa pun, jauh sebelum ada yang resign mendadak.",
         "**Cabut akses email dan device OTP** dari daftar pengguna aktif.",
         "**Tarik kembali aset fisik**: kartu akses gudang, kunci kantor, laptop dan HP kantor.",
@@ -195,7 +195,7 @@ export const article: Article = {
     {
       type: "callout",
       tone: "warning",
-      title: "Satu orang, satu jam, per kuartal — itu targetnya",
+      title: "Targetnya cuma satu orang, satu jam, per kuartal",
       body: "Audit akses tidak butuh tim keamanan atau software mahal untuk perusahaan berisi belasan sampai puluhan karyawan. Yang dibutuhkan cuma kebiasaan: satu slot waktu tetap di kalender, satu spreadsheet yang dirawat, dan kemauan mencabut akses yang sudah tidak relevan, alih-alih membiarkannya siapa tahu suatu saat dibutuhkan lagi.",
     },
     {
@@ -213,7 +213,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Yang penting diingat: alat bantu ini mempercepat penerapan prinsip akses berbasis peran, bukan pengganti prinsipnya. Password manager termahal sekalipun tidak menolong kalau WhatsApp Business masih terdaftar di nomor pribadi seseorang — masalahnya ada di keputusan pendaftaran awal, bukan di alat yang dipakai sesudahnya.",
+      text: "Yang penting diingat: alat bantu ini mempercepat penerapan prinsip akses berbasis peran, bukan pengganti prinsipnya. Password manager termahal sekalipun tidak menolong kalau WhatsApp Business masih terdaftar di nomor pribadi seseorang. Masalahnya ada di keputusan pendaftaran awal, bukan di alat yang dipakai sesudahnya.",
     },
     {
       type: "p",
@@ -227,7 +227,7 @@ export const article: Article = {
     },
     {
       q: "WhatsApp Business kami sudah bertahun-tahun memakai nomor pribadi karyawan. Bagaimana memindahkannya?",
-      a: "Beli SIM card atas nama perusahaan, lalu pindahkan nomor WhatsApp Business lewat fitur ganti nomor resmi di aplikasi — histori chat dan broadcast ikut terbawa. Jadikan ini proyek terjadwal saat semua pihak masih ada, bukan respons darurat ketika seseorang sudah keburu resign.",
+      a: "Beli SIM card atas nama perusahaan, lalu pindahkan nomor WhatsApp Business lewat fitur ganti nomor resmi di aplikasi, sehingga histori chat dan broadcast ikut terbawa. Jadikan ini proyek terjadwal saat semua pihak masih ada, bukan respons darurat ketika seseorang sudah keburu resign.",
     },
     {
       q: "Apakah shared login benar-benar berbahaya kalau timnya masih kecil dan saling percaya?",

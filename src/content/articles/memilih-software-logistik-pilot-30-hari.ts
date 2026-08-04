@@ -22,7 +22,7 @@ export const article: Article = {
     "Pilot yang mustahil gagal tidak pernah menghasilkan informasi apa pun. Tentukan dulu hasil seperti apa yang akan membuat Anda berkata tidak, sebelum uji coba itu dimulai.",
     "Membeli secara bertahap pada dasarnya adalah membeli waktu untuk belajar lebih dulu, dan waktu itu punya nilai yang bisa dihitung.",
     "Uang yang sudah terlanjur keluar seharusnya tidak ikut menentukan keputusan berikutnya, walau itulah hal yang paling sulit diabaikan secara psikologis.",
-    "Uji sistem di proses paling sibuk yang Anda punya—di situ ia akan retak duluan kalau memang akan retak, dan itu jauh lebih murah diketahui sekarang daripada satu tahun lagi.",
+    "Uji sistem di proses paling sibuk yang Anda punya. Di situ ia akan retak duluan kalau memang akan retak, dan itu jauh lebih murah diketahui sekarang daripada satu tahun lagi.",
   ],
   blocks: [
     {

@@ -17,12 +17,12 @@ export const article: Article = {
   category: "keuangan",
   publishedAt: "2026-07-19",
   summary:
-    "Klaim asuransi cargo senilai ratusan juta rupiah bisa ditolak hanya karena packing dianggap tidak memenuhi standar polis, atau kondisi barang saat serah terima tidak pernah dicatat. Premi bertahun-tahun tidak otomatis berarti kerugian diganti — insurer membayar kalau pemegang polis berhasil membuktikan klaimnya. Artikel ini membedah jebakan deductible dan warranty clause di balik premi murah, serta dokumen yang menentukan klaim Anda cair.",
+    "Klaim asuransi cargo senilai ratusan juta rupiah bisa ditolak hanya karena packing dianggap tidak memenuhi standar polis, atau kondisi barang saat serah terima tidak pernah dicatat. Premi bertahun-tahun tidak otomatis berarti kerugian diganti. Insurer membayar kalau pemegang polis berhasil membuktikan klaimnya. Artikel ini membedah jebakan deductible dan warranty clause di balik premi murah, serta dokumen yang menentukan klaim Anda cair.",
   takeaways: [
     "Insurer membayar klaim kalau pemegang polis berhasil membuktikan empat hal: polis berlaku, kerugian termasuk peril yang dijamin, nilainya benar, dan tidak ada syarat polis yang dilanggar. Laporan kerugian saja tidak cukup.",
     "Packing yang dianggap wajar oleh tim gudang bisa dianggap tidak layak oleh surveyor asuransi kalau tidak sesuai spesifikasi tertulis di polis, dan pelanggaran warranty semacam ini bisa menggugurkan klaim terlepas dari penyebab kerusakan sebenarnya.",
     "Institute Cargo Clauses A, B, dan C menjamin risiko yang jauh berbeda meski sama-sama disebut asuransi cargo. Cek klausul mana yang berlaku di polis Anda sekarang, jangan menunggu klaim diajukan.",
-    "Delapan dokumen, dari polis dan lampiran klausul sampai foto kondisi barang di tiap serah terima, paling efektif disiapkan sebagai prosedur rutin — yang sudah terlewat tidak bisa direkonstruksi lagi.",
+    "Delapan dokumen, dari polis dan lampiran klausul sampai foto kondisi barang di tiap serah terima, paling efektif disiapkan sebagai prosedur rutin. Yang sudah terlewat tidak bisa direkonstruksi lagi.",
   ],
   blocks: [
     {
@@ -40,15 +40,15 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Asuransi cargo sering dipahami sebagai jaring pengaman otomatis: barang rusak, tinggal lapor, lalu uang cair. Praktiknya jauh dari sesederhana itu. Insurer membayar kalau pemegang polis berhasil membuktikan empat hal sekaligus — polisnya berlaku saat kejadian, kerugian termasuk perils yang dijamin, nilainya terhitung benar, dan tidak satu pun syarat polis dilanggar.",
+      text: "Asuransi cargo sering dipahami sebagai jaring pengaman otomatis: barang rusak, tinggal lapor, lalu uang cair. Praktiknya jauh dari sesederhana itu. Insurer membayar kalau pemegang polis berhasil membuktikan empat hal sekaligus: polisnya berlaku saat kejadian, kerugian termasuk perils yang dijamin, nilainya terhitung benar, dan tidak satu pun syarat polis dilanggar.",
     },
     {
       type: "p",
-      text: "Kalau salah satu dari keempat syarat itu gagal dibuktikan, insurer punya dasar yang sah untuk menolak, terlepas dari seberapa nyata kerugian di lapangan. Video kontainer bocor, foto barang rusak, kesaksian sopir — semuanya jadi tidak relevan kalau syarat keempat, packing sesuai standar polis, tidak terpenuhi.",
+      text: "Kalau salah satu dari keempat syarat itu gagal dibuktikan, insurer punya dasar yang sah untuk menolak, terlepas dari seberapa nyata kerugian di lapangan. Video kontainer bocor, foto barang rusak, dan kesaksian sopir jadi tidak relevan kalau syarat keempat, packing sesuai standar polis, tidak terpenuhi.",
     },
     {
       type: "quote",
-      text: "Premi dibayar di muka berdasarkan kepercayaan. Klaim dicairkan di belakang berdasarkan bukti — dan dua hal itu tidak selalu berjalan di jalur yang sama.",
+      text: "Premi dibayar di muka berdasarkan kepercayaan. Klaim dicairkan di belakang berdasarkan bukti, dan dua hal itu tidak selalu berjalan di jalur yang sama.",
     },
     {
       type: "h2",
@@ -78,16 +78,16 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sebagian besar polis cargo laut di Indonesia mengacu ke Institute Cargo Clauses (ICC) yang disusun Lloyd's Market Association di London: tiga klausul, A, B, dan C, dengan cakupan risiko yang jauh berbeda satu sama lain — dan jarang dijelaskan tuntas saat polis dijual.",
+      text: "Sebagian besar polis cargo laut di Indonesia mengacu ke Institute Cargo Clauses (ICC) yang disusun Lloyd's Market Association di London: tiga klausul, A, B, dan C, dengan cakupan risiko yang jauh berbeda satu sama lain, dan jarang dijelaskan tuntas saat polis dijual.",
     },
     {
       type: "table",
-      caption: "Semakin ke bawah, cakupannya semakin sempit — dan premi ikut semakin murah",
+      caption: "Semakin ke bawah, cakupannya semakin sempit, dan premi ikut semakin murah",
       head: ["Klausul", "Cakupan risiko", "Cocok untuk"],
       rows: [
         [
           "ICC A (All Risks)",
-          "Semua risiko kerugian fisik, kecuali yang dikecualikan eksplisit — inherent vice, packing tidak layak, keterlambatan biasa",
+          "Semua risiko kerugian fisik, kecuali yang dikecualikan eksplisit: inherent vice, packing tidak layak, keterlambatan biasa",
           "Barang bernilai tinggi: elektronik, mesin presisi, kargo rawan pencurian atau kerusakan tersembunyi",
         ],
         [
@@ -127,7 +127,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Ilustrasi: dua polis, premi mirip, hasil klaim jauh berbeda",
-      body: "Dua opsi polis untuk cargo senilai Rp 15 miliar per pengapalan, 10 pengapalan setahun. Polis pertama: ICC A, deductible Rp 25 juta, premi Rp 37,5 juta setahun. Polis kedua: ICC C, deductible Rp 100 juta, warranty crating kayu penuh, premi Rp 27 juta setahun — selisih cuma Rp 10,5 juta. Begitu ada kerusakan Rp 90 juta akibat air masuk kontainer, polis pertama mencairkan sekitar Rp 65 juta bersih. Polis kedua kemungkinan besar menolak seluruhnya, karena air masuk kontainer umumnya di luar cakupan ICC C.",
+      body: "Dua opsi polis untuk cargo senilai Rp 15 miliar per pengapalan, 10 pengapalan setahun. Polis pertama: ICC A, deductible Rp 25 juta, premi Rp 37,5 juta setahun. Polis kedua: ICC C, deductible Rp 100 juta, warranty crating kayu penuh, premi Rp 27 juta setahun (selisih cuma Rp 10,5 juta). Begitu ada kerusakan Rp 90 juta akibat air masuk kontainer, polis pertama mencairkan sekitar Rp 65 juta bersih. Polis kedua kemungkinan besar menolak seluruhnya, karena air masuk kontainer umumnya di luar cakupan ICC C.",
     },
     {
       type: "h2",
@@ -146,7 +146,7 @@ export const article: Article = {
       type: "callout",
       tone: "warning",
       title: "Foto sebelum muat adalah bukti, bukan formalitas",
-      body: "Tanpa foto kondisi packing sebelum kontainer disegel, klaim Anda bertumpu sepenuhnya pada kata-kata staf gudang bahwa packing sudah sesuai standar — dan insurer tidak wajib percaya begitu saja. Foto bertimestamp yang menunjukkan crating, bracing, dan pelapis anti-lembap adalah salah satu dokumen termurah yang bisa disiapkan, dan justru paling sering absen saat paling dibutuhkan.",
+      body: "Tanpa foto kondisi packing sebelum kontainer disegel, klaim Anda bertumpu sepenuhnya pada kata-kata staf gudang bahwa packing sudah sesuai standar, dan insurer tidak wajib percaya begitu saja. Foto bertimestamp yang menunjukkan crating, bracing, dan pelapis anti-lembap adalah salah satu dokumen termurah yang bisa disiapkan, dan justru paling sering absen saat paling dibutuhkan.",
     },
     {
       type: "h2",
@@ -155,7 +155,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Truk pertama, pelabuhan asal, kapal, pelabuhan tujuan, truk terakhir — lima titik serah terima biasa dilalui satu shipment antar pulau, dan kerusakan bisa terjadi di titik mana pun. Masalah ini akrab bagi siapa pun yang pernah bergulat dengan POD kertas yang tercecer, tapi taruhannya lebih besar: POD yang hilang cuma menunda pencairan invoice, sementara dokumentasi serah terima yang hilang pada klaim asuransi bisa membuat kerugian itu sepenuhnya ditanggung sendiri. Perusahaan yang klaimnya paling mulus biasanya memotret kondisi barang, bukan cuma meminta tanda tangan, di setiap titik serah terima, dengan timestamp dan nomor job yang jelas.",
+      text: "Truk pertama, pelabuhan asal, kapal, pelabuhan tujuan, truk terakhir: lima titik serah terima biasa dilalui satu shipment antar pulau, dan kerusakan bisa terjadi di titik mana pun. Masalah ini akrab bagi siapa pun yang pernah bergulat dengan POD kertas yang tercecer, tapi taruhannya lebih besar: POD yang hilang cuma menunda pencairan invoice, sementara dokumentasi serah terima yang hilang pada klaim asuransi bisa membuat kerugian itu sepenuhnya ditanggung sendiri. Perusahaan yang klaimnya paling mulus biasanya memotret kondisi barang, bukan cuma meminta tanda tangan, di setiap titik serah terima, dengan timestamp dan nomor job yang jelas.",
     },
     {
       type: "h2",
@@ -195,14 +195,14 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "**Perils covered** — klausul mana yang berlaku (A, B, atau C untuk cargo laut, daftar peril spesifik untuk darat dan udara), dan apakah cakupannya masih cocok dengan rute dan komoditas yang sekarang dikirim, bukan yang dikirim saat polis pertama dibeli.",
+        "**Perils covered**: klausul mana yang berlaku (A, B, atau C untuk cargo laut, daftar peril spesifik untuk darat dan udara), dan apakah cakupannya masih cocok dengan rute dan komoditas yang sekarang dikirim, bukan yang dikirim saat polis pertama dibeli.",
         "**Deductible per kejadian**, dan apakah angkanya realistis dibandingkan nilai kerugian tipikal di operasional Anda. Deductible yang terlalu tinggi membuat polis nyaris tidak berguna untuk kerugian kecil sampai menengah.",
-        "**Warranty clause**, terutama soal packing, penyimpanan, dan batas waktu pelaporan klaim — bagian yang paling sering dilewati karena bahasanya legal, padahal paling sering jadi dasar penolakan.",
+        "**Warranty clause**, terutama soal packing, penyimpanan, dan batas waktu pelaporan klaim. Bagian ini paling sering dilewati karena bahasanya legal, padahal paling sering jadi dasar penolakan.",
       ],
     },
     {
       type: "p",
-      text: "Membaca ulang tiga bagian itu setahun sekali, idealnya saat perpanjangan polis, jauh lebih murah daripada menemukan isinya lewat cara paling mahal: klaim yang ditolak. Klaim yang ditolak jarang soal itikad buruk insurer — soal syarat yang sudah tertulis sejak awal, tapi baru dibaca setelah kerugian terjadi.",
+      text: "Membaca ulang tiga bagian itu setahun sekali, idealnya saat perpanjangan polis, jauh lebih murah daripada menemukan isinya lewat cara paling mahal: klaim yang ditolak. Klaim yang ditolak jarang soal itikad buruk insurer, melainkan soal syarat yang sudah tertulis sejak awal, tapi baru dibaca setelah kerugian terjadi.",
     },
   ],
   faq: [

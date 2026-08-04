@@ -61,7 +61,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Akibatnya, keputusan paling penting — menerima job ini dengan harga segini, untuk customer ini — selalu diambil sebelum data lengkap tersedia. Data lengkapnya baru muncul setelah keputusan itu sendiri sudah tidak bisa diubah lagi.",
+      text: "Akibatnya, keputusan paling penting (menerima job ini dengan harga segini, untuk customer ini) selalu diambil sebelum data lengkap tersedia. Data lengkapnya baru muncul setelah keputusan itu sendiri sudah tidak bisa diubah lagi.",
     },
     {
       type: "callout",
@@ -128,7 +128,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau sales dinilai dan dikomisi dari omzet, wajar kalau mereka mengejar job bervolume besar bermargin tipis — itu respons rasional terhadap ukuran yang Anda pilih sendiri untuk menilai mereka.",
+      text: "Kalau sales dinilai dan dikomisi dari omzet, wajar kalau mereka mengejar job bervolume besar bermargin tipis. Itu respons rasional terhadap ukuran yang Anda pilih sendiri untuk menilai mereka.",
     },
     {
       type: "p",

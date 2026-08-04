@@ -20,9 +20,9 @@ export const article: Article = {
     "Nyaris semua perusahaan logistik menyimpan dokumen. Yang jarang mereka mampu lakukan adalah menemukan satu dokumen tertentu dalam hitungan menit, tepat saat auditor atau customer memintanya. Jarak antara menyimpan dan menemukan itulah yang sebenarnya menentukan seberapa berharga arsip Anda.",
   takeaways: [
     "Arsip baru punya nilai kalau tiga syarat sekaligus terpenuhi: dokumennya mudah ditemukan, keasliannya terjamin, dan jelas asal usulnya.",
-    "Penamaan berkas yang mengandalkan kedisiplinan orang punya titik jenuh — begitu jumlah orang dan jumlah berkas bertambah, laju penyimpangan menyalip laju perbaikan, dan sejak itu arsip tidak pernah rapi lagi.",
-    "Dokumen yang melekat langsung pada transaksinya — job, invoice, customer — bisa dicari lewat pertanyaan yang sungguh diajukan orang di kantor, sesuatu yang mustahil dilakukan folder bertanggal.",
-    "Kebijakan retensi yang tak pernah dituliskan lambat laun mengarah ke \"simpan semua selamanya\" — sebuah keputusan yang sebenarnya cuma penundaan, diwariskan ke orang berikutnya.",
+    "Penamaan berkas yang mengandalkan kedisiplinan orang punya titik jenuh. Begitu jumlah orang dan jumlah berkas bertambah, laju penyimpangan menyalip laju perbaikan, dan sejak itu arsip tidak pernah rapi lagi.",
+    "Dokumen yang melekat langsung pada transaksinya (job, invoice, customer) bisa dicari lewat pertanyaan yang sungguh diajukan orang di kantor, sesuatu yang mustahil dilakukan folder bertanggal.",
+    "Kebijakan retensi yang tak pernah dituliskan lambat laun mengarah ke \"simpan semua selamanya\", sebuah keputusan yang sebenarnya cuma penundaan, diwariskan ke orang berikutnya.",
   ],
   blocks: [
     {
@@ -31,7 +31,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di kebanyakan perusahaan, jawabannya jatuh di antara dua puluh menit dan tidak ketemu sama sekali. Kalau tim Anda condong ke angka kedua, persoalannya lebih besar dari sekadar folder yang berantakan — ada risiko yang sedang menunggu momen paling tidak nyaman untuk muncul, entah itu audit kepabeanan, sengketa klaim asuransi, atau customer besar yang tiba-tiba minta bukti pengiriman tiga bulan ke belakang.",
+      text: "Di kebanyakan perusahaan, jawabannya jatuh di antara dua puluh menit dan tidak ketemu sama sekali. Kalau tim Anda condong ke angka kedua, persoalannya lebih besar dari sekadar folder yang berantakan. Ada risiko yang sedang menunggu momen paling tidak nyaman untuk muncul, entah itu audit kepabeanan, sengketa klaim asuransi, atau customer besar yang tiba-tiba minta bukti pengiriman tiga bulan ke belakang.",
     },
     {
       type: "h2",
@@ -40,7 +40,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ilmu pengelolaan rekaman — lahir dari praktik kearsipan lama, lalu dibakukan lewat berbagai standar mutu — punya definisi yang tegas soal kapan sebuah dokumen layak disebut rekaman. Ada beberapa sifat yang harus terpenuhi sekaligus, dan untuk kebutuhan operasional logistik, tiga di antaranya paling menentukan.",
+      text: "Ilmu pengelolaan rekaman (lahir dari praktik kearsipan lama, lalu dibakukan lewat berbagai standar mutu) punya definisi yang tegas soal kapan sebuah dokumen layak disebut rekaman. Ada beberapa sifat yang harus terpenuhi sekaligus, dan untuk kebutuhan operasional logistik, tiga di antaranya paling menentukan.",
     },
     {
       type: "ol",
@@ -52,13 +52,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sekadar menyimpan berkas tidak memenuhi satu pun dari ketiga syarat itu. Itu sebabnya folder bersama berisi puluhan ribu hasil pindaian terasa seperti arsip, padahal fungsinya lebih dekat ke gudang barang tanpa label — penuh, tapi tak ada yang tahu di rak mana benda yang dicari berada.",
+      text: "Sekadar menyimpan berkas tidak memenuhi satu pun dari ketiga syarat itu. Itu sebabnya folder bersama berisi puluhan ribu hasil pindaian terasa seperti arsip, padahal fungsinya lebih dekat ke gudang barang tanpa label: penuh, tapi tak ada yang tahu di rak mana benda yang dicari berada.",
     },
     {
       type: "callout",
       tone: "insight",
       title: "Syarat kedua baru terasa penting begitu ada yang mempermasalahkannya",
-      body: "Selagi semua berjalan normal, tidak ada yang bertanya apakah sebuah berkas pernah diubah. Pertanyaan itu muncul tepat saat ada perselisihan klaim atau pemeriksaan — momen ketika Anda paling butuh jawabannya. Berkas yang tersimpan di folder yang bisa ditimpa siapa saja tidak punya jawaban untuk itu, dan ketiadaan jawaban itu langsung melemahkan posisi Anda di meja negosiasi.",
+      body: "Selagi semua berjalan normal, tidak ada yang bertanya apakah sebuah berkas pernah diubah. Pertanyaan itu muncul tepat saat ada perselisihan klaim atau pemeriksaan. Itulah momen ketika Anda paling butuh jawabannya. Berkas yang tersimpan di folder yang bisa ditimpa siapa saja tidak punya jawaban untuk itu, dan ketiadaan jawaban itu langsung melemahkan posisi Anda di meja negosiasi.",
     },
     {
       type: "h2",
@@ -71,7 +71,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Penyebabnya struktural, bukan soal kedisiplinan. Aturan penamaan menuntut setiap orang menerapkan pemahaman yang sama persis pada setiap berkas, setiap saat, termasuk ketika sedang terburu-buru menjelang jam tutup gudang. Semakin banyak berkas dan semakin banyak orang yang menanganinya, semakin banyak pula celah untuk menyimpang, sementara kemauan mengikuti aturan tidak ikut membesar. Sampai satu titik, laju penyimpangan melampaui laju perbaikan — dan sejak titik itu, arsip tidak pernah rapi lagi.",
+      text: "Penyebabnya struktural, bukan soal kedisiplinan. Aturan penamaan menuntut setiap orang menerapkan pemahaman yang sama persis pada setiap berkas, setiap saat, termasuk ketika sedang terburu-buru menjelang jam tutup gudang. Semakin banyak berkas dan semakin banyak orang yang menanganinya, semakin banyak pula celah untuk menyimpang, sementara kemauan mengikuti aturan tidak ikut membesar. Sampai satu titik, laju penyimpangan melampaui laju perbaikan, dan sejak titik itu arsip tidak pernah rapi lagi.",
     },
     {
       type: "p",
@@ -91,7 +91,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kolom kanan pada tabel di atas tidak menuntut teknologi mahal. Bedanya cuma satu keputusan desain: dokumen dilekatkan langsung ke transaksinya sejak awal — ke job, ke customer, ke invoice tertentu — alih-alih dibiarkan berdiri sendiri di dalam hierarki folder.",
+      text: "Kolom kanan pada tabel di atas tidak menuntut teknologi mahal. Bedanya cuma satu keputusan desain: dokumen dilekatkan langsung ke transaksinya sejak awal (ke job, ke customer, ke invoice tertentu), alih-alih dibiarkan berdiri sendiri di dalam hierarki folder.",
     },
     {
       type: "h2",
@@ -100,11 +100,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Perubahannya sederhana untuk dijelaskan, tapi akibatnya besar. Sistem tidak lagi bertanya di folder mana berkas ini disimpan; ia menyimpan hubungannya langsung — berkas ini adalah bukti pengiriman untuk job 4471, diunggah oleh Rina pada 14 Mei pukul 16.20.",
+      text: "Perubahannya sederhana untuk dijelaskan, tapi akibatnya besar. Sistem tidak lagi bertanya di folder mana berkas ini disimpan; ia menyimpan hubungannya langsung: berkas ini adalah bukti pengiriman untuk job 4471, diunggah oleh Rina pada 14 Mei pukul 16.20.",
     },
     {
       type: "p",
-      text: "Begitu hubungan itu tercatat, semua pertanyaan di tabel tadi terjawab tanpa ada yang perlu menebak-nebak. Yang sering luput justru pertanyaan sebaliknya — job mana yang dokumennya belum lengkap — dan itu pun ikut terjawab. Folder biasa mustahil menjawab ini, sebab ia cuma tahu apa yang ada di dalamnya. Ia tidak pernah tahu apa yang seharusnya ada tapi belum sampai.",
+      text: "Begitu hubungan itu tercatat, semua pertanyaan di tabel tadi terjawab tanpa ada yang perlu menebak-nebak. Yang sering luput justru pertanyaan sebaliknya (job mana yang dokumennya belum lengkap), dan itu pun ikut terjawab. Folder biasa mustahil menjawab ini, sebab ia cuma tahu apa yang ada di dalamnya. Ia tidak pernah tahu apa yang seharusnya ada tapi belum sampai.",
     },
     {
       type: "quote",
@@ -117,11 +117,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dokumen impor dan ekspor — PIB dan PEB beserta lampirannya — punya sifat yang membedakannya dari dokumen operasional biasa. Ia menyangkut kewajiban ke otoritas bea cukai, punya jangka waktu penyimpanan yang diatur undang-undang, dan sewaktu-waktu bisa diminta saat pemeriksaan.",
+      text: "Dokumen impor dan ekspor (PIB dan PEB beserta lampirannya) punya sifat yang membedakannya dari dokumen operasional biasa. Ia menyangkut kewajiban ke otoritas bea cukai, punya jangka waktu penyimpanan yang diatur undang-undang, dan sewaktu-waktu bisa diminta saat pemeriksaan.",
     },
     {
       type: "p",
-      text: "Beberapa hal berikut layak dipastikan — dan sebaiknya dicek ulang bersama konsultan kepabeanan Anda, sebab ketentuannya bisa berubah dari waktu ke waktu:",
+      text: "Beberapa hal berikut layak dipastikan, dan sebaiknya dicek ulang bersama konsultan kepabeanan Anda, sebab ketentuannya bisa berubah dari waktu ke waktu:",
     },
     {
       type: "ul",
@@ -151,13 +151,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kebijakan retensi yang memadai tidak perlu rumit. Untuk setiap jenis dokumen, tentukan berapa lama ia disimpan aktif, berapa lama diarsipkan, dan apa yang terjadi setelah itu. Yang penting kebijakannya tertulis, disetujui, dan benar-benar dijalankan sehari-hari — sebab kebijakan yang cuma indah di atas kertas tapi tak pernah dieksekusi malah membuat posisi Anda lebih rapuh dibanding tidak punya kebijakan sama sekali.",
+      text: "Kebijakan retensi yang memadai tidak perlu rumit. Untuk setiap jenis dokumen, tentukan berapa lama ia disimpan aktif, berapa lama diarsipkan, dan apa yang terjadi setelah itu. Yang penting kebijakannya tertulis, disetujui, dan benar-benar dijalankan sehari-hari. Kebijakan yang cuma indah di atas kertas tapi tak pernah dieksekusi malah membuat posisi Anda lebih rapuh dibanding tidak punya kebijakan sama sekali.",
     },
     {
       type: "callout",
       tone: "example",
       title: "Cara memulai tanpa perlu sistem baru apa pun",
-      body: "Ambil sepuluh pengiriman acak dari tahun lalu. Untuk masing-masing, kumpulkan berkas lengkapnya, lalu catat berapa lama waktunya dan dokumen apa saja yang tidak ketemu. Latihan sederhana ini memberi dua hal sekaligus: gambaran nyata kondisi arsip Anda hari ini, dan daftar jenis dokumen yang paling sering hilang. Perbaikan paling berdampak hampir selalu terpusat di satu atau dua jenis dokumen tertentu — jarang merata ke semua jenis sekaligus.",
+      body: "Ambil sepuluh pengiriman acak dari tahun lalu. Untuk masing-masing, kumpulkan berkas lengkapnya, lalu catat berapa lama waktunya dan dokumen apa saja yang tidak ketemu. Latihan sederhana ini memberi dua hal sekaligus: gambaran nyata kondisi arsip Anda hari ini, dan daftar jenis dokumen yang paling sering hilang. Perbaikan paling berdampak hampir selalu terpusat di satu atau dua jenis dokumen tertentu, jarang merata ke semua jenis sekaligus.",
     },
     {
       type: "h2",

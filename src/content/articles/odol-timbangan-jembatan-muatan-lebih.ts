@@ -22,7 +22,7 @@ export const article: Article = {
   takeaways: [
     "Muatan lebih terasa untung karena ongkos truk nyaris tidak berubah sementara pendapatan naik mengikuti tonase - hitungan itu berhenti di pendapatan kotor, belum menyentuh ongkos yang muncul belakangan.",
     "Muatan 35% di atas kir bisa berarti keausan jalan tiga kali lipat, dan ongkos itu ditanggung anggaran jalan negara, sementara truk penyebabnya tidak menanggung apa pun.",
-    "Untung dari muatan lebih dikantongi hari itu juga; ongkos dari denda, bongkar paksa, atau kerusakan kendaraan probabilistik dan baru terasa belakangan - itu sebabnya kalkulasi di atas kertas nyaris selalu lebih baik dari kenyataan.",
+    "Untung dari muatan lebih dikantongi hari itu juga. Ongkos dari denda, bongkar paksa, atau kerusakan kendaraan probabilistik dan baru terasa belakangan - itu sebabnya kalkulasi di atas kertas nyaris selalu lebih baik dari kenyataan.",
     "Begitu peluang tertangkap di satu rute naik - jembatan timbang tetap, razia diperketat - true cost per rit bisa melampaui tambahan untungnya, dan muatan lebih yang tadinya menguntungkan berbalik jadi kerugian nyata.",
   ],
   blocks: [
@@ -32,7 +32,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Hitungannya sederhana. Ongkos angkut disepakati Rp350.000 per ton. Muatan resmi 20 ton berarti Rp7.000.000 per rit; muatan 27 ton berarti Rp9.450.000 - selisih Rp2.450.000 dari tujuh ton ekstra di truk, sopir, dan tangki solar yang sama persis. Perusahaan yang menolak ikut serta biasanya kalah tender karena tarifnya jadi tidak kompetitif.",
+      text: "Hitungannya sederhana. Ongkos angkut disepakati Rp350.000 per ton. Muatan resmi 20 ton berarti Rp7.000.000 per rit. Muatan 27 ton berarti Rp9.450.000 - selisih Rp2.450.000 dari tujuh ton ekstra di truk, sopir, dan tangki solar yang sama persis. Perusahaan yang menolak ikut serta biasanya kalah tender karena tarifnya jadi tidak kompetitif.",
     },
     {
       type: "p",
@@ -171,7 +171,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kebanyakan perusahaan trucking tidak punya data untuk menghitung true cost ini. Datanya sebenarnya tidak sulit dikumpulkan; masalahnya, tidak ada yang mencatatnya konsisten. Kejadian ditilang dianggap kesialan hari itu saja; kerusakan as dicatat sebagai biaya bengkel biasa, tercampur servis rutin.",
+      text: "Kebanyakan perusahaan trucking tidak punya data untuk menghitung true cost ini. Datanya sebenarnya tidak sulit dikumpulkan. Masalahnya, tidak ada yang mencatatnya konsisten. Kejadian ditilang dianggap kesialan hari itu saja. Kerusakan as dicatat sebagai biaya bengkel biasa, tercampur servis rutin.",
     },
     {
       type: "p",

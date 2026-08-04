@@ -18,12 +18,12 @@ export const article: Article = {
   category: "operasional",
   publishedAt: "2026-07-30",
   summary:
-    "Truk yang mogok di tengah jalan tol biasanya dianggap kejadian sial yang selesai begitu nota bengkel dibayar. Kenyataannya jauh lebih mahal: truk nganggur, sewa pengganti mendadak, penalti keterlambatan ke customer, dan kepercayaan yang mulai retak — semua biaya yang jarang dicatat di baris yang sama dengan nota servis. Artikel ini membedah model biaya gunung es di balik perawatan armada reaktif, dan dua indikator sederhana yang bisa mulai dipantau minggu ini tanpa sistem baru.",
+    "Truk yang mogok di tengah jalan tol biasanya dianggap kejadian sial yang selesai begitu nota bengkel dibayar. Kenyataannya jauh lebih mahal: truk nganggur, sewa pengganti mendadak, penalti keterlambatan ke customer, dan kepercayaan yang mulai retak, semua biaya yang jarang dicatat di baris yang sama dengan nota servis. Artikel ini membedah model biaya gunung es di balik perawatan armada reaktif, dan dua indikator sederhana yang bisa mulai dipantau minggu ini tanpa sistem baru.",
   takeaways: [
-    "Nota bengkel cuma mencatat puncak gunung es. Biaya sesungguhnya dari satu insiden mogok — downtime, sewa pengganti darurat, penalti SLA, margin backhaul yang hilang — biasanya tiga sampai empat kali lipat lebih besar, dan nyaris tak pernah muncul di baris yang sama.",
-    "Menunda servis karena truk “masih bisa jalan” hanya memindahkan tagihan ke waktu yang tidak bisa dipilih sendiri — dan waktu itu biasanya jatuh persis saat jadwal pengiriman paling ketat.",
-    "Preventif tidak menjamin nol insiden. Dua indikator murah — kepatuhan jadwal servis dan jarak tempuh sejak servis terakhir — sudah cukup memberi peringatan dini tanpa perlu CMMS atau TMS baru.",
-    "Kalau kepatuhan jadwal servis berada di bawah 80%, atau ada truk yang sudah lama melewati interval servisnya tanpa ditandai, armada Anda sedang bergeser mendekati wilayah reaktif — meski belum ada satu truk pun yang mogok bulan ini.",
+    "Nota bengkel cuma mencatat puncak gunung es. Biaya sesungguhnya dari satu insiden mogok (downtime, sewa pengganti darurat, penalti SLA, margin backhaul yang hilang) biasanya tiga sampai empat kali lipat lebih besar, dan nyaris tak pernah muncul di baris yang sama.",
+    "Menunda servis karena truk “masih bisa jalan” hanya memindahkan tagihan ke waktu yang tidak bisa dipilih sendiri, dan waktu itu biasanya jatuh persis saat jadwal pengiriman paling ketat.",
+    "Preventif tidak menjamin nol insiden. Dua indikator murah sudah cukup memberi peringatan dini tanpa perlu CMMS atau TMS baru: kepatuhan jadwal servis dan jarak tempuh sejak servis terakhir.",
+    "Kalau kepatuhan jadwal servis berada di bawah 80%, atau ada truk yang sudah lama melewati interval servisnya tanpa ditandai, armada Anda sedang bergeser mendekati wilayah reaktif, meski belum ada satu truk pun yang mogok bulan ini.",
   ],
   blocks: [
     {
@@ -41,11 +41,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pada awal 1930-an, insinyur asuransi H.W. Heinrich meneliti ribuan klaim kecelakaan kerja dan menemukan pola yang jadi rujukan klasik dalam manajemen risiko: biaya langsung yang tercatat — pengobatan, kompensasi — cuma sebagian kecil dari kerugian sesungguhnya, sementara biaya tidak langsung biasanya empat sampai delapan kali lebih besar dan nyaris tak pernah muncul di laporan yang sama.",
+      text: "Pada awal 1930-an, insinyur asuransi H.W. Heinrich meneliti ribuan klaim kecelakaan kerja dan menemukan pola yang jadi rujukan klasik dalam manajemen risiko: biaya langsung yang tercatat, yaitu pengobatan dan kompensasi, cuma sebagian kecil dari kerugian sesungguhnya, sementara biaya tidak langsung biasanya empat sampai delapan kali lebih besar dan nyaris tak pernah muncul di laporan yang sama.",
     },
     {
       type: "p",
-      text: "Pola yang sama berlaku di bengkel armada. Nota yang dipegang bagian keuangan malam itu berisi harga kampas kopling dan jasa montir panggilan darurat — bagian yang kelihatan, puncak gunung es yang menyembul di atas air. Bagian yang jauh lebih besar justru terendam: truk yang berhenti beroperasi, pengganti yang harus disewa mendadak, denda ke customer, dan kepercayaan yang pelan-pelan terkikis. Semua itu jarang dicatat di baris yang sama dengan nota bengkel, sehingga kerugian sesungguhnya nyaris tak pernah terlihat utuh.",
+      text: "Pola yang sama berlaku di bengkel armada. Nota yang dipegang bagian keuangan malam itu berisi harga kampas kopling dan jasa montir panggilan darurat. Itu bagian yang kelihatan, puncak gunung es yang menyembul di atas air. Bagian yang jauh lebih besar justru terendam: truk yang berhenti beroperasi, pengganti yang harus disewa mendadak, denda ke customer, dan kepercayaan yang pelan-pelan terkikis. Semua itu jarang dicatat di baris yang sama dengan nota bengkel, sehingga kerugian sesungguhnya nyaris tak pernah terlihat utuh.",
     },
     {
       type: "h2",
@@ -61,7 +61,7 @@ export const article: Article = {
       caption: "Rekonstruksi biaya insiden TR-14 di KM 102 Cipali (ilustrasi)",
       head: ["Pos biaya", "Nominal", "Ke mana ia tercatat"],
       rows: [
-        ["Kampas kopling + jasa montir panggilan darurat", "Rp 4.300.000", "Biaya bengkel — satu-satunya yang benar-benar terlihat"],
+        ["Kampas kopling + jasa montir panggilan darurat", "Rp 4.300.000", "Biaya bengkel (satu-satunya yang benar-benar terlihat)"],
         ["Towing dari KM 102 ke bengkel Cikampek", "Rp 1.500.000", "Kadang masuk nota, kadang luput sama sekali"],
         ["Sewa truk pengganti tarif darurat (dipesan H-0)", "Rp 3.800.000", "Biaya operasional lain-lain, jarang dibandingkan tarif normal"],
         ["Penalti keterlambatan pengiriman just-in-time", "Rp 2.500.000", "Potongan di invoice customer bulan berikutnya"],
@@ -70,7 +70,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Jumlahkan kelima baris itu dan angkanya tembus Rp 15.600.000 — sekitar 3,6 kali lipat dari nota bengkel yang cuma Rp 4.300.000. Rasio itu belum menghitung yang paling sulit diberi angka pasti: pabrik di Semarang sempat menahan jalur produksinya menunggu komponen, dan procurement mereka mulai membandingkan tarif dengan dua forwarder lain untuk tender kuartal berikutnya.",
+      text: "Jumlahkan kelima baris itu dan angkanya tembus Rp 15.600.000, sekitar 3,6 kali lipat dari nota bengkel yang cuma Rp 4.300.000. Rasio itu belum menghitung yang paling sulit diberi angka pasti: pabrik di Semarang sempat menahan jalur produksinya menunggu komponen, dan procurement mereka mulai membandingkan tarif dengan dua forwarder lain untuk tender kuartal berikutnya.",
     },
     {
       type: "callout",
@@ -107,15 +107,15 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Alasannya jarang soal ketidaktahuan. Kebanyakan pemilik armada tahu persis kapan servis berkala seharusnya dilakukan. Masalahnya ada di momen truk itu ditarik dari jalur pengiriman untuk diservis — truk itu sedang menghasilkan uang, dan menariknya keluar terasa seperti kehilangan pendapatan hari itu juga, padahal sebenarnya cuma dipindah beberapa jam lebih awal.",
+      text: "Alasannya jarang soal ketidaktahuan. Kebanyakan pemilik armada tahu persis kapan servis berkala seharusnya dilakukan. Masalahnya ada di momen truk itu ditarik dari jalur pengiriman untuk diservis: truk itu sedang menghasilkan uang, dan menariknya keluar terasa seperti kehilangan pendapatan hari itu juga, padahal sebenarnya cuma dipindah beberapa jam lebih awal.",
     },
     {
       type: "p",
-      text: "Tekanan arus kas memperkuat godaan itu. Servis preventif keluar dari kas sekarang untuk kerusakan yang belum tentu terjadi, sehingga menunda terasa seperti keputusan aman selama truk masih jalan. Yang tidak terlihat adalah kapan keberuntungan itu habis — dan kalau habisnya di tengah tol saat mengejar jadwal JIT, tagihannya jauh lebih besar.",
+      text: "Tekanan arus kas memperkuat godaan itu. Servis preventif keluar dari kas sekarang untuk kerusakan yang belum tentu terjadi, sehingga menunda terasa seperti keputusan aman selama truk masih jalan. Yang tidak terlihat adalah kapan keberuntungan itu habis. Kalau habisnya di tengah tol saat mengejar jadwal JIT, tagihannya jauh lebih besar.",
     },
     {
       type: "p",
-      text: "Argumen “belum rusak, kenapa diganti” keliru soal cara komponen mekanis gagal. Kampas kopling, ban, atau timing belt aus bertahap, lalu gagal total dalam rentang waktu yang sempit dan sulit ditebak tepat harinya. Menunggu sampai benar-benar rusak berarti menunggu titik itu datang di waktu dan tempat yang paling merugikan. Truk tidak pernah mogok saat menganggur di garasi — ia mogok saat membawa muatan, biasanya justru saat jadwalnya paling ketat.",
+      text: "Argumen “belum rusak, kenapa diganti” keliru soal cara komponen mekanis gagal. Kampas kopling, ban, atau timing belt aus bertahap, lalu gagal total dalam rentang waktu yang sempit dan sulit ditebak tepat harinya. Menunggu sampai benar-benar rusak berarti menunggu titik itu datang di waktu dan tempat yang paling merugikan. Truk tidak pernah mogok saat menganggur di garasi. Ia mogok saat membawa muatan, biasanya justru saat jadwalnya paling ketat.",
     },
     {
       type: "quote",
@@ -138,7 +138,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Ilustrasi perbandingan setahun, satu truk",
-      body: "Anggap TR-14 menempuh rata-rata 120.000 km per tahun. Program servis preventif — oli, filter, kampas rem dan kopling diganti sesuai jadwal pabrikan — menghabiskan sekitar Rp 18.000.000 setahun, tersebar di beberapa kunjungan bengkel di luar jam sibuk. Kalau truk yang sama dibiarkan reaktif dan mengalami dua insiden serupa kejadian Cipali dalam setahun, kerugiannya sekitar Rp 31.200.000 — 73% lebih mahal, belum termasuk risiko kerusakan lebih parah kalau keausan merembet ke komponen lain.",
+      body: "Anggap TR-14 menempuh rata-rata 120.000 km per tahun. Program servis preventif (oli, filter, kampas rem dan kopling diganti sesuai jadwal pabrikan) menghabiskan sekitar Rp 18.000.000 setahun, tersebar di beberapa kunjungan bengkel di luar jam sibuk. Kalau truk yang sama dibiarkan reaktif dan mengalami dua insiden serupa kejadian Cipali dalam setahun, kerugiannya sekitar Rp 31.200.000, atau 73% lebih mahal, belum termasuk risiko kerusakan lebih parah kalau keausan merembet ke komponen lain.",
     },
     {
       type: "p",
@@ -167,14 +167,14 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "**Jarak tempuh sejak servis terakhir** dicatat per truk, sebagai selisih antara odometer hari ini dan odometer saat servis terakhir dilakukan. Truk yang sudah melewati interval servis ditambah buffer tertentu — katakanlah jadwal 10.000 km plus toleransi 1.500 km — pantas ditandai merah dan diprioritaskan minggu itu juga, terlepas seberapa baik kondisinya terlihat dari luar.",
+      text: "**Jarak tempuh sejak servis terakhir** dicatat per truk, sebagai selisih antara odometer hari ini dan odometer saat servis terakhir dilakukan. Truk yang sudah melewati interval servis ditambah buffer tertentu (katakanlah jadwal 10.000 km plus toleransi 1.500 km) pantas ditandai merah dan diprioritaskan minggu itu juga, terlepas seberapa baik kondisinya terlihat dari luar.",
     },
     {
       type: "ul",
       items: [
-        "**Hijau** — sisa jarak ke servis berikutnya masih di atas 1.000 km. Belum perlu tindakan apa pun.",
-        "**Kuning** — sisa jarak di bawah 1.000 km, atau sudah lewat dari tanggal jadwal servis. Masuk antrean bengkel minggu ini.",
-        "**Merah** — sudah melewati interval servis ditambah buffer toleransi. Prioritas utama; idealnya truk ditarik dari rute sebelum berangkat lagi.",
+        "**Hijau**: sisa jarak ke servis berikutnya masih di atas 1.000 km. Belum perlu tindakan apa pun.",
+        "**Kuning**: sisa jarak di bawah 1.000 km, atau sudah lewat dari tanggal jadwal servis. Masuk antrean bengkel minggu ini.",
+        "**Merah**: sudah melewati interval servis ditambah buffer toleransi. Prioritas utama; idealnya truk ditarik dari rute sebelum berangkat lagi.",
       ],
     },
     {
@@ -188,7 +188,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sumber datanya juga tidak rumit: sopir memfoto odometer tiap kali truk kembali ke pool dan mengirimkannya lewat WhatsApp, lalu satu orang memasukkan angkanya ke spreadsheet tiap pagi. Yang dibutuhkan cuma disiplin, bukan aplikasi mahal. GPS tracking otomatis mempercepat proses ini nanti, tapi itu penyempurnaan, bukan syarat mulai — armada lima truk maupun lima puluh truk bisa mulai dari spreadsheet yang sama, sebelum naik ke sistem lebih canggih.",
+      text: "Sumber datanya juga tidak rumit: sopir memfoto odometer tiap kali truk kembali ke pool dan mengirimkannya lewat WhatsApp, lalu satu orang memasukkan angkanya ke spreadsheet tiap pagi. Yang dibutuhkan cuma disiplin, bukan aplikasi mahal. GPS tracking otomatis mempercepat proses ini nanti, tapi itu penyempurnaan, bukan syarat mulai. Armada lima truk maupun lima puluh truk bisa mulai dari spreadsheet yang sama, sebelum naik ke sistem lebih canggih.",
     },
     {
       type: "h2",
@@ -201,17 +201,17 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Target yang realistis adalah menggeser proporsi itu konsisten dari bulan ke bulan — kepatuhan jadwal servis naik, jarak tempuh sejak servis terakhir turun rata-rata di seluruh armada — sambil menerima bahwa sesekali kejadian seperti di KM 102 Cipali masih mungkin terjadi. Bedanya, kalau itu terjadi sekali setahun alih-alih setiap bulan, ongkosnya jauh lebih kecil dan jauh lebih bisa diprediksi.",
+      text: "Target yang realistis adalah menggeser proporsi itu konsisten dari bulan ke bulan: kepatuhan jadwal servis naik, jarak tempuh sejak servis terakhir turun rata-rata di seluruh armada, sambil menerima bahwa sesekali kejadian seperti di KM 102 Cipali masih mungkin terjadi. Bedanya, kalau itu terjadi sekali setahun alih-alih setiap bulan, ongkosnya jauh lebih kecil dan jauh lebih bisa diprediksi.",
     },
   ],
   faq: [
     {
       q: "Berapa persen penghematan realistis dari perawatan preventif dibanding reaktif?",
-      a: "Bervariasi, tapi dari pola yang biasa muncul, ongkos sebuah insiden mogok — downtime, sewa pengganti, penalti SLA — sering tembus tiga sampai empat kali lipat biaya bengkelnya sendiri. Program preventif yang konsisten biasanya membuat biaya perawatan tahunan per truk lebih rendah 30-50% dibanding armada yang dibiarkan reaktif.",
+      a: "Bervariasi, tapi dari pola yang biasa muncul, ongkos sebuah insiden mogok, yaitu downtime, sewa pengganti, dan penalti SLA, sering tembus tiga sampai empat kali lipat biaya bengkelnya sendiri. Program preventif yang konsisten biasanya membuat biaya perawatan tahunan per truk lebih rendah 30-50% dibanding armada yang dibiarkan reaktif.",
     },
     {
       q: "Preventif berarti mengganti komponen padahal belum rusak. Bukankah itu pemborosan?",
-      a: "Tidak, kalau jadwalnya disusun dari data pemakaian aktual — km tempuh, jam operasi, rekomendasi pabrikan — bukan sekadar tebakan. Komponen yang diganti sedikit lebih awal dari batas ausnya tetap lebih murah daripada yang dibiarkan sampai gagal total dan merusak bagian lain. Pemborosan sesungguhnya terjadi saat servis ditunda berulang kali sampai kerusakan merembet.",
+      a: "Tidak, kalau jadwalnya disusun dari data pemakaian aktual, seperti km tempuh, jam operasi, dan rekomendasi pabrikan, bukan sekadar tebakan. Komponen yang diganti sedikit lebih awal dari batas ausnya tetap lebih murah daripada yang dibiarkan sampai gagal total dan merusak bagian lain. Pemborosan sesungguhnya terjadi saat servis ditunda berulang kali sampai kerusakan merembet.",
     },
     {
       q: "Bagaimana kalau sebagian armada kami sewa dari vendor, bukan milik sendiri?",
@@ -219,7 +219,7 @@ export const article: Article = {
     },
     {
       q: "Apakah butuh software CMMS atau TMS khusus untuk mulai program ini?",
-      a: "Tidak untuk tahap awal. Spreadsheet dengan kolom odometer, tanggal servis terakhir, dan status warna sudah cukup, selama ada satu orang yang rutin memutakhirkannya. Sistem yang lebih canggih — GPS tracking otomatis, atau modul maintenance di TMS — baru sepadan investasinya setelah pencatatan manual terbukti jalan dan armada bertambah besar.",
+      a: "Tidak untuk tahap awal. Spreadsheet dengan kolom odometer, tanggal servis terakhir, dan status warna sudah cukup, selama ada satu orang yang rutin memutakhirkannya. Sistem yang lebih canggih semacam GPS tracking otomatis atau modul maintenance di TMS baru sepadan investasinya setelah pencatatan manual terbukti jalan dan armada bertambah besar.",
     },
   ],
   related: ["odol-timbangan-jembatan-muatan-lebih", "tracking-multimoda-indonesia", "kpi-operasional-logistik"],

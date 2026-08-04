@@ -19,7 +19,7 @@ export const article: Article = {
   summary:
     "Kebanyakan gudang 3PL hanya mencatat stok secara total: berapa unit milik customer A, berapa milik customer B. Cukup untuk laporan bulanan, tapi tidak cukup untuk menjalankan operasional harian. Selisihnya baru terasa nyata begitu volume naik, atau begitu customer tiba-tiba minta rincian tagihan penyimpanan yang bisa dipertanggungjawabkan.",
   takeaways: [
-    "Stok agregat menjawab 'berapa banyak'; ledger level bin menjawab 'ada di mana'. Hanya jawaban kedua yang bisa dipakai untuk benar-benar menjalankan gudang.",
+    "Stok agregat menjawab 'berapa banyak'. Ledger level bin menjawab 'ada di mana'. Hanya jawaban kedua yang bisa dipakai untuk benar-benar menjalankan gudang.",
     "Tanpa data lokasi, kecepatan picking bergantung pada hafalan staf tertentu, artinya bergantung pada orang, bukan pada sistem.",
     "Storage billing yang adil nyaris mustahil dihitung tanpa data ruang dan durasi penyimpanan per unit.",
     "Stok opname penuh yang sampai menghentikan operasional adalah tanda ada masalah mendasar yang belum dibereskan, sesuatu yang idealnya bisa dihindari kalau prosesnya berjalan benar.",
@@ -44,7 +44,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Statistik dasar menjelaskan alasan kedua. Memeriksa seluruh stok sekaligus selalu bisa dilakukan, tapi mahal dan menyita hari kerja. Memeriksa sebagian secara berkala, biasa disebut cycle count, memberi keyakinan yang hampir setara dengan biaya yang jauh lebih kecil, asalkan jelas bagian mana yang sudah diperiksa dan mana yang belum. Cycle count hanya bisa berjalan kalau gudang punya lokasi yang membagi ruang jadi zona-zona bertanda, karena zona itulah yang membatasi apa yang perlu dihitung hari itu. Stok opname penuh menghitung seluruh populasi; cycle count mengambil sampel yang terjadwal.",
+      text: "Statistik dasar menjelaskan alasan kedua. Memeriksa seluruh stok sekaligus selalu bisa dilakukan, tapi mahal dan menyita hari kerja. Memeriksa sebagian secara berkala, biasa disebut cycle count, memberi keyakinan yang hampir setara dengan biaya yang jauh lebih kecil, asalkan jelas bagian mana yang sudah diperiksa dan mana yang belum. Cycle count hanya bisa berjalan kalau gudang punya lokasi yang membagi ruang jadi zona-zona bertanda, karena zona itulah yang membatasi apa yang perlu dihitung hari itu. Stok opname penuh menghitung seluruh populasi. Cycle count mengambil sampel yang terjadwal.",
     },
     {
       type: "h2",
@@ -147,7 +147,7 @@ export const article: Article = {
       items: [
         "**Beri nama semua lokasi secara fisik lebih dulu**, sebelum menyentuh software apa pun. Pasang label besar yang terbaca dari jarak beberapa meter dengan pola yang bisa ditebak: lorong, bay, level. Pekerjaan ini cuma butuh beberapa hari, tapi menentukan segalanya di langkah-langkah berikutnya.",
         "**Petakan stok yang sudah ada.** Melelahkan, tapi kalau dilewati, data akan salah sejak hari pertama.",
-        "**Wajibkan pemindaian di proses inbound lebih dulu.** Kuasai satu proses sampai benar-benar lancar sebelum menambah proses lain. Inbound dipilih lebih dulu karena di situlah data lokasi lahir; kesalahan di titik ini menular ke semua proses sesudahnya.",
+        "**Wajibkan pemindaian di proses inbound lebih dulu.** Kuasai satu proses sampai benar-benar lancar sebelum menambah proses lain. Inbound dipilih lebih dulu karena di situlah data lokasi lahir. Kesalahan di titik ini menular ke semua proses sesudahnya.",
         "**Baru lanjutkan ke picking**, setelah data lokasi benar-benar bisa dipercaya. Daftar picking dengan lokasi yang salah justru lebih berbahaya daripada tidak ada daftar sama sekali.",
         "**Terakhir, baru aktifkan storage billing otomatis.** Bagian ini paling bernilai secara komersial, tapi cuma bisa diandalkan kalau tiga langkah sebelumnya sudah berjalan konsisten.",
       ],
@@ -175,7 +175,7 @@ export const article: Article = {
   faq: [
     {
       q: "Apakah barcode cukup, atau perlu RFID?",
-      a: "Untuk mayoritas gudang 3PL di Indonesia, barcode atau QR code saja sudah lebih dari cukup dan jauh lebih murah. RFID baru masuk akal untuk kondisi tertentu: pemeriksaan massal tanpa perlu garis pandang langsung, aset bernilai sangat tinggi, atau permintaan spesifik dari customer. Mulai dari barcode dulu; kalau memang kurang, kebutuhannya akan terlihat jelas dengan sendirinya.",
+      a: "Untuk mayoritas gudang 3PL di Indonesia, barcode atau QR code saja sudah lebih dari cukup dan jauh lebih murah. RFID baru masuk akal untuk kondisi tertentu: pemeriksaan massal tanpa perlu garis pandang langsung, aset bernilai sangat tinggi, atau permintaan spesifik dari customer. Mulai dari barcode dulu. Kalau memang kurang, kebutuhannya akan terlihat jelas dengan sendirinya.",
     },
     {
       q: "Bagaimana menangani gudang yang barangnya ditumpuk di lantai, bukan di rak?",

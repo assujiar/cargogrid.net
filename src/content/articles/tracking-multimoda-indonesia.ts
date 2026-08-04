@@ -19,7 +19,7 @@ export const article: Article = {
   summary:
     "Kata \"real-time tracking\" punya arti yang jauh berbeda untuk truk, kapal, dan gudang. Menyatukan ketiganya tanpa memahami perbedaan itu cuma melahirkan dashboard yang kelihatan komplet di layar, padahal menyesatkan setiap orang yang membacanya.",
   takeaways: [
-    "Truk memperbarui posisi dalam hitungan menit, kapal dalam hitungan jam sampai hari, gudang cuma per kejadian — tiga moda, tiga kecepatan data yang jauh berbeda.",
+    "Truk memperbarui posisi dalam hitungan menit, kapal dalam hitungan jam sampai hari, gudang cuma per kejadian. Tiga moda, tiga kecepatan data yang jauh berbeda.",
     "Menampilkan ketiganya dengan gaya seragam membuat data yang sudah basi kelihatan sama segarnya dengan data yang baru saja masuk, padahal jaraknya bisa berhari-hari.",
     "Customer hampir selalu mencari perkiraan waktu tiba, jauh lebih dari sekadar titik koordinat di peta.",
     "Cukup tempelkan umur data di sebelah setiap status. Perubahan sekecil itu yang paling efektif memangkas salah paham.",
@@ -44,7 +44,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dari sini dua hal jadi masuk akal. Pertama, kenapa menaikkan interval GPS dari lima menit ke satu menit nyaris tidak mengubah apa pun secara praktis — keputusan customer memang bergerak dalam hitungan jam, jauh lebih lambat dari itu. Kedua, kenapa menambahkan satu keterangan kecil, umur data di sebelah setiap status, memberi manfaat yang jauh lebih besar daripada membangun integrasi baru yang mahal. Tanpa keterangan umur itu, siapa pun yang membaca status tidak punya cara menilai apakah angka di layar masih relevan untuk keputusan yang sedang mereka ambil saat itu juga.",
+      text: "Dari sini dua hal jadi masuk akal. Pertama, kenapa menaikkan interval GPS dari lima menit ke satu menit nyaris tidak mengubah apa pun secara praktis. Keputusan customer memang bergerak dalam hitungan jam, jauh lebih lambat dari itu. Kedua, kenapa menambahkan satu keterangan kecil, umur data di sebelah setiap status, memberi manfaat yang jauh lebih besar daripada membangun integrasi baru yang mahal. Tanpa keterangan umur itu, siapa pun yang membaca status tidak punya cara menilai apakah angka di layar masih relevan untuk keputusan yang sedang mereka ambil saat itu juga.",
     },
     {
       type: "h2",
@@ -59,13 +59,13 @@ export const article: Article = {
         ["Sumber", "GPS di perangkat driver atau kendaraan", "Update dari pelayaran & terminal", "Pemindaian di setiap titik proses"],
         ["Frekuensi", "Hitungan menit", "Hitungan jam sampai hari", "Per peristiwa, waktunya tidak menentu"],
         ["Bentuk data", "Koordinat yang mengalir terus-menerus", "Milestone yang terpisah-pisah", "Status per unit atau lokasi"],
-        ["Kalau tidak ada sinyal", "Titik di peta berhenti bergerak", "Tidak berpengaruh — memang bukan data langsung", "Pemindaian tertunda sampai kembali online"],
+        ["Kalau tidak ada sinyal", "Titik di peta berhenti bergerak", "Tidak berpengaruh (memang bukan data langsung)", "Pemindaian tertunda sampai kembali online"],
         ["Yang bisa dijanjikan", "Posisi terkini", "Milestone terakhir yang diketahui", "Status terakhir yang tercatat"],
       ],
     },
     {
       type: "p",
-      text: "Lihat baris paling bawah tabel itu. Hanya trucking darat yang sanggup menjawab pertanyaan \"barang saya sekarang ada di mana\". Untuk kargo laut, jawaban paling jujur yang bisa diberikan adalah \"terakhir tercatat berangkat dari Singapura tiga hari lalu\" — jawaban itu jujur karena memang cuma itu yang tersedia, kualitas sistemnya tidak ada hubungannya.",
+      text: "Lihat baris paling bawah tabel itu. Hanya trucking darat yang sanggup menjawab pertanyaan \"barang saya sekarang ada di mana\". Untuk kargo laut, jawaban paling jujur yang bisa diberikan adalah \"terakhir tercatat berangkat dari Singapura tiga hari lalu\". Jawaban itu jujur karena memang cuma itu yang tersedia, kualitas sistemnya tidak ada hubungannya.",
     },
     {
       type: "h2",
@@ -78,13 +78,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Status truk yang diperbarui dua menit lalu dan status kapal yang diperbarui dua hari lalu bisa saja muncul dengan lencana hijau yang persis sama. Siapa pun yang melihatnya akan menyimpulkan keduanya sama-sama terkini, lalu mengambil keputusan — entah mengabari customer atau menjadwalkan tim bongkar — berdasarkan informasi yang usianya sebenarnya tidak pernah ia ketahui.",
+      text: "Status truk yang diperbarui dua menit lalu dan status kapal yang diperbarui dua hari lalu bisa saja muncul dengan lencana hijau yang persis sama. Siapa pun yang melihatnya akan menyimpulkan keduanya sama-sama terkini, lalu mengambil keputusan (entah mengabari customer atau menjadwalkan tim bongkar) berdasarkan informasi yang usianya sebenarnya tidak pernah ia ketahui.",
     },
     {
       type: "callout",
       tone: "insight",
       title: "Detail kecil yang mengurangi paling banyak kesalahpahaman",
-      body: "Tempelkan umur data di sebelah setiap status: \"Dalam perjalanan · diperbarui 4 menit lalu\" dibanding \"Dalam pelayaran · diperbarui 2 hari lalu\". Satu frasa kecil ini saja sanggup menghapus sebagian besar salah paham, dan tidak butuh satu integrasi baru pun — datanya sudah ada di sistem Anda sekarang, cuma belum pernah ditampilkan ke pengguna.",
+      body: "Tempelkan umur data di sebelah setiap status: \"Dalam perjalanan · diperbarui 4 menit lalu\" dibanding \"Dalam pelayaran · diperbarui 2 hari lalu\". Satu frasa kecil ini saja sanggup menghapus sebagian besar salah paham, dan tidak butuh satu integrasi baru pun: datanya sudah ada di sistem Anda sekarang, cuma belum pernah ditampilkan ke pengguna.",
     },
     {
       type: "h2",
@@ -101,7 +101,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Itu sebabnya investasi ke GPS yang lebih rapat sering berujung kecewa — hasilnya jauh di bawah ekspektasi. Menaikkan frekuensi dari lima menit ke satu menit tidak mengubah satu pun keputusan customer, sementara perkiraan tiba yang bisa dipercaya mengubah hampir semuanya.",
+      text: "Itu sebabnya investasi ke GPS yang lebih rapat sering berujung kecewa: hasilnya jauh di bawah ekspektasi. Menaikkan frekuensi dari lima menit ke satu menit tidak mengubah satu pun keputusan customer, sementara perkiraan tiba yang bisa dipercaya mengubah hampir semuanya.",
     },
     {
       type: "h2",
@@ -133,7 +133,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Mayoritas shipment Anda melewati tangan pihak ketiga — pelayaran, agen di kota tujuan, subkontraktor trucking. Masing-masing punya sistem sendiri, kalau punya sistem sama sekali.",
+      text: "Mayoritas shipment Anda melewati tangan pihak ketiga: pelayaran, agen di kota tujuan, subkontraktor trucking. Masing-masing punya sistem sendiri, kalau punya sistem sama sekali.",
     },
     {
       type: "p",
@@ -147,7 +147,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pendekatan yang lebih realistis: beri tanda jelas pada shipment yang statusnya bersumber dari laporan manual, lalu sepakati ritme pelaporan bersama subkontraktor — dua kali sehari lewat pesan singkat yang diteruskan admin ke sistem, misalnya. Data manual dengan ritme yang konsisten jauh lebih berguna daripada data otomatis yang cakupannya bolong di sana-sini.",
+      text: "Pendekatan yang lebih realistis: beri tanda jelas pada shipment yang statusnya bersumber dari laporan manual, lalu sepakati ritme pelaporan bersama subkontraktor, dua kali sehari lewat pesan singkat yang diteruskan admin ke sistem, misalnya. Data manual dengan ritme yang konsisten jauh lebih berguna daripada data otomatis yang cakupannya bolong di sana-sini.",
     },
     {
       type: "h2",
@@ -160,7 +160,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sampaikan rentang waktu, bukan satu angka pasti yang gampang meleset. \"Tiba Kamis sampai Jumat\" jauh lebih berguna daripada \"tiba Kamis pukul 14.00\" yang berakhir mundur. Begitu ada perubahan, kabari lebih dulu sebelum customer sempat bertanya sendiri — perkiraan yang direvisi lebih awal jauh lebih gampang diterima daripada perkiraan yang dipertahankan mati-matian sampai jelas-jelas meleset.",
+      text: "Sampaikan rentang waktu, bukan satu angka pasti yang gampang meleset. \"Tiba Kamis sampai Jumat\" jauh lebih berguna daripada \"tiba Kamis pukul 14.00\" yang berakhir mundur. Begitu ada perubahan, kabari lebih dulu sebelum customer sempat bertanya sendiri. Perkiraan yang direvisi lebih awal jauh lebih gampang diterima daripada perkiraan yang dipertahankan mati-matian sampai jelas-jelas meleset.",
     },
     {
       type: "quote",

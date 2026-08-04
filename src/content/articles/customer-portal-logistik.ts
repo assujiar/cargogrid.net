@@ -44,13 +44,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Terapkan pada tim customer service Anda sendiri. Empat puluh pertanyaan status masuk per hari, masing-masing makan waktu rata-rata delapan menit untuk dicari lalu dijawab — jumlahnya lebih dari lima jam kerja per hari, sekitar dua pertiga waktu satu orang penuh, habis hanya untuk memindahkan informasi yang sebenarnya sudah tersedia.",
+      text: "Terapkan pada tim customer service Anda sendiri. Empat puluh pertanyaan status masuk per hari, masing-masing makan waktu rata-rata delapan menit untuk dicari lalu dijawab. Jumlahnya lebih dari lima jam kerja per hari, sekitar dua pertiga waktu satu orang penuh, habis hanya untuk memindahkan informasi yang sebenarnya sudah tersedia.",
     },
     {
       type: "callout",
       tone: "insight",
       title: "Dua jalan menurunkan beban, dan hanya satu yang tahan lama",
-      body: "Hukum Little menunjukkan L cuma bisa turun lewat dua jalan: menurunkan λ atau menurunkan W. Menambah orang atau mempercepat pencarian data akan menurunkan W — hasilnya terasa, tapi terbatas, dan biayanya ikut naik seiring volume bertambah. Portal menyerang λ langsung di sumbernya, sehingga pertanyaannya tidak pernah masuk sama sekali. Itu sebabnya efeknya terasa tidak sebanding dengan usaha yang dikeluarkan, dan kenapa ia tetap bekerja walau volume pengiriman terus tumbuh.",
+      body: "Hukum Little menunjukkan L cuma bisa turun lewat dua jalan: menurunkan λ atau menurunkan W. Menambah orang atau mempercepat pencarian data akan menurunkan W. Hasilnya terasa, tapi terbatas, dan biayanya ikut naik seiring volume bertambah. Portal menyerang λ langsung di sumbernya, sehingga pertanyaannya tidak pernah masuk sama sekali. Itu sebabnya efeknya terasa tidak sebanding dengan usaha yang dikeluarkan, dan kenapa ia tetap bekerja walau volume pengiriman terus tumbuh.",
     },
     {
       type: "h2",
@@ -73,7 +73,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "**Ketidaktahuan memperbesar persepsi buruk.** Customer yang tidak tahu di mana barangnya akan mengisi kekosongan itu dengan dugaannya sendiri, dan dugaan manusia dalam ketidakpastian cenderung condong ke arah negatif. Pengiriman yang berjalan normal bisa terlihat bermasalah semata karena tidak ada kabar.",
-        "**Janji berlebihan menaikkan harapan, sehingga ikut melebarkan selisihnya.** Portal yang menjanjikan 'pelacakan real-time' untuk pengiriman laut sebenarnya menaikkan harapan ke titik yang datanya sendiri tidak sanggup penuhi. Begitu kenyataan tidak menyamai janji itu, customer kecewa — padahal performanya sendiri tidak berubah; yang berubah adalah harapan yang sudah kadung dinaikkan.",
+        "**Janji berlebihan menaikkan harapan, sehingga ikut melebarkan selisihnya.** Portal yang menjanjikan 'pelacakan real-time' untuk pengiriman laut sebenarnya menaikkan harapan ke titik yang datanya sendiri tidak sanggup penuhi. Begitu kenyataan tidak menyamai janji itu, customer kecewa, padahal performanya sendiri tidak berubah; yang berubah adalah harapan yang sudah kadung dinaikkan.",
       ],
     },
     {
@@ -93,7 +93,7 @@ export const article: Article = {
       type: "ol",
       items: [
         "**Status pengiriman yang sedang berjalan, lengkap dengan waktu pembaruan terakhir.** Ini menjawab mayoritas pertanyaan yang masuk. Cantumkan umur datanya, karena tanpa itu customer tidak bisa menilai apakah informasi yang mereka lihat masih relevan atau sudah basi.",
-        "**Dokumen yang bisa diunduh sendiri.** POD, surat jalan, invoice — ini kelompok pertanyaan terbesar kedua, dan paling menyita waktu kalau harus dilayani manual satu per satu.",
+        "**Dokumen yang bisa diunduh sendiri.** POD, surat jalan, invoice: ini kelompok pertanyaan terbesar kedua, dan paling menyita waktu kalau harus dilayani manual satu per satu.",
         "**Riwayat pengiriman yang bisa dicari.** Sering dibutuhkan saat customer menyusun laporan internal atau menghadapi audit. Tanpa fitur ini, permintaannya datang dalam bentuk 'tolong kirimkan rekap tiga bulan', yang bisa menghabiskan waktu berjam-jam untuk disusun manual.",
         "**Status penagihan.** Invoice mana yang sudah terbit, mana yang sudah dibayar. Fitur ini mengurangi bolak-balik antara tim finance kedua belah pihak.",
         "**Formulir permintaan pengiriman baru.** Fitur ini baru terasa berguna setelah keempat hal di atas berjalan; ditaruh di urutan pertama, portal malah terasa seperti tugas tambahan buat customer, jauh dari niat awal untuk memudahkan mereka.",
@@ -106,7 +106,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau portal menampilkan status yang sebenarnya sudah tidak diperbarui sejak tiga hari lalu, tanpa keterangan apa pun, customer akan menyimpulkan salah satu dari dua hal: barangnya tersangkut di suatu tempat, atau sistem Anda memang tidak bisa dipercaya. Keduanya sama-sama buruk, dan keduanya berujung pada telepon masuk — persis hal yang tadinya ingin dihindari.",
+      text: "Kalau portal menampilkan status yang sebenarnya sudah tidak diperbarui sejak tiga hari lalu, tanpa keterangan apa pun, customer akan menyimpulkan salah satu dari dua hal: barangnya tersangkut di suatu tempat, atau sistem Anda memang tidak bisa dipercaya. Keduanya sama-sama buruk, dan keduanya berujung pada telepon masuk, persis hal yang tadinya ingin dihindari.",
     },
     {
       type: "p",
@@ -131,14 +131,14 @@ export const article: Article = {
       type: "ul",
       items: [
         "Setiap customer hanya boleh melihat pengirimannya sendiri; pembatasan ini wajib ditegakkan di sisi server, sebab penyaringan yang cuma dilakukan di tampilan gampang ditembus.",
-        "Customer tidak boleh sampai melihat tarif beli Anda dari vendor — yang mereka lihat hanya harga jual yang berlaku untuk mereka.",
+        "Customer tidak boleh sampai melihat tarif beli Anda dari vendor. Yang mereka lihat hanya harga jual yang berlaku untuk mereka.",
         "Pengguna di sisi customer sering berganti orang, jadi harus ada cara menonaktifkan akses tanpa perlu menghubungi Anda, atau setidaknya ada proses yang jelas untuk itu.",
         "Data pengiriman memuat informasi komersial yang sensitif bagi customer Anda, sehingga kebocoran ke customer lain jadi kegagalan yang sulit dipulihkan hubungannya.",
       ],
     },
     {
       type: "p",
-      text: "Poin pertama ini layak diperiksa khusus saat mengevaluasi vendor. Sistem yang menyaring data di sisi tampilan tapi tetap mengirim seluruh data ke browser tidak benar-benar membatasi akses — ia cuma menyembunyikannya, dan penyembunyian seperti itu bisa dilewati siapa saja yang tahu caranya.",
+      text: "Poin pertama ini layak diperiksa khusus saat mengevaluasi vendor. Sistem yang menyaring data di sisi tampilan tapi tetap mengirim seluruh data ke browser tidak benar-benar membatasi akses. Ia cuma menyembunyikannya, dan penyembunyian seperti itu bisa dilewati siapa saja yang tahu caranya.",
     },
     {
       type: "h2",
@@ -147,7 +147,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ukuran yang sering dipakai — jumlah pengguna aktif, jumlah login — sebenarnya tidak mengukur apa pun yang Anda inginkan. Portal yang sukses justru bisa menghasilkan sedikit login, kalau informasinya sudah cukup jelas sehingga customer tidak perlu bolak-balik memeriksa.",
+      text: "Ukuran yang sering dipakai (jumlah pengguna aktif, jumlah login) sebenarnya tidak mengukur apa pun yang Anda inginkan. Portal yang sukses justru bisa menghasilkan sedikit login, kalau informasinya sudah cukup jelas sehingga customer tidak perlu bolak-balik memeriksa.",
     },
     {
       type: "p",
@@ -166,7 +166,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ambil garis dasarnya dulu sebelum portal diluncurkan: hitung berapa pertanyaan status yang masuk selama dua minggu. Tanpa angka itu, Anda tidak akan bisa membuktikan apa-apa setelahnya, dan portal akhirnya dinilai dari kesan saja — kesan yang selalu kalah oleh keluhan segelintir orang paling vokal.",
+      text: "Ambil garis dasarnya dulu sebelum portal diluncurkan: hitung berapa pertanyaan status yang masuk selama dua minggu. Tanpa angka itu, Anda tidak akan bisa membuktikan apa-apa setelahnya, dan portal akhirnya dinilai dari kesan saja, kesan yang selalu kalah oleh keluhan segelintir orang paling vokal.",
     },
   ],
   faq: [
@@ -180,7 +180,7 @@ export const article: Article = {
     },
     {
       q: "Perlukah portal punya aplikasi mobile?",
-      a: "Jarang perlu. Halaman web yang responsif biasanya sudah lebih dari cukup, dan tidak menuntut customer memasang apa pun — hambatan pemasangan itu biaya nyata yang menurunkan adopsi. Aplikasi khusus baru masuk akal kalau memang ada kebutuhan notifikasi dorong yang betul-betul dipakai.",
+      a: "Jarang perlu. Halaman web yang responsif biasanya sudah lebih dari cukup, dan tidak menuntut customer memasang apa pun. Hambatan pemasangan itu biaya nyata yang menurunkan adopsi. Aplikasi khusus baru masuk akal kalau memang ada kebutuhan notifikasi dorong yang betul-betul dipakai.",
     },
     {
       q: "Apakah portal bisa menggantikan laporan bulanan?",

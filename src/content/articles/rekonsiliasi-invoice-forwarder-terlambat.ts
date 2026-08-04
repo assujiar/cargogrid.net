@@ -20,7 +20,7 @@ export const article: Article = {
     "Termin 30 hari yang molor jadi 60 jarang benar-benar salah customer. Yang lebih sering terjadi, ada 20 sampai 30 hari yang sudah habis sebelum invoice-nya sempat terbit, dan periode itu tidak pernah muncul di laporan umur piutang mana pun karena secara teknis piutangnya memang belum ada.",
   takeaways: [
     "Laporan umur piutang menghitung usia piutang sejak tanggal invoice terbit, sehingga seluruh keterlambatan yang terjadi sebelum invoice itu keluar otomatis tidak pernah tercatat.",
-    "Untuk tahu angka yang sebenarnya, hitung juga cash cycle dari tanggal job selesai sampai uang masuk — jangan cuma mengandalkan DSO standar yang mulai menghitung dari tanggal invoice.",
+    "Untuk tahu angka yang sebenarnya, hitung juga cash cycle dari tanggal job selesai sampai uang masuk. Jangan cuma mengandalkan DSO standar yang mulai menghitung dari tanggal invoice.",
     "Penyebab terbesarnya biasanya ada di luar tim Anda sendiri: biaya vendor (trucking, gudang, agen) yang tagihannya baru masuk belakangan dan menahan seluruh invoice final.",
     "Menagih komponen yang sudah pasti lebih awal, lalu menyusulkan sisanya, hampir selalu lebih menguntungkan daripada menahan semuanya sampai satu invoice lengkap siap terbit.",
   ],
@@ -37,7 +37,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Ukur siklus kas dari tanggal job selesai",
-      body: "Ambil 50 job terakhir yang sudah lunas, lalu hitung selisih hari antara tanggal job selesai dan tanggal uang benar-benar masuk rekening untuk masing-masing job. Rata-ratanya adalah siklus kas Anda yang sesungguhnya. Bandingkan dengan termin yang tertulis di kontrak — selisih di antara keduanya itulah pekerjaan rumah yang selama ini luput dari pengukuran.",
+      body: "Ambil 50 job terakhir yang sudah lunas, lalu hitung selisih hari antara tanggal job selesai dan tanggal uang benar-benar masuk rekening untuk masing-masing job. Rata-ratanya adalah siklus kas Anda yang sesungguhnya. Bandingkan dengan termin yang tertulis di kontrak. Selisih di antara keduanya itulah pekerjaan rumah yang selama ini luput dari pengukuran.",
     },
     {
       type: "h2",
@@ -67,7 +67,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Yang membuat ini rumit, dari sudut pandang operasional job itu sudah selesai. Barang sudah sampai, customer puas, tim sudah pindah mengerjakan job berikutnya. Tidak ada yang merasa masih ada pekerjaan menggantung — padahal di baliknya ada satu invoice yang menganggur, menunggu satu angka terakhir yang belum masuk.",
+      text: "Yang membuat ini rumit, dari sudut pandang operasional job itu sudah selesai. Barang sudah sampai, customer puas, tim sudah pindah mengerjakan job berikutnya. Tidak ada yang merasa masih ada pekerjaan menggantung, padahal di baliknya ada satu invoice yang menganggur, menunggu satu angka terakhir yang belum masuk.",
     },
     {
       type: "h3",
@@ -88,7 +88,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kebanyakan customer korporat tidak akan memproses invoice tanpa lampiran lengkap: POD bertanda tangan, surat jalan, kadang foto kondisi barang, hasil timbangan, atau berita acara. Kurang satu saja, invoice langsung tertahan di tahap penerimaan dokumen — dan biasanya tanpa pemberitahuan apa pun.",
+      text: "Kebanyakan customer korporat tidak akan memproses invoice tanpa lampiran lengkap: POD bertanda tangan, surat jalan, kadang foto kondisi barang, hasil timbangan, atau berita acara. Kurang satu saja, invoice langsung tertahan di tahap penerimaan dokumen, dan biasanya tanpa pemberitahuan apa pun.",
     },
     {
       type: "p",
@@ -98,7 +98,7 @@ export const article: Article = {
       type: "callout",
       tone: "warning",
       title: "Jatuh tempo dihitung sejak invoice diterima lengkap",
-      body: "Di banyak kontrak, termin baru mulai berjalan sejak invoice diterima lengkap dan benar oleh bagian penerimaan customer. Invoice yang Anda terbitkan tanggal 1 tapi baru diterima lengkap tanggal 20 berarti jatuh temponya otomatis bergeser 19 hari sesuai klausul itu sendiri. Karena itu, minta bukti terima bertanggal untuk setiap invoice — email pun cukup. Tanpa bukti ini, Anda tidak punya dasar sama sekali untuk menagih keterlambatan.",
+      body: "Di banyak kontrak, termin baru mulai berjalan sejak invoice diterima lengkap dan benar oleh bagian penerimaan customer. Invoice yang Anda terbitkan tanggal 1 tapi baru diterima lengkap tanggal 20 berarti jatuh temponya otomatis bergeser 19 hari sesuai klausul itu sendiri. Karena itu, minta bukti terima bertanggal untuk setiap invoice (email pun cukup). Tanpa bukti ini, Anda tidak punya dasar sama sekali untuk menagih keterlambatan.",
     },
     {
       type: "h2",
@@ -107,7 +107,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Operasional mencatat job di satu tempat, finance menagih dari tempat lain. Di antara keduanya selalu ada proses penyalinan data — kadang ekspor Excel, kadang diketik ulang manual. Setiap kali data disalin, di situ pula peluang selisih muncul.",
+      text: "Operasional mencatat job di satu tempat, finance menagih dari tempat lain. Di antara keduanya selalu ada proses penyalinan data, kadang ekspor Excel, kadang diketik ulang manual. Setiap kali data disalin, di situ pula peluang selisih muncul.",
     },
     {
       type: "p",
@@ -158,7 +158,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Perhatikan struktur angkanya. Termin yang tertulis di kontrak cuma menyumbang 30 dari 58 hari total. Sisanya, 28 hari, terjadi sebelum jam termin itu bahkan mulai berdetak — dan tidak satu pun dari 28 hari itu butuh izin customer untuk diperbaiki.",
+      text: "Perhatikan struktur angkanya. Termin yang tertulis di kontrak cuma menyumbang 30 dari 58 hari total. Sisanya, 28 hari, terjadi sebelum jam termin itu bahkan mulai berdetak. Tidak satu pun dari 28 hari itu butuh izin customer untuk diperbaiki.",
     },
     {
       type: "quote",
@@ -173,7 +173,7 @@ export const article: Article = {
       type: "ol",
       items: [
         "**Ukur dulu.** Hitung selisih hari dari job selesai sampai uang masuk untuk 50 job terakhir. Tanpa angka ini, semua langkah berikutnya cuma tebakan.",
-        "**Cari tahu tanggal siklus bayar** lima customer terbesar Anda. Ini perbaikan paling murah yang ada — modalnya cuma lima kali telepon.",
+        "**Cari tahu tanggal siklus bayar** lima customer terbesar Anda. Ini perbaikan paling murah yang ada: modalnya cuma lima kali telepon.",
         "**Pecah invoice** menjadi komponen yang sudah pasti dan komponen yang masih menunggu, kalau kontraknya memungkinkan.",
         "**Beri tenggat ke vendor**, tertulis, lalu pantau siapa yang paling sering telat menagih.",
         "**Hilangkan penyalinan data** antara operasional dan finance. Dampaknya paling besar, tapi juga paling lama dikerjakan, jadi wajar kalau ditaruh di urutan paling akhir.",
@@ -193,7 +193,7 @@ export const article: Article = {
     {
       type: "ul",
       items: [
-        "Menambah orang di tim penagihan — kalau jedanya terjadi karena menunggu data, menambah penagih cuma menambah orang yang ikut menunggu.",
+        "Menambah orang di tim penagihan: kalau jedanya terjadi karena menunggu data, menambah penagih cuma menambah orang yang ikut menunggu.",
         "Memperketat termin di kontrak baru. Termin cuma menyumbang 30 dari 58 hari pada contoh di atas; 28 hari sisanya sudah terjadi sebelum jam termin itu mulai berjalan.",
         "Mengirim surat peringatan lebih awal ke customer. Ini berisiko merusak hubungan komersial demi memperbaiki gejala, padahal akar masalahnya justru ada di sisi Anda sendiri.",
         "Denda keterlambatan. Secara hukum boleh saja, tapi praktiknya hampir tidak pernah benar-benar ditagihkan ke customer yang masih ingin Anda pertahankan.",
@@ -215,7 +215,7 @@ export const article: Article = {
     },
     {
       q: "Vendor kami selalu telat menagih. Apa yang bisa dilakukan?",
-      a: "Masukkan tenggat penagihan ke dalam perjanjian kerja sama — misalnya, tagihan harus masuk maksimal 7 hari setelah jasa selesai, lewat dari itu otomatis masuk periode penagihan berikutnya. Ini soal memberi kepastian jadwal, dan kebanyakan vendor menerimanya dengan mudah karena mereka pun jadi punya ritme kerja yang lebih jelas.",
+      a: "Masukkan tenggat penagihan ke dalam perjanjian kerja sama, misalnya tagihan harus masuk maksimal 7 hari setelah jasa selesai, lewat dari itu otomatis masuk periode penagihan berikutnya. Ini soal memberi kepastian jadwal, dan kebanyakan vendor menerimanya dengan mudah karena mereka pun jadi punya ritme kerja yang lebih jelas.",
     },
     {
       q: "Apakah sistem terintegrasi benar-benar memperpendek siklus kas?",

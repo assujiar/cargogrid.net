@@ -17,17 +17,17 @@ export const article: Article = {
   category: "operasional",
   publishedAt: "2026-04-14",
   summary:
-    "Tidak ada perusahaan yang punya baris anggaran bernama 'biaya POD hilang' — dan justru karena tidak tercatat itulah angkanya bisa membengkak tanpa pernah dipertanyakan siapa pun. Tulisan ini membongkarnya menjadi empat komponen yang bisa Anda hitung sendiri, dari data yang sudah tersedia di kantor Anda hari ini.",
+    "Tidak ada perusahaan yang punya baris anggaran bernama 'biaya POD hilang', dan justru karena tidak tercatat itulah angkanya bisa membengkak tanpa pernah dipertanyakan siapa pun. Tulisan ini membongkarnya menjadi empat komponen yang bisa Anda hitung sendiri, dari data yang sudah tersedia di kantor Anda hari ini.",
   takeaways: [
     "Biaya POD kertas nyaris tak pernah tercatat sebagai biaya operasional; ia menyamar jadi piutang yang telat cair.",
-    "POD yang telat cuma menunda tagihan. POD yang hilang bisa menggugurkannya sepenuhnya — dua persoalan yang jauh berbeda tingkat bahayanya.",
-    "Yang sering dituduh adalah driver yang ceroboh — padahal titik kebocoran terbesar ada di momen serah terima antara driver dan admin cabang.",
+    "POD yang telat cuma menunda tagihan; POD yang hilang bisa menggugurkannya sepenuhnya. Dua persoalan ini jauh berbeda tingkat bahayanya.",
+    "Yang sering dituduh adalah driver yang ceroboh, padahal titik kebocoran terbesar ada di momen serah terima antara driver dan admin cabang.",
     "Sebelum membeli sistem apa pun, ukur dulu dua angka: rata-rata berapa hari POD butuh untuk kembali, dan berapa persen yang tidak pernah kembali sama sekali.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Di banyak kantor forwarder, kalau Anda tanya manajer operasional berapa biaya POD kertas dalam setahun, jawabannya hampir selalu template yang sama: \"ah, paling cuma ongkos fotokopi.\" Jawaban itu jujur — dan justru di situlah masalahnya berakar. Biaya POD tidak pernah muncul di laporan biaya sebab memang tidak punya kode akun sendiri. Ia menyamar jadi hal lain: piutang yang makin menua di aging report, lembur admin menjelang tutup buku, dan sesekali satu klaim yang harus ditanggung sendiri karena buktinya raib entah ke mana.",
+      text: "Di banyak kantor forwarder, kalau Anda tanya manajer operasional berapa biaya POD kertas dalam setahun, jawabannya hampir selalu template yang sama: \"ah, paling cuma ongkos fotokopi.\" Jawaban itu jujur, dan justru di situlah masalahnya berakar. Biaya POD tidak pernah muncul di laporan biaya sebab memang tidak punya kode akun sendiri. Ia menyamar jadi hal lain: piutang yang makin menua di aging report, lembur admin menjelang tutup buku, dan sesekali satu klaim yang harus ditanggung sendiri karena buktinya raib entah ke mana.",
     },
     {
       type: "p",
@@ -63,7 +63,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Contoh perhitungan: ganti dengan angka Anda sendiri",
-      body: "Misalkan omzet Anda Rp 6 miliar per bulan, setara Rp 200 juta per hari kalender, dengan rata-rata POD kembali dalam 7 hari dan biaya modal 12% per tahun (setara 0,033% per hari). Kalau digitalisasi memangkas jeda itu dari 7 hari menjadi 1 hari, ada Rp 1,2 miliar piutang yang berputar lebih cepat. Biaya menahan dana sebesar itu selama 6 hari ekstra: Rp 1,2 miliar x 0,033% x 6, sekitar Rp 2,4 juta per bulan. Ini bukan uang tunai yang hilang, melainkan biaya kesempatan — tapi begitu Anda memakai fasilitas modal kerja bank, angka itu langsung terasa di rekening koran.",
+      body: "Misalkan omzet Anda Rp 6 miliar per bulan, setara Rp 200 juta per hari kalender, dengan rata-rata POD kembali dalam 7 hari dan biaya modal 12% per tahun (setara 0,033% per hari). Kalau digitalisasi memangkas jeda itu dari 7 hari menjadi 1 hari, ada Rp 1,2 miliar piutang yang berputar lebih cepat. Biaya menahan dana sebesar itu selama 6 hari ekstra: Rp 1,2 miliar x 0,033% x 6, sekitar Rp 2,4 juta per bulan. Ini bukan uang tunai yang hilang, melainkan biaya kesempatan. Tapi begitu Anda memakai fasilitas modal kerja bank, angka itu langsung terasa di rekening koran.",
     },
     {
       type: "p",
@@ -76,7 +76,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Alur kerja admin operasional dengan tumpukan POD biasanya begini: menerima kertas dari driver, lalu mencocokkannya satu per satu dengan nomor job di sistem. Yang tanda tangannya tidak terbaca disisihkan dulu. Sisanya dipindai, diberi nama file, diunggah ke folder bersama, dan baru kemudian salinannya dikirim ke finance — kadang ke customer juga.",
+      text: "Alur kerja admin operasional dengan tumpukan POD biasanya begini: menerima kertas dari driver, lalu mencocokkannya satu per satu dengan nomor job di sistem. Yang tanda tangannya tidak terbaca disisihkan dulu. Sisanya dipindai, diberi nama file, diunggah ke folder bersama, dan baru kemudian salinannya dikirim ke finance, kadang ke customer juga.",
     },
     {
       type: "p",
@@ -84,7 +84,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Cara mengukurnya sederhana, dan tidak perlu jasa konsultan mana pun: minta dua admin mencatat waktu mereka selama lima hari kerja, dengan kategori sekasar mungkin — cukup untuk tahu apakah angkanya 30 menit sehari atau 4 jam sehari. Selisih di antara dua kemungkinan itulah yang menentukan apakah masalah ini layak jadi prioritas tahun ini.",
+      text: "Cara mengukurnya sederhana, dan tidak perlu jasa konsultan mana pun: minta dua admin mencatat waktu mereka selama lima hari kerja, dengan kategori sekasar mungkin: cukup untuk tahu apakah angkanya 30 menit sehari atau 4 jam sehari. Selisih di antara dua kemungkinan itulah yang menentukan apakah masalah ini layak jadi prioritas tahun ini.",
     },
     {
       type: "h2",
@@ -97,7 +97,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Persentasenya biasanya kecil, itu sebabnya isu ini jarang naik sampai ke rapat direksi. Tapi nilai per kejadiannya besar, dan sebarannya tidak merata: POD yang hilang cenderung menempel pada shipment yang justru bermasalah — yang dikirim ulang, yang ditolak sebagian, yang serah terimanya terjadi di luar jam kerja. Shipment yang paling butuh bukti kuat justru yang paling rawan kehilangan buktinya.",
+      text: "Persentasenya biasanya kecil, itu sebabnya isu ini jarang naik sampai ke rapat direksi. Tapi nilai per kejadiannya besar, dan sebarannya tidak merata: POD yang hilang cenderung menempel pada shipment yang justru bermasalah: yang dikirim ulang, yang ditolak sebagian, yang serah terimanya terjadi di luar jam kerja. Shipment yang paling butuh bukti kuat justru yang paling rawan kehilangan buktinya.",
     },
     {
       type: "callout",
@@ -107,7 +107,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Tarik catatan klaim 12 bulan terakhir, dan pisahkan mana yang Anda bayar semata karena dokumennya tidak lengkap — padahal kesalahannya ada di pihak lain. Angka rupiahnya biasanya mengejutkan orang yang baru pertama kali menghitungnya.",
+      text: "Tarik catatan klaim 12 bulan terakhir, dan pisahkan mana yang Anda bayar semata karena dokumennya tidak lengkap, padahal kesalahannya ada di pihak lain. Angka rupiahnya biasanya mengejutkan orang yang baru pertama kali menghitungnya.",
     },
     {
       type: "h2",
@@ -133,7 +133,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Titik kebocoran sesungguhnya ada di momen serah terima — saat setumpuk kertas berpindah dari tangan driver ke meja admin tanpa ada satu pun catatan bahwa perpindahan itu terjadi. Setelah momen itu lewat, tak seorang pun bisa memastikan apakah lembar tertentu pernah tiba atau tidak. Yang tersisa hanya saling menuduh dengan sopan.",
+      text: "Titik kebocoran sesungguhnya ada di momen serah terima: saat setumpuk kertas berpindah dari tangan driver ke meja admin tanpa ada satu pun catatan bahwa perpindahan itu terjadi. Setelah momen itu lewat, tak seorang pun bisa memastikan apakah lembar tertentu pernah tiba atau tidak. Yang tersisa hanya saling menuduh dengan sopan.",
     },
     {
       type: "quote",
@@ -141,7 +141,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ini penting, sebab menentukan solusinya. Kalau akar masalahnya kecerobohan driver, jawabannya pelatihan dan sanksi. Kalau akar masalahnya serah terima yang tak tercatat, pelatihan tidak akan mengubah apa pun — yang dibutuhkan adalah mencatat kejadian itu tepat di titik ia terjadi: di tangan driver, di lokasi, saat itu juga.",
+      text: "Ini penting, sebab menentukan solusinya. Kalau akar masalahnya kecerobohan driver, jawabannya pelatihan dan sanksi. Kalau akar masalahnya serah terima yang tak tercatat, pelatihan tidak akan mengubah apa pun. Yang dibutuhkan adalah mencatat kejadian itu tepat di titik ia terjadi: di tangan driver, di lokasi, saat itu juga.",
     },
     {
       type: "h2",
@@ -204,7 +204,7 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "Rata-rata jumlah hari antara tanggal barang diterima dan tanggal POD-nya tercatat lengkap di kantor. Pakai rata-rata yang sesungguhnya, termasuk kasus paling parah sekalipun — jangan angka terbaik, jangan pula perkiraan kasar.",
+        "Rata-rata jumlah hari antara tanggal barang diterima dan tanggal POD-nya tercatat lengkap di kantor. Pakai rata-rata yang sesungguhnya, termasuk kasus paling parah sekalipun: jangan angka terbaik, jangan pula perkiraan kasar.",
         "Persentase dari 100 pengiriman itu yang POD-nya, sampai hari ini, masih belum lengkap atau tidak ditemukan sama sekali.",
       ],
     },

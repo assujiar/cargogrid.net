@@ -80,7 +80,7 @@ export default function ArticleView({ article }: { article: Article }) {
               meta row instead, so it's excluded here and handled below. */}
           {spec.hero !== "split" && (
             <div className="nm-emboss mb-9 overflow-hidden rounded-3xl">
-              <ArticleCoverArt seed={article.slug} height={320} />
+              <ArticleCoverArt seed={article.slug} />
             </div>
           )}
 
@@ -92,7 +92,7 @@ export default function ArticleView({ article }: { article: Article }) {
             <div className="mb-9 grid items-center gap-6 sm:grid-cols-[1fr_190px]">
               <div>{meta}</div>
               <div className="nm-emboss-sm overflow-hidden rounded-2xl">
-                <ArticleCoverArt seed={article.slug} height={150} />
+                <ArticleCoverArt seed={article.slug} />
               </div>
             </div>
           )}
@@ -230,7 +230,7 @@ export default function ArticleView({ article }: { article: Article }) {
                   href={`/artikel/${item.slug}`}
                   className="nm-emboss-sm group overflow-hidden rounded-2xl bg-[#eef2f6]/40 transition-transform hover:scale-[1.02]"
                 >
-                  <ArticleCoverArt seed={item.slug} height={130} />
+                  <ArticleCoverArt seed={item.slug} />
                   <div className="p-5">
                     <p className="mb-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] text-brand-teal">
                       {ARTICLE_CATEGORIES[item.category]}

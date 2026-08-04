@@ -5,7 +5,7 @@ export const article: Article = {
   layout: "essay",
   title:
     "Negosiasi Tarif Tahunan dengan Shipper Besar: Kenapa Harga Termurah di Tender Sering Berujung Putus Kontrak",
-  metaTitle: "Negosiasi Tarif Tahunan Kontrak Shipper: Panduan Rate Review | CargoGrid OS",
+  metaTitle: "Negosiasi Tarif Tahunan Kontrak Shipper: Panduan Rate Review",
   description:
     "Musim rate review tahunan selalu membawa kartu yang sama: kompetitor lebih murah. Kenali anchoring bias, winner's curse, dan klausul penyesuaian tarif otomatis.",
   keywords: [

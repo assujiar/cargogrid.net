@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "customer-portal-logistik",
   layout: "brief",
   title: "Customer Portal Logistik: Berhenti Menjawab Pertanyaan yang Jawabannya Sudah Ada",
-  metaTitle: "Customer Portal untuk Perusahaan Logistik yang Tepat Guna | CargoGrid OS",
+  metaTitle: "Customer Portal untuk Perusahaan Logistik yang Tepat Guna",
   description:
     "Setiap telepon 'barang saya sudah sampai mana' pada dasarnya minta satu hal saja: informasi yang sudah tersimpan rapi di sistem Anda. Model kesenjangan layanan menunjukkan kenapa customer portal bisa memangkas keluhan jauh lebih banyak daripada yang biasanya diperkirakan tim komersial.",
   keywords: [

@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "akses-sistem-saat-karyawan-resign",
   layout: "brief",
   title: "Satu Karyawan Resign, Operasional Mendadak Buta: Kontrol Akses yang Sering Diabaikan",
-  metaTitle: "Kontrol Akses Sistem Saat Karyawan Resign atau Pindah Peran | CargoGrid OS",
+  metaTitle: "Kontrol Akses Sistem Saat Karyawan Resign atau Pindah Peran",
   description:
     "Admin resign, WhatsApp Business dan password akun bersama ikut terkunci. Prinsip bus factor dan checklist offboarding untuk usaha logistik kecil-menengah.",
   keywords: [

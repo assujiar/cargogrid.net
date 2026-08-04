@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "biaya-tersembunyi-pod-kertas",
   layout: "feature",
   title: "Anatomi Biaya POD Kertas: Ke Mana Sebenarnya Rupiah Itu Menghilang",
-  metaTitle: "Biaya Tersembunyi di Balik POD Kertas dalam Operasional Logistik | CargoGrid OS",
+  metaTitle: "Biaya Tersembunyi di Balik POD Kertas Logistik",
   description:
     "POD kertas jarang muncul di laporan biaya karena memang tidak punya kode akun sendiri. Tulisan ini menelusuri ke mana sebenarnya uang itu pergi: piutang yang tertahan, jam kerja admin yang terkuras, dan klaim yang terpaksa dibayar karena buktinya sudah hilang.",
   keywords: [

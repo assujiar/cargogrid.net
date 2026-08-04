@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "odol-timbangan-jembatan-muatan-lebih",
   layout: "dossier",
   title: "ODOL dan Jembatan Timbang: Untung yang Dipetik Sekarang, Ongkos yang Jatuh Tempo Nanti",
-  metaTitle: "ODOL dan Jembatan Timbang: Menghitung True Cost per Rit | CargoGrid OS",
+  metaTitle: "ODOL dan Jembatan Timbang: Menghitung True Cost per Rit",
   description:
     "Muatan lebih menurunkan ongkos per ton, tapi denda jembatan timbang, bongkar paksa, dan kerusakan kendaraan sering baru terasa belakangan. Ini cara menghitung true cost per rit.",
   keywords: [

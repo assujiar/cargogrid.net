@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "wms-3pl-level-bin",
   layout: "dossier",
   title: "Stok Agregat vs Ledger Level Bin: Selisih Kecil yang Menentukan Nasib Gudang 3PL",
-  metaTitle: "WMS 3PL: Kenapa Data Stok Harus Sampai Level Bin | CargoGrid OS",
+  metaTitle: "WMS 3PL: Kenapa Data Stok Harus Sampai Level Bin",
   description:
     "Tahu ada 400 karton di gudang itu satu hal. Tahu persis karton mana berada di rak yang mana, itu hal yang sama sekali berbeda. Selisih kecil inilah yang menentukan akurasi stok, kecepatan picking, dan apakah storage billing benar-benar bisa ditagihkan ke customer.",
   keywords: [

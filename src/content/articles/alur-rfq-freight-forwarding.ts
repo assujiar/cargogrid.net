@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "alur-rfq-freight-forwarding",
   layout: "primer",
   title: "Anatomi RFQ Freight Forwarding: Kenapa Quotation Anda Bisa Kalah Sebelum Sempat Dibaca Harganya",
-  metaTitle: "Proses RFQ Freight Forwarding: dari Email Masuk sampai Quotation Terkirim | CargoGrid OS",
+  metaTitle: "Proses RFQ Freight Forwarding: Email sampai Quotation",
   description:
     "Kebanyakan RFQ freight forwarding kalah bukan karena harganya kalah bersaing. RFQ itu kalah karena datang terlambat atau datang dengan data yang belum lengkap untuk dibandingkan. Tulisan ini membedah tujuh tahap alur RFQ, dari email masuk sampai quotation terkirim, untuk menunjukkan di tahap mana waktu Anda sebenarnya menguap.",
   keywords: [

@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "dokumen-kepabeanan-arsip-digital",
   layout: "brief",
   title: "Arsip Dokumen Logistik: Ketika Ordner Berdebu Berubah Jadi Sistem yang Bisa Ditanya",
-  metaTitle: "Arsip Dokumen Kepabeanan & Logistik yang Mudah Dicari | CargoGrid OS",
+  metaTitle: "Arsip Dokumen Kepabeanan & Logistik yang Mudah Dicari",
   description:
     "Menyimpan dokumen dan bisa menemukannya kembali adalah dua hal yang sama sekali berbeda. Prinsip pengelolaan rekaman menawarkan tiga syarat sederhana untuk menguji apakah arsip Anda benar-benar siap begitu auditor mengetuk pintu.",
   keywords: [

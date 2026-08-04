@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "slotting-tata-letak-gudang-produktivitas-picking",
   layout: "primer",
   title: "Slotting Gudang: Kenapa Barang Paling Laris Justru Tersimpan Paling Jauh dari Pengiriman",
-  metaTitle: "Slotting Gudang: ABC Analysis untuk Produktivitas Picking | CargoGrid OS",
+  metaTitle: "Slotting Gudang: ABC Analysis untuk Produktivitas Picking",
   description:
     "SKU paling laris justru tersimpan paling jauh dari titik kirim, warisan tata letak asal taruh. ABC analysis membaliknya lewat audit slotting sederhana.",
   keywords: [

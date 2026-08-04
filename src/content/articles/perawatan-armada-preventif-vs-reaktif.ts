@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "perawatan-armada-preventif-vs-reaktif",
   layout: "feature",
   title: "Truk Mogok di KM 102 Cipali: Ongkos Asli di Balik Servis yang Ditunda Sebulan",
-  metaTitle: "Perawatan Armada Preventif vs Reaktif: Menghitung Ongkos Sesungguhnya | CargoGrid OS",
+  metaTitle: "Perawatan Armada Preventif vs Reaktif: Ongkos Sesungguhnya",
   description:
     "Ongkos truk mogok tidak berhenti di nota bengkel. Ini cara menghitung total biaya downtime tak terjadwal dan indikator sederhana merawat armada.",
   keywords: [

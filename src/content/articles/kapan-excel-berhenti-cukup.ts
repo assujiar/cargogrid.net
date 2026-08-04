@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "kapan-excel-berhenti-cukup",
   layout: "essay",
   title: "Kapan Excel Berhenti Cukup untuk Operasional Logistik: Tanda-Tanda yang Sering Terlewat",
-  metaTitle: "Kapan Excel Sudah Tidak Cukup untuk Operasional Logistik | CargoGrid OS",
+  metaTitle: "Kapan Excel Sudah Tidak Cukup untuk Operasional Logistik",
   description:
     "Excel tetap alat yang sangat baik untuk operasional logistik, sampai ia mencapai satu titik balik: ongkos yang tadinya rendah berbalik arah dan malah membebani tim Anda. Berikut enam tanda konkret bahwa spreadsheet Anda sudah melewati titik itu, plus tiga tanda palsu yang sering dipakai untuk membenarkan pembelian sistem baru.",
   keywords: [

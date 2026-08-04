@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "kpi-operasional-logistik",
   layout: "feature",
   title: "KPI Logistik yang Benar-Benar Dibaca Customer, Bukan Cuma Pemanis di Laporan Bulanan",
-  metaTitle: "Menyusun KPI Operasional Logistik yang Tahan Diperiksa | CargoGrid OS",
+  metaTitle: "Menyusun KPI Operasional Logistik yang Tahan Diperiksa",
   description:
     "Angka on-time delivery 98% di laporan Anda bisa berarti lima hal berbeda, tergantung definisi yang dipakai. Ini cara menyusun KPI logistik yang tahan diperiksa dan benar-benar memandu keputusan operasional.",
   keywords: [

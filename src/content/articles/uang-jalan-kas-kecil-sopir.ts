@@ -4,7 +4,7 @@ export const article: Article = {
   slug: "uang-jalan-kas-kecil-sopir",
   layout: "brief",
   title: "Uang Jalan dan Kas Kecil Sopir: Merancang Sistem Supaya Jujur Jadi Pilihan Termudah",
-  metaTitle: "Cara Mengelola Uang Jalan dan Kas Kecil Sopir Truk | CargoGrid OS",
+  metaTitle: "Cara Mengelola Uang Jalan dan Kas Kecil Sopir Truk",
   description:
     "Sopir minta tambahan uang jalan karena struk hilang, admin pusing rekonsiliasi akhir bulan. Begini merancang sistem agar pelaporan jujur jadi pilihan termudah.",
   keywords: [

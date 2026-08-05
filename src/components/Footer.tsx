@@ -107,12 +107,12 @@ export default function Footer() {
           <h2 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
             {isEn ? "Free Tools & Reference" : "Alat & Referensi Gratis"}
           </h2>
-          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs">
+          <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs sm:grid-cols-3 lg:grid-cols-5">
             {TOOL_NAV_LINKS.map((tool) => (
               <Link
                 key={tool.slug}
                 href={`/alat/${tool.slug}`}
-                className="hover:text-brand-orange transition-colors font-bold"
+                className="hover:text-brand-orange transition-colors font-bold leading-snug"
               >
                 {isEn ? tool.labelEn : tool.label}
               </Link>
@@ -123,15 +123,19 @@ export default function Footer() {
         {/* Lower footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-[11px] text-slate-600 font-mono font-bold border-t border-slate-300">
           <div>&copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved &bull; Configurable Logistics Platform.</div>
-          <div className="flex items-center flex-wrap gap-x-4 gap-y-2 justify-center">
+          {/* Two layouts, because a separated inline row cannot wrap cleanly at
+              phone widths. Whichever element the break lands on either strands
+              its bullet at the end of a line or carries one to the start of the
+              next, and both read as a mistake. Below `sm` the links simply sit
+              in a grid with no separators to misplace; from `sm` up, where the
+              row fits on one line, the bullets come back. */}
+          <div className="grid w-full grid-cols-2 gap-x-4 gap-y-2 text-center sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:justify-center sm:[&>*+*]:before:mr-4 sm:[&>*+*]:before:text-slate-400 sm:[&>*+*]:before:content-['•']">
             <Link href="/kebijakan-privasi" className="hover:text-brand-orange transition-colors font-extrabold">
               {isEn ? "Privacy Policy" : "Kebijakan Privasi"}
             </Link>
-            <span>&bull;</span>
             <Link href="/syarat-ketentuan" className="hover:text-brand-orange transition-colors font-extrabold">
               {isEn ? "Terms & Conditions" : "Syarat & Ketentuan"}
             </Link>
-            <span>&bull;</span>
             {/* The only way back into the consent dialog once a choice has been
                 stored — without it, a visitor could grant consent but never
                 withdraw it. */}
@@ -142,7 +146,6 @@ export default function Footer() {
             >
               {isEn ? "Cookie Preferences" : "Preferensi Cookie"}
             </button>
-            <span>&bull;</span>
             <span className="text-slate-600 font-extrabold">{isEn ? "SLA Guaranteed" : "Layanan SLA Terjamin"}</span>
           </div>
         </div>

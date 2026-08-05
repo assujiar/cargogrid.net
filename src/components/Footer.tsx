@@ -14,18 +14,14 @@ import { openCookiePreferences } from "../lib/tracking";
  * One category of the footer's tool list.
  *
  * The icon carries the same mark the tool's hub card does, so the shape someone
- * learned upstairs is the shape they recognise down here. `items-start` rather
- * than centred: in the narrow phone columns the longer labels wrap to two
- * lines, and a centred icon would float against the middle of the block
- * instead of sitting beside its first line.
+ * learned upstairs is the shape they recognise down here.
  *
- * Every row is held at two lines tall whether or not its label needs the
- * second. The two groups are separate grids, so nothing makes their rows line
- * up except being the same height: let a row size itself and one wrapped label
- * anywhere in the block knocks that group's remaining rows out of step with
- * the group beside it, which is exactly the ragged edge the eye picks up.
+ * Rows only look level while every label fits on one line, which is why the
+ * labels in navLinks.ts are kept short enough to clear a phone column. Padding
+ * each row out to two lines instead would hold them level too, and did, at the
+ * cost of a loose, gappy list on every phone wide enough that nothing wraps.
  */
-const ROW_HEIGHT = "min-h-[2.0625rem]"; // two lines of text-xs at leading-snug
+const ROW_HEIGHT = "min-h-[1.0625rem]"; // one line of text-xs at leading-snug
 
 function ToolGroup({
   title,
@@ -45,7 +41,7 @@ function ToolGroup({
   return (
     <div className={className}>
       <h3 className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{title}</h3>
-      <ul className={`mt-2.5 flex flex-col gap-x-6 gap-y-2.5 text-xs ${listClassName}`}>
+      <ul className={`mt-3 grid gap-x-6 gap-y-3 text-xs ${listClassName}`}>
         {links.map((tool) => {
           const { Icon, accent } = toolVisual(tool.slug);
           return (
@@ -171,24 +167,25 @@ export default function Footer() {
               made the visitor read all nine to find out which kind they were
               looking at.
 
-              Two columns on a phone, one category each. From `lg` the row opens
-              into five: two columns of calculators and three of reference, each
-              running two deep, so the whole set clears in two glances instead of
-              a nine-line scroll. */}
-          <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-5 lg:gap-x-8">
+              On a phone the categories stack, each spreading its own tools
+              across two columns, so a heading always sits directly above the
+              things it names. From `lg` the whole block becomes one five-column
+              row: two columns of calculators, three of reference, each running
+              two deep. */}
+          <div className="mt-4 grid gap-x-8 gap-y-6 lg:grid-cols-5">
             <ToolGroup
               title={isEn ? "Calculators" : "Kalkulator"}
               links={navLinksByKind("kalkulator")}
               isEn={isEn}
               className="lg:col-span-2"
-              listClassName="lg:grid lg:grid-cols-2"
+              listClassName="grid-cols-2 lg:grid-cols-2"
             />
             <ToolGroup
               title={isEn ? "Reference" : "Referensi"}
               links={navLinksByKind("referensi")}
               isEn={isEn}
               className="lg:col-span-3"
-              listClassName="lg:grid lg:grid-cols-3"
+              listClassName="grid-cols-2 lg:grid-cols-3"
             />
           </div>
         </nav>

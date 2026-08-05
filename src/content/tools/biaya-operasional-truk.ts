@@ -71,6 +71,55 @@ export const tool: Tool = {
     },
     {
       type: "h2",
+      id: "pola-rute",
+      text: "Pulang pergi atau sekali jalan: pilih polanya, jangan hitung sendiri",
+    },
+    {
+      type: "p",
+      text: "Perhitungan biaya bekerja dengan dua jarak yang terpisah — kilometer bermuatan dan kilometer kosong — dan pemisahan itu memang yang benar, karena hanya kilometer bermuatan yang menghasilkan pendapatan. Persoalannya, tidak ada yang menyimpan rutenya dalam bentuk itu. Yang orang tahu adalah \"Jakarta-Surabaya, pulang kosong\".",
+    },
+    {
+      type: "p",
+      text: "Karena itu kalkulator ini menanyakan pola rutenya lebih dulu, lalu jarak sekali jalan. Sisanya dihitung sendiri.",
+    },
+    {
+      type: "table",
+      caption: "Contoh pada rute sekali jalan 500 km",
+      head: ["Pola rute", "Km bermuatan", "Km kosong", "Kapan dipakai"],
+      rows: [
+        ["Pulang pergi, balik kosong", "500", "500", "Pola paling umum. Separuh jarak tidak menghasilkan pendapatan tetapi tetap memakan solar, ban, dan waktu sopir"],
+        ["Pulang pergi, dua arah bermuatan", "1.000", "0", "Ada muatan balik yang membayar. Jarak tempuhnya sama persis, tetapi biaya per kilometer bermuatan turun tajam"],
+        ["Sekali jalan saja", "500", "0", "Kendaraan tidak kembali, atau perjalanan baliknya sudah dibebankan ke pekerjaan lain"],
+        ["Atur sendiri", "diisi manual", "diisi manual", "Muatan balik sebagian, jarak posisi awal, atau rute dengan beberapa titik singgah"],
+      ],
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Kesalahan termahal di halaman ini",
+      body: "Mengisi jarak sekali jalan lalu lupa rit baliknya sama sekali. Biaya per rit langsung terlihat separuh dari yang sebenarnya, dan tarif yang lahir dari situ merugi pada setiap rit — tanpa ada satu pos pun yang kelihatan janggal saat diperiksa ulang. Memilih pola rute lebih dulu menutup kemungkinan itu.",
+    },
+    {
+      type: "h2",
+      id: "angka-awal",
+      text: "Angka awal mengikuti kelas armada, dan tetap harus Anda ganti",
+    },
+    {
+      type: "p",
+      text: "Beberapa pos tidak sedikit berbeda antar kelas armada — melainkan berbeda berkali-kali lipat. Rangkaian tractor head menempuh sekitar 2,5 kilometer per liter; truk ringan bisa tiga kali lipat itu. Satu set ban trailer berharga belasan kali set ban CDE. Karena itu mengganti pilihan armada di kalkulator ini ikut mengganti konsumsi bahan bakar, harga perolehan, biaya ban, umur ban, biaya perawatan, dan gaji tetap awak.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Konsumsi bahan bakar tidak punya angka baku",
+      body: "Kilometer per liter ditentukan medan, bobot muatan, umur mesin, gaya mengemudi, dan seberapa sering kendaraan terjebak macet. Dua unit yang persis sama pada rute yang berbeda bisa berselisih puluhan persen. Angka awal di sini hanya supaya kolomnya tidak kosong dan tidak meleset kelas — angka yang benar ada di catatan pengisian solar armada Anda sendiri, dan itu pos biaya terbesar, jadi paling layak diukur lebih dulu.",
+    },
+    {
+      type: "p",
+      text: "Prinsip yang sama berlaku untuk harga perolehan dan biaya ban: yang ditampilkan adalah kisaran wajar untuk kelas tersebut, bukan harga yang berlaku bagi Anda. Semua kolom bisa ditimpa, dan sebaiknya memang ditimpa sebelum hasilnya dipakai menetapkan tarif.",
+    },
+    {
+      type: "h2",
       id: "tol-dan-penyeberangan",
       text: "Kenapa tarif tol dan penyeberangan harus Anda isi sendiri",
     },
@@ -80,7 +129,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Menanam satu tarif nasional ke dalam alat ini berarti menerbitkan angka yang akan salah dalam hitungan bulan, dan tidak akan ada yang tahu kapan mulai salahnya — termasuk Anda, yang justru memakainya untuk menetapkan tarif. Angka yang tampil sekarang hanyalah pengisi kolom supaya hasilnya tidak nol; ganti dengan tarif rute Anda sendiri.",
+      text: "Menanam satu tarif nasional ke dalam alat ini berarti menerbitkan angka yang akan salah dalam hitungan bulan, dan tidak akan ada yang tahu kapan mulai salahnya — termasuk Anda, yang justru memakainya menetapkan tarif. Karena itu kedua kolom itu dimulai dari nol, bukan dari angka contoh. Angka contoh yang terlihat masuk akal akan ikut terbawa ke hasil oleh sebagian orang tanpa pernah diperiksa; kolom nol menuntut perhatian.",
     },
     {
       type: "ol",
@@ -158,6 +207,18 @@ export const tool: Tool = {
     {
       q: "Bagaimana menetapkan harga jual minimum dari biaya?",
       a: "Bagi biaya dengan satu dikurangi margin yang dituju, bukan mengalikannya dengan margin. Biaya sepuluh juta dengan target margin dua puluh persen menghasilkan harga jual minimum dua belas setengah juta, bukan dua belas juta.",
+    },
+    {
+      q: "Berapa km per liter truk CDD, fuso, atau tronton?",
+      a: "Sebagai titik awal yang kasar: truk ringan seperti CDE dan CDD sekitar 8 km per liter bermuatan, truk medium kelas fuso sekitar 5,5, tronton sekitar 4,5, dan rangkaian tractor head dengan trailer sekitar 2,5. Angka-angka ini bergeser jauh menurut medan, bobot muatan, umur mesin, dan gaya mengemudi — dua unit identik pada rute berbeda bisa berselisih puluhan persen. Pakai rata-rata dari catatan pengisian solar armada sendiri sebelum hasilnya dipakai menetapkan tarif.",
+    },
+    {
+      q: "Kenapa angka berubah sendiri saat saya ganti pilihan armada?",
+      a: "Karena konsumsi bahan bakar, harga perolehan, biaya ban, umur ban, biaya perawatan, dan gaji tetap awak semuanya berbeda berkali-kali lipat antar kelas armada. Mempertahankan satu angka untuk semua kelas akan menghasilkan perhitungan yang sangat meleset begitu Anda memilih armada selain yang menjadi dasar angka bawaan. Semua kolom tetap bisa ditimpa.",
+    },
+    {
+      q: "Bagaimana menghitung rute pulang pergi dibanding sekali jalan?",
+      a: "Pilih pola rutenya, lalu isi jarak sekali jalan — kalkulator menerjemahkannya sendiri. Pulang pergi dengan balik kosong menjadi jarak bermuatan sekali jalan ditambah jarak kosong yang sama. Pulang pergi dengan muatan dua arah menjadi dua kali jarak, seluruhnya bermuatan. Untuk muatan balik sebagian, pilih Atur sendiri dan isi keduanya terpisah.",
     },
     {
       q: "Kenapa tarif tol dan penyeberangan tidak sudah terisi otomatis?",

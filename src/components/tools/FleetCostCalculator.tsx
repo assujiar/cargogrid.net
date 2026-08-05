@@ -2,7 +2,15 @@
 
 import React, { useMemo, useState } from "react";
 import { AlertTriangle, TrendingUp } from "lucide-react";
-import { calculateFleetCost, FLEET_COST_DEFAULTS, type FleetCostInput } from "../../lib/logistics/costPerKm";
+import {
+  calculateFleetCost,
+  distancesForPattern,
+  fleetProfileForClass,
+  FLEET_COST_DEFAULTS,
+  ROUTE_PATTERNS,
+  type FleetCostInput,
+  type RoutePattern,
+} from "../../lib/logistics/costPerKm";
 import { formatIDR } from "../../lib/logistics/freeTime";
 import { formatNumber } from "../../lib/logistics/volume";
 import { classLabel, VEHICLE_ARCHETYPES, VEHICLE_CLASS_ORDER } from "../../content/reference/vehicles";
@@ -42,9 +50,43 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function FleetCostCalculator() {
   const [input, setInput] = useState<FleetCostInput>(FLEET_COST_DEFAULTS);
   const [vehicleId, setVehicleId] = useState("CV034");
+  const [routePattern, setRoutePattern] = useState<RoutePattern>("pp-kosong");
+  const [oneWayKm, setOneWayKm] = useState(FLEET_COST_DEFAULTS.loadedKmPerTrip);
+
+  /**
+   * Pattern and distance are two inputs producing one pair of values, so both
+   * are applied through a single function. Handling them separately meant a
+   * pattern change left the previous pattern's distances on screen until the
+   * distance was touched again -- a stale reading of a number the whole result
+   * hangs on.
+   */
+  function applyPattern(pattern: RoutePattern, distance: number) {
+    setRoutePattern(pattern);
+    setOneWayKm(distance);
+    if (pattern === "manual") return;
+    const { loadedKmPerTrip, emptyKmPerTrip } = distancesForPattern(pattern, distance);
+    setInput((current) => ({ ...current, loadedKmPerTrip, emptyKmPerTrip }));
+  }
 
   const vehicle = VEHICLE_ARCHETYPES.find((v) => v.id === vehicleId);
   const result = useMemo(() => calculateFleetCost(input), [input]);
+
+  /**
+   * Changing the vehicle re-seeds the figures that genuinely scale with it.
+   *
+   * Fuel consumption, purchase price and tyre cost do not vary slightly between
+   * a pickup and a tractor head -- they vary several times over. Leaving one
+   * set of numbers in place across every class would produce a result that is
+   * badly wrong the moment somebody picks anything other than the class the
+   * defaults happened to describe, and wrong in a way nothing on screen
+   * announces.
+   */
+  function pickVehicle(id: string) {
+    const next = VEHICLE_ARCHETYPES.find((v) => v.id === id);
+    if (!next) return;
+    setVehicleId(id);
+    setInput((current) => ({ ...current, ...fleetProfileForClass(next.mainClass) }));
+  }
 
   function set<K extends keyof FleetCostInput>(key: K) {
     return (value: FleetCostInput[K]) => setInput((current) => ({ ...current, [key]: value }));
@@ -67,7 +109,7 @@ export default function FleetCostCalculator() {
           <select
             id="fleet-vehicle"
             value={vehicleId}
-            onChange={(e) => setVehicleId(e.target.value)}
+            onChange={(e) => pickVehicle(e.target.value)}
             className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold lg:max-w-2xl"
           >
             {GROUPED.map((group) => (
@@ -104,8 +146,65 @@ export default function FleetCostCalculator() {
             <NumberField label="Rencana km per tahun" value={input.plannedAnnualKm} onChange={set("plannedAnnualKm")} min={0} step={5_000} suffix="km" />
             <PercentField label="Faktor ketersediaan" value={input.availabilityFactor} onChange={set("availabilityFactor")} hint="Porsi waktu armada benar-benar bisa jalan, di luar servis dan rusak." />
             <NumberField label="Jumlah rit per tahun" value={input.tripsPerYear} onChange={set("tripsPerYear")} min={0} step={10} suffix="rit" />
-            <NumberField label="Km bermuatan per rit" value={input.loadedKmPerTrip} onChange={set("loadedKmPerTrip")} min={0} step={10} suffix="km" />
-            <NumberField label="Km kosong per rit" value={input.emptyKmPerTrip} onChange={set("emptyKmPerTrip")} min={0} step={10} suffix="km" hint="Jarak posisi dan rit balik tanpa muatan." />
+
+            {/* Route pattern first, distance second. People hold a route as
+                "Jakarta-Surabaya, pulang kosong", not as a loaded/empty split,
+                and making them do that translation puts an easy mistake right
+                in front of the input that most decides the answer. */}
+            <div className="sm:col-span-2">
+              <FieldLabel htmlFor="route-pattern">Pola rute</FieldLabel>
+              <select
+                id="route-pattern"
+                value={routePattern}
+                onChange={(e) => applyPattern(e.target.value as RoutePattern, oneWayKm)}
+                className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold"
+              >
+                {ROUTE_PATTERNS.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.label}
+                  </option>
+                ))}
+              </select>
+              <p className="mt-2 text-[12px] leading-[1.7] text-slate-500">
+                {ROUTE_PATTERNS.find((p) => p.id === routePattern)?.detail}
+              </p>
+            </div>
+
+            {routePattern === "manual" ? (
+              <>
+                <NumberField label="Km bermuatan per rit" value={input.loadedKmPerTrip} onChange={set("loadedKmPerTrip")} min={0} step={10} suffix="km" />
+                <NumberField
+                  label="Km kosong per rit"
+                  value={input.emptyKmPerTrip}
+                  onChange={set("emptyKmPerTrip")}
+                  min={0}
+                  step={10}
+                  suffix="km"
+                  hint="Jarak posisi awal dan rit balik tanpa muatan."
+                />
+              </>
+            ) : (
+              <>
+                <NumberField
+                  label="Jarak satu arah"
+                  value={oneWayKm}
+                  onChange={(v) => applyPattern(routePattern, v)}
+                  min={0}
+                  step={10}
+                  suffix="km"
+                  hint="Jarak sekali jalan. Perjalanan baliknya dihitung otomatis sesuai pola rute."
+                />
+                <div className="flex items-end">
+                  <p className="pb-2.5 text-[12px] leading-[1.7] text-slate-500">
+                    Jarak per rit menjadi{" "}
+                    <strong className="font-bold text-slate-700">
+                      {formatNumber(input.loadedKmPerTrip, 0)} km bermuatan
+                    </strong>{" "}
+                    dan {formatNumber(input.emptyKmPerTrip, 0)} km kosong.
+                  </p>
+                </div>
+              </>
+            )}
             <NumberField label="Muatan rata-rata sesungguhnya" value={input.actualPayloadTon} onChange={set("actualPayloadTon")} min={0} step={0.5} suffix="ton" hint="Rata-rata nyata, bukan kapasitas brosur." />
             <NumberField label="Volume muatan rata-rata" value={input.actualVolumeM3} onChange={set("actualVolumeM3")} min={0} step={1} suffix="m³" hint="Isi 0 bila tarif tidak berbasis volume." />
           </Section>
@@ -120,8 +219,24 @@ export default function FleetCostCalculator() {
 
           <Section title="Biaya jalan per kilometer">
             <NumberField label="Harga bahan bakar" value={input.fuelPricePerLitre} onChange={set("fuelPricePerLitre")} min={0} step={100} suffix="Rp/L" />
-            <NumberField label="Konsumsi saat bermuatan" value={input.fuelKmPerLitreLoaded} onChange={set("fuelKmPerLitreLoaded")} min={0.1} step={0.1} suffix="km/L" />
-            <NumberField label="Konsumsi saat kosong" value={input.fuelKmPerLitreEmpty} onChange={set("fuelKmPerLitreEmpty")} min={0.1} step={0.1} suffix="km/L" hint="Dihitung terpisah — selisihnya nyata dan pos ini yang terbesar." />
+            <NumberField
+              label="Konsumsi saat bermuatan"
+              value={input.fuelKmPerLitreLoaded}
+              onChange={set("fuelKmPerLitreLoaded")}
+              min={0.1}
+              step={0.1}
+              suffix="km/L"
+              hint="Angka awal mengikuti kelas armada yang dipilih. Ganti dengan rata-rata dari catatan pengisian solar Anda sendiri — medan, umur mesin, dan gaya mengemudi menggesernya jauh."
+            />
+            <NumberField
+              label="Konsumsi saat kosong"
+              value={input.fuelKmPerLitreEmpty}
+              onChange={set("fuelKmPerLitreEmpty")}
+              min={0.1}
+              step={0.1}
+              suffix="km/L"
+              hint="Dihitung terpisah dari konsumsi bermuatan. Selisihnya nyata, dan bahan bakar adalah pos biaya terbesar."
+            />
             <NumberField label="Cairan aditif" value={input.additivePerKm} onChange={set("additivePerKm")} min={0} step={50} suffix="Rp/km" />
             <NumberField label="Harga satu set ban" value={input.tyreSetCost} onChange={set("tyreSetCost")} min={0} step={5_000_000} suffix="Rp" />
             <NumberField label="Umur ban" value={input.tyreLifeKm} onChange={set("tyreLifeKm")} min={1} step={5_000} suffix="km" />

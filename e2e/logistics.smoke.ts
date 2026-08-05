@@ -19,7 +19,13 @@ import { DIMENSION_LIMITS, ferryClassForLength, ROAD_CLASSES, tollClassForAxles 
 import type { FreeTimeInput } from "../src/lib/logistics/freeTime";
 import { addDays, calculateFreeTime, daysBetween, DEFAULT_SLABS } from "../src/lib/logistics/freeTime";
 import type { FleetCostInput } from "../src/lib/logistics/costPerKm";
-import { calculateFleetCost, FLEET_COST_DEFAULTS } from "../src/lib/logistics/costPerKm";
+import {
+  calculateFleetCost,
+  distancesForPattern,
+  fleetProfileForClass,
+  FLEET_COST_DEFAULTS,
+  ROUTE_PATTERNS,
+} from "../src/lib/logistics/costPerKm";
 
 let failures = 0;
 
@@ -255,7 +261,11 @@ console.log("\nfleet cost");
 // Every expectation below is the value the source spreadsheet itself computes
 // for its own sample inputs (Vehicle CV034, 6x4 tractor + 3-axle semi). If this
 // block ever fails, the port has drifted from the model it was derived from.
-const sample: FleetCostInput = { ...FLEET_COST_DEFAULTS, tripsPerYear: 240 };
+// The shipped defaults leave toll and ferry at zero so an unfilled field
+// cannot masquerade as a real tariff. The source sample used a 1.2m toll, so
+// it is restored here -- otherwise this block would be testing the defaults
+// rather than the model.
+const sample: FleetCostInput = { ...FLEET_COST_DEFAULTS, tripsPerYear: 240, tollPerTrip: 1_200_000 };
 const cost = calculateFleetCost(sample);
 
 check("effective annual km = planned x availability", cost.effectiveAnnualKm, 102_000);
@@ -302,6 +312,75 @@ check("zero inputs: every output finite", Object.values(empty).every((v) => type
 
 // A 100% margin target is unreachable by definition; it must not divide by zero.
 check("100% margin target guarded", calculateFleetCost({ ...sample, targetGrossMargin: 1 }).minimumSellingPerTrip, 0);
+
+// Shipped defaults must not smuggle in a route-specific tariff: a plausible
+// number nobody checked is worse than an empty field somebody has to fill.
+check("toll defaults to zero", FLEET_COST_DEFAULTS.tollPerTrip, 0);
+check("ferry defaults to zero", FLEET_COST_DEFAULTS.ferryPerTrip, 0);
+
+console.log("\nper-class cost profiles");
+
+// Fuel, purchase price and tyre cost scale several times over across the fleet,
+// so a single default set would be badly wrong for most of the taxonomy.
+const light = fleetProfileForClass("Light Truck");
+const tractor = fleetProfileForClass("Tractor-Semitrailer");
+check("a light truck goes further per litre than a tractor unit", light.fuelKmPerLitreLoaded > tractor.fuelKmPerLitreLoaded, true);
+check("a tractor unit costs more to buy", tractor.acquisitionPrice > light.acquisitionPrice, true);
+check("a tractor unit's tyre set costs more", tractor.tyreSetCost > light.tyreSetCost, true);
+check("the tractor profile matches the source sample's fuel figures", tractor.fuelKmPerLitreLoaded, 2.5);
+check("empty running is always more economical than loaded", tractor.fuelKmPerLitreEmpty > tractor.fuelKmPerLitreLoaded, true);
+
+// Every class in the taxonomy must resolve, and every profile must be usable
+// as-is: a zero anywhere here divides through to a zero or an Infinity on screen.
+check(
+  "every vehicle class resolves to a complete profile",
+  VEHICLE_CLASS_LABELS &&
+    Object.keys(VEHICLE_CLASS_LABELS).every((cls) => {
+      const p = fleetProfileForClass(cls);
+      return Object.values(p).every((v) => typeof v === "number" && v > 0);
+    }),
+  true,
+);
+check(
+  "heavier classes never out-run lighter ones",
+  fleetProfileForClass("Light Commercial").fuelKmPerLitreLoaded >
+    fleetProfileForClass("Heavy Truck").fuelKmPerLitreLoaded,
+  true,
+);
+// An unknown class must fall back to something usable rather than to zeros.
+check("an unknown class falls back to a working profile", fleetProfileForClass("Tidak Dikenal").acquisitionPrice > 0, true);
+
+// The whole point: swapping class changes the answer by a lot, not a little.
+const asLight = calculateFleetCost({ ...FLEET_COST_DEFAULTS, ...light, ...distancesForPattern("pp-kosong", 500) });
+const asTractor = calculateFleetCost({ ...FLEET_COST_DEFAULTS, ...tractor, ...distancesForPattern("pp-kosong", 500) });
+check("class choice moves cost per loaded km substantially", asTractor.costPerLoadedKm > asLight.costPerLoadedKm * 1.5, true);
+
+console.log("\nroute patterns");
+
+// A 500 km lane, three ways of running it.
+check("round trip loaded both ways: all 1000 km earn", distancesForPattern("pp-bermuatan", 500).loadedKmPerTrip, 1000);
+check("round trip loaded both ways: nothing runs empty", distancesForPattern("pp-bermuatan", 500).emptyKmPerTrip, 0);
+check("round trip returning empty: half earns", distancesForPattern("pp-kosong", 500).loadedKmPerTrip, 500);
+check("round trip returning empty: half runs empty", distancesForPattern("pp-kosong", 500).emptyKmPerTrip, 500);
+check("one way only: no return leg", distancesForPattern("sekali-jalan", 500).emptyKmPerTrip, 0);
+check("negative distance is clamped", distancesForPattern("pp-kosong", -100).loadedKmPerTrip, 0);
+check("every pattern is described for the user", ROUTE_PATTERNS.every((p) => p.label && p.detail), true);
+
+// The point of offering the patterns at all: same lane, same truck, and the
+// backhaul roughly halves what each earning kilometre has to carry.
+const laneBase = { ...sample, tollPerTrip: 0 };
+const emptyReturn = calculateFleetCost({ ...laneBase, ...distancesForPattern("pp-kosong", 500) });
+const paidReturn = calculateFleetCost({ ...laneBase, ...distancesForPattern("pp-bermuatan", 500) });
+check("both patterns drive the same total distance", emptyReturn.totalKmPerTrip, paidReturn.totalKmPerTrip);
+check("a paid backhaul cuts cost per loaded km", paidReturn.costPerLoadedKm < emptyReturn.costPerLoadedKm, true);
+check("empty-km ratio falls to zero with a paid backhaul", paidReturn.emptyKmRatio, 0);
+// Fuel differs because the empty leg burns at a different rate, so the trip
+// totals are close but not identical -- within 5% is the honest expectation.
+check(
+  "trip cost stays comparable between the two",
+  Math.abs(paidReturn.totalCostPerTrip - emptyReturn.totalCostPerTrip) / emptyReturn.totalCostPerTrip < 0.05,
+  true,
+);
 
 console.log(failures === 0 ? "\nAll logistics calculations passed.\n" : `\n${failures} check(s) failed.\n`);
 process.exit(failures === 0 ? 0 : 1);

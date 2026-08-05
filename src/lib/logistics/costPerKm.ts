@@ -107,6 +107,245 @@ export interface FleetCostResult {
   utilisationGap: number;
 }
 
+export type RoutePattern = "pp-bermuatan" | "pp-kosong" | "sekali-jalan" | "manual";
+
+export interface RoutePatternOption {
+  id: RoutePattern;
+  label: string;
+  detail: string;
+}
+
+/**
+ * Pola rute, sebagai cara mengisi jarak tanpa harus memodelkannya sendiri.
+ *
+ * Model biayanya bekerja dengan km bermuatan dan km kosong, dan itu memang
+ * pembagian yang benar. Persoalannya, orang tidak menyimpan rutenya dalam
+ * bentuk itu -- yang mereka tahu adalah "Jakarta-Surabaya, pulang kosong".
+ * Menuntut mereka menerjemahkannya sendiri adalah menaruh satu langkah yang
+ * gampang keliru tepat di depan angka yang paling menentukan hasil.
+ *
+ * Kekeliruan yang paling mahal di antaranya: mengisi jarak sekali jalan lalu
+ * lupa rit baliknya sama sekali. Biaya per rit langsung terlihat separuh dari
+ * yang sebenarnya, dan tarif yang lahir dari situ merugi pada setiap rit tanpa
+ * ada satu pos pun yang kelihatan janggal.
+ */
+export const ROUTE_PATTERNS: RoutePatternOption[] = [
+  {
+    id: "pp-kosong",
+    label: "Pulang pergi, balik kosong",
+    detail:
+      "Berangkat bermuatan, kembali tanpa muatan. Pola paling umum, dan yang paling mahal — separuh jarak tidak menghasilkan pendapatan tetapi tetap memakan solar, ban, dan waktu sopir.",
+  },
+  {
+    id: "pp-bermuatan",
+    label: "Pulang pergi, dua arah bermuatan",
+    detail:
+      "Ada muatan balik yang membayar. Biaya per rit memang naik karena jaraknya sama, tetapi biaya per kilometer bermuatan turun tajam — inilah yang membuat rit balik layak dikejar.",
+  },
+  {
+    id: "sekali-jalan",
+    label: "Sekali jalan saja",
+    detail:
+      "Kendaraan tidak kembali, atau perjalanan baliknya sudah dibebankan ke pekerjaan lain. Pastikan biaya baliknya benar-benar ditanggung pihak lain sebelum memilih ini.",
+  },
+  {
+    id: "manual",
+    label: "Atur sendiri",
+    detail:
+      "Untuk rute dengan muatan balik sebagian, jarak posisi awal, atau pola singgah beberapa titik. Isi km bermuatan dan km kosong secara terpisah.",
+  },
+];
+
+/** Menerjemahkan pola rute dan jarak satu arah menjadi km bermuatan dan km kosong. */
+export function distancesForPattern(
+  pattern: RoutePattern,
+  oneWayKm: number,
+): { loadedKmPerTrip: number; emptyKmPerTrip: number } {
+  const distance = Math.max(0, oneWayKm);
+  switch (pattern) {
+    case "pp-bermuatan":
+      return { loadedKmPerTrip: distance * 2, emptyKmPerTrip: 0 };
+    case "pp-kosong":
+      return { loadedKmPerTrip: distance, emptyKmPerTrip: distance };
+    case "sekali-jalan":
+      return { loadedKmPerTrip: distance, emptyKmPerTrip: 0 };
+    case "manual":
+      return { loadedKmPerTrip: distance, emptyKmPerTrip: 0 };
+  }
+}
+
+/**
+ * Angka awal yang ikut berubah ketika kelas armada diganti.
+ *
+ * Konsumsi bahan bakar, harga kendaraan, dan biaya ban tidak sedikit berbeda
+ * antar kelas — melainkan berbeda berkali-kali lipat. Tractor head menempuh
+ * sekitar 2,5 km per liter; CDD bisa tiga kali lipat itu. Satu set ban trailer
+ * berharga belasan kali set ban truk ringan. Membiarkan satu angka bawaan
+ * berlaku untuk seluruh kelas berarti kalkulator yang menampilkan hasil sangat
+ * meleset segera setelah orang memilih armada selain yang kebetulan menjadi
+ * dasar angka bawaan itu.
+ *
+ * Rentangnya di sini kasar dan memang begitu adanya — konsumsi bahan bakar
+ * ditentukan medan, gaya mengemudi, umur mesin, dan bobot muatan, dan tidak ada
+ * angka terbitan yang berlaku untuk semua. Karena itu profil ini disebut titik
+ * awal, bukan patokan, dan kolomnya tetap bisa ditimpa. Angka yang benar datang
+ * dari catatan pengisian solar armada sendiri, dan itu dinyatakan terang-terangan
+ * di halamannya.
+ *
+ * Yang membenarkan keberadaannya: profil kasar yang sesuai kelas jauh lebih
+ * mendekati kebenaran daripada angka tractor head yang dipakaikan ke pickup.
+ */
+export interface FleetProfile {
+  fuelKmPerLitreLoaded: number;
+  fuelKmPerLitreEmpty: number;
+  acquisitionPrice: number;
+  tyreSetCost: number;
+  tyreLifeKm: number;
+  maintenancePerKm: number;
+  crewFixedPerYear: number;
+}
+
+const PROFILE_BY_CLASS: Record<string, FleetProfile> = {
+  "Light Commercial": {
+    fuelKmPerLitreLoaded: 11,
+    fuelKmPerLitreEmpty: 13,
+    acquisitionPrice: 200_000_000,
+    tyreSetCost: 4_000_000,
+    tyreLifeKm: 50_000,
+    maintenancePerKm: 400,
+    crewFixedPerYear: 60_000_000,
+  },
+  "Light Truck": {
+    fuelKmPerLitreLoaded: 8,
+    fuelKmPerLitreEmpty: 10,
+    acquisitionPrice: 400_000_000,
+    tyreSetCost: 12_000_000,
+    tyreLifeKm: 60_000,
+    maintenancePerKm: 700,
+    crewFixedPerYear: 80_000_000,
+  },
+  "Medium Truck": {
+    fuelKmPerLitreLoaded: 5.5,
+    fuelKmPerLitreEmpty: 7,
+    acquisitionPrice: 700_000_000,
+    tyreSetCost: 25_000_000,
+    tyreLifeKm: 70_000,
+    maintenancePerKm: 1_100,
+    crewFixedPerYear: 96_000_000,
+  },
+  "Medium/Heavy Truck": {
+    fuelKmPerLitreLoaded: 4.5,
+    fuelKmPerLitreEmpty: 6,
+    acquisitionPrice: 900_000_000,
+    tyreSetCost: 40_000_000,
+    tyreLifeKm: 70_000,
+    maintenancePerKm: 1_300,
+    crewFixedPerYear: 108_000_000,
+  },
+  "Heavy Truck": {
+    fuelKmPerLitreLoaded: 3.5,
+    fuelKmPerLitreEmpty: 4.5,
+    acquisitionPrice: 1_100_000_000,
+    tyreSetCost: 55_000_000,
+    tyreLifeKm: 75_000,
+    maintenancePerKm: 1_600,
+    crewFixedPerYear: 120_000_000,
+  },
+  "Heavy/Special Truck": {
+    fuelKmPerLitreLoaded: 3,
+    fuelKmPerLitreEmpty: 4,
+    acquisitionPrice: 1_400_000_000,
+    tyreSetCost: 70_000_000,
+    tyreLifeKm: 75_000,
+    maintenancePerKm: 1_800,
+    crewFixedPerYear: 120_000_000,
+  },
+  "Specialized Rigid": {
+    fuelKmPerLitreLoaded: 4,
+    fuelKmPerLitreEmpty: 5,
+    acquisitionPrice: 1_200_000_000,
+    tyreSetCost: 45_000_000,
+    tyreLifeKm: 70_000,
+    maintenancePerKm: 1_700,
+    crewFixedPerYear: 120_000_000,
+  },
+  "Tractor-Semitrailer": {
+    fuelKmPerLitreLoaded: 2.5,
+    fuelKmPerLitreEmpty: 3.2,
+    acquisitionPrice: 1_500_000_000,
+    tyreSetCost: 90_000_000,
+    tyreLifeKm: 80_000,
+    maintenancePerKm: 1_800,
+    crewFixedPerYear: 120_000_000,
+  },
+  "Container Chassis": {
+    fuelKmPerLitreLoaded: 2.5,
+    fuelKmPerLitreEmpty: 3.2,
+    acquisitionPrice: 1_500_000_000,
+    tyreSetCost: 90_000_000,
+    tyreLifeKm: 80_000,
+    maintenancePerKm: 1_800,
+    crewFixedPerYear: 120_000_000,
+  },
+  "Semi-trailer Body": {
+    fuelKmPerLitreLoaded: 2.5,
+    fuelKmPerLitreEmpty: 3.2,
+    acquisitionPrice: 1_600_000_000,
+    tyreSetCost: 90_000_000,
+    tyreLifeKm: 80_000,
+    maintenancePerKm: 1_900,
+    crewFixedPerYear: 120_000_000,
+  },
+  "Special Trailer": {
+    fuelKmPerLitreLoaded: 2,
+    fuelKmPerLitreEmpty: 2.8,
+    acquisitionPrice: 2_200_000_000,
+    tyreSetCost: 120_000_000,
+    tyreLifeKm: 70_000,
+    maintenancePerKm: 2_400,
+    crewFixedPerYear: 144_000_000,
+  },
+  "Special Combination": {
+    fuelKmPerLitreLoaded: 2,
+    fuelKmPerLitreEmpty: 2.8,
+    acquisitionPrice: 2_400_000_000,
+    tyreSetCost: 140_000_000,
+    tyreLifeKm: 70_000,
+    maintenancePerKm: 2_500,
+    crewFixedPerYear: 144_000_000,
+  },
+  "Heavy Haul": {
+    fuelKmPerLitreLoaded: 1.5,
+    fuelKmPerLitreEmpty: 2.2,
+    acquisitionPrice: 5_000_000_000,
+    tyreSetCost: 250_000_000,
+    tyreLifeKm: 50_000,
+    maintenancePerKm: 4_000,
+    crewFixedPerYear: 200_000_000,
+  },
+  "Off-Highway": {
+    fuelKmPerLitreLoaded: 1.2,
+    fuelKmPerLitreEmpty: 1.8,
+    acquisitionPrice: 6_000_000_000,
+    tyreSetCost: 400_000_000,
+    tyreLifeKm: 40_000,
+    maintenancePerKm: 6_000,
+    crewFixedPerYear: 200_000_000,
+  },
+};
+
+/**
+ * Profil awal untuk sebuah kelas armada.
+ *
+ * Kelas yang tidak dikenal jatuh ke profil truk medium, bukan ke nol. Kolom
+ * kosong pada harga kendaraan dan konsumsi bahan bakar akan membuat seluruh
+ * hasil menjadi nol dan halamannya terlihat rusak; profil menengah setidaknya
+ * menghasilkan angka yang bisa dikoreksi.
+ */
+export function fleetProfileForClass(mainClass: string): FleetProfile {
+  return PROFILE_BY_CLASS[mainClass] || PROFILE_BY_CLASS["Medium Truck"];
+}
+
 /** Pembagian yang mengembalikan 0 alih-alih Infinity, meniru IFERROR pada model asal. */
 function safeDivide(numerator: number, denominator: number): number {
   if (!Number.isFinite(denominator) || denominator === 0) return 0;
@@ -197,6 +436,11 @@ export function calculateFleetCost(input: FleetCostInput): FleetCostResult {
  * pembukuan sendiri.
  */
 export const FLEET_COST_DEFAULTS: FleetCostInput = {
+  // Tol dan penyeberangan sengaja nol, bukan sekadar belum diisi. Angka bawaan
+  // yang terlihat seperti tarif sungguhan akan ikut terbawa ke hasil oleh
+  // sebagian orang tanpa pernah diperiksa, dan tarif jual yang lahir dari situ
+  // salah tanpa satu pun kolom terlihat janggal. Kolom kosong menuntut
+  // perhatian; angka yang meyakinkan justru menghindarinya.
   acquisitionPrice: 1_500_000_000,
   residualRatio: 0.2,
   usefulLifeYears: 8,
@@ -221,7 +465,7 @@ export const FLEET_COST_DEFAULTS: FleetCostInput = {
   tyreLifeKm: 80_000,
   maintenancePerKm: 1_800,
   lubricantsPerKm: 250,
-  tollPerTrip: 1_200_000,
+  tollPerTrip: 0,
   ferryPerTrip: 0,
   handlingPerTrip: 500_000,
   parkingPerTrip: 200_000,

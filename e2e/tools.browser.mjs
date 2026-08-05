@@ -319,6 +319,73 @@ await page.waitForTimeout(200);
 const filtered = await page.locator("dt").count();
 check("searching narrows the list", filtered > 0 && filtered < allTerms, `${filtered} after filter`);
 
+console.log("\nevery switch keeps its knob inside its track");
+
+/**
+ * Sweeps every `role="switch"` on the site, in both states, at a phone width.
+ *
+ * Three separate switches were broken in three different ways and all three
+ * looked fine on a desktop review, which is why this measures rather than
+ * eyeballs. Two failed only when the row got tight enough to squeeze the track
+ * narrower than its own knob travel; the third failed only in its checked
+ * state. So: both states, narrow viewport, geometry not screenshots.
+ */
+async function switchesFitOn(target, label) {
+  const rows = await target.evaluate(() =>
+    [...document.querySelectorAll('[role="switch"]')].map((sw) => {
+      const track = sw.getBoundingClientRect();
+      const knob = sw.firstElementChild?.getBoundingClientRect();
+      if (!knob) return null;
+      return {
+        name: (sw.getAttribute("aria-label") || sw.id || "switch").slice(0, 30),
+        checked: sw.getAttribute("aria-checked"),
+        escapes:
+          Math.round(track.left - knob.left) > 0 ||
+          Math.round(knob.right - track.right) > 0 ||
+          Math.round(track.top - knob.top) > 0 ||
+          Math.round(knob.bottom - track.bottom) > 0,
+      };
+    }),
+  );
+  const present = rows.filter(Boolean);
+  const escaped = present.filter((r) => r.escapes).map((r) => `${r.name} (checked=${r.checked})`);
+  check(`${label}: knobs stay inside their tracks`, present.length > 0 && escaped.length === 0, escaped.join(", ") || "no switch found");
+}
+
+const switchPhone = await browser.newContext({ viewport: { width: 360, height: 780 } });
+const switchPage = await switchPhone.newPage();
+
+// The consent switches only exist once the preferences panel is open.
+await switchPage.goto(`${BASE}/`, { waitUntil: "networkidle" });
+await switchPage.waitForTimeout(900);
+await switchPage.getByRole("button", { name: "Atur" }).click();
+await switchPage.waitForTimeout(400);
+await switchesFitOn(switchPage, "cookie preferences");
+for (const sw of await switchPage.locator('[role="switch"]').all()) await sw.click({ force: true });
+await switchPage.waitForTimeout(300);
+await switchesFitOn(switchPage, "cookie preferences, flipped");
+// Dismiss the banner before moving on, or it sits over the next page's switch.
+await switchPage.getByRole("button", { name: "Simpan Pilihan" }).click();
+await switchPage.waitForTimeout(400);
+
+await switchPage.goto(`${BASE}/paket`, { waitUntil: "networkidle" });
+await switchPage.waitForTimeout(600);
+await switchesFitOn(switchPage, "monthly billing");
+await switchPage.locator('[role="switch"]').first().click();
+await switchPage.waitForTimeout(400);
+await switchesFitOn(switchPage, "annual billing");
+
+for (const slug of ["kalkulator-muatan-truk", "kalkulator-demurrage"]) {
+  await switchPage.goto(`${BASE}/alat/${slug}`, { waitUntil: "networkidle" });
+  await switchPage.waitForTimeout(500);
+  await unlock(switchPage);
+  await switchesFitOn(switchPage, `${slug} as loaded`);
+  for (const sw of await switchPage.locator('[role="switch"]').all()) await sw.click({ force: true });
+  await switchPage.waitForTimeout(300);
+  await switchesFitOn(switchPage, `${slug} flipped`);
+}
+await switchPhone.close();
+
 console.log("\nno horizontal overflow on a phone");
 
 const phone = await context.newPage();

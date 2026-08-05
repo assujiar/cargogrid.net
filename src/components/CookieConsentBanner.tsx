@@ -147,7 +147,7 @@ export default function CookieConsentBanner() {
                   aria-checked={prefAnalytics}
                   aria-label={isEn ? "Analytics Tracking" : "Analisis Pengunjung"}
                   onClick={() => setPrefAnalytics(!prefAnalytics)}
-                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${prefAnalytics ? "bg-brand-teal" : "bg-slate-300"}`}
+                  className={`w-10 h-6 flex-shrink-0 flex items-center rounded-full p-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${prefAnalytics ? "bg-brand-teal" : "bg-slate-300"}`}
                 >
                   <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${prefAnalytics ? "translate-x-4" : "translate-x-0"}`} />
                 </button>
@@ -164,7 +164,7 @@ export default function CookieConsentBanner() {
                   aria-checked={prefMarketing}
                   aria-label={isEn ? "Marketing Source" : "Sumber Marketing"}
                   onClick={() => setPrefMarketing(!prefMarketing)}
-                  className={`w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${prefMarketing ? "bg-brand-teal" : "bg-slate-300"}`}
+                  className={`w-10 h-6 flex-shrink-0 flex items-center rounded-full p-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${prefMarketing ? "bg-brand-teal" : "bg-slate-300"}`}
                 >
                   <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${prefMarketing ? "translate-x-4" : "translate-x-0"}`} />
                 </button>

@@ -616,7 +616,7 @@ export const pricingPackages: PackageItem[] = [
     desc: "Didesain khusus untuk korporasi besar yang membutuhkan penyesuaian khusus, infrastruktur terisolasi, integrasi legacy system, dan SLA tingkat tinggi.",
     descEn: "Custom-tailored for large corporate enterprises requiring unique workflows, isolated infrastructure, legacy integrations, and maximum SLAs.",
     positioning: "Dedicated Cloud Infra, Single Sign-On, integrasi kustom tanpa hambatan.",
-    positioningEn: "Dedicated cloud infrastructure, corporate SSO, and seamless legacy API integrations.",
+    positioningEn: "Dedicated cloud infrastructure, corporate SSO, and dependable legacy API integrations.",
     fit: "Korporat Multinasional & BUMN Logistik",
     fitEn: "Multinational Corporations & State-Owned Logistics Enterprises",
     features: [

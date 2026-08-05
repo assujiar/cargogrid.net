@@ -384,7 +384,7 @@ export default function ProblemSection() {
 
               <div className="mt-auto pt-6 border-t border-slate-200 flex items-center justify-between text-xs font-mono">
                 <span className="text-brand-teal font-extrabold uppercase">{isEn ? "Average Response: < 5 Minutes" : "Rata-rata Respon: < 5 Menit"}</span>
-                <span className="text-emerald-600 nm-emboss-sm px-3 py-1 rounded-xl font-extrabold">{isEn ? "SEAMLESS" : "LANCAR"}</span>
+                <span className="text-emerald-600 nm-emboss-sm px-3 py-1 rounded-xl font-extrabold">{isEn ? "SMOOTH" : "LANCAR"}</span>
               </div>
             </div>
 

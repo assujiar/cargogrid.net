@@ -159,7 +159,7 @@ export const article: Article = {
     {
       type: "callout",
       tone: "example",
-      title: "Contoh perhitungan: sesuaikan dengan angka gudang Anda sendiri",
+      title: "Cara membaca angka value recovery rate ini",
       body: "Misalkan dalam satu kuartal gudang menerima retur senilai Rp 500 juta: Rp 210 juta direstock dan terjual, Rp 60 juta terjual setelah rework, Rp 90 juta diklaim balik ke vendor, sisanya Rp 140 juta dihapus buku. Value recovery rate: (210+60+90) dibagi 500, sekitar 72%. Itu angka yang jadi acuan dari kuartal ke kuartal, bukan angka absolutnya.",
     },
     {

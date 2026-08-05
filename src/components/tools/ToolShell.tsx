@@ -194,7 +194,7 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
           <p className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-brand-teal">CargoGrid OS</p>
           <p className="mt-4 max-w-2xl text-[15px] leading-[1.8] text-slate-700">
             Alat di halaman ini menjawab satu kiriman. Kalau persoalannya adalah tiga puluh kiriman sekaligus, tenggat
-            yang tersebar di kepala beberapa orang, angka yang disalin ulang dari penawaran ke booking ke invoice , 
+            yang tersebar di kepala beberapa orang, dan angka yang disalin ulang dari penawaran ke booking ke invoice,
             yang dibutuhkan bukan kalkulator, melainkan satu tempat penyimpanan yang dipakai bersama.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

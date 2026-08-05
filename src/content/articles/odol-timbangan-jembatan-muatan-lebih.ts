@@ -20,23 +20,23 @@ export const article: Article = {
   summary:
     "Truk yang biasa dimuati sedikit lebih dari kapasitas kir terasa wajar selama semua truk di jalur yang sama melakukan hal serupa, sampai suatu hari kena razia di jembatan timbang, atau as roda patah di tol karena beban yang sebenarnya sudah lama di luar batas. Tulisan ini membedah kenapa ODOL terasa menguntungkan buat satu perusahaan sekalipun ongkosnya sistemik, dan bagaimana menghitung true cost per rit sebelum memutuskan menambah muatan lagi.",
   takeaways: [
-    "Muatan lebih terasa untung karena ongkos truk nyaris tidak berubah sementara pendapatan naik mengikuti tonase - hitungan itu berhenti di pendapatan kotor, belum menyentuh ongkos yang muncul belakangan.",
+    "Muatan lebih terasa untung karena ongkos truk nyaris tidak berubah sementara pendapatan naik mengikuti tonase. Hitungan itu berhenti di pendapatan kotor, belum menyentuh ongkos yang muncul belakangan.",
     "Muatan 35% di atas kir bisa berarti keausan jalan tiga kali lipat, dan ongkos itu ditanggung anggaran jalan negara, sementara truk penyebabnya tidak menanggung apa pun.",
-    "Untung dari muatan lebih dikantongi hari itu juga. Ongkos dari denda, bongkar paksa, atau kerusakan kendaraan probabilistik dan baru terasa belakangan - itu sebabnya kalkulasi di atas kertas nyaris selalu lebih baik dari kenyataan.",
-    "Begitu peluang tertangkap di satu rute naik - jembatan timbang tetap, razia diperketat - true cost per rit bisa melampaui tambahan untungnya, dan muatan lebih yang tadinya menguntungkan berbalik jadi kerugian nyata.",
+    "Untung dari muatan lebih dikantongi hari itu juga. Ongkos dari denda, bongkar paksa, atau kerusakan kendaraan probabilistik dan baru terasa belakangan: itu sebabnya kalkulasi di atas kertas nyaris selalu lebih baik dari kenyataan.",
+    "Begitu peluang tertangkap di satu rute naik (jembatan timbang tetap, razia diperketat), true cost per rit bisa melampaui tambahan untungnya, dan muatan lebih yang tadinya menguntungkan berbalik jadi kerugian nyata.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Truk tronton itu sudah tiga tahun menjalani rute yang sama: mengangkut besi beton dari pabrik di Cilegon ke gudang distributor di Bandung, dua rit sehari. Buku kir mencatat muatan sumbu terberat 20 ton. Tapi setiap kali antre di gerbang pabrik, timbangan selalu menunjukkan 27 ton - dan hampir semua truk di belakangnya menunjukkan angka serupa.",
+      text: "Truk tronton itu sudah tiga tahun menjalani rute yang sama: mengangkut besi beton dari pabrik di Cilegon ke gudang distributor di Bandung, dua rit sehari. Buku kir mencatat muatan sumbu terberat 20 ton. Tapi setiap kali antre di gerbang pabrik, timbangan selalu menunjukkan 27 ton, dan hampir semua truk di belakangnya menunjukkan angka serupa.",
     },
     {
       type: "p",
-      text: "Hitungannya sederhana. Ongkos angkut disepakati Rp350.000 per ton. Muatan resmi 20 ton berarti Rp7.000.000 per rit. Muatan 27 ton berarti Rp9.450.000 - selisih Rp2.450.000 dari tujuh ton ekstra di truk, sopir, dan tangki solar yang sama persis. Perusahaan yang menolak ikut serta biasanya kalah tender karena tarifnya jadi tidak kompetitif.",
+      text: "Hitungannya sederhana. Ongkos angkut disepakati Rp350.000 per ton. Muatan resmi 20 ton berarti Rp7.000.000 per rit. Muatan 27 ton berarti Rp9.450.000: selisih Rp2.450.000 dari tujuh ton ekstra di truk, sopir, dan tangki solar yang sama persis. Perusahaan yang menolak ikut serta biasanya kalah tender karena tarifnya jadi tidak kompetitif.",
     },
     {
       type: "p",
-      text: "Bulan lalu, sopir itu lewat tol Cipularang, bukan jalur arteri Karawang yang melewati jembatan timbang Balonggandu - tarif tolnya lebih mahal, tapi lebih aman dari timbangan. Di kilometer 72, as roda belakang patah. Truk berhenti empat jam menunggu towing, muatan dipindah ke truk lain dengan ongkos darurat, dan pengiriman ke Bandung molor sehari penuh. Rute yang dipilih untuk menghindari jembatan timbang berakhir menagih ongkos lebih besar di tempat lain.",
+      text: "Bulan lalu, sopir itu lewat tol Cipularang, bukan jalur arteri Karawang yang melewati jembatan timbang Balonggandu (tarif tolnya lebih mahal, tapi lebih aman dari timbangan). Di kilometer 72, as roda belakang patah. Truk berhenti empat jam menunggu towing, muatan dipindah ke truk lain dengan ongkos darurat, dan pengiriman ke Bandung molor sehari penuh. Rute yang dipilih untuk menghindari jembatan timbang berakhir menagih ongkos lebih besar di tempat lain.",
     },
     {
       type: "h2",
@@ -45,7 +45,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dari sisi satu perusahaan, menambah muatan memang masuk akal. Biaya menjalankan truk untuk satu rit - solar, gaji sopir, tol, penyusutan - nyaris tidak berubah baik muatan 20 ton atau 27 ton, sementara pendapatan naik linear mengikuti tonase. Makin berat muatan, makin murah ongkos per ton, makin tinggi margin per rit.",
+      text: "Dari sisi satu perusahaan, menambah muatan memang masuk akal. Biaya menjalankan truk untuk satu rit (solar, gaji sopir, tol, penyusutan) nyaris tidak berubah baik muatan 20 ton atau 27 ton, sementara pendapatan naik linear mengikuti tonase. Makin berat muatan, makin murah ongkos per ton, makin tinggi margin per rit.",
     },
     {
       type: "p",
@@ -58,17 +58,17 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Yang tidak masuk kalkulasi itu adalah ongkos yang tidak ditanggung truk itu sendiri. Penelitian jalan raya AASHO di Amerika Serikat menemukan hubungan yang sekarang jadi dasar rekayasa perkerasan jalan: kerusakan yang ditimbulkan satu lintasan gandar kira-kira mengikuti pangkat empat dari beban gandar itu. Gandar dengan beban 35% di atas batas tidak merusak jalan 35% lebih banyak - ia merusak sekitar tiga kali lipat, karena 1,35 dipangkatkan empat mendekati 3,3.",
+      text: "Yang tidak masuk kalkulasi itu adalah ongkos yang tidak ditanggung truk itu sendiri. Penelitian jalan raya AASHO di Amerika Serikat menemukan hubungan yang sekarang jadi dasar rekayasa perkerasan jalan: kerusakan yang ditimbulkan satu lintasan gandar kira-kira mengikuti pangkat empat dari beban gandar itu. Gandar dengan beban 35% di atas batas tidak merusak jalan 35% lebih banyak: ia merusak sekitar tiga kali lipat, karena 1,35 dipangkatkan empat mendekati 3,3.",
     },
     {
       type: "p",
-      text: "Di sinilah persoalannya. Kerusakan itu ditanggung anggaran jalan negara dan pengguna jalan lain yang kena macet atau kecelakaan akibat jalan ambles, sementara truk penyebabnya tidak menanggung sepeser pun. Setiap perusahaan yang menambah muatan mendapat untung penuh sendiri, sementara ongkos kerusakannya dibagi rata ke jutaan pengguna jalan lain. Kalau semua truk di satu jalur berpikir sama, jalur itu rusak jauh lebih cepat dari usia pakainya - dan itulah yang berulang kali mendorong pemerintah menggulirkan program semacam Zero ODOL, yang ongkosnya balik lagi ke truk yang sama.",
+      text: "Di sinilah persoalannya. Kerusakan itu ditanggung anggaran jalan negara dan pengguna jalan lain yang kena macet atau kecelakaan akibat jalan ambles, sementara truk penyebabnya tidak menanggung sepeser pun. Setiap perusahaan yang menambah muatan mendapat untung penuh sendiri, sementara ongkos kerusakannya dibagi rata ke jutaan pengguna jalan lain. Kalau semua truk di satu jalur berpikir sama, jalur itu rusak jauh lebih cepat dari usia pakainya, dan itulah yang berulang kali mendorong pemerintah menggulirkan program semacam Zero ODOL, yang ongkosnya balik lagi ke truk yang sama.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Sanksi untuk pelanggar berulang jauh lebih mahal dari tilang pertama",
-      body: "Truk yang tertangkap ODOL kedua atau ketiga kalinya biasanya tidak lagi cuma berurusan dengan denda. Kir bisa dibekukan, STNK ditahan, dan izin trayek bisa masuk pengawasan khusus. Ongkos ini jarang dihitung sebelum kejadian pertama - padahal inilah yang paling mahal.",
+      body: "Truk yang tertangkap ODOL kedua atau ketiga kalinya biasanya tidak lagi cuma berurusan dengan denda. Kir bisa dibekukan, STNK ditahan, dan izin trayek bisa masuk pengawasan khusus. Ongkos ini jarang dihitung sebelum kejadian pertama, padahal inilah yang paling mahal.",
     },
     {
       type: "h2",
@@ -77,11 +77,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ada pola lain yang membuat muatan lebih terus dipertahankan meski risikonya jelas: waktu kapan untung dan ongkos itu muncul tidak sama. Tambahan pendapatan Rp2.450.000 dikantongi begitu barang diserahkan dan invoice terbit, dalam hitungan hari. Ongkos dari denda, bongkar paksa, atau as yang patah bersifat probabilistik - mungkin muncul rit ini, mungkin bulan depan, mungkin tidak sama sekali.",
+      text: "Ada pola lain yang membuat muatan lebih terus dipertahankan meski risikonya jelas: waktu kapan untung dan ongkos itu muncul tidak sama. Tambahan pendapatan Rp2.450.000 dikantongi begitu barang diserahkan dan invoice terbit, dalam hitungan hari. Ongkos dari denda, bongkar paksa, atau as yang patah bersifat probabilistik: mungkin muncul rit ini, mungkin bulan depan, mungkin tidak sama sekali.",
     },
     {
       type: "p",
-      text: "Otak manusia, dan sistem insentif perusahaan, menilai untung yang pasti dan langsung terasa jauh lebih berat daripada ongkos yang baru berupa kemungkinan di masa depan - sekalipun nilainya cukup besar kalau dihitung cermat. Sebelum kejadian pertama, muatan lebih cuma terlihat sebagai keuntungan tambahan yang polos.",
+      text: "Otak manusia, dan sistem insentif perusahaan, menilai untung yang pasti dan langsung terasa jauh lebih berat daripada ongkos yang baru berupa kemungkinan di masa depan, sekalipun nilainya cukup besar kalau dihitung cermat. Sebelum kejadian pertama, muatan lebih cuma terlihat sebagai keuntungan tambahan yang polos.",
     },
     {
       type: "quote",
@@ -99,11 +99,11 @@ export const article: Article = {
     {
       type: "ul",
       items: [
-        "**Percepatan keausan komponen** - ban, as, per, chassis - menanggung tegangan yang naik lebih cepat dari beban itu sendiri, sehingga jadwal servis jadi lebih rapat.",
+        "**Percepatan keausan komponen** (ban, as, per, chassis) menanggung tegangan yang naik lebih cepat dari beban itu sendiri, sehingga jadwal servis jadi lebih rapat.",
         "**Expected cost ditilang dan bongkar paksa.** Selain nominal denda, hitung sewa truk darurat di lokasi dan waktu tertahan yang menggeser jadwal rit berikutnya.",
-        "**Expected cost kerusakan kendaraan** - as patah, ban pecah - berupa towing, suku cadang, dan downtime rit berikutnya.",
+        "**Expected cost kerusakan kendaraan** (as patah, ban pecah) berupa towing, suku cadang, dan downtime rit berikutnya.",
         "**Risiko kecelakaan dan tanggung jawab hukum**, lebih berat saat muatan berlebih terlibat dalam kecelakaan.",
-        "**Sanksi administratif pelanggar berulang** - kir dibekukan, izin trayek diawasi ketat - bisa menahan operasional seluruh armada.",
+        "**Sanksi administratif pelanggar berulang** (kir dibekukan, izin trayek diawasi ketat) bisa menahan operasional seluruh armada.",
       ],
     },
     {
@@ -134,7 +134,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di atas kertas, rit ini menghasilkan tambahan Rp2.450.000. Setelah true cost dihitung, rit yang sama justru merugi Rp570.000 - selisih hampir Rp3 juta, seluruhnya dari ongkos yang tidak pernah muncul di nota pengiriman sampai salah satunya benar-benar terjadi.",
+      text: "Di atas kertas, rit ini menghasilkan tambahan Rp2.450.000. Setelah true cost dihitung, rit yang sama justru merugi Rp570.000: selisih hampir Rp3 juta, seluruhnya dari ongkos yang tidak pernah muncul di nota pengiriman sampai salah satunya benar-benar terjadi.",
     },
     {
       type: "h2",
@@ -143,11 +143,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Angka paling menentukan di atas adalah peluang tertangkap, jauh lebih menentukan dibanding nominal denda atau ongkos bengkel itu sendiri, dan angka ini berbeda jauh antar rute. Di jalur arteri dengan razia sporadis, peluang tertangkap bisa di bawah 5%, sehingga true cost tambahan jauh lebih kecil dari tambahan pendapatannya - situasi yang membuat kebiasaan ini bertahan bertahun-tahun tanpa terasa jadi masalah.",
+      text: "Angka paling menentukan di atas adalah peluang tertangkap, jauh lebih menentukan dibanding nominal denda atau ongkos bengkel itu sendiri, dan angka ini berbeda jauh antar rute. Di jalur arteri dengan razia sporadis, peluang tertangkap bisa di bawah 5%, sehingga true cost tambahan jauh lebih kecil dari tambahan pendapatannya, situasi yang membuat kebiasaan ini bertahan bertahun-tahun tanpa terasa jadi masalah.",
     },
     {
       type: "p",
-      text: "Begitu masuk rute dengan jembatan timbang tetap yang aktif rutin, musim razia diperketat, atau truk yang sama sudah pernah tertangkap sehingga sanksinya berlipat, peluang tertangkap bisa naik lima sampai delapan kali lipat. Pada titik itu, true cost tambahan bisa melampaui tambahan pendapatannya - truk yang sama, barang yang sama, tarif yang sama, berubah dari untung jadi rugi hanya karena rute dan waktunya berbeda.",
+      text: "Begitu masuk rute dengan jembatan timbang tetap yang aktif rutin, musim razia diperketat, atau truk yang sama sudah pernah tertangkap sehingga sanksinya berlipat, peluang tertangkap bisa naik lima sampai delapan kali lipat. Pada titik itu, true cost tambahan bisa melampaui tambahan pendapatannya. Truk yang sama, barang yang sama, tarif yang sama, berubah dari untung jadi rugi hanya karena rute dan waktunya berbeda.",
     },
     {
       type: "ul",
@@ -193,7 +193,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Muatan tidak harus selalu persis di angka kir - ada margin toleransi wajar yang sudah jadi praktik umum. Yang perlu diubah adalah cara memutuskannya: hitung dulu true cost di rute dan musim yang sedang dilalui, sebelum ikut kebiasaan jalur begitu saja.",
+      text: "Muatan tidak harus selalu persis di angka kir; ada margin toleransi wajar yang sudah jadi praktik umum. Yang perlu diubah adalah cara memutuskannya: hitung dulu true cost di rute dan musim yang sedang dilalui, sebelum ikut kebiasaan jalur begitu saja.",
     },
     {
       type: "ol",

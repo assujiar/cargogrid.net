@@ -18,7 +18,7 @@ export const article: Article = {
   category: "gudang",
   publishedAt: "2026-06-08",
   summary:
-    "Di banyak gudang, SKU yang paling sering dipesan justru tersimpan paling jauh dari titik pengiriman. Ini warisan tata letak asal taruh bertahun-tahun lalu, saat gudang baru dibuka dan belum ada yang memikirkan pola permintaannya. ABC analysis, turunan prinsip Pareto, menjelaskan cara menyusun ulang penempatan itu dari data frekuensi pengambilan yang sebagian besar gudang sebenarnya sudah punya. Tulisan ini membahas cara mengaudit slotting dari data yang ada, dan kapan reslotting benar-benar sepadan mengganggu operasional yang berjalan.",
+    "SKU yang paling sering dipesan justru sering tersimpan paling jauh dari titik pengiriman, warisan tata letak asal taruh bertahun-tahun lalu, saat gudang baru dibuka dan belum ada yang memikirkan pola permintaannya. ABC analysis, turunan prinsip Pareto, menjelaskan cara menyusun ulang penempatan itu dari data frekuensi pengambilan yang sebagian besar gudang sebenarnya sudah punya. Tulisan ini membahas cara mengaudit slotting dari data yang ada, dan kapan reslotting benar-benar sepadan mengganggu operasional yang berjalan.",
   takeaways: [
     "Waktu berjalan biasanya menyita sekitar separuh dari total waktu picking, jauh melebihi waktu mengambil barangnya sendiri. Jarak rak ke titik proses adalah pengungkit terbesar produktivitas picking harian.",
     "ABC analysis, turunan prinsip Pareto, menyusun SKU berdasarkan frekuensi pengambilan: kelas A ditaruh paling dekat titik proses, kelas C boleh menempati rak paling jauh.",

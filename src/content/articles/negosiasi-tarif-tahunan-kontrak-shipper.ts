@@ -218,7 +218,7 @@ export const article: Article = {
     },
     {
       q: "Berapa margin minimum yang wajar dipertahankan saat negosiasi tarif tahunan?",
-      a: "Tidak ada patokan baku yang berlaku ke semua rute, sebab struktur biaya tiap lane berbeda. Yang lebih berguna adalah menghitung biaya riil per lane, termasuk biaya modal dari termin pembayaran, lalu menetapkan margin minimum dari situ, ketimbang mengikuti rata-rata industri.",
+      a: "Struktur biaya tiap lane berbeda, sehingga mengikuti rata-rata industri begitu saja jarang aman. Hitung dulu biaya riil per lane, termasuk biaya modal dari termin pembayaran, lalu tetapkan margin minimum dari angka itu sendiri, bukan dari patokan luar yang belum tentu mencerminkan rute Anda.",
     },
     {
       q: "Apakah klausul fuel surcharge otomatis akan ditolak shipper karena dianggap merugikan mereka?",

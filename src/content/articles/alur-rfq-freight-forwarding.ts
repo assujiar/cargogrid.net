@@ -197,7 +197,7 @@ export const article: Article = {
   faq: [
     {
       q: "Berapa lama waktu respons RFQ yang masih dianggap kompetitif di freight forwarding?",
-      a: "Tidak ada angka baku yang berlaku untuk semua orang, sebab ekspektasi bisnis spot dan tender kontrak jelas berbeda. Cara yang lebih berguna adalah bertanya langsung ke tiga customer terbesar Anda: berapa lama biasanya mereka menunggu sebelum menyusun shortlist. Jawaban mereka jauh lebih relevan untuk bisnis Anda dibanding rata-rata industri yang digeneralisasi.",
+      a: "Ekspektasi bisnis spot dan tender kontrak jelas berbeda, jadi angka rata-rata industri jarang cocok dipakai apa adanya. Tanyakan langsung ke tiga customer terbesar Anda: berapa lama biasanya mereka menunggu sebelum menyusun shortlist. Jawaban mereka jauh lebih relevan untuk bisnis Anda dibanding rata-rata yang digeneralisasi dari sumber luar.",
     },
     {
       q: "Apakah rate management harus berupa sistem, atau cukup spreadsheet yang rapi?",

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useId, useState } from "react";
-import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Lock, PencilLine, ShieldCheck } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Lock, PencilLine } from "lucide-react";
 import {
   EMPTY_TOOL_LEAD,
   readStoredLead,
@@ -41,7 +41,6 @@ interface FieldSpec {
   placeholder: string;
   autoComplete: string;
   inputMode?: "text" | "email" | "tel";
-  hint: string;
 }
 
 const FIELDS: FieldSpec[] = [
@@ -50,14 +49,12 @@ const FIELDS: FieldSpec[] = [
     label: "Nama lengkap",
     placeholder: "Budi Santoso",
     autoComplete: "name",
-    hint: "Nama Anda, supaya kami tahu harus menyapa siapa bila menindaklanjuti.",
   },
   {
     key: "company",
     label: "Nama perusahaan",
     placeholder: "PT Logistik Nusantara",
     autoComplete: "organization",
-    hint: "Perusahaan tempat Anda bekerja. Tulis nama perusahaan sendiri bila Anda pemiliknya.",
   },
   {
     key: "email",
@@ -65,7 +62,6 @@ const FIELDS: FieldSpec[] = [
     placeholder: "nama@perusahaan.co.id",
     autoComplete: "email",
     inputMode: "email",
-    hint: "Alamat yang Anda pakai bekerja, bukan email pribadi.",
   },
   {
     key: "phone",
@@ -73,7 +69,6 @@ const FIELDS: FieldSpec[] = [
     placeholder: "0812 3456 7890",
     autoComplete: "tel",
     inputMode: "tel",
-    hint: "Nomor yang bisa dihubungi lewat WhatsApp.",
   },
 ];
 
@@ -240,12 +235,12 @@ export default function ToolGate({
                     autoComplete={field.autoComplete}
                     inputMode={field.inputMode}
                     aria-invalid={error ? true : undefined}
-                    aria-describedby={error ? `${id}-error` : `${id}-hint`}
+                    aria-describedby={error ? `${id}-error` : undefined}
                     className={`nm-input w-full rounded-xl px-4 py-3 text-sm font-semibold ${
                       error ? "ring-2 ring-brand-orange/60" : ""
                     }`}
                   />
-                  {error ? (
+                  {error && (
                     <p
                       id={`${id}-error`}
                       role="alert"
@@ -254,21 +249,13 @@ export default function ToolGate({
                       <AlertCircle className="mt-px h-3 w-3 flex-shrink-0" aria-hidden="true" />
                       {error}
                     </p>
-                  ) : (
-                    <p id={`${id}-hint`} className="mt-1.5 text-[11px] leading-[1.5] text-slate-500">
-                      {field.hint}
-                    </p>
                   )}
                 </div>
               );
             })}
           </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="flex items-start gap-2 text-[11px] leading-[1.6] text-slate-500 sm:max-w-sm">
-              <ShieldCheck className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-brand-teal" aria-hidden="true" />
-              Data Anda dipakai untuk menghubungi Anda soal CargoGrid, tidak dijual maupun dibagikan ke pihak lain.
-            </p>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
             <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
               {editing && (
                 <button

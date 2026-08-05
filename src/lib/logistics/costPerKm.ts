@@ -199,9 +199,8 @@ export interface FleetProfile {
   fuelKmPerLitreLoaded: number;
   fuelKmPerLitreEmpty: number;
   acquisitionPrice: number;
-  tyreSetCost: number;
+  /** Umur pakai satu set ban, dalam km. Besaran teknis, bukan uang. */
   tyreLifeKm: number;
-  maintenancePerKm: number;
   crewFixedPerYear: number;
 }
 
@@ -210,126 +209,98 @@ const PROFILE_BY_CLASS: Record<string, FleetProfile> = {
     fuelKmPerLitreLoaded: 11,
     fuelKmPerLitreEmpty: 13,
     acquisitionPrice: 200_000_000,
-    tyreSetCost: 4_000_000,
     tyreLifeKm: 50_000,
-    maintenancePerKm: 400,
     crewFixedPerYear: 60_000_000,
   },
   "Light Truck": {
     fuelKmPerLitreLoaded: 8,
     fuelKmPerLitreEmpty: 10,
     acquisitionPrice: 400_000_000,
-    tyreSetCost: 12_000_000,
     tyreLifeKm: 60_000,
-    maintenancePerKm: 700,
     crewFixedPerYear: 80_000_000,
   },
   "Medium Truck": {
     fuelKmPerLitreLoaded: 5.5,
     fuelKmPerLitreEmpty: 7,
     acquisitionPrice: 700_000_000,
-    tyreSetCost: 25_000_000,
     tyreLifeKm: 70_000,
-    maintenancePerKm: 1_100,
     crewFixedPerYear: 96_000_000,
   },
   "Medium/Heavy Truck": {
     fuelKmPerLitreLoaded: 4.5,
     fuelKmPerLitreEmpty: 6,
     acquisitionPrice: 900_000_000,
-    tyreSetCost: 40_000_000,
     tyreLifeKm: 70_000,
-    maintenancePerKm: 1_300,
     crewFixedPerYear: 108_000_000,
   },
   "Heavy Truck": {
     fuelKmPerLitreLoaded: 3.5,
     fuelKmPerLitreEmpty: 4.5,
     acquisitionPrice: 1_100_000_000,
-    tyreSetCost: 55_000_000,
     tyreLifeKm: 75_000,
-    maintenancePerKm: 1_600,
     crewFixedPerYear: 120_000_000,
   },
   "Heavy/Special Truck": {
     fuelKmPerLitreLoaded: 3,
     fuelKmPerLitreEmpty: 4,
     acquisitionPrice: 1_400_000_000,
-    tyreSetCost: 70_000_000,
     tyreLifeKm: 75_000,
-    maintenancePerKm: 1_800,
     crewFixedPerYear: 120_000_000,
   },
   "Specialized Rigid": {
     fuelKmPerLitreLoaded: 4,
     fuelKmPerLitreEmpty: 5,
     acquisitionPrice: 1_200_000_000,
-    tyreSetCost: 45_000_000,
     tyreLifeKm: 70_000,
-    maintenancePerKm: 1_700,
     crewFixedPerYear: 120_000_000,
   },
   "Tractor-Semitrailer": {
     fuelKmPerLitreLoaded: 2.5,
     fuelKmPerLitreEmpty: 3.2,
     acquisitionPrice: 1_500_000_000,
-    tyreSetCost: 90_000_000,
     tyreLifeKm: 80_000,
-    maintenancePerKm: 1_800,
     crewFixedPerYear: 120_000_000,
   },
   "Container Chassis": {
     fuelKmPerLitreLoaded: 2.5,
     fuelKmPerLitreEmpty: 3.2,
     acquisitionPrice: 1_500_000_000,
-    tyreSetCost: 90_000_000,
     tyreLifeKm: 80_000,
-    maintenancePerKm: 1_800,
     crewFixedPerYear: 120_000_000,
   },
   "Semi-trailer Body": {
     fuelKmPerLitreLoaded: 2.5,
     fuelKmPerLitreEmpty: 3.2,
     acquisitionPrice: 1_600_000_000,
-    tyreSetCost: 90_000_000,
     tyreLifeKm: 80_000,
-    maintenancePerKm: 1_900,
     crewFixedPerYear: 120_000_000,
   },
   "Special Trailer": {
     fuelKmPerLitreLoaded: 2,
     fuelKmPerLitreEmpty: 2.8,
     acquisitionPrice: 2_200_000_000,
-    tyreSetCost: 120_000_000,
     tyreLifeKm: 70_000,
-    maintenancePerKm: 2_400,
     crewFixedPerYear: 144_000_000,
   },
   "Special Combination": {
     fuelKmPerLitreLoaded: 2,
     fuelKmPerLitreEmpty: 2.8,
     acquisitionPrice: 2_400_000_000,
-    tyreSetCost: 140_000_000,
     tyreLifeKm: 70_000,
-    maintenancePerKm: 2_500,
     crewFixedPerYear: 144_000_000,
   },
   "Heavy Haul": {
     fuelKmPerLitreLoaded: 1.5,
     fuelKmPerLitreEmpty: 2.2,
     acquisitionPrice: 5_000_000_000,
-    tyreSetCost: 250_000_000,
     tyreLifeKm: 50_000,
-    maintenancePerKm: 4_000,
     crewFixedPerYear: 200_000_000,
   },
   "Off-Highway": {
     fuelKmPerLitreLoaded: 1.2,
     fuelKmPerLitreEmpty: 1.8,
     acquisitionPrice: 6_000_000_000,
-    tyreSetCost: 400_000_000,
     tyreLifeKm: 40_000,
-    maintenancePerKm: 6_000,
     crewFixedPerYear: 200_000_000,
   },
 };
@@ -344,6 +315,61 @@ const PROFILE_BY_CLASS: Record<string, FleetProfile> = {
  */
 export function fleetProfileForClass(mainClass: string): FleetProfile {
   return PROFILE_BY_CLASS[mainClass] || PROFILE_BY_CLASS["Medium Truck"];
+}
+
+/**
+ * Pos perawatan sebagai porsi harga kendaraan.
+ *
+ * Ini cara yang lazim dipakai dalam analisis biaya armada, dan alasannya
+ * praktis: biaya ban dan perawatan pada dasarnya memang mengikuti harga
+ * kendaraan. Truk yang lebih mahal memakai ban yang lebih besar, suku cadang
+ * yang lebih mahal, dan interval servis yang lebih menuntut. Menyimpannya
+ * sebagai nominal rupiah berarti setiap kelas armada butuh angkanya sendiri,
+ * dan setiap angka itu menjadi usang sendiri-sendiri; menyimpannya sebagai
+ * persentase membuatnya ikut berskala begitu harga kendaraan diganti.
+ *
+ * Rasio di bawah ini adalah rasio perencanaan yang lazim, bukan standar
+ * terbitan. Armada dengan disiplin perawatan yang baik dan rute yang ringan
+ * berada di bawahnya; armada tua di medan berat berada jauh di atasnya.
+ * Ketiganya bisa ditimpa di halaman.
+ */
+export interface MaintenanceRatios {
+  /** Harga satu set ban sebagai porsi harga perolehan kendaraan. */
+  tyreSetOfPrice: number;
+  /** Biaya perawatan dan perbaikan setahun sebagai porsi harga perolehan. */
+  maintenanceOfPricePerYear: number;
+  /** Pelumas dan bahan habis pakai sebagai porsi biaya perawatan. */
+  lubricantsOfMaintenance: number;
+}
+
+export const DEFAULT_MAINTENANCE_RATIOS: MaintenanceRatios = {
+  tyreSetOfPrice: 0.06,
+  maintenanceOfPricePerYear: 0.1,
+  lubricantsOfMaintenance: 0.12,
+};
+
+/**
+ * Menerjemahkan rasio perawatan menjadi nominal yang dipakai model biaya.
+ *
+ * Perawatan dinyatakan sebagai porsi harga per **tahun**, lalu dibagi kilometer
+ * efektif setahun untuk menjadi biaya per kilometer. Pembagian itu yang membuat
+ * rasio ini jujur: armada yang menempuh 150.000 km setahun menanggung biaya
+ * perawatan tahunan yang sama seperti armada yang menempuh 60.000 km, sehingga
+ * biaya per kilometernya memang lebih rendah. Menyatakannya langsung sebagai
+ * rupiah per kilometer akan menyembunyikan hubungan itu.
+ */
+export function maintenanceFromRatios(
+  acquisitionPrice: number,
+  effectiveAnnualKm: number,
+  ratios: MaintenanceRatios,
+): { tyreSetCost: number; maintenancePerKm: number; lubricantsPerKm: number } {
+  const tyreSetCost = acquisitionPrice * ratios.tyreSetOfPrice;
+  const maintenancePerKm = safeDivide(acquisitionPrice * ratios.maintenanceOfPricePerYear, effectiveAnnualKm);
+  return {
+    tyreSetCost,
+    maintenancePerKm,
+    lubricantsPerKm: maintenancePerKm * ratios.lubricantsOfMaintenance,
+  };
 }
 
 /** Pembagian yang mengembalikan 0 alih-alih Infinity, meniru IFERROR pada model asal. */

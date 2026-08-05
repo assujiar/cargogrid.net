@@ -4,11 +4,14 @@ import React, { useMemo, useState } from "react";
 import { AlertTriangle, TrendingUp } from "lucide-react";
 import {
   calculateFleetCost,
+  DEFAULT_MAINTENANCE_RATIOS,
   distancesForPattern,
   fleetProfileForClass,
   FLEET_COST_DEFAULTS,
+  maintenanceFromRatios,
   ROUTE_PATTERNS,
   type FleetCostInput,
+  type MaintenanceRatios,
   type RoutePattern,
 } from "../../lib/logistics/costPerKm";
 import { formatIDR } from "../../lib/logistics/freeTime";
@@ -47,9 +50,47 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+/**
+ * Tyres, maintenance and lubricants enter as a share of the vehicle's price
+ * rather than as rupiah figures, and the derived amounts flow into the same
+ * model fields as before.
+ *
+ * The reason is that these costs genuinely track the purchase price: a dearer
+ * truck runs bigger tyres, dearer parts, and a more demanding service interval.
+ * Held as absolute rupiah they need re-entering for every class and go stale
+ * one class at a time; held as a share they re-scale the moment the vehicle
+ * changes. The derived rupiah figure is shown under each field regardless, so
+ * nothing about the calculation is hidden behind a percentage.
+ */
+function ratioSeededInput(base: FleetCostInput, ratios: MaintenanceRatios): FleetCostInput {
+  const effectiveAnnualKm = base.plannedAnnualKm * base.availabilityFactor;
+  return { ...base, ...maintenanceFromRatios(base.acquisitionPrice, effectiveAnnualKm, ratios) };
+}
+
 export default function FleetCostCalculator() {
-  const [input, setInput] = useState<FleetCostInput>(FLEET_COST_DEFAULTS);
+  const [ratios, setRatios] = useState<MaintenanceRatios>(DEFAULT_MAINTENANCE_RATIOS);
+  const [input, setInput] = useState<FleetCostInput>(() =>
+    ratioSeededInput(FLEET_COST_DEFAULTS, DEFAULT_MAINTENANCE_RATIOS),
+  );
   const [vehicleId, setVehicleId] = useState("CV034");
+
+  /**
+   * Re-derives the three maintenance amounts from whatever the price, annual
+   * kilometres and ratios currently are. Called from every input that feeds
+   * them, because a ratio silently applied to a stale price is exactly the
+   * failure this arrangement is meant to remove.
+   */
+  function reseedMaintenance(next: FleetCostInput, withRatios: MaintenanceRatios = ratios): FleetCostInput {
+    return ratioSeededInput(next, withRatios);
+  }
+
+  function setRatio<K extends keyof MaintenanceRatios>(key: K) {
+    return (value: number) => {
+      const nextRatios = { ...ratios, [key]: value };
+      setRatios(nextRatios);
+      setInput((current) => reseedMaintenance(current, nextRatios));
+    };
+  }
   const [routePattern, setRoutePattern] = useState<RoutePattern>("pp-kosong");
   const [oneWayKm, setOneWayKm] = useState(FLEET_COST_DEFAULTS.loadedKmPerTrip);
 
@@ -85,7 +126,7 @@ export default function FleetCostCalculator() {
     const next = VEHICLE_ARCHETYPES.find((v) => v.id === id);
     if (!next) return;
     setVehicleId(id);
-    setInput((current) => ({ ...current, ...fleetProfileForClass(next.mainClass) }));
+    setInput((current) => reseedMaintenance({ ...current, ...fleetProfileForClass(next.mainClass) }));
   }
 
   function set<K extends keyof FleetCostInput>(key: K) {
@@ -136,15 +177,35 @@ export default function FleetCostCalculator() {
 
         <div className="grid gap-5 lg:grid-cols-2">
           <Section title="Kepemilikan kendaraan">
-            <NumberField label="Harga perolehan" value={input.acquisitionPrice} onChange={set("acquisitionPrice")} min={0} step={50_000_000} suffix="Rp" hint="Termasuk karoseri bila dimiliki sendiri." />
+            <NumberField
+              label="Harga perolehan"
+              value={input.acquisitionPrice}
+              onChange={(v) => setInput((current) => reseedMaintenance({ ...current, acquisitionPrice: v }))}
+              min={0}
+              step={50_000_000}
+              suffix="Rp"
+              hint="Termasuk karoseri bila dimiliki sendiri. Biaya ban dan perawatan ikut menyesuaikan."
+            />
             <PercentField label="Nilai sisa" value={input.residualRatio} onChange={set("residualRatio")} hint="Perkiraan nilai jual di akhir masa pakai." />
             <NumberField label="Umur ekonomis" value={input.usefulLifeYears} onChange={set("usefulLifeYears")} min={1} step={1} suffix="thn" />
             <NumberField label="Cicilan atau sewa per tahun" value={input.financingPerYear} onChange={set("financingPerYear")} min={0} step={10_000_000} suffix="Rp" />
           </Section>
 
           <Section title="Pemanfaatan armada">
-            <NumberField label="Rencana km per tahun" value={input.plannedAnnualKm} onChange={set("plannedAnnualKm")} min={0} step={5_000} suffix="km" />
-            <PercentField label="Faktor ketersediaan" value={input.availabilityFactor} onChange={set("availabilityFactor")} hint="Porsi waktu armada benar-benar bisa jalan, di luar servis dan rusak." />
+            <NumberField
+              label="Rencana km per tahun"
+              value={input.plannedAnnualKm}
+              onChange={(v) => setInput((current) => reseedMaintenance({ ...current, plannedAnnualKm: v }))}
+              min={0}
+              step={5_000}
+              suffix="km"
+            />
+            <PercentField
+              label="Faktor ketersediaan"
+              value={input.availabilityFactor}
+              onChange={(v) => setInput((current) => reseedMaintenance({ ...current, availabilityFactor: v }))}
+              hint="Porsi waktu armada benar-benar bisa jalan, di luar servis dan rusak."
+            />
             <NumberField label="Jumlah rit per tahun" value={input.tripsPerYear} onChange={set("tripsPerYear")} min={0} step={10} suffix="rit" />
 
             {/* Route pattern first, distance second. People hold a route as
@@ -238,10 +299,30 @@ export default function FleetCostCalculator() {
               hint="Dihitung terpisah dari konsumsi bermuatan. Selisihnya nyata, dan bahan bakar adalah pos biaya terbesar."
             />
             <NumberField label="Cairan aditif" value={input.additivePerKm} onChange={set("additivePerKm")} min={0} step={50} suffix="Rp/km" />
-            <NumberField label="Harga satu set ban" value={input.tyreSetCost} onChange={set("tyreSetCost")} min={0} step={5_000_000} suffix="Rp" />
             <NumberField label="Umur ban" value={input.tyreLifeKm} onChange={set("tyreLifeKm")} min={1} step={5_000} suffix="km" />
-            <NumberField label="Perawatan dan perbaikan" value={input.maintenancePerKm} onChange={set("maintenancePerKm")} min={0} step={100} suffix="Rp/km" />
-            <NumberField label="Oli dan bahan habis pakai" value={input.lubricantsPerKm} onChange={set("lubricantsPerKm")} min={0} step={50} suffix="Rp/km" />
+
+            {/* Percentages of purchase price rather than rupiah figures, so
+                they re-scale with the vehicle instead of needing re-entry per
+                class. The derived amount sits under each field -- a percentage
+                nobody can convert back is a percentage nobody can check. */}
+            <PercentField
+              label="Harga satu set ban"
+              value={ratios.tyreSetOfPrice}
+              onChange={setRatio("tyreSetOfPrice")}
+              hint={`Porsi harga kendaraan. Setara ${formatIDR(input.tyreSetCost)} per set, atau ${formatIDR(result.tyreCostPerKm)} per km.`}
+            />
+            <PercentField
+              label="Perawatan per tahun"
+              value={ratios.maintenanceOfPricePerYear}
+              onChange={setRatio("maintenanceOfPricePerYear")}
+              hint={`Porsi harga kendaraan per tahun. Setara ${formatIDR(input.maintenancePerKm)} per km pada ${formatNumber(result.effectiveAnnualKm, 0)} km setahun.`}
+            />
+            <PercentField
+              label="Oli dan bahan habis pakai"
+              value={ratios.lubricantsOfMaintenance}
+              onChange={setRatio("lubricantsOfMaintenance")}
+              hint={`Porsi biaya perawatan. Setara ${formatIDR(input.lubricantsPerKm)} per km.`}
+            />
           </Section>
 
           <Section title="Biaya per rit">

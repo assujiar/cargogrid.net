@@ -21,9 +21,11 @@ import { addDays, calculateFreeTime, daysBetween, DEFAULT_SLABS } from "../src/l
 import type { FleetCostInput } from "../src/lib/logistics/costPerKm";
 import {
   calculateFleetCost,
+  DEFAULT_MAINTENANCE_RATIOS,
   distancesForPattern,
   fleetProfileForClass,
   FLEET_COST_DEFAULTS,
+  maintenanceFromRatios,
   ROUTE_PATTERNS,
 } from "../src/lib/logistics/costPerKm";
 
@@ -324,9 +326,13 @@ console.log("\nper-class cost profiles");
 // so a single default set would be badly wrong for most of the taxonomy.
 const light = fleetProfileForClass("Light Truck");
 const tractor = fleetProfileForClass("Tractor-Semitrailer");
+// Tyre and maintenance costs are a share of the purchase price, so they follow
+// the class through the price rather than being listed per class.
+const lightMaint = maintenanceFromRatios(light.acquisitionPrice, 102_000, DEFAULT_MAINTENANCE_RATIOS);
+const tractorMaint = maintenanceFromRatios(tractor.acquisitionPrice, 102_000, DEFAULT_MAINTENANCE_RATIOS);
 check("a light truck goes further per litre than a tractor unit", light.fuelKmPerLitreLoaded > tractor.fuelKmPerLitreLoaded, true);
 check("a tractor unit costs more to buy", tractor.acquisitionPrice > light.acquisitionPrice, true);
-check("a tractor unit's tyre set costs more", tractor.tyreSetCost > light.tyreSetCost, true);
+check("a tractor unit's tyre set costs more", tractorMaint.tyreSetCost > lightMaint.tyreSetCost, true);
 check("the tractor profile matches the source sample's fuel figures", tractor.fuelKmPerLitreLoaded, 2.5);
 check("empty running is always more economical than loaded", tractor.fuelKmPerLitreEmpty > tractor.fuelKmPerLitreLoaded, true);
 
@@ -351,9 +357,31 @@ check(
 check("an unknown class falls back to a working profile", fleetProfileForClass("Tidak Dikenal").acquisitionPrice > 0, true);
 
 // The whole point: swapping class changes the answer by a lot, not a little.
-const asLight = calculateFleetCost({ ...FLEET_COST_DEFAULTS, ...light, ...distancesForPattern("pp-kosong", 500) });
-const asTractor = calculateFleetCost({ ...FLEET_COST_DEFAULTS, ...tractor, ...distancesForPattern("pp-kosong", 500) });
+const asLight = calculateFleetCost({ ...FLEET_COST_DEFAULTS, ...light, ...lightMaint, ...distancesForPattern("pp-kosong", 500) });
+const asTractor = calculateFleetCost({ ...FLEET_COST_DEFAULTS, ...tractor, ...tractorMaint, ...distancesForPattern("pp-kosong", 500) });
 check("class choice moves cost per loaded km substantially", asTractor.costPerLoadedKm > asLight.costPerLoadedKm * 1.5, true);
+
+console.log("\nmaintenance as a share of price");
+
+// A tyre set at 6% of a 1.5bn tractor unit is the 90m figure the source model
+// used -- the ratio reproduces the absolute number it replaced.
+const m = maintenanceFromRatios(1_500_000_000, 102_000, DEFAULT_MAINTENANCE_RATIOS);
+check("tyre set derives from price", m.tyreSetCost, 1_500_000_000 * 0.06);
+check("tyre set matches the source model's 90m figure", m.tyreSetCost, 90_000_000);
+check("maintenance per km spreads the annual share over annual km", m.maintenancePerKm, (1_500_000_000 * 0.1) / 102_000);
+check("lubricants derive from maintenance", m.lubricantsPerKm, m.maintenancePerKm * 0.12);
+
+// Higher utilisation spreads the same annual maintenance bill over more
+// kilometres, so the per-km figure must fall -- the relationship an absolute
+// Rp/km input would have hidden.
+const busy = maintenanceFromRatios(1_500_000_000, 204_000, DEFAULT_MAINTENANCE_RATIOS);
+check("doubling annual km halves maintenance per km", busy.maintenancePerKm, m.maintenancePerKm / 2);
+check("tyre set cost is unaffected by annual km", busy.tyreSetCost, m.tyreSetCost);
+
+// Guards: no division by zero reaching the screen.
+const idle = maintenanceFromRatios(1_500_000_000, 0, DEFAULT_MAINTENANCE_RATIOS);
+check("zero annual km guarded", idle.maintenancePerKm, 0);
+check("zero price yields zero tyre cost", maintenanceFromRatios(0, 102_000, DEFAULT_MAINTENANCE_RATIOS).tyreSetCost, 0);
 
 console.log("\nroute patterns");
 

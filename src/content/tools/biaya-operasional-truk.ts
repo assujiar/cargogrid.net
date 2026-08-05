@@ -106,7 +106,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Beberapa pos tidak sedikit berbeda antar kelas armada — melainkan berbeda berkali-kali lipat. Rangkaian tractor head menempuh sekitar 2,5 kilometer per liter; truk ringan bisa tiga kali lipat itu. Satu set ban trailer berharga belasan kali set ban CDE. Karena itu mengganti pilihan armada di kalkulator ini ikut mengganti konsumsi bahan bakar, harga perolehan, biaya ban, umur ban, biaya perawatan, dan gaji tetap awak.",
+      text: "Beberapa pos tidak sedikit berbeda antar kelas armada — melainkan berbeda berkali-kali lipat. Rangkaian tractor head menempuh sekitar 2,5 kilometer per liter; truk ringan bisa tiga kali lipat itu. Karena itu mengganti pilihan armada ikut mengganti konsumsi bahan bakar, harga perolehan, umur ban, dan gaji tetap awak. Biaya ban dan perawatan ikut menyesuaikan dengan sendirinya, karena keduanya dihitung sebagai porsi harga kendaraan.",
     },
     {
       type: "callout",
@@ -116,7 +116,40 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Prinsip yang sama berlaku untuk harga perolehan dan biaya ban: yang ditampilkan adalah kisaran wajar untuk kelas tersebut, bukan harga yang berlaku bagi Anda. Semua kolom bisa ditimpa, dan sebaiknya memang ditimpa sebelum hasilnya dipakai menetapkan tarif.",
+      text: "Prinsip yang sama berlaku untuk harga perolehan: yang ditampilkan adalah kisaran wajar untuk kelas tersebut, bukan harga yang berlaku bagi Anda. Semua kolom bisa ditimpa, dan sebaiknya memang ditimpa sebelum hasilnya dipakai menetapkan tarif.",
+    },
+    {
+      type: "h2",
+      id: "ban-dan-perawatan",
+      text: "Ban dan perawatan dihitung sebagai persentase harga kendaraan",
+    },
+    {
+      type: "p",
+      text: "Tiga pos ini — harga satu set ban, biaya perawatan, dan pelumas — tidak diisi dalam rupiah, melainkan sebagai porsi harga kendaraan. Ini cara yang lazim dipakai dalam analisis biaya armada, dan alasannya praktis: biaya ban dan perawatan pada dasarnya memang mengikuti harga kendaraan. Truk yang lebih mahal memakai ban yang lebih besar, suku cadang yang lebih mahal, dan interval servis yang lebih menuntut.",
+    },
+    {
+      type: "table",
+      caption: "Rasio perencanaan yang dipakai sebagai titik awal",
+      head: ["Pos", "Porsi", "Dari", "Artinya pada truk Rp 1,5 miliar"],
+      rows: [
+        ["Satu set ban", "6%", "Harga perolehan", "Rp 90 juta per set"],
+        ["Perawatan dan perbaikan", "10% per tahun", "Harga perolehan", "Rp 150 juta setahun"],
+        ["Oli dan bahan habis pakai", "12%", "Biaya perawatan", "Rp 18 juta setahun"],
+      ],
+    },
+    {
+      type: "p",
+      text: "Perhatikan bahwa perawatan dinyatakan per **tahun**, lalu dibagi kilometer efektif setahun untuk menjadi biaya per kilometer. Pembagian itu yang membuat rasio ini jujur: armada yang menempuh 150.000 kilometer setahun menanggung tagihan perawatan tahunan yang kurang lebih sama dengan armada yang menempuh 60.000 kilometer, sehingga biaya per kilometernya memang lebih rendah. Menyatakannya langsung sebagai rupiah per kilometer akan menyembunyikan hubungan itu, dan hubungan itulah yang menjelaskan kenapa armada yang jarang jalan sulit bersaing harga.",
+    },
+    {
+      type: "callout",
+      tone: "insight",
+      title: "Nominalnya tetap ditampilkan",
+      body: "Di bawah setiap kolom persentase, kalkulator menampilkan nilai rupiahnya — per set, per tahun, dan per kilometer. Persentase yang tidak bisa dikembalikan ke rupiah adalah persentase yang tidak bisa diperiksa siapa pun, dan angka yang tidak bisa diperiksa tidak layak dipakai menetapkan harga.",
+    },
+    {
+      type: "p",
+      text: "Rasio ini rasio perencanaan, bukan standar terbitan. Armada dengan disiplin perawatan yang baik pada rute ringan berada di bawahnya; armada tua di medan berat berada jauh di atasnya. Ketiganya bisa diubah, dan armada yang sudah punya catatan biaya bengkel sendiri sebaiknya memakai angkanya sendiri.",
     },
     {
       type: "h2",
@@ -211,6 +244,10 @@ export const tool: Tool = {
     {
       q: "Berapa km per liter truk CDD, fuso, atau tronton?",
       a: "Sebagai titik awal yang kasar: truk ringan seperti CDE dan CDD sekitar 8 km per liter bermuatan, truk medium kelas fuso sekitar 5,5, tronton sekitar 4,5, dan rangkaian tractor head dengan trailer sekitar 2,5. Angka-angka ini bergeser jauh menurut medan, bobot muatan, umur mesin, dan gaya mengemudi — dua unit identik pada rute berbeda bisa berselisih puluhan persen. Pakai rata-rata dari catatan pengisian solar armada sendiri sebelum hasilnya dipakai menetapkan tarif.",
+    },
+    {
+      q: "Kenapa biaya ban dan perawatan diisi dalam persen, bukan rupiah?",
+      a: "Karena keduanya pada dasarnya mengikuti harga kendaraan — truk yang lebih mahal memakai ban lebih besar dan suku cadang lebih mahal. Disimpan sebagai persentase, keduanya ikut menyesuaikan begitu armada atau harganya diganti; disimpan sebagai rupiah, setiap kelas armada butuh angkanya sendiri dan masing-masing menjadi usang sendiri-sendiri. Titik awalnya 6% dari harga untuk satu set ban, 10% dari harga per tahun untuk perawatan, dan 12% dari biaya perawatan untuk pelumas. Nilai rupiahnya tetap ditampilkan di bawah tiap kolom.",
     },
     {
       q: "Kenapa angka berubah sendiri saat saya ganti pilihan armada?",

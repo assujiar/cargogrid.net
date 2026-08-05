@@ -191,7 +191,7 @@ export const article: Article = {
   faq: [
     {
       q: "Berapa lama waktu yang wajar untuk integrasi ke software akuntansi?",
-      a: "Bagian teknisnya justru biasanya bukan yang paling lama. Yang benar-benar menentukan durasi adalah pembersihan data induk dan penyepakatan pemetaan akun. Kalau ada vendor memberi estimasi waktu tanpa lebih dulu memeriksa daftar customer dan chart of account Anda, estimasi itu belum memperhitungkan bagian yang paling memakan waktu.",
+      a: "Durasinya lebih ditentukan oleh pembersihan data induk dan penyepakatan pemetaan akun daripada oleh pekerjaan teknis menyambungkan dua sistem. Kalau ada vendor memberi estimasi waktu tanpa lebih dulu memeriksa daftar customer dan chart of account Anda, estimasi itu belum memperhitungkan bagian yang paling memakan waktu.",
     },
     {
       q: "Apakah semua software akuntansi punya API?",

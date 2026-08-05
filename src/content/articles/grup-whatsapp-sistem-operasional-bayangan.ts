@@ -205,7 +205,7 @@ export const article: Article = {
     },
     {
       q: "Berapa lama biasanya migrasi semacam ini memakan waktu?",
-      a: "Bagian teknis pencatatan biasanya selesai dalam hitungan minggu. Yang lebih panjang, sekitar empat sampai delapan minggu paralel run, adalah membiasakan tim mencatat di sistem, dan menegakkan tanggal cutover yang sudah disepakati sejak awal.",
+      a: "Menyiapkan modul pencatatannya sendiri bisa kelar dalam hitungan minggu. Yang lebih menentukan adalah empat sampai delapan minggu paralel run sesudahnya, saat tim membiasakan diri mencatat di sistem sambil tanggal cutover yang sudah disepakati tetap ditegakkan, bukan diundur begitu ada alasan mendesak.",
     },
   ],
   related: ["kapan-excel-berhenti-cukup", "adopsi-aplikasi-driver", "customer-portal-logistik"],

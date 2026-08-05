@@ -199,7 +199,7 @@ export const article: Article = {
     },
     {
       q: "Berapa lama biasanya migrasi dari spreadsheet ke sistem?",
-      a: "Bagian teknis pemindahan data biasanya justru yang paling cepat kelar. Yang benar-benar memakan waktu adalah menyepakati proses dan membiasakan tim memakainya sehari-hari. Rencanakan periode paralel dengan tanggal berhenti yang diumumkan sejak awal, sebab menjalankan dua sistem sekaligus tanpa batas waktu adalah pola kegagalan paling umum yang saya lihat. Begitu pekerjaan sedang menumpuk, orang selalu kembali ke cara lama yang sudah mereka kuasai luar kepala.",
+      a: "Memindahkan datanya sendiri biasanya cuma perkara hari, bukan minggu. Yang lambat adalah menyepakati proses dan membiasakan tim memakainya sehari-hari, dan itu tidak bisa dipercepat lewat teknis semata. Tetapkan tanggal berhenti untuk Excel sejak awal, umumkan ke semua orang, lalu pegang tanggal itu. Kalau dua sistem dibiarkan jalan berdampingan tanpa batas waktu, begitu pekerjaan menumpuk, orang akan selalu kembali ke cara lama yang sudah mereka kuasai luar kepala.",
     },
     {
       q: "Apakah data historis di Excel perlu dipindahkan semua?",

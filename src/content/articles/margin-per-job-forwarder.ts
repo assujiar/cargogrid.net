@@ -19,10 +19,10 @@ export const article: Article = {
   summary:
     "Margin bulanan yang kelihatannya sehat bisa menyembunyikan kenyataan pahit: sepertiga job Anda merugi, dan kerugian itu ditutupi sepertiga job lain yang untung besar. Selama margin cuma muncul di level bulanan, tidak ada seorang pun yang punya dasar untuk mengubah keadaan itu.",
   takeaways: [
-    "Margin gabungan menyembunyikan sebarannya - padahal yang menentukan keputusan adalah margin tiap job, bukan rata-rata semuanya.",
+    "Margin gabungan menyembunyikan sebarannya, padahal yang menentukan keputusan adalah margin tiap job, bukan rata-rata semuanya.",
     "Biaya yang baru muncul belakangan adalah alasan utama kenapa margin sulit dipastikan selagi job masih berjalan.",
     "Estimasi biaya sejak awal job jauh lebih berguna daripada angka yang akurat tapi baru tersedia 40 hari kemudian.",
-    "Sales yang dikomisi dari omzet akan mengejar job bervolume besar bermargin tipis - itu respons rasional terhadap ukuran yang keliru, bukan kesalahan mereka.",
+    "Sales yang dikomisi dari omzet akan mengejar job bervolume besar bermargin tipis. Itu respons rasional terhadap ukuran yang keliru, bukan kesalahan mereka.",
   ],
   blocks: [
     {
@@ -44,7 +44,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Margin agregat adalah ringkasan semacam itu: ia menjawab \"berapa\", bukan \"di mana\". Padahal keputusan yang harus diambil forwarder nyaris selalu berbentuk \"di mana\" - customer mana, rute mana, sales mana. Karena itu, secanggih apa pun hitungannya, angka gabungan memang tidak pernah dirancang untuk memandu keputusan semacam itu.",
+      text: "Margin agregat adalah ringkasan semacam itu: ia menjawab \"berapa\", bukan \"di mana\". Padahal keputusan yang harus diambil forwarder nyaris selalu berbentuk \"di mana\": customer mana, rute mana, sales mana. Karena itu, secanggih apa pun hitungannya, angka gabungan memang tidak pernah dirancang untuk memandu keputusan semacam itu.",
     },
     {
       type: "h2",
@@ -53,7 +53,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Rumusnya sendiri sederhana: pendapatan dikurangi biaya. Yang membuatnya susah adalah waktu - pendapatan sudah diketahui sejak quotation disetujui, sementara biaya baru diketahui belakangan.",
+      text: "Rumusnya sendiri sederhana: pendapatan dikurangi biaya. Yang membuatnya susah adalah waktu, sebab pendapatan sudah diketahui sejak quotation disetujui, sementara biaya baru diketahui belakangan.",
     },
     {
       type: "p",
@@ -103,7 +103,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Langkah yang lebih berguna: urutkan seluruh job bulan lalu dari margin terendah ke tertinggi, lalu tatap sepuluh yang paling bawah. Polanya biasanya cepat kelihatan - satu customer tertentu, satu rute tertentu, satu jenis komoditas, atau satu sales tertentu yang berulang muncul di daftar itu.",
+      text: "Langkah yang lebih berguna: urutkan seluruh job bulan lalu dari margin terendah ke tertinggi, lalu tatap sepuluh yang paling bawah. Polanya biasanya cepat kelihatan: satu customer tertentu, satu rute tertentu, satu jenis komoditas, atau satu sales tertentu yang berulang muncul di daftar itu.",
     },
     {
       type: "table",
@@ -151,9 +151,9 @@ export const article: Article = {
       type: "ol",
       items: [
         "**Harganya memang ditetapkan terlalu rendah sejak awal**, mungkin sebagai konsesi untuk memenangkan akun tersebut. Ini bisa dinegosiasikan ulang, terutama kalau ada data yang menunjukkan komponen biaya mana saja yang sudah naik sejak itu.",
-        "**Ada biaya tersembunyi yang spesifik pada customer ini** - waktu tunggu yang panjang, syarat dokumen yang tidak lazim, atau tingkat pengiriman ulang yang tinggi. Ini bisa diperbaiki lewat operasional, atau dibebankan sebagai biaya terpisah.",
+        "**Ada biaya tersembunyi yang spesifik pada customer ini**, yaitu waktu tunggu yang panjang, syarat dokumen yang tidak lazim, atau tingkat pengiriman ulang yang tinggi. Ini bisa diperbaiki lewat operasional, atau dibebankan sebagai biaya terpisah.",
         "**Bauran jobnya timpang.** Customer mengambil rute-rute yang menguntungkan untuk pesaing, dan menyisakan rute-rute sulit untuk Anda. Di sini yang perlu didiskusikan ulang adalah porsi rute yang diberikan ke Anda.",
-        "**Ini memang strategi yang disengaja.** Kadang melayani akun bermargin tipis tetap masuk akal - karena volumenya besar, karena jadi referensi, atau karena kepadatan rutenya menguntungkan job lain. Ini sah-sah saja, selama memang keputusan sadar, bukan sesuatu yang baru ketahuan setahun kemudian.",
+        "**Ini memang strategi yang disengaja.** Kadang melayani akun bermargin tipis tetap masuk akal, entah karena volumenya besar, karena jadi referensi, atau karena kepadatan rutenya menguntungkan job lain. Ini sah-sah saja, selama memang keputusan sadar, bukan sesuatu yang baru ketahuan setahun kemudian.",
       ],
     },
     {
@@ -167,11 +167,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Tidak perlu menunggu sistem yang lengkap lebih dulu. Ambil 30 job terbesar bulan lalu saja - cukup yang terbesar, karena di situlah sebagian besar uang perusahaan berputar. Untuk setiap job, kumpulkan pendapatan dan seluruh biayanya, termasuk biaya-biaya yang biasanya nyasar ke akun umum.",
+      text: "Tidak perlu menunggu sistem yang lengkap lebih dulu. Ambil 30 job terbesar bulan lalu saja. Cukup yang terbesar, karena di situlah sebagian besar uang perusahaan berputar. Untuk setiap job, kumpulkan pendapatan dan seluruh biayanya, termasuk biaya-biaya yang biasanya nyasar ke akun umum.",
     },
     {
       type: "p",
-      text: "Kerjanya melelahkan, mungkin menyita dua hari kerja penuh. Tapi hasilnya biasanya mengubah setidaknya satu keyakinan yang selama ini dipegang manajemen soal customer atau rute mana yang sebenarnya paling berharga. Kalaupun ternyata tidak ada yang berubah, Anda baru saja memastikan bahwa intuisi tim memang tajam - dan itu pun informasi yang pantas dibayar dengan dua hari kerja.",
+      text: "Kerjanya melelahkan, mungkin menyita dua hari kerja penuh. Tapi hasilnya biasanya mengubah setidaknya satu keyakinan yang selama ini dipegang manajemen soal customer atau rute mana yang sebenarnya paling berharga. Kalaupun ternyata tidak ada yang berubah, Anda baru saja memastikan bahwa intuisi tim memang tajam, dan itu pun informasi yang pantas dibayar dengan dua hari kerja.",
     },
   ],
   faq: [
@@ -181,7 +181,7 @@ export const article: Article = {
     },
     {
       q: "Bagaimana menghitung margin kalau tagihan vendor baru masuk sebulan kemudian?",
-      a: "Pakai biaya estimasi dari rate yang berlaku saat job dibuat, lalu koreksi begitu tagihan asli datang. Selisih antara estimasi dan aktual layak dipantau sebagai indikator tersendiri - kalau selisihnya konsisten di satu rute tertentu, itu tanda rate acuan Anda sudah usang dan perlu diperbarui.",
+      a: "Pakai biaya estimasi dari rate yang berlaku saat job dibuat, lalu koreksi begitu tagihan asli datang. Selisih antara estimasi dan aktual layak dipantau sebagai indikator tersendiri: kalau selisihnya konsisten di satu rute tertentu, itu tanda rate acuan Anda sudah usang dan perlu diperbarui.",
     },
     {
       q: "Apakah margin per job relevan untuk perusahaan trucking?",

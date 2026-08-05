@@ -6,8 +6,43 @@ import Logo from "./Logo";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "./shared/LanguageProvider";
 import { companyAddressLine } from "../lib/companyInfo";
-import { TOOL_NAV_LINKS } from "../content/tools/navLinks";
+import { navLinksByKind, type ToolNavLink } from "../content/tools/navLinks";
+import { toolVisual, ACCENT_CLASSES } from "./tools/toolVisuals";
 import { openCookiePreferences } from "../lib/tracking";
+
+/**
+ * One category of the footer's tool list.
+ *
+ * The icon carries the same mark the tool's hub card does, so the shape someone
+ * learned upstairs is the shape they recognise down here. `items-center` is
+ * safe because a single-column list never wraps a label.
+ */
+function ToolGroup({ title, links, isEn }: { title: string; links: ToolNavLink[]; isEn: boolean }) {
+  return (
+    <div>
+      <h3 className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{title}</h3>
+      <ul className="mt-2.5 flex flex-col gap-2.5 text-xs">
+        {links.map((tool) => {
+          const { Icon, accent } = toolVisual(tool.slug);
+          return (
+            <li key={tool.slug}>
+              <Link
+                href={`/alat/${tool.slug}`}
+                className="group flex items-center gap-2 font-bold leading-snug transition-colors hover:text-brand-orange"
+              >
+                <Icon
+                  className={`h-3.5 w-3.5 flex-shrink-0 ${ACCENT_CLASSES[accent].text} transition-colors group-hover:text-brand-orange`}
+                  aria-hidden="true"
+                />
+                <span className="min-w-0">{isEn ? tool.labelEn : tool.label}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -107,16 +142,14 @@ export default function Footer() {
           <h2 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
             {isEn ? "Free Tools & Reference" : "Alat & Referensi Gratis"}
           </h2>
-          <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs sm:grid-cols-3 lg:grid-cols-5">
-            {TOOL_NAV_LINKS.map((tool) => (
-              <Link
-                key={tool.slug}
-                href={`/alat/${tool.slug}`}
-                className="hover:text-brand-orange transition-colors font-bold leading-snug"
-              >
-                {isEn ? tool.labelEn : tool.label}
-              </Link>
-            ))}
+          {/* Split the same way the hub splits: things that compute something
+              and things you look something up in. Nine items in one flat run
+              made the visitor read all nine to find out which kind they were
+              looking at. One column per group on a phone, so no label ever
+              wraps and the rows stay a straight edge. */}
+          <div className="mt-4 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            <ToolGroup title={isEn ? "Calculators" : "Kalkulator"} links={navLinksByKind("kalkulator")} isEn={isEn} />
+            <ToolGroup title={isEn ? "Reference" : "Referensi"} links={navLinksByKind("referensi")} isEn={isEn} />
           </div>
         </nav>
 

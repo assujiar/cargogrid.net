@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useId, useState } from "react";
-import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Lock, PencilLine } from "lucide-react";
+import { AlertCircle, ArrowRight, Loader2, Lock } from "lucide-react";
 import {
   EMPTY_TOOL_LEAD,
   readStoredLead,
@@ -94,7 +94,6 @@ export default function ToolGate({
   const [errors, setErrors] = useState<Partial<Record<ToolLeadField, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [saveWarning, setSaveWarning] = useState<string | null>(null);
-  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     const stored = readStoredLead();
@@ -147,7 +146,6 @@ export default function ToolGate({
 
     storeLead(lead);
     setUnlocked(true);
-    setEditing(false);
     setSubmitting(false);
   }
 
@@ -163,29 +161,12 @@ export default function ToolGate({
     );
   }
 
-  if (unlocked && !editing) {
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="nm-deboss flex flex-col gap-3 rounded-2xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex min-w-0 items-start gap-2.5 text-[12px] leading-[1.6] text-slate-600">
-            <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-teal" aria-hidden="true" />
-            <span className="min-w-0">
-              Terbuka untuk <strong className="font-bold text-slate-900">{lead.name}</strong>
-              {lead.company ? ` (${lead.company})` : ""}. Seluruh kalkulator lain di halaman Alat ikut terbuka.
-            </span>
-          </p>
-          <button
-            type="button"
-            onClick={() => setEditing(true)}
-            className="inline-flex min-h-[2.25rem] flex-shrink-0 items-center justify-center gap-1.5 rounded-lg px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
-          >
-            <PencilLine className="h-3.5 w-3.5" aria-hidden="true" />
-            Ubah data
-          </button>
-        </div>
-        {children}
-      </div>
-    );
+  // Once the form is behind them the visitor is here to calculate, so the gate
+  // gets out of the way completely: no banner naming them back at themselves,
+  // no edit affordance for data they will never look at again. The calculator
+  // is the page.
+  if (unlocked) {
+    return <>{children}</>;
   }
 
   return (
@@ -256,34 +237,23 @@ export default function ToolGate({
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
-            <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-              {editing && (
-                <button
-                  type="button"
-                  onClick={() => setEditing(false)}
-                  className="nm-btn rounded-full px-5 py-3 text-xs font-extrabold text-slate-600 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
-                >
-                  Batal
-                </button>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="nm-btn-accent inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-extrabold disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              {submitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                  Menyiapkan kalkulator
+                </>
+              ) : (
+                <>
+                  Buka kalkulator
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </>
               )}
-              <button
-                type="submit"
-                disabled={submitting}
-                className="nm-btn-accent inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-extrabold disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                {submitting ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                    Menyimpan
-                  </>
-                ) : (
-                  <>
-                    Buka kalkulator
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </>
-                )}
-              </button>
-            </div>
+            </button>
           </div>
 
           {saveWarning && (

@@ -12,6 +12,9 @@
  */
 
 import { calculateShipment, cbmPerPiece, getVolumetricMode, VOLUMETRIC_MODES } from "../src/lib/logistics/volume";
+import { getTool, tools } from "../src/content/tools";
+import { CONTAINER_SPECS } from "../src/content/reference/containers";
+import { GLOSSARY } from "../src/content/reference/glossary";
 import type { LoadPlanInput } from "../src/lib/logistics/truckLoad";
 import { checkCompliance, planLoad } from "../src/lib/logistics/truckLoad";
 import { cargoVolume, loadableArchetypes, VEHICLE_ARCHETYPES, VEHICLE_CLASS_LABELS } from "../src/content/reference/vehicles";
@@ -408,6 +411,52 @@ check(
   "trip cost stays comparable between the two",
   Math.abs(paidReturn.totalCostPerTrip - emptyReturn.totalCostPerTrip) / emptyReturn.totalCostPerTrip < 0.05,
   true,
+);
+
+console.log("\npublished claims match the data");
+
+// Page copy states counts and figures out loud, because "61 kelas armada" and
+// "150 istilah" are what make the pages worth clicking. Those are exactly the
+// claims that rot silently: the dataset grows, nobody re-reads the headline,
+// and the page starts lying in a way no reviewer would notice. Checking them
+// here makes the drift a build failure instead of a slow embarrassment.
+const truckRef = getTool("jenis-truk-indonesia")!;
+check("the truck page's headline count matches the taxonomy", truckRef.title.includes(String(VEHICLE_ARCHETYPES.length)), true);
+check("the truck page's summary count matches too", truckRef.summary.includes("Enam puluh satu"), VEHICLE_ARCHETYPES.length === 61);
+
+const glossaryTool = getTool("kamus-logistik")!;
+check("the glossary page does not overstate its size", glossaryTool.description.includes("Seratus lima puluh"), GLOSSARY.length === 150);
+
+// Container figures are quoted in prose as well as rendered from data; a
+// reconciled spec that leaves the prose behind is the same defect in reverse.
+const containerTool = getTool("ukuran-kontainer")!;
+const twentyFoot = CONTAINER_SPECS.find((c) => c.id === "20gp")!;
+const fortyFoot = CONTAINER_SPECS.find((c) => c.id === "40gp")!;
+check("20 ft payload is quoted as 28,2 ton", JSON.stringify(containerTool.faq).includes("28,2 ton"), Math.round(twentyFoot.payloadKg / 100) === 282);
+check("40 ft still out-carries 20 ft only marginally", fortyFoot.payloadKg - twentyFoot.payloadKg < 1_000, true);
+check(
+  "the prose no longer claims 40 ft carries less",
+  JSON.stringify(containerTool.blocks).includes("batas beratnya praktis sama"),
+  true,
+);
+
+// Every tool must survive being rendered: an empty intent list or a missing FAQ
+// leaves a heading with nothing under it.
+check("every tool states what it answers", tools.every((t) => t.searchIntents.length >= 3), true);
+check("every tool carries an FAQ", tools.every((t) => t.faq.length >= 3), true);
+check("every tool hands the reader onward", tools.every((t) => t.relatedArticles.length > 0 && t.relatedTools.length > 0), true);
+check("every tool has body prose, not just an instrument", tools.every((t) => t.blocks.length >= 5), true);
+check("every meta title fits a SERP line", tools.every((t) => t.metaTitle.length <= 95), true);
+check("every description fits a SERP snippet", tools.every((t) => t.description.length >= 90 && t.description.length <= 260), true);
+
+// The calculator opens on the "round trip, returning empty" pattern, so the
+// shipped defaults have to be a distance pair that pattern can actually
+// produce. They were not: 500 loaded against 150 empty is not any round trip,
+// and the form said otherwise until somebody touched the distance field.
+check(
+  "shipped distances are consistent with the opening route pattern",
+  FLEET_COST_DEFAULTS.loadedKmPerTrip,
+  distancesForPattern("pp-kosong", FLEET_COST_DEFAULTS.loadedKmPerTrip).loadedKmPerTrip,
 );
 
 console.log(failures === 0 ? "\nAll logistics calculations passed.\n" : `\n${failures} check(s) failed.\n`);

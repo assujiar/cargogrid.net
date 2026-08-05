@@ -12,7 +12,21 @@ import {
   type TariffSlab,
 } from "../../lib/logistics/freeTime";
 import { formatNumber } from "../../lib/logistics/volume";
-import { DateField, FieldLabel, NumberField, ResultCard, ResultGrid, ToggleField, ToolPanel } from "./controls";
+import { DateField, NumberField, ResultCard, ResultGrid, ToggleField, ToolPanel } from "./controls";
+
+const TIPS = {
+  startDate:
+    "Tanggal kontainer turun dari kapal untuk demurrage, atau tanggal keluar terminal untuk detention.",
+  freeTime: "Jumlah hari bebas denda. Angkanya tertulis di Delivery Order dari pelayaran.",
+  containers: "Berapa kontainer dengan tanggal dan free time yang sama. Biaya dikalikan sejumlah ini.",
+  endDate:
+    "Tanggal kontainer diambil atau dikembalikan. Isi rencana untuk memperkirakan, atau hari ini untuk melihat posisi sekarang.",
+  countStartDay:
+    "Sebagian pelayaran menghitung hari bongkar sebagai free time hari pertama, sebagian mulai besoknya. Tanyakan sekali, catat per pelayaran.",
+  slabFrom: "Dihitung sejak hari tertagih pertama, bukan sejak tanggal bongkar. Jenjang pertama biasanya mulai di hari ke-1.",
+  slabTo: "Hari tertagih terakhir yang masih memakai tarif ini. Isi 0 untuk jenjang terakhir yang berlaku seterusnya.",
+  slabRate: "Tarif per kontainer per hari pada jenjang ini, sesuai Delivery Order Anda.",
+} as const;
 
 interface SlabRow extends TariffSlab {
   id: number;
@@ -24,7 +38,7 @@ let nextId = 100;
  * Today's date, computed on the client only.
  *
  * Seeding it during render would put the server's UTC date into the HTML and
- * the visitor's local date into the hydrated tree — a mismatch that React
+ * the visitor's local date into the hydrated tree, a mismatch that React
  * reports as an error and that, in Jakarta's UTC+7, is wrong for seven hours of
  * every day. So the fields start empty and fill in on mount.
  */
@@ -67,9 +81,10 @@ export default function FreeTimeCalculator() {
             label="Tanggal bongkar atau keluar terminal"
             value={startDate}
             onChange={setStartDate}
-            hint="Tanggal kontainer turun dari kapal untuk demurrage, atau tanggal keluar terminal untuk detention."
+            tip={TIPS.startDate}
+            hint="Demurrage dihitung dari tanggal bongkar, detention dari tanggal keluar terminal."
           />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <NumberField
               label="Free time"
               value={freeTimeDays}
@@ -77,20 +92,23 @@ export default function FreeTimeCalculator() {
               min={0}
               step={1}
               suffix="hari"
+              tip={TIPS.freeTime}
               hint="Tertera di Delivery Order."
             />
-            <NumberField label="Jumlah kontainer" value={containers} onChange={setContainers} min={1} step={1} suffix="unit" />
+            <NumberField label="Jumlah kontainer" value={containers} onChange={setContainers} min={1} step={1} suffix="unit" tip={TIPS.containers} />
           </div>
           <DateField
             label="Tanggal pengambilan atau pengembalian"
             value={endDate}
             onChange={setEndDate}
+            tip={TIPS.endDate}
             hint="Isi tanggal rencana untuk memperkirakan, atau tanggal hari ini untuk melihat posisi sekarang."
           />
           <ToggleField
             label="Hari bongkar dihitung sebagai free time hari pertama"
             checked={countStartDay}
             onChange={setCountStartDay}
+            tip={TIPS.countStartDay}
             hint="Berbeda antar pelayaran, dan selisihnya persis satu hari denda. Konfirmasikan sekali per pelayaran."
           />
         </div>
@@ -109,7 +127,7 @@ export default function FreeTimeCalculator() {
                   return [...current, { id: nextId++, fromDay: from, toDay: null, ratePerDay: 0 }];
                 })
               }
-              className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+              className="inline-flex min-h-[2.25rem] items-center gap-1.5 rounded-lg px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               <Plus className="h-3 w-3" aria-hidden="true" />
               Jenjang
@@ -117,31 +135,41 @@ export default function FreeTimeCalculator() {
           </div>
 
           <p className="mb-4 text-[11px] leading-[1.6] text-slate-500">
-            Angka bawaan hanya berbentuk seperti tarif sungguhan — nominalnya bukan tarif siapa pun. Ganti dengan angka
+            Angka bawaan hanya berbentuk seperti tarif sungguhan; nominalnya bukan tarif siapa pun. Ganti dengan angka
             dari Delivery Order Anda.
           </p>
 
           <div className="flex flex-col gap-3">
             {slabs.map((slab, index) => (
-              <div key={slab.id} className="grid grid-cols-[1fr_1fr_1.4fr_auto] items-end gap-2">
-                <NumberField label={index === 0 ? "Hari ke" : ""} value={slab.fromDay} onChange={(v) => updateSlab(slab.id, { fromDay: v })} min={1} step={1} />
-                <NumberField
-                  label={index === 0 ? "sampai" : ""}
-                  value={slab.toDay ?? 0}
-                  onChange={(v) => updateSlab(slab.id, { toDay: v === 0 ? null : v })}
-                  min={0}
-                  step={1}
-                />
-                <NumberField label={index === 0 ? "Tarif/hari" : ""} value={slab.ratePerDay} onChange={(v) => updateSlab(slab.id, { ratePerDay: v })} min={0} step={50000} />
-                <button
-                  type="button"
-                  onClick={() => setSlabs((current) => current.filter((r) => r.id !== slab.id))}
-                  disabled={slabs.length === 1}
-                  className="mb-1 rounded-lg p-2 text-slate-400 transition-colors hover:text-brand-orange disabled:cursor-not-allowed disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
-                  aria-label={`Hapus jenjang ${index + 1}`}
-                >
-                  <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
-                </button>
+              <div key={slab.id} className="nm-emboss-sm rounded-xl bg-white/40 p-3">
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">
+                    Jenjang {index + 1}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSlabs((current) => current.filter((r) => r.id !== slab.id))}
+                    disabled={slabs.length === 1}
+                    className="relative rounded-lg p-2 text-slate-400 transition-colors after:absolute after:-inset-1 after:content-[''] hover:text-brand-orange disabled:cursor-not-allowed disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+                    aria-label={`Hapus jenjang ${index + 1}`}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <NumberField label="Denda hari ke" value={slab.fromDay} onChange={(v) => updateSlab(slab.id, { fromDay: v })} min={1} step={1} tip={TIPS.slabFrom} />
+                  <NumberField
+                    label="Sampai hari"
+                    value={slab.toDay ?? 0}
+                    onChange={(v) => updateSlab(slab.id, { toDay: v === 0 ? null : v })}
+                    min={0}
+                    step={1}
+                    tip={TIPS.slabTo}
+                  />
+                  <div className="col-span-2">
+                    <NumberField label="Tarif per kontainer per hari" value={slab.ratePerDay} onChange={(v) => updateSlab(slab.id, { ratePerDay: v })} min={0} step={50000} suffix="Rp/hari" tip={TIPS.slabRate} />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -185,7 +213,8 @@ export default function FreeTimeCalculator() {
                 <CalendarClock className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />
                 <div className="w-full">
                   <p className="font-display text-sm font-bold text-slate-900">Rincian per jenjang</p>
-                  <table className="mt-3 w-full text-left text-[12px]">
+                  <div className="mt-3 overflow-x-auto">
+                  <table className="w-full min-w-[20rem] text-left text-[12px]">
                     <thead>
                       <tr className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-slate-500">
                         <th scope="col" className="pb-2 pr-4 font-black">Jenjang</th>
@@ -207,7 +236,8 @@ export default function FreeTimeCalculator() {
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                    </table>
+                  </div>
                 </div>
               </div>
             )}

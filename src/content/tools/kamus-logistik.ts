@@ -4,9 +4,9 @@ export const tool: Tool = {
   slug: "kamus-logistik",
   kind: "referensi",
   title: "Kamus Istilah Logistik Indonesia",
-  metaTitle: "Kamus Istilah Logistik — Arti SPPB, NPE, VGM, THC, Demurrage | CargoGrid",
+  metaTitle: "Kamus Istilah Logistik: Arti SPPB, NPE, VGM, THC, Demurrage | CargoGrid",
   description:
-    "Lebih dari 150 istilah dan singkatan logistik Indonesia dengan penjelasan operasionalnya: kepabeanan, pelayaran, pergudangan, angkutan darat dan armada, tarif, serta indikator kinerja.",
+    "Seratus lima puluh istilah dan singkatan logistik Indonesia dengan penjelasan operasionalnya: kepabeanan, pelayaran, pergudangan, angkutan darat dan armada, tarif, serta indikator kinerja.",
   keywords: [
     "istilah logistik",
     "singkatan logistik indonesia",
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "glosarium logistik",
   ],
   summary:
-    "Staf baru bertemu empat puluh singkatan dalam minggu pertamanya, dan setiap satunya adalah hal yang dianggap sudah semestinya diketahui — justru karena itu tidak ada yang bertanya. Kamus ini menjelaskan apa artinya sekaligus kenapa itu penting.",
+    "Staf baru bertemu empat puluh singkatan dalam minggu pertamanya, dan setiap satunya adalah hal yang dianggap sudah semestinya diketahui, dan justru karena itu tidak ada yang bertanya. Kamus ini menjelaskan apa artinya sekaligus kenapa itu penting.",
   searchIntents: [
     "Arti SPPB, NPE, PIB, dan PEB",
     "Kepanjangan VGM, THC, LSS, dan BAF",
@@ -37,7 +37,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Dua hal yang sengaja tidak ada di sini. Pertama, tidak ada tarif, ambang, maupun besaran pungutan — angka semacam itu berubah, dan kamus yang mengutipnya menjadi salah tanpa ada yang menyadari. Kedua, tidak ada definisi yang berhenti pada kepanjangannya. Mengetahui bahwa PIB adalah Pemberitahuan Impor Barang tidak mengubah apa pun; mengetahui bahwa pengajuannyalah yang memicu penetapan jalur pemeriksaan mengubah urutan pekerjaan hari itu.",
+      text: "Dua hal yang sengaja tidak ada di sini. Pertama, tidak ada tarif, ambang, maupun besaran pungutan, angka semacam itu berubah, dan kamus yang mengutipnya menjadi salah tanpa ada yang menyadari. Kedua, tidak ada definisi yang berhenti pada kepanjangannya. Mengetahui bahwa PIB adalah Pemberitahuan Impor Barang tidak mengubah apa pun; mengetahui bahwa pengajuannyalah yang memicu penetapan jalur pemeriksaan mengubah urutan pekerjaan hari itu.",
     },
     {
       type: "h2",
@@ -46,7 +46,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Istilah yang tertukar berujung pada biaya yang salah dibebankan. Demurrage dan detention dipakai bergantian dalam percakapan sehari-hari, padahal pemicunya berbeda dan tim yang bisa memperbaikinya pun berbeda. Begitu keduanya ditumpuk ke satu akun bernama biaya pelabuhan, jejak akar masalahnya hilang — dan yang hilang bersamanya adalah kemungkinan memperbaikinya.",
+      text: "Istilah yang tertukar berujung pada biaya yang salah dibebankan. Demurrage dan detention dipakai bergantian dalam percakapan sehari-hari, padahal pemicunya berbeda dan tim yang bisa memperbaikinya pun berbeda. Begitu keduanya ditumpuk ke satu akun bernama biaya pelabuhan, jejak akar masalahnya hilang, dan yang hilang bersamanya adalah kemungkinan memperbaikinya.",
     },
     {
       type: "p",

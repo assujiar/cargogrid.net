@@ -4,9 +4,9 @@ import { buildMetadata, breadcrumbJsonLd, toolCollectionJsonLd } from "../../src
 
 export const metadata = buildMetadata({
   path: "/alat",
-  title: "Alat & Referensi Logistik Gratis — Kalkulator CBM, Muatan Truk, Demurrage | CargoGrid",
+  title: "Alat & Referensi Logistik Gratis: Kalkulator CBM, Muatan Truk, Demurrage | CargoGrid",
   description:
-    "Kalkulator CBM dan berat volumetrik, kalkulator muatan truk, kalkulator free time dan demurrage, tabel ukuran kontainer, jenis truk Indonesia, Incoterms 2020, dan kamus istilah logistik.",
+    "Sembilan alat gratis: kalkulator muatan truk, biaya operasional per kilometer, CBM dan berat volumetrik, free time dan demurrage, serta tabel jenis truk Indonesia, golongan tol dan penyeberangan, ukuran kontainer, Incoterms 2020, dan kamus istilah logistik.",
   keywords: [
     "kalkulator logistik",
     "alat bantu freight forwarding",

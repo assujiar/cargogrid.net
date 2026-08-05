@@ -3,7 +3,7 @@
  *
  * A glossary is the least glamorous page a logistics company can publish and
  * frequently the most used. New staff meet forty abbreviations in their first
- * week — SPPB, NPE, VGM, THC, LSS — and every one of them is a thing somebody
+ * week (SPPB, NPE, VGM, THC, LSS) and every one of them is a thing somebody
  * is expected to already know, which is precisely why nobody asks. The gap gets
  * filled by whichever search result answers first.
  *
@@ -13,7 +13,7 @@
  *    quotes a number becomes wrong without anyone noticing. Definitions here
  *    describe what a thing *is* and where its authoritative value lives.
  * 2. Every entry says why it matters operationally, not just what it expands
- *    to. "PIB — Pemberitahuan Impor Barang" is a decoding; knowing that the
+ *    to. "PIB = Pemberitahuan Impor Barang" is a decoding; knowing that the
  *    document is what starts the customs channel assignment is the part that
  *    changes what somebody does next.
  */
@@ -70,7 +70,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     expansion: "Surat Persetujuan Pengeluaran Barang",
     category: "ekspor-impor",
     definition:
-      "Persetujuan pengeluaran barang impor dari kawasan pabean. Ini tonggak yang paling menentukan dalam perlombaan melawan free time: sebelum SPPB terbit, truk tidak boleh mengambil kontainer sama sekali.",
+      "Persetujuan pengeluaran barang impor dari kawasan pabean. Ini tonggak yang paling menentukan dalam perlombaan melawan free time, karena sebelum SPPB terbit truk tidak boleh mengambil kontainer sama sekali.",
     seeAlso: ["PIB", "Demurrage"],
   },
   {
@@ -430,7 +430,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "ETA",
     expansion: "Estimated Time of Arrival",
     category: "pelayaran",
-    definition: "Perkiraan waktu tiba. Angka rencana, bukan janji — dan selisihnya dengan ATA adalah data paling berguna untuk menilai keandalan operator.",
+    definition: "Perkiraan waktu tiba. Angka rencana, bukan janji, dan selisihnya dengan ATA adalah data paling berguna untuk menilai keandalan operator.",
     seeAlso: ["ATA", "ETD"],
   },
   {
@@ -750,7 +750,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Karoseri",
     category: "darat",
     definition:
-      "Pembuat bodi kendaraan yang memasang bak, box, atau peralatan di atas sasis. Karoseri inilah yang menentukan dimensi ruang muat dan berat kosong akhir kendaraan — sehingga dua truk dengan sasis identik bisa berbeda kapasitasnya.",
+      "Pembuat bodi kendaraan yang memasang bak, box, atau peralatan di atas sasis. Karoseri inilah yang menentukan dimensi ruang muat dan berat kosong akhir kendaraan, sehingga dua truk dengan sasis identik bisa berbeda kapasitasnya.",
     seeAlso: ["JBI", "Wingbox"],
   },
   {
@@ -766,7 +766,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     expansion: "Colt Diesel Double",
     category: "darat",
     definition:
-      "Sebutan pasar untuk truk ringan bergandar dua dengan roda belakang ganda. Berroda enam tetapi tetap dua gandar — perbedaan yang penting karena golongan tol menghitung gandar, bukan roda.",
+      "Sebutan pasar untuk truk ringan bergandar dua dengan roda belakang ganda. Berroda enam tetapi tetap dua gandar, perbedaan yang penting karena golongan tol menghitung gandar, bukan roda.",
     seeAlso: ["CDE", "Golongan Tol"],
   },
   {
@@ -807,7 +807,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Skeletal",
     category: "darat",
     definition:
-      "Chassis trailer dengan twist lock untuk membawa kontainer. Payload kontainer bukan payload jalan — yang berlaku adalah yang terendah di antara rating kontainer, rating chassis, dan JBKI yang diizinkan.",
+      "Chassis trailer dengan twist lock untuk membawa kontainer. Payload kontainer bukan payload jalan, yang berlaku adalah yang terendah di antara rating kontainer, rating chassis, dan JBKI yang diizinkan.",
     seeAlso: ["Tractor Head", "JBI"],
   },
   {
@@ -844,7 +844,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     expansion: "Muatan Sumbu Terberat",
     category: "darat",
     definition:
-      "Batas berat yang boleh ditanggung satu sumbu pada kelas jalan tertentu. Membatasi per sumbu, bukan berat total — sehingga muatan yang menumpuk di belakang bisa melanggar meski berat totalnya masih aman.",
+      "Batas berat yang boleh ditanggung satu sumbu pada kelas jalan tertentu. Membatasi per sumbu, bukan berat total, sehingga muatan yang menumpuk di belakang bisa melanggar meski berat totalnya masih aman.",
     seeAlso: ["Kelas Jalan", "JBI", "ODOL"],
   },
   {
@@ -858,7 +858,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Golongan Tol",
     category: "darat",
     definition:
-      "Penggolongan kendaraan di jalan tol menurut jenis dan jumlah gandar, dari Golongan I sampai V. Menentukan kelompok tarif, bukan besaran tarifnya — tarif berbeda per ruas dan per tanggal berlaku.",
+      "Penggolongan kendaraan di jalan tol menurut jenis dan jumlah gandar, dari Golongan I sampai V. Menentukan kelompok tarif, bukan besaran tarifnya, tarif berbeda per ruas dan per tanggal berlaku.",
     seeAlso: ["Golongan Penyeberangan", "CDD"],
   },
   {
@@ -956,7 +956,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Volumetric Weight",
     category: "komersial",
     definition:
-      "Berat setara volume, dihitung dari kubikasi dibagi divisor yang berlaku pada moda tersebut. Kargo udara umumnya memakai divisor 6000, kurir internasional 5000.",
+      "Berat setara volume: hasil kali panjang, lebar, dan tinggi dalam sentimeter, dibagi divisor moda yang berlaku. Kargo udara umumnya memakai divisor 6.000 dan kurir internasional 5.000. Dinyatakan dalam meter kubik, keduanya sama dengan mengalikan CBM dengan 166,67 dan 200 kg.",
     seeAlso: ["Chargeable Weight", "CBM"],
   },
   {
@@ -1117,7 +1117,7 @@ export function glossaryAnchor(entry: GlossaryEntry): string {
 /**
  * A dangling `seeAlso` renders as plain text where a link was intended, which
  * looks like an oversight and is invisible in review. Failing the build is the
- * cheaper outcome — the same reasoning the article registry applies to its own
+ * cheaper outcome, the same reasoning the article registry applies to its own
  * cross-links.
  */
 function assertGlossaryIntegrity(): void {

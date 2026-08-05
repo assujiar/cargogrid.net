@@ -86,11 +86,12 @@ export const WEIGHT_CONCEPTS: RegulationRule[] = [
 
 export interface RoadClass {
   code: string;
-  maxWidthM: number;
-  maxLengthM: number;
-  maxHeightM: number;
-  /** Muatan Sumbu Terberat, dalam ton. */
-  mstTon: number;
+  /** `null` pada kelas khusus, yang batasnya ditetapkan per izin. */
+  maxWidthM: number | null;
+  maxLengthM: number | null;
+  maxHeightM: number | null;
+  /** Muatan Sumbu Terberat, dalam ton. `null` bila ditetapkan per izin. */
+  mstTon: number | null;
   note: string;
 }
 
@@ -127,12 +128,16 @@ export const ROAD_CLASSES: RoadClass[] = [
     note: "Batas lebar 2,1 meter menyingkirkan hampir semua bodi standar 2,4-2,5 meter. Periksa sebelum menjanjikan pengantaran ke lokasi yang dilayani jalan kelas ini.",
   },
   {
+    // Deliberately without numbers. This class exists precisely for vehicles
+    // whose dimensions or axle loads exceed the ordinary classes, so copying
+    // Kelas I's figures into it stated the opposite of what it means, and
+    // contradicted the note sitting in the very next cell.
     code: "Kelas khusus",
-    maxWidthM: 2.5,
-    maxLengthM: 18,
-    maxHeightM: 4.2,
-    mstTon: 10,
-    note: "Untuk kendaraan dengan dimensi atau beban sumbu melebihi kelas biasa, pada ruas yang ditetapkan. Perlu izin tersendiri.",
+    maxWidthM: null,
+    maxLengthM: null,
+    maxHeightM: null,
+    mstTon: null,
+    note: "Untuk kendaraan yang dimensi atau beban sumbunya melampaui kelas biasa, hanya pada ruas jalan yang ditetapkan dan dengan izin tersendiri. Batasnya ditetapkan per izin, bukan lewat satu angka umum.",
   },
 ];
 
@@ -161,7 +166,7 @@ export const TOLL_CLASSES: TollClass[] = [
     golongan: "Golongan II",
     description: "Truk dengan 2 gandar.",
     rule: "Jumlah gandar total 2.",
-    note: "Truk rigid medium dan berat berkonfigurasi 4x2 umumnya di sini. Perhatikan: jumlah roda bukan jumlah gandar — CDD berroda enam tetap bergandar dua.",
+    note: "Truk rigid medium dan berat berkonfigurasi 4x2 umumnya di sini. Perhatikan: jumlah roda bukan jumlah gandar, CDD berroda enam tetap bergandar dua.",
   },
   {
     golongan: "Golongan III",
@@ -200,7 +205,7 @@ export interface FerryClass {
  * bergandar tiga yang pendek.
  */
 export const FERRY_CLASSES: FerryClass[] = [
-  { golongan: "Golongan I", vehicleType: "Sepeda", lengthBand: "—", note: "Tidak bermotor." },
+  { golongan: "Golongan I", vehicleType: "Sepeda", lengthBand: ", ", note: "Tidak bermotor." },
   { golongan: "Golongan II", vehicleType: "Gerobak dan sepeda motor di bawah 500 cc", lengthBand: "Umumnya di bawah 5 m", note: "Kendaraan kecil." },
   { golongan: "Golongan III", vehicleType: "Kendaraan roda tiga dan sepeda motor 500 cc ke atas", lengthBand: "Umumnya di bawah 5 m", note: "Bermotor." },
   { golongan: "Golongan IV-A", vehicleType: "Kendaraan penumpang", lengthBand: "Sampai dengan 5 m", note: "Fungsi penumpang." },
@@ -248,7 +253,7 @@ export interface BodyCapacityLogic {
  * beredar: memaksa setiap kendaraan dinyatakan dalam meter kubik. Tangki diukur
  * dengan liter dan kerapatan cairan. Flatbed diukur dengan loading meter dan
  * titik beban. Car carrier diukur dengan jumlah unit. Memberi angka m3 untuk
- * bodi-bodi itu bukan sekadar tidak berguna — ia mengajarkan satuan yang salah.
+ * bodi-bodi itu bukan sekadar tidak berguna; ia mengajarkan satuan yang salah.
  */
 export const BODY_CAPACITY_LOGIC: BodyCapacityLogic[] = [
   { body: "Bak terbuka / pickup", formula: "Panjang × lebar × tinggi papan samping", unit: "m³ selubung + kg", cargo: "Barang umum ringan bervolume", volumeRelevance: "Rendah", variables: "Pengikatan muatan, paparan cuaca, tinggi papan samping" },

@@ -2,6 +2,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import SiteShell from "../../../src/components/chrome/SiteShell";
 import ToolShell from "../../../src/components/tools/ToolShell";
+import ToolGate from "../../../src/components/tools/ToolGate";
 import CbmCalculator from "../../../src/components/tools/CbmCalculator";
 import TruckLoadCalculator from "../../../src/components/tools/TruckLoadCalculator";
 import FreeTimeCalculator from "../../../src/components/tools/FreeTimeCalculator";
@@ -88,7 +89,17 @@ export default async function AlatDetailPage({ params }: { params: Promise<{ slu
         }}
       />
       <ToolShell tool={tool}>
-        <Instrument />
+        {/* Calculators sit behind the contact gate; reference tables do not.
+            The tables are the whole reason those pages rank, and putting a
+            lookup table behind a form would be trading the traffic for the
+            lead and getting neither. */}
+        {tool.kind === "kalkulator" ? (
+          <ToolGate toolSlug={tool.slug} toolTitle={tool.title}>
+            <Instrument />
+          </ToolGate>
+        ) : (
+          <Instrument />
+        )}
       </ToolShell>
     </SiteShell>
   );

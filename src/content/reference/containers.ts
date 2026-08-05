@@ -1,7 +1,7 @@
 /**
  * ISO container specifications.
  *
- * Every figure below is *typical*, and the distinction is not a disclaimer —
+ * Every figure below is *typical*, and the distinction is not a disclaimer , 
  * it is the single most useful thing this page can teach. Tare weight varies by
  * several hundred kilograms between builds of the same nominal box, and maximum
  * payload is therefore not a property of "a 20 ft container" at all; it is a
@@ -9,8 +9,8 @@
  * door. People plan a 28-tonne load from a table like this one, and discover the
  * discrepancy at the weighbridge.
  *
- * So the table exists to answer the question it is genuinely good for — will
- * this cargo physically go in, and roughly what class of box do I need — and
+ * So the table exists to answer the question it is genuinely good for, will
+ * this cargo physically go in, and roughly what class of box do I need, and
  * says plainly where the authoritative number lives.
  */
 
@@ -25,6 +25,15 @@ export interface ContainerSpec {
   door: { width: number; height: number } | null;
   /** Nominal internal capacity in m3. */
   capacityCbm: number;
+  /**
+   * Whether cubic capacity is the right way to think about this box.
+   *
+   * False for open top and flat rack: both carry cargo that is loaded from
+   * above or overhangs the envelope, and is planned by footprint, height and
+   * lashing rather than by cube. Printing a tidy m3 figure and an "85%
+   * realistic" stowage number beside it invents a planning basis nobody uses.
+   */
+  volumeIsPlanningBasis: boolean;
   /**
    * Berat kosong dan berat kotor maksimum, bila operatornya menerbitkan keduanya.
    *
@@ -55,6 +64,7 @@ export interface ContainerSpec {
 export const CONTAINER_SPECS: ContainerSpec[] = [
   {
     id: "20gp",
+    volumeIsPlanningBasis: true,
     name: "20 ft General Purpose (20' DC)",
     isoCode: "22G1",
     inner: { length: 5.896, width: 2.35, height: 2.393 },
@@ -70,6 +80,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "40gp",
+    volumeIsPlanningBasis: true,
     name: "40 ft General Purpose (40' DC)",
     isoCode: "42G1",
     inner: { length: 12.032, width: 2.35, height: 2.393 },
@@ -84,6 +95,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "40hc",
+    volumeIsPlanningBasis: true,
     name: "40 ft High Cube (40' HC)",
     isoCode: "45G1",
     inner: { length: 12.032, width: 2.35, height: 2.697 },
@@ -99,6 +111,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "45hc",
+    volumeIsPlanningBasis: true,
     name: "45 ft High Cube (45' HC)",
     isoCode: "L5G1",
     inner: { length: 13.556, width: 2.352, height: 2.698 },
@@ -113,6 +126,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "20rf",
+    volumeIsPlanningBasis: true,
     name: "20 ft Reefer",
     isoCode: "22R1",
     inner: { length: 5.44, width: 2.29, height: 2.27 },
@@ -127,6 +141,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "40rf",
+    volumeIsPlanningBasis: true,
     name: "40 ft Reefer High Cube",
     isoCode: "45R1",
     inner: { length: 11.58, width: 2.29, height: 2.5 },
@@ -141,6 +156,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "20ot",
+    volumeIsPlanningBasis: false,
     name: "20 ft Open Top",
     isoCode: "22U1",
     inner: { length: 5.9, width: 2.35, height: 2.35 },
@@ -155,6 +171,7 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
   },
   {
     id: "40fr",
+    volumeIsPlanningBasis: false,
     name: "40 ft Flat Rack",
     isoCode: "45P1",
     inner: { length: 12.06, width: 2.4, height: 2.14 },

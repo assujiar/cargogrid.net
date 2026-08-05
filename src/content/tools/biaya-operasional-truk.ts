@@ -4,7 +4,7 @@ export const tool: Tool = {
   slug: "biaya-operasional-truk",
   kind: "kalkulator",
   title: "Kalkulator Biaya Operasional Truk: Cost per KM, per Rit, dan per Ton-KM",
-  metaTitle: "Kalkulator Biaya Operasional Truk — Cost per KM & Harga Jual Minimum | CargoGrid",
+  metaTitle: "Kalkulator Biaya Operasional Truk: Cost per KM & Harga Jual Minimum | CargoGrid",
   description:
     "Hitung biaya sesungguhnya satu unit truk: biaya tetap, bahan bakar, ban, tol, dan uang jalan, sampai ketemu biaya per km bermuatan, biaya per ton-km, dan harga jual minimum sesuai margin yang dituju.",
   keywords: [
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "harga pokok jasa angkutan",
   ],
   summary:
-    "Menentukan tarif tanpa tahu biaya sendiri adalah menebak dengan langkah tambahan. Kalkulator ini menyusun seluruh pos biaya satu unit — dari penyusutan sampai uang jalan — lalu mengubahnya menjadi angka yang bisa dipakai menjawab penawaran: biaya per rit, per kilometer bermuatan, per ton-km, dan harga jual minimum.",
+    "Menentukan tarif tanpa tahu biaya sendiri adalah menebak dengan langkah tambahan. Kalkulator ini menyusun seluruh pos biaya satu unit, dari penyusutan sampai uang jalan, lalu mengubahnya menjadi angka yang bisa dipakai menjawab penawaran: biaya per rit, per kilometer bermuatan, per ton-km, dan harga jual minimum.",
   searchIntents: [
     "Cara menghitung biaya operasional truk per kilometer",
     "Menentukan tarif angkutan darat yang tidak rugi",
@@ -37,13 +37,13 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Truk tetap menyusut ketika sedang parkir. Cicilannya tetap berjalan, asuransinya tetap dibayar, sopirnya tetap digaji, dan bagian dari biaya kantor tetap melekat padanya. Semua itu tidak muncul di kuitansi mana pun sepanjang perjalanan, sehingga tidak pernah terasa sebagai biaya rit ini — padahal justru pos inilah yang biasanya terbesar.",
+      text: "Truk tetap menyusut ketika sedang parkir. Cicilannya tetap berjalan, asuransinya tetap dibayar, sopirnya tetap digaji, dan bagian dari biaya kantor tetap melekat padanya. Semua itu tidak muncul di kuitansi mana pun sepanjang perjalanan, sehingga tidak pernah terasa sebagai biaya rit ini, padahal justru pos inilah yang biasanya terbesar.",
     },
     {
       type: "callout",
       tone: "insight",
       title: "Biaya tetap dibebankan ke seluruh kilometer, termasuk yang kosong",
-      body: "Truk yang pulang tanpa muatan tetap menyusut dan tetap digaji sopirnya. Karena itu seluruh biaya perjalanan — bermuatan maupun kosong — harus ditanggung oleh kilometer yang menghasilkan pendapatan saja. Itulah sebabnya biaya per km bermuatan selalu lebih tinggi daripada biaya per km total, dan selisih keduanya adalah harga yang Anda bayar untuk rit balik kosong.",
+      body: "Truk yang pulang tanpa muatan tetap menyusut dan tetap digaji sopirnya. Karena itu seluruh biaya perjalanan, bermuatan maupun kosong, harus ditanggung oleh kilometer yang menghasilkan pendapatan saja. Itulah sebabnya biaya per km bermuatan selalu lebih tinggi daripada biaya per km total, dan selisih keduanya adalah harga yang Anda bayar untuk rit balik kosong.",
     },
     {
       type: "h2",
@@ -76,7 +76,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Perhitungan biaya bekerja dengan dua jarak yang terpisah — kilometer bermuatan dan kilometer kosong — dan pemisahan itu memang yang benar, karena hanya kilometer bermuatan yang menghasilkan pendapatan. Persoalannya, tidak ada yang menyimpan rutenya dalam bentuk itu. Yang orang tahu adalah \"Jakarta-Surabaya, pulang kosong\".",
+      text: "Perhitungan biaya bekerja dengan dua jarak yang terpisah, kilometer bermuatan dan kilometer kosong, dan pemisahan itu memang yang benar, karena hanya kilometer bermuatan yang menghasilkan pendapatan. Persoalannya, tidak ada yang menyimpan rutenya dalam bentuk itu. Yang orang tahu adalah \"Jakarta-Surabaya, pulang kosong\".",
     },
     {
       type: "p",
@@ -97,7 +97,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "warning",
       title: "Kesalahan termahal di halaman ini",
-      body: "Mengisi jarak sekali jalan lalu lupa rit baliknya sama sekali. Biaya per rit langsung terlihat separuh dari yang sebenarnya, dan tarif yang lahir dari situ merugi pada setiap rit — tanpa ada satu pos pun yang kelihatan janggal saat diperiksa ulang. Memilih pola rute lebih dulu menutup kemungkinan itu.",
+      body: "Mengisi jarak sekali jalan lalu lupa rit baliknya sama sekali. Biaya per rit langsung terlihat separuh dari yang sebenarnya, dan tarif yang lahir dari situ merugi pada setiap rit, tanpa ada satu pos pun yang kelihatan janggal saat diperiksa ulang. Memilih pola rute lebih dulu menutup kemungkinan itu.",
     },
     {
       type: "h2",
@@ -106,13 +106,13 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Beberapa pos tidak sedikit berbeda antar kelas armada — melainkan berbeda berkali-kali lipat. Rangkaian tractor head menempuh sekitar 2,5 kilometer per liter; truk ringan bisa tiga kali lipat itu. Karena itu mengganti pilihan armada ikut mengganti konsumsi bahan bakar, harga perolehan, umur ban, dan gaji tetap awak. Biaya ban dan perawatan ikut menyesuaikan dengan sendirinya, karena keduanya dihitung sebagai porsi harga kendaraan.",
+      text: "Beberapa pos tidak sedikit berbeda antar kelas armada, melainkan berbeda berkali-kali lipat. Rangkaian tractor head menempuh sekitar 2,5 kilometer per liter; truk ringan bisa tiga kali lipat itu. Karena itu mengganti pilihan armada ikut mengganti konsumsi bahan bakar, harga perolehan, umur ban, dan gaji tetap awak. Biaya ban dan perawatan ikut menyesuaikan dengan sendirinya, karena keduanya dihitung sebagai porsi harga kendaraan.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Konsumsi bahan bakar tidak punya angka baku",
-      body: "Kilometer per liter ditentukan medan, bobot muatan, umur mesin, gaya mengemudi, dan seberapa sering kendaraan terjebak macet. Dua unit yang persis sama pada rute yang berbeda bisa berselisih puluhan persen. Angka awal di sini hanya supaya kolomnya tidak kosong dan tidak meleset kelas — angka yang benar ada di catatan pengisian solar armada Anda sendiri, dan itu pos biaya terbesar, jadi paling layak diukur lebih dulu.",
+      body: "Kilometer per liter ditentukan medan, bobot muatan, umur mesin, gaya mengemudi, dan seberapa sering kendaraan terjebak macet. Dua unit yang persis sama pada rute yang berbeda bisa berselisih puluhan persen. Angka awal di sini hanya supaya kolomnya tidak kosong dan tidak meleset kelas. Angka yang benar ada di catatan pengisian solar armada Anda sendiri, dan karena bahan bakar adalah pos biaya terbesar, itulah yang paling layak diukur lebih dulu.",
     },
     {
       type: "p",
@@ -125,7 +125,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Tiga pos ini — harga satu set ban, biaya perawatan, dan pelumas — tidak diisi dalam rupiah, melainkan sebagai porsi harga kendaraan. Ini cara yang lazim dipakai dalam analisis biaya armada, dan alasannya praktis: biaya ban dan perawatan pada dasarnya memang mengikuti harga kendaraan. Truk yang lebih mahal memakai ban yang lebih besar, suku cadang yang lebih mahal, dan interval servis yang lebih menuntut.",
+      text: "Tiga pos ini, harga satu set ban, biaya perawatan, dan pelumas, tidak diisi dalam rupiah, melainkan sebagai porsi harga kendaraan. Ini cara yang lazim dipakai dalam analisis biaya armada, dan alasannya praktis: biaya ban dan perawatan pada dasarnya memang mengikuti harga kendaraan. Truk yang lebih mahal memakai ban yang lebih besar, suku cadang yang lebih mahal, dan interval servis yang lebih menuntut.",
     },
     {
       type: "table",
@@ -145,7 +145,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "insight",
       title: "Nominalnya tetap ditampilkan",
-      body: "Di bawah setiap kolom persentase, kalkulator menampilkan nilai rupiahnya — per set, per tahun, dan per kilometer. Persentase yang tidak bisa dikembalikan ke rupiah adalah persentase yang tidak bisa diperiksa siapa pun, dan angka yang tidak bisa diperiksa tidak layak dipakai menetapkan harga.",
+      body: "Di bawah setiap kolom persentase, kalkulator menampilkan nilai rupiahnya, per set, per tahun, dan per kilometer. Persentase yang tidak bisa dikembalikan ke rupiah adalah persentase yang tidak bisa diperiksa siapa pun, dan angka yang tidak bisa diperiksa tidak layak dipakai menetapkan harga.",
     },
     {
       type: "p",
@@ -162,14 +162,14 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Menanam satu tarif nasional ke dalam alat ini berarti menerbitkan angka yang akan salah dalam hitungan bulan, dan tidak akan ada yang tahu kapan mulai salahnya — termasuk Anda, yang justru memakainya menetapkan tarif. Karena itu kedua kolom itu dimulai dari nol, bukan dari angka contoh. Angka contoh yang terlihat masuk akal akan ikut terbawa ke hasil oleh sebagian orang tanpa pernah diperiksa; kolom nol menuntut perhatian.",
+      text: "Menanam satu tarif nasional ke dalam alat ini berarti menerbitkan angka yang akan salah dalam hitungan bulan, dan tidak akan ada yang tahu kapan mulai salahnya, termasuk Anda, yang justru memakainya menetapkan tarif. Karena itu kedua kolom itu dimulai dari nol, bukan dari angka contoh. Angka contoh yang terlihat masuk akal akan ikut terbawa ke hasil oleh sebagian orang tanpa pernah diperiksa; kolom nol menuntut perhatian.",
     },
     {
       type: "ol",
       items: [
         "Pilih armada di bagian atas. Alat ini langsung menyebutkan **golongan tol** dan **golongan penyeberangan** kelas tersebut, dan mengulangnya tepat di sebelah kolom yang harus diisi.",
         "Cari tarif untuk golongan itu pada ruas tol dan lintasan penyeberangan yang benar-benar dilewati rute Anda.",
-        "Masukkan totalnya per rit — jangan lupa menjumlahkan perjalanan berangkat dan pulang, karena seluruh perhitungan di halaman ini berbasis satu rit utuh.",
+        "Masukkan totalnya per rit, jangan lupa menjumlahkan perjalanan berangkat dan pulang, karena seluruh perhitungan di halaman ini berbasis satu rit utuh.",
       ],
     },
     {
@@ -189,13 +189,13 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Menaikkannya dari 0,85 menjadi 0,95 akan menurunkan biaya tetap per kilometer sekitar sepuluh persen di layar — dan tidak menurunkan apa pun di dunia nyata. Yang terjadi hanyalah tarif ditetapkan berdasarkan pemanfaatan yang tidak pernah tercapai, lalu selisihnya muncul sebagai kerugian di akhir tahun tanpa ada satu rit pun yang bisa ditunjuk sebagai penyebabnya.",
+      text: "Menaikkannya dari 0,85 menjadi 0,95 akan menurunkan biaya tetap per kilometer sekitar sepuluh persen di layar, dan tidak menurunkan apa pun di dunia nyata. Yang terjadi hanyalah tarif ditetapkan berdasarkan pemanfaatan yang tidak pernah tercapai, lalu selisihnya muncul sebagai kerugian di akhir tahun tanpa ada satu rit pun yang bisa ditunjuk sebagai penyebabnya.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Dua angka pemanfaatan harus saling cocok",
-      body: "Jumlah rit setahun dikali jarak per rit seharusnya mendekati rencana kilometer dikali faktor ketersediaan. Kalau keduanya berselisih jauh, salah satunya keliru — dan seluruh angka per kilometer ikut terbawa. Kalkulator ini memeriksa kecocokan itu dan memberi tahu bila selisihnya melebihi sepuluh persen.",
+      body: "Jumlah rit setahun dikali jarak per rit seharusnya mendekati rencana kilometer dikali faktor ketersediaan. Kalau keduanya berselisih jauh, salah satunya keliru, dan seluruh angka per kilometer ikut terbawa. Kalkulator ini memeriksa kecocokan itu dan memberi tahu bila selisihnya melebihi sepuluh persen.",
     },
     {
       type: "h2",
@@ -221,7 +221,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Untuk mengetahui lane mana yang sesungguhnya merugi, biaya harus tercatat per pengiriman, bukan per asumsi — termasuk biaya susulan yang invoicenya baru datang berminggu-minggu kemudian. Itu persoalan pencatatan, dan tidak ada kalkulator yang bisa menyelesaikannya.",
+      text: "Untuk mengetahui lane mana yang sesungguhnya merugi, biaya harus tercatat per pengiriman, bukan per asumsi, termasuk biaya susulan yang invoicenya baru datang berminggu-minggu kemudian. Itu persoalan pencatatan, dan tidak ada kalkulator yang bisa menyelesaikannya.",
     },
   ],
   faq: [
@@ -243,11 +243,11 @@ export const tool: Tool = {
     },
     {
       q: "Berapa km per liter truk CDD, fuso, atau tronton?",
-      a: "Sebagai titik awal yang kasar: truk ringan seperti CDE dan CDD sekitar 8 km per liter bermuatan, truk medium kelas fuso sekitar 5,5, tronton sekitar 4,5, dan rangkaian tractor head dengan trailer sekitar 2,5. Angka-angka ini bergeser jauh menurut medan, bobot muatan, umur mesin, dan gaya mengemudi — dua unit identik pada rute berbeda bisa berselisih puluhan persen. Pakai rata-rata dari catatan pengisian solar armada sendiri sebelum hasilnya dipakai menetapkan tarif.",
+      a: "Sebagai titik awal yang kasar: truk ringan seperti CDE dan CDD sekitar 8 km per liter bermuatan, truk medium kelas fuso sekitar 5,5, tronton sekitar 4,5, dan rangkaian tractor head dengan trailer sekitar 2,5. Angka-angka ini bergeser jauh menurut medan, bobot muatan, umur mesin, dan gaya mengemudi, dua unit identik pada rute berbeda bisa berselisih puluhan persen. Pakai rata-rata dari catatan pengisian solar armada sendiri sebelum hasilnya dipakai menetapkan tarif.",
     },
     {
       q: "Kenapa biaya ban dan perawatan diisi dalam persen, bukan rupiah?",
-      a: "Karena keduanya pada dasarnya mengikuti harga kendaraan — truk yang lebih mahal memakai ban lebih besar dan suku cadang lebih mahal. Disimpan sebagai persentase, keduanya ikut menyesuaikan begitu armada atau harganya diganti; disimpan sebagai rupiah, setiap kelas armada butuh angkanya sendiri dan masing-masing menjadi usang sendiri-sendiri. Titik awalnya 6% dari harga untuk satu set ban, 10% dari harga per tahun untuk perawatan, dan 12% dari biaya perawatan untuk pelumas. Nilai rupiahnya tetap ditampilkan di bawah tiap kolom.",
+      a: "Karena keduanya pada dasarnya mengikuti harga kendaraan, truk yang lebih mahal memakai ban lebih besar dan suku cadang lebih mahal. Disimpan sebagai persentase, keduanya ikut menyesuaikan begitu armada atau harganya diganti; disimpan sebagai rupiah, setiap kelas armada butuh angkanya sendiri dan masing-masing menjadi usang sendiri-sendiri. Titik awalnya 6% dari harga untuk satu set ban, 10% dari harga per tahun untuk perawatan, dan 12% dari biaya perawatan untuk pelumas. Nilai rupiahnya tetap ditampilkan di bawah tiap kolom.",
     },
     {
       q: "Kenapa angka berubah sendiri saat saya ganti pilihan armada?",
@@ -255,15 +255,15 @@ export const tool: Tool = {
     },
     {
       q: "Bagaimana menghitung rute pulang pergi dibanding sekali jalan?",
-      a: "Pilih pola rutenya, lalu isi jarak sekali jalan — kalkulator menerjemahkannya sendiri. Pulang pergi dengan balik kosong menjadi jarak bermuatan sekali jalan ditambah jarak kosong yang sama. Pulang pergi dengan muatan dua arah menjadi dua kali jarak, seluruhnya bermuatan. Untuk muatan balik sebagian, pilih Atur sendiri dan isi keduanya terpisah.",
+      a: "Pilih pola rutenya, lalu isi jarak sekali jalan, kalkulator menerjemahkannya sendiri. Pulang pergi dengan balik kosong menjadi jarak bermuatan sekali jalan ditambah jarak kosong yang sama. Pulang pergi dengan muatan dua arah menjadi dua kali jarak, seluruhnya bermuatan. Untuk muatan balik sebagian, pilih Atur sendiri dan isi keduanya terpisah.",
     },
     {
       q: "Kenapa tarif tol dan penyeberangan tidak sudah terisi otomatis?",
-      a: "Karena tarif tol berbeda per ruas jalan dan tarif penyeberangan berbeda per lintasan, dan keduanya berubah menurut tanggal berlaku. Satu tarif nasional yang ditanam di dalam alat akan menjadi salah tanpa ada yang menyadarinya. Yang alat ini sediakan adalah golongan kendaraan Anda — tarifnya ambil dari ruas dan lintasan yang benar-benar dilewati, lalu masukkan sebagai isian.",
+      a: "Karena tarif tol berbeda per ruas jalan dan tarif penyeberangan berbeda per lintasan, dan keduanya berubah menurut tanggal berlaku. Satu tarif nasional yang ditanam di dalam alat akan menjadi salah tanpa ada yang menyadarinya. Yang alat ini sediakan adalah golongan kendaraan Anda, tarifnya ambil dari ruas dan lintasan yang benar-benar dilewati, lalu masukkan sebagai isian.",
     },
     {
       q: "Bagaimana saya tahu masuk golongan berapa?",
-      a: "Pilih armada di bagian atas kalkulator, dan golongan tol serta golongan penyeberangannya langsung ditampilkan — termasuk diulang tepat di sebelah kolom biaya yang harus diisi. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
+      a: "Pilih armada di bagian atas kalkulator, dan golongan tol serta golongan penyeberangannya langsung ditampilkan, termasuk diulang tepat di sebelah kolom biaya yang harus diisi. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
     },
     {
       q: "Apakah biaya tetap boleh dibebankan hanya pada kilometer bermuatan?",

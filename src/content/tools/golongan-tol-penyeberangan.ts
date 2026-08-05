@@ -4,7 +4,7 @@ export const tool: Tool = {
   slug: "golongan-tol-penyeberangan",
   kind: "referensi",
   title: "Golongan Tol, Golongan Penyeberangan, Kelas Jalan, dan Batas Dimensi",
-  metaTitle: "Golongan Tol & Penyeberangan Truk, Kelas Jalan, Batas Dimensi | CargoGrid",
+  metaTitle: "Golongan Tol & Penyeberangan Truk: Kelas Jalan dan Batas Dimensi | CargoGrid",
   description:
     "Golongan tol I sampai V menurut jumlah gandar, golongan penyeberangan I sampai IX menurut panjang kendaraan, kelas jalan berikut batas MST, serta batas dimensi dan konsep JBB/JBI.",
   keywords: [
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "aturan panjang lebar tinggi truk",
   ],
   summary:
-    "Empat aturan yang menentukan boleh atau tidaknya sebuah muatan berjalan, dan berapa biaya rutenya. Ketiganya sering dicampuradukkan, padahal masing-masing memakai dasar penggolongan yang sama sekali berbeda.",
+    "Empat aturan yang menentukan boleh atau tidaknya sebuah muatan berjalan, dan berapa biaya rutenya. Semuanya sering dicampuradukkan, padahal masing-masing memakai dasar penggolongan yang sama sekali berbeda.",
   searchIntents: [
     "Truk saya masuk golongan tol berapa",
     "Golongan penyeberangan untuk trailer 40 kaki",
@@ -53,7 +53,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "warning",
       title: "Jumlah roda bukan jumlah gandar",
-      body: "CDD berroda enam tetapi bergandar dua — roda belakangnya ganda pada satu sumbu. Golongan tol menghitung gandar, bukan roda. Kekeliruan ini rutin membuat anggaran tol satu golongan lebih tinggi daripada yang sebenarnya dibayar.",
+      body: "CDD berroda enam tetapi bergandar dua, karena roda belakangnya ganda pada satu sumbu. Golongan tol menghitung gandar, bukan roda. Kekeliruan ini rutin membuat anggaran tol satu golongan lebih tinggi daripada yang sebenarnya dibayar.",
     },
     {
       type: "h2",
@@ -75,7 +75,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "JBB adalah batas berat menurut rancangan pabrikan. Ini rating teknis — apa yang sanggup ditanggung kendaraan itu. JBI adalah berat operasional yang diizinkan, yang memperhitungkan berat kosong, dimensi dan bodi terpasang, kelas jalan, serta beban sumbu. JBI selalu lebih kecil atau sama dengan JBB.",
+      text: "JBB adalah batas berat menurut rancangan pabrikan. Ini rating teknis, yaitu apa yang sanggup ditanggung kendaraan itu. JBI adalah berat operasional yang diizinkan, yang memperhitungkan berat kosong, dimensi dan bodi terpasang, kelas jalan, serta beban sumbu. JBI selalu lebih kecil atau sama dengan JBB.",
     },
     {
       type: "p",
@@ -111,7 +111,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Berbeda halnya dengan muatan yang memang berdimensi atau berbobot melebihi standar — alat berat, transformator, mesin produksi. Muatan seperti itu bisa diangkut secara sah dengan peralatan yang sesuai, kajian rute, izin, dan pengawalan bila disyaratkan. Yang pertama adalah pelanggaran; yang kedua adalah pekerjaan proyek dengan biaya dan persiapannya sendiri.",
+      text: "Berbeda halnya dengan muatan yang memang berdimensi atau berbobot melebihi standar seperti alat berat, transformator, dan mesin produksi. Muatan seperti itu bisa diangkut secara sah dengan peralatan yang sesuai, kajian rute, izin, dan pengawalan bila disyaratkan. Yang pertama adalah pelanggaran; yang kedua adalah pekerjaan proyek dengan biaya dan persiapannya sendiri.",
     },
   ],
   faq: [

@@ -15,10 +15,18 @@ import { openCookiePreferences } from "../lib/tracking";
  *
  * The icon carries the same mark the tool's hub card does, so the shape someone
  * learned upstairs is the shape they recognise down here. `items-start` rather
- * than centred: in the narrow phone columns the longer labels wrap to two or
- * three lines, and a centred icon would float against the middle of the block
+ * than centred: in the narrow phone columns the longer labels wrap to two
+ * lines, and a centred icon would float against the middle of the block
  * instead of sitting beside its first line.
+ *
+ * Every row is held at two lines tall whether or not its label needs the
+ * second. The two groups are separate grids, so nothing makes their rows line
+ * up except being the same height: let a row size itself and one wrapped label
+ * anywhere in the block knocks that group's remaining rows out of step with
+ * the group beside it, which is exactly the ragged edge the eye picks up.
  */
+const ROW_HEIGHT = "min-h-[2.0625rem]"; // two lines of text-xs at leading-snug
+
 function ToolGroup({
   title,
   links,
@@ -44,7 +52,7 @@ function ToolGroup({
             <li key={tool.slug}>
               <Link
                 href={`/alat/${tool.slug}`}
-                className="group flex items-start gap-2 font-bold leading-snug transition-colors hover:text-brand-orange"
+                className={`group flex ${ROW_HEIGHT} items-start gap-2 font-bold leading-snug transition-colors hover:text-brand-orange`}
               >
                 <Icon
                   className={`mt-px h-3.5 w-3.5 flex-shrink-0 ${ACCENT_CLASSES[accent].text} transition-colors group-hover:text-brand-orange`}
@@ -187,7 +195,18 @@ export default function Footer() {
 
         {/* Lower footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-[11px] text-slate-600 font-mono font-bold border-t border-slate-300">
-          <div>&copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved &bull; Configurable Logistics Platform.</div>
+          {/* Centred on a phone so it shares an axis with the link grid below
+              it. Left-aligned, its second line ended under a centred grid and
+              the whole block read as two unrelated pieces of furniture.
+
+              The positioning line is held back until `sm`, where the sentence
+              fits on one line. On a phone it was the only reason this ran to
+              two lines, and it says nothing the site above has not already
+              said at length. */}
+          <div className="text-center sm:text-left">
+            &copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved
+            <span className="hidden sm:inline"> &bull; Configurable Logistics Platform.</span>
+          </div>
           {/* Two layouts, because a separated inline row cannot wrap cleanly at
               phone widths. Whichever element the break lands on either strands
               its bullet at the end of a line or carries one to the start of the

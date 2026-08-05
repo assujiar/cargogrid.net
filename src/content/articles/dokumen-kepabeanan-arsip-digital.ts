@@ -196,4 +196,5 @@ export const article: Article = {
     },
   ],
   related: ["demurrage-detention-pelabuhan", "biaya-tersembunyi-pod-kertas", "integrasi-erp-akuntansi-logistik"],
+  relatedTools: ["kamus-logistik", "incoterms-2020"],
 };

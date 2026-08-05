@@ -193,4 +193,5 @@ export const article: Article = {
     },
   ],
   related: ["rekonsiliasi-invoice-forwarder-terlambat", "alur-rfq-freight-forwarding", "kpi-operasional-logistik"],
+  relatedTools: ["kalkulator-cbm", "kalkulator-demurrage"],
 };

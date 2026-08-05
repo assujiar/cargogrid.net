@@ -211,4 +211,5 @@ export const article: Article = {
     },
   ],
   related: ["memilih-software-logistik-pilot-30-hari", "grup-whatsapp-sistem-operasional-bayangan", "integrasi-erp-akuntansi-logistik"],
+  relatedTools: ["kalkulator-cbm", "kalkulator-muatan-truk"],
 };

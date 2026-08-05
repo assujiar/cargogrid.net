@@ -200,4 +200,5 @@ export const article: Article = {
     },
   ],
   related: ["odol-timbangan-jembatan-muatan-lebih", "tracking-multimoda-indonesia", "biaya-tersembunyi-pod-kertas"],
+  relatedTools: ["kalkulator-demurrage", "ukuran-kontainer", "kamus-logistik"],
 };

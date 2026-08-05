@@ -228,4 +228,5 @@ export const article: Article = {
     },
   ],
   related: ["perawatan-armada-preventif-vs-reaktif", "margin-per-job-forwarder", "kpi-operasional-logistik"],
+  relatedTools: ["kalkulator-muatan-truk", "jenis-truk-indonesia"],
 };

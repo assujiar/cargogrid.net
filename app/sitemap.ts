@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "../src/lib/seo";
 import { articles } from "../src/content/articles";
+import { tools } from "../src/content/tools";
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
@@ -36,6 +37,7 @@ const routes: RouteEntry[] = [
   { path: "/faq", priority: 0.7, changeFrequency: "monthly", lastModified: "2026-07-09" },
   { path: "/kontak", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-07-09" },
   { path: "/artikel", priority: 0.8, changeFrequency: "weekly", lastModified: "2026-08-03" }, // bump when a new article lands
+  { path: "/alat", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-08-05" }, // bump when a new tool lands
   { path: "/kebijakan-privasi", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-07-09" },
   { path: "/syarat-ketentuan", priority: 0.3, changeFrequency: "yearly", lastModified: "2026-07-09" },
 ];
@@ -58,5 +60,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...articleRoutes];
+  // Tools carry their own dates for the same reason articles do. Priority sits
+  // above the articles': these are the pages built to be the first contact with
+  // people who have never heard of CargoGrid and are not searching for it, so
+  // they are the ones whose freshness is worth signalling.
+  const toolRoutes: MetadataRoute.Sitemap = tools.map((tool) => ({
+    url: `${siteUrl}/alat/${tool.slug}`,
+    lastModified: new Date(tool.updatedAt || tool.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...articleRoutes, ...toolRoutes];
 }

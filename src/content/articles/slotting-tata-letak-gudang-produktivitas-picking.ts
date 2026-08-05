@@ -223,4 +223,5 @@ export const article: Article = {
     },
   ],
   related: ["wms-3pl-level-bin", "kpi-operasional-logistik", "lonjakan-musiman-kapasitas-peak-season"],
+  relatedTools: ["kamus-logistik"],
 };

@@ -191,4 +191,5 @@ export const article: Article = {
     },
   ],
   related: ["kpi-operasional-logistik", "retur-barang-reverse-logistics-gudang", "customer-portal-logistik"],
+  relatedTools: ["kamus-logistik"],
 };

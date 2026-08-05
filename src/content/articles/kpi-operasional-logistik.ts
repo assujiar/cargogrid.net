@@ -219,4 +219,5 @@ export const article: Article = {
     },
   ],
   related: ["margin-per-job-forwarder", "slotting-tata-letak-gudang-produktivitas-picking", "customer-portal-logistik"],
+  relatedTools: ["kamus-logistik"],
 };

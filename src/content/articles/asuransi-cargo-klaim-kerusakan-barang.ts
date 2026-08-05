@@ -224,4 +224,5 @@ export const article: Article = {
     },
   ],
   related: ["biaya-tersembunyi-pod-kertas", "demurrage-detention-pelabuhan", "manajemen-vendor-subkontraktor"],
+  relatedTools: ["incoterms-2020", "kamus-logistik"],
 };

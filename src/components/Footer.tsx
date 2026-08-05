@@ -14,24 +14,40 @@ import { openCookiePreferences } from "../lib/tracking";
  * One category of the footer's tool list.
  *
  * The icon carries the same mark the tool's hub card does, so the shape someone
- * learned upstairs is the shape they recognise down here. `items-center` is
- * safe because a single-column list never wraps a label.
+ * learned upstairs is the shape they recognise down here. `items-start` rather
+ * than centred: in the narrow phone columns the longer labels wrap to two or
+ * three lines, and a centred icon would float against the middle of the block
+ * instead of sitting beside its first line.
  */
-function ToolGroup({ title, links, isEn }: { title: string; links: ToolNavLink[]; isEn: boolean }) {
+function ToolGroup({
+  title,
+  links,
+  isEn,
+  className,
+  listClassName,
+}: {
+  title: string;
+  links: ToolNavLink[];
+  isEn: boolean;
+  /** Where this group sits in the outer grid. */
+  className: string;
+  /** How the group splits itself into columns once there is room. */
+  listClassName: string;
+}) {
   return (
-    <div>
+    <div className={className}>
       <h3 className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{title}</h3>
-      <ul className="mt-2.5 flex flex-col gap-2.5 text-xs">
+      <ul className={`mt-2.5 flex flex-col gap-x-6 gap-y-2.5 text-xs ${listClassName}`}>
         {links.map((tool) => {
           const { Icon, accent } = toolVisual(tool.slug);
           return (
             <li key={tool.slug}>
               <Link
                 href={`/alat/${tool.slug}`}
-                className="group flex items-center gap-2 font-bold leading-snug transition-colors hover:text-brand-orange"
+                className="group flex items-start gap-2 font-bold leading-snug transition-colors hover:text-brand-orange"
               >
                 <Icon
-                  className={`h-3.5 w-3.5 flex-shrink-0 ${ACCENT_CLASSES[accent].text} transition-colors group-hover:text-brand-orange`}
+                  className={`mt-px h-3.5 w-3.5 flex-shrink-0 ${ACCENT_CLASSES[accent].text} transition-colors group-hover:text-brand-orange`}
                   aria-hidden="true"
                 />
                 <span className="min-w-0">{isEn ? tool.labelEn : tool.label}</span>
@@ -145,11 +161,27 @@ export default function Footer() {
           {/* Split the same way the hub splits: things that compute something
               and things you look something up in. Nine items in one flat run
               made the visitor read all nine to find out which kind they were
-              looking at. One column per group on a phone, so no label ever
-              wraps and the rows stay a straight edge. */}
-          <div className="mt-4 grid gap-x-8 gap-y-6 sm:grid-cols-2">
-            <ToolGroup title={isEn ? "Calculators" : "Kalkulator"} links={navLinksByKind("kalkulator")} isEn={isEn} />
-            <ToolGroup title={isEn ? "Reference" : "Referensi"} links={navLinksByKind("referensi")} isEn={isEn} />
+              looking at.
+
+              Two columns on a phone, one category each. From `lg` the row opens
+              into five: two columns of calculators and three of reference, each
+              running two deep, so the whole set clears in two glances instead of
+              a nine-line scroll. */}
+          <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-5 lg:gap-x-8">
+            <ToolGroup
+              title={isEn ? "Calculators" : "Kalkulator"}
+              links={navLinksByKind("kalkulator")}
+              isEn={isEn}
+              className="lg:col-span-2"
+              listClassName="lg:grid lg:grid-cols-2"
+            />
+            <ToolGroup
+              title={isEn ? "Reference" : "Referensi"}
+              links={navLinksByKind("referensi")}
+              isEn={isEn}
+              className="lg:col-span-3"
+              listClassName="lg:grid lg:grid-cols-3"
+            />
           </div>
         </nav>
 

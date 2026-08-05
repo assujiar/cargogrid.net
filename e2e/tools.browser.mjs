@@ -153,6 +153,37 @@ const perGroup = await page
   .evaluateAll((lists) => lists.map((ul) => ul.querySelectorAll('a[href^="/alat/"]').length));
 check("the four calculators and five reference pages land in the right group", perGroup.join(",") === "4,5", perGroup.join(","));
 
+// Rows only look level while every label fits on one line. Checked at 360px,
+// narrower than any phone we expect, because a label that wraps there is
+// invisible on a desktop review and unmistakable on the device.
+const narrow = await browser.newContext({ viewport: { width: 360, height: 780 } });
+const narrowPage = await narrow.newPage();
+await narrowPage.goto(`${BASE}/alat`, { waitUntil: "networkidle" });
+const wrapped = await narrowPage.locator('nav[aria-label="Alat gratis"] a[href^="/alat/"]').evaluateAll((links) =>
+  links
+    .map((a) => {
+      const span = a.querySelector("span");
+      const lineHeight = parseFloat(getComputedStyle(span).lineHeight);
+      return span.getBoundingClientRect().height > lineHeight * 1.5 ? span.textContent : null;
+    })
+    .filter(Boolean),
+);
+check("no footer tool label wraps on a 360px phone", wrapped.length === 0, wrapped.join(", "));
+// Two columns per category on a phone, and every row one line tall, which
+// together are the whole of looking level here.
+const shape = await narrowPage.locator('nav[aria-label="Alat gratis"] ul').evaluateAll((lists) =>
+  lists.map((ul) => {
+    const links = [...ul.querySelectorAll("a")];
+    const tops = [...new Set(links.map((a) => Math.round(a.getBoundingClientRect().top)))];
+    const heights = [...new Set(links.map((a) => Math.round(a.getBoundingClientRect().height)))];
+    return { columns: getComputedStyle(ul).gridTemplateColumns.split(" ").length, rows: tops.length, heights };
+  }),
+);
+check("each category spreads over two phone columns", shape.every((g) => g.columns === 2), JSON.stringify(shape.map((g) => g.columns)));
+check("four calculators fill two rows, five reference pages three", shape.map((g) => g.rows).join(",") === "2,3", JSON.stringify(shape.map((g) => g.rows)));
+check("every footer row is one line tall", shape.every((g) => g.heights.length === 1), JSON.stringify(shape.map((g) => g.heights)));
+await narrow.close();
+
 console.log("\ncbm calculator computes");
 
 await page.goto(`${BASE}/alat/kalkulator-cbm`, { waitUntil: "networkidle" });

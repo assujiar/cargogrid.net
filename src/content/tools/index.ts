@@ -109,10 +109,17 @@ function assertRegistryIntegrity(): void {
   // The footer's link list is maintained separately so the client bundle stays
   // free of prose (see navLinks.ts). Separate lists drift, so the drift is made
   // into a build error in both directions.
-  const navSlugs = new Set(TOOL_NAV_LINKS.map((link) => link.slug));
+  const navBySlug = new Map(TOOL_NAV_LINKS.map((link) => [link.slug, link]));
   for (const tool of registry) {
-    if (!navSlugs.has(tool.slug)) {
+    const link = navBySlug.get(tool.slug);
+    if (!link) {
       throw new Error(`Tool ${tool.slug} has no footer nav label in navLinks.ts`);
+    }
+    // The footer groups by the copy of `kind` held here. A tool filed as a
+    // calculator on the hub and as a reference in the footer is worse than an
+    // ungrouped list, because each page insists the other is wrong.
+    if (link.kind !== tool.kind) {
+      throw new Error(`Tool ${tool.slug} is a ${tool.kind} in the registry but a ${link.kind} in navLinks.ts`);
     }
   }
   for (const link of TOOL_NAV_LINKS) {

@@ -144,6 +144,14 @@ const footerToolLinks = page.locator('nav[aria-label="Alat gratis"] a[href^="/al
 const footerToolCount = await footerToolLinks.count();
 const footerIconed = await footerToolLinks.locator("svg").count();
 check("the footer lists every tool with its icon", footerToolCount === TOOLS.length && footerIconed === TOOLS.length, `${footerToolCount} links, ${footerIconed} icons`);
+// Grouped the same way the hub groups, and the registry fails the build if a
+// tool is filed one way here and the other way there.
+const footerGroups = await page.locator('nav[aria-label="Alat gratis"] h3').allTextContents();
+check("the footer splits calculators from reference", footerGroups.join("|") === "Kalkulator|Referensi", footerGroups.join("|"));
+const perGroup = await page
+  .locator('nav[aria-label="Alat gratis"] ul')
+  .evaluateAll((lists) => lists.map((ul) => ul.querySelectorAll('a[href^="/alat/"]').length));
+check("the four calculators and five reference pages land in the right group", perGroup.join(",") === "4,5", perGroup.join(","));
 
 console.log("\ncbm calculator computes");
 

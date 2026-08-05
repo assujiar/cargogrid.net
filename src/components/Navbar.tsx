@@ -33,6 +33,7 @@ export default function Navbar() {
         { name: "Solutions", href: "/solusi" },
         { name: "Simulator & ROI", href: "/simulator-roi" },
         { name: "Plans & FAQ", href: "/paket" },
+        { name: "Tools", href: "/alat" },
         { name: "Insight", href: "/artikel" },
         { name: "Contact", href: "/kontak" },
       ]
@@ -42,6 +43,7 @@ export default function Navbar() {
         { name: "Solusi", href: "/solusi" },
         { name: "Simulator & ROI", href: "/simulator-roi" },
         { name: "Paket & FAQ", href: "/paket" },
+        { name: "Alat", href: "/alat" },
         { name: "Insight", href: "/artikel" },
         { name: "Kontak", href: "/kontak" },
       ];

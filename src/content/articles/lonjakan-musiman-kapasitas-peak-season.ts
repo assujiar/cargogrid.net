@@ -253,4 +253,5 @@ export const article: Article = {
     "manajemen-vendor-subkontraktor",
     "slotting-tata-letak-gudang-produktivitas-picking",
   ],
+  relatedTools: ["kalkulator-muatan-truk", "jenis-truk-indonesia"],
 };

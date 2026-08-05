@@ -1,0 +1,213 @@
+/**
+ * ISO container specifications.
+ *
+ * Every figure below is *typical*, and the distinction is not a disclaimer —
+ * it is the single most useful thing this page can teach. Tare weight varies by
+ * several hundred kilograms between builds of the same nominal box, and maximum
+ * payload is therefore not a property of "a 20 ft container" at all; it is a
+ * property of the individual unit, printed on the CSC plate riveted to its right
+ * door. People plan a 28-tonne load from a table like this one, and discover the
+ * discrepancy at the weighbridge.
+ *
+ * So the table exists to answer the question it is genuinely good for — will
+ * this cargo physically go in, and roughly what class of box do I need — and
+ * says plainly where the authoritative number lives.
+ */
+
+export interface ContainerSpec {
+  id: string;
+  name: string;
+  /** ISO size/type code, e.g. 22G1. Useful when reading a bayplan or an EDI message. */
+  isoCode: string;
+  /** Internal usable dimensions in metres. */
+  inner: { length: number; width: number; height: number };
+  /** Door aperture in metres. The constraint that actually stops oversized cargo. */
+  door: { width: number; height: number } | null;
+  /** Nominal internal capacity in m3. */
+  capacityCbm: number;
+  /**
+   * Berat kosong dan berat kotor maksimum, bila operatornya menerbitkan keduanya.
+   *
+   * `null` untuk reefer, open top, dan flat rack, dan itu bukan kelalaian
+   * pengisian data: spesifikasi resminya memang menyebut kedua angka ini
+   * berbeda per unit dan hanya menerbitkan payload-nya. Mengarang berat kosong
+   * agar kolomnya terisi akan menghasilkan tabel yang terlihat lebih lengkap
+   * dan justru lebih menyesatkan -- persis kesalahan yang pemeriksaan di bawah
+   * ini temukan ketika angka reefer pertama kali dimasukkan.
+   */
+  tareKg: number | null;
+  maxGrossKg: number | null;
+  /**
+   * Payload sebagaimana diterbitkan operator, bukan hasil hitungan sendiri.
+   *
+   * Awalnya angka ini diturunkan dari berat kotor dikurangi berat kosong,
+   * dengan alasan yang masuk akal: turunan tidak bisa berselisih dengan
+   * sumbernya. Alasan itu gugur begitu spesifikasi resmi tersedia untuk reefer
+   * dan open top, yang menerbitkan payload tanpa menerbitkan berat kosongnya.
+   * Menyimpan angka terbitan lalu memeriksanya terhadap turunan pada saat build
+   * memberi keduanya sekaligus -- lihat assertContainerIntegrity di bawah.
+   */
+  payloadKg: number;
+  useFor: string;
+  caution: string;
+}
+
+export const CONTAINER_SPECS: ContainerSpec[] = [
+  {
+    id: "20gp",
+    name: "20 ft General Purpose (20' DC)",
+    isoCode: "22G1",
+    inner: { length: 5.896, width: 2.35, height: 2.393 },
+    door: { width: 2.34, height: 2.28 },
+    capacityCbm: 33,
+    tareKg: 2280,
+    maxGrossKg: 30480,
+    payloadKg: 28200,
+    useFor:
+      "Kargo padat: keramik, bahan kimia dalam drum, suku cadang logam, kertas. Barang yang lebih dulu habis batas beratnya sebelum habis ruangnya.",
+    caution:
+      "Ruangnya jarang terpakai penuh untuk barang berat. Banyak pelayaran juga membatasi berat kotor di bawah 30.480 kg mengikuti aturan jalan negara tujuan.",
+  },
+  {
+    id: "40gp",
+    name: "40 ft General Purpose (40' DC)",
+    isoCode: "42G1",
+    inner: { length: 12.032, width: 2.35, height: 2.393 },
+    door: { width: 2.34, height: 2.28 },
+    capacityCbm: 67,
+    tareKg: 3700,
+    maxGrossKg: 32500,
+    payloadKg: 28800,
+    useFor: "Kargo bervolume dengan berat sedang: barang jadi berkardus, furnitur, komponen otomotif.",
+    caution:
+      "Ruangnya dua kali lipat 20 kaki, batas beratnya praktis sama. Untuk barang padat, dua unit 20 kaki mengangkut sekitar dua kali lipat tonase satu unit 40 kaki.",
+  },
+  {
+    id: "40hc",
+    name: "40 ft High Cube (40' HC)",
+    isoCode: "45G1",
+    inner: { length: 12.032, width: 2.35, height: 2.697 },
+    door: { width: 2.34, height: 2.58 },
+    capacityCbm: 76,
+    tareKg: 3880,
+    maxGrossKg: 32500,
+    payloadKg: 28620,
+    useFor:
+      "Barang ringan bervolume besar: tekstil, kemasan plastik, foam, produk konsumen. Tambahan 30 cm tinggi memberi sekitar 9 m3 ekstra tanpa tambahan berat.",
+    caution:
+      "Tinggi totalnya 2,90 m. Periksa batas tinggi rute darat, jembatan, dan pintu gudang tujuan sebelum memesan, terutama untuk pengiriman ke area industri lama.",
+  },
+  {
+    id: "45hc",
+    name: "45 ft High Cube (45' HC)",
+    isoCode: "L5G1",
+    inner: { length: 13.556, width: 2.352, height: 2.698 },
+    door: { width: 2.34, height: 2.58 },
+    capacityCbm: 85,
+    tareKg: 4900,
+    maxGrossKg: 32500,
+    payloadKg: 27600,
+    useFor: "Muatan bervolume sangat besar pada rute yang menyediakannya.",
+    caution:
+      "Ketersediaan terbatas di banyak rute Indonesia, dan tidak semua chassis trailer bisa membawanya. Pastikan ketersediaan armada darat sebelum membooking.",
+  },
+  {
+    id: "20rf",
+    name: "20 ft Reefer",
+    isoCode: "22R1",
+    inner: { length: 5.44, width: 2.29, height: 2.27 },
+    door: { width: 2.29, height: 2.26 },
+    capacityCbm: 28.3,
+    tareKg: null,
+    maxGrossKg: null,
+    payloadKg: 27770,
+    useFor: "Barang berpendingin dan beku: hasil laut, hortikultura, farmasi, produk susu.",
+    caution:
+      "Ruang dalamnya jauh lebih kecil daripada 20 ft biasa karena unit pendingin dan insulasi memakan tempat. Jangan menghitung kubikasi memakai angka dry container.",
+  },
+  {
+    id: "40rf",
+    name: "40 ft Reefer High Cube",
+    isoCode: "45R1",
+    inner: { length: 11.58, width: 2.29, height: 2.5 },
+    door: { width: 2.29, height: 2.49 },
+    capacityCbm: 67.5,
+    tareKg: null,
+    maxGrossKg: null,
+    payloadKg: 29670,
+    useFor: "Ekspor rantai dingin bervolume: udang, tuna, buah, produk olahan beku.",
+    caution:
+      "Butuh pasokan listrik atau genset selama seluruh perjalanan darat. Biaya genset dan monitoring suhu sering terlupa dari costing dan langsung menggerus margin.",
+  },
+  {
+    id: "20ot",
+    name: "20 ft Open Top",
+    isoCode: "22U1",
+    inner: { length: 5.9, width: 2.35, height: 2.35 },
+    door: { width: 2.34, height: 2.28 },
+    capacityCbm: 32.0,
+    tareKg: null,
+    maxGrossKg: null,
+    payloadKg: 28400,
+    useFor: "Barang yang harus dimuat dari atas dengan crane: mesin, marmer, pipa panjang.",
+    caution:
+      "Atapnya hanya terpal dan palang. Muatan yang menonjol di atas garis atap kena biaya out of gauge, dan tarifnya tidak sebanding dengan tarif kontainer biasa.",
+  },
+  {
+    id: "40fr",
+    name: "40 ft Flat Rack",
+    isoCode: "45P1",
+    inner: { length: 12.06, width: 2.4, height: 2.14 },
+    door: null,
+    capacityCbm: 62.0,
+    tareKg: null,
+    maxGrossKg: null,
+    payloadKg: 40000,
+    useFor: "Alat berat, transformator, boat, mesin produksi yang melebihi lebar atau tinggi kontainer biasa.",
+    caution:
+      "Tarifnya dihitung sebagai proyek, bukan per kontainer. Lashing dan surveyor wajib, dan slot kapal harus dipesan jauh lebih awal.",
+  },
+];
+
+export function payloadKg(spec: ContainerSpec): number {
+  return spec.payloadKg;
+}
+
+/**
+ * Setiap payload yang diterbitkan harus cocok dengan berat kotor dikurangi
+ * berat kosong, dalam toleransi pembulatan 100 kg.
+ *
+ * Ini menangkap satu kelas kesalahan yang tidak akan terlihat saat dibaca:
+ * memperbarui berat kotor sebuah tipe kontainer tanpa memperbarui payload-nya.
+ * Halaman tetap tampil rapi, tabelnya tetap terbaca masuk akal, dan angkanya
+ * salah beberapa ratus kilogram -- persis pada kolom yang orang pakai untuk
+ * memutuskan berapa ton yang akan mereka muat.
+ */
+function assertContainerIntegrity(): void {
+  for (const spec of CONTAINER_SPECS) {
+    if (spec.capacityCbm <= 0) throw new Error(`Container ${spec.id} has a non-positive capacity`);
+    if (spec.tareKg === null || spec.maxGrossKg === null) continue;
+
+    const derived = spec.maxGrossKg - spec.tareKg;
+    if (Math.abs(derived - spec.payloadKg) > 100) {
+      throw new Error(
+        `Container ${spec.id}: payload ${spec.payloadKg} kg disagrees with maxGross - tare (${derived} kg)`,
+      );
+    }
+  }
+}
+
+assertContainerIntegrity();
+
+/**
+ * Loadable volume after stowage losses.
+ *
+ * Nobody achieves nominal capacity. Cartons do not tile a box perfectly, pallets
+ * waste the gaps between footprints, and dunnage takes its share. Quoting 33,2
+ * CBM to a customer and then fitting 27 is a routine way to lose money on an
+ * LCL consolidation, so the realistic figure is shown next to the nominal one
+ * rather than left as folklore.
+ */
+export function practicalCbm(spec: ContainerSpec, utilisation = 0.85): number {
+  return spec.capacityCbm * utilisation;
+}

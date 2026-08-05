@@ -5,6 +5,7 @@ import ArticleCoverArt from "./ArticleCoverArt";
 import { LAYOUTS, ACCENT_TEXT, ACCENT_BG } from "./articleLayouts";
 import { ARTICLE_CATEGORIES, readingMinutes, tableOfContents, type Article } from "../../content/articles/types";
 import { relatedArticles } from "../../content/articles";
+import { getTool } from "../../content/tools";
 import { formatArticleDate } from "./formatArticleDate";
 
 /**
@@ -23,6 +24,10 @@ export default function ArticleView({ article }: { article: Article }) {
   const spec = LAYOUTS[article.layout];
   const toc = tableOfContents(article);
   const related = relatedArticles(article);
+  // Tools this piece hands the reader on to. Bare slugs in the content module,
+  // resolved here -- see the note on Article.relatedTools for why the article
+  // registry cannot import the tool registry directly.
+  const tools = (article.relatedTools || []).map(getTool).filter((t) => t !== undefined);
   const minutes = readingMinutes(article);
   const accentText = ACCENT_TEXT[spec.accent];
   const accentBg = ACCENT_BG[spec.accent];
@@ -204,6 +209,34 @@ export default function ArticleView({ article }: { article: Article }) {
             <ArrowRight className="h-4 w-4" />
           </Link>
         </aside>
+
+        {tools.length > 0 && (
+          <section aria-labelledby="alat-terkait" className="mt-16">
+            <h2 id="alat-terkait" className="mb-6 font-mono text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">
+              Alat Untuk Menghitungnya
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {tools.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/alat/${item.slug}`}
+                  className="nm-emboss-sm group flex h-full flex-col rounded-2xl bg-[#eef2f6]/40 p-5 transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+                >
+                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.14em] text-brand-teal">
+                    {item.kind === "kalkulator" ? "Kalkulator gratis" : "Referensi"}
+                  </span>
+                  <span className="mt-2 font-display text-[14px] font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-teal">
+                    {item.title}
+                  </span>
+                  <span className="mt-auto pt-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] text-brand-teal">
+                    Buka
+                    <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {related.length > 0 && (
           <section aria-labelledby="artikel-terkait" className="mt-16">

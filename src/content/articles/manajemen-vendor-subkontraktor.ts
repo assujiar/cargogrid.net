@@ -188,4 +188,5 @@ export const article: Article = {
     },
   ],
   related: ["margin-per-job-forwarder", "alur-rfq-freight-forwarding", "lonjakan-musiman-kapasitas-peak-season"],
+  relatedTools: ["jenis-truk-indonesia"],
 };

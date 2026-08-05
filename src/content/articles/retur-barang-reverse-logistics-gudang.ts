@@ -220,4 +220,5 @@ export const article: Article = {
     },
   ],
   related: ["wms-3pl-level-bin", "biaya-tersembunyi-pod-kertas", "customer-portal-logistik"],
+  relatedTools: ["kamus-logistik"],
 };

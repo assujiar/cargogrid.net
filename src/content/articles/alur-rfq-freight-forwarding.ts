@@ -213,4 +213,5 @@ export const article: Article = {
     },
   ],
   related: ["margin-per-job-forwarder", "manajemen-vendor-subkontraktor", "negosiasi-tarif-tahunan-kontrak-shipper"],
+  relatedTools: ["kalkulator-cbm", "incoterms-2020"],
 };

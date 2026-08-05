@@ -230,4 +230,5 @@ export const article: Article = {
     },
   ],
   related: ["alur-rfq-freight-forwarding", "margin-per-job-forwarder", "manajemen-vendor-subkontraktor"],
+  relatedTools: ["kalkulator-cbm", "incoterms-2020"],
 };

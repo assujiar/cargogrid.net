@@ -223,4 +223,5 @@ export const article: Article = {
     },
   ],
   related: ["biaya-tersembunyi-pod-kertas", "margin-per-job-forwarder", "uang-jalan-kas-kecil-sopir"],
+  relatedTools: ["kalkulator-cbm", "kalkulator-demurrage"],
 };

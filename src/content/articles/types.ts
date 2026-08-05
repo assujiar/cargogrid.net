@@ -52,6 +52,15 @@ export interface Article {
   faq?: ArticleFaq[];
   /** Slugs of related pieces. Validated at module load — see index.ts. */
   related: string[];
+  /**
+   * Slugs from the tool registry (src/content/tools).
+   *
+   * Held as bare strings rather than imported objects on purpose: the tool
+   * registry already imports this one to validate its own article links, so a
+   * real import here would close the cycle. Validation of these slugs
+   * therefore lives on the tools side, which is the end that can see both.
+   */
+  relatedTools?: string[];
 }
 
 export const ARTICLE_CATEGORIES = {

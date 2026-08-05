@@ -223,4 +223,5 @@ export const article: Article = {
     },
   ],
   related: ["odol-timbangan-jembatan-muatan-lebih", "tracking-multimoda-indonesia", "kpi-operasional-logistik"],
+  relatedTools: ["jenis-truk-indonesia", "kalkulator-muatan-truk"],
 };

@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "./shared/LanguageProvider";
 import { companyAddressLine } from "../lib/companyInfo";
+import { TOOL_NAV_LINKS } from "../content/tools/navLinks";
 import { openCookiePreferences } from "../lib/tracking";
 
 export default function Footer() {
@@ -57,6 +58,12 @@ export default function Footer() {
               <Link href="/faq" className="hover:text-brand-orange transition-colors font-bold">
                 FAQ
               </Link>
+              <Link href="/artikel" className="hover:text-brand-orange transition-colors font-bold">
+                Insight
+              </Link>
+              <Link href="/alat" className="hover:text-brand-orange transition-colors font-bold">
+                {isEn ? "Tools & Reference" : "Alat & Referensi"}
+              </Link>
             </div>
           </div>
 
@@ -90,6 +97,28 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        {/* Free tools, listed individually rather than behind the hub link
+            above. Every tool page is then one hop from every page on the site,
+            which is the whole point of building them: they are the entry points
+            for people who have never heard of CargoGrid, and an entry point
+            buried two clicks deep is an entry point nobody crawls or finds. */}
+        <nav aria-label={isEn ? "Free tools" : "Alat gratis"} className="py-8 border-b border-slate-300">
+          <h2 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
+            {isEn ? "Free Tools & Reference" : "Alat & Referensi Gratis"}
+          </h2>
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs">
+            {TOOL_NAV_LINKS.map((tool) => (
+              <Link
+                key={tool.slug}
+                href={`/alat/${tool.slug}`}
+                className="hover:text-brand-orange transition-colors font-bold"
+              >
+                {isEn ? tool.labelEn : tool.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
 
         {/* Lower footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 text-[11px] text-slate-600 font-mono font-bold border-t border-slate-300">

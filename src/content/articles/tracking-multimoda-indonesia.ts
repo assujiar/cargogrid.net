@@ -186,4 +186,5 @@ export const article: Article = {
     },
   ],
   related: ["customer-portal-logistik", "perawatan-armada-preventif-vs-reaktif", "adopsi-aplikasi-driver"],
+  relatedTools: ["kamus-logistik", "kalkulator-demurrage"],
 };

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { faqList } from "../data";
+import { tools } from "../content/tools";
+import { GLOSSARY, glossaryAnchor } from "../content/reference/glossary";
 import { companyAddress, companyAddressLine, companyPhone, companyEmail } from "./companyInfo";
 
 // The apex domain (cargogrid.net) 308-redirects to www in production, so
@@ -176,6 +178,121 @@ export function articleJsonLd(input: ArticleJsonLdInput) {
   }
 
   return { "@context": "https://schema.org", "@graph": graph };
+}
+
+/**
+ * Schema for a tool or reference page.
+ *
+ * The primary node's type is chosen by what the page actually is, which is not
+ * pedantry: a calculator that describes itself as an Article and a glossary
+ * that describes itself as a WebApplication are both making a claim a search
+ * engine can check against the page and find false.
+ *
+ * - Calculators are `WebApplication`. They are software the visitor runs.
+ * - The glossary is a `DefinedTermSet` carrying every entry as a `DefinedTerm`,
+ *   which is the one schema type built for exactly this and lets an individual
+ *   term be surfaced with its own anchor.
+ * - Other reference pages are `Article`, the same as anything else that is
+ *   mostly prose and a table.
+ */
+export function toolJsonLd(tool: {
+  slug: string;
+  kind: "kalkulator" | "referensi";
+  title: string;
+  description: string;
+  keywords: string[];
+  publishedAt: string;
+  updatedAt?: string;
+  faq: { q: string; a: string }[];
+}) {
+  const url = `${siteUrl}/alat/${tool.slug}`;
+  const graph: Record<string, unknown>[] = [];
+
+  if (tool.kind === "kalkulator") {
+    graph.push({
+      "@type": "WebApplication",
+      "@id": `${url}/#tool`,
+      name: tool.title,
+      description: tool.description,
+      url,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      browserRequirements: "Requires HTML5 compatible browser",
+      inLanguage: "id-ID",
+      isAccessibleForFree: true,
+      // Stated explicitly because "free tool" is a claim people have learned to
+      // distrust — most are free until the result appears behind an email gate.
+      offers: { "@type": "Offer", price: "0", priceCurrency: "IDR" },
+      publisher: { "@id": `${siteUrl}/#organization` },
+    });
+  } else if (tool.slug === "kamus-logistik") {
+    graph.push({
+      "@type": "DefinedTermSet",
+      "@id": `${url}/#termset`,
+      name: tool.title,
+      description: tool.description,
+      url,
+      inLanguage: "id-ID",
+      publisher: { "@id": `${siteUrl}/#organization` },
+      hasDefinedTerm: GLOSSARY.map((entry) => ({
+        "@type": "DefinedTerm",
+        "@id": `${url}#${glossaryAnchor(entry)}`,
+        name: entry.expansion ? `${entry.term} (${entry.expansion})` : entry.term,
+        description: entry.definition,
+        inDefinedTermSet: { "@id": `${url}/#termset` },
+        url: `${url}#${glossaryAnchor(entry)}`,
+      })),
+    });
+  } else {
+    graph.push({
+      "@type": "Article",
+      "@id": `${url}/#article`,
+      headline: tool.title,
+      description: tool.description,
+      url,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      datePublished: tool.publishedAt,
+      dateModified: tool.updatedAt || tool.publishedAt,
+      inLanguage: "id-ID",
+      keywords: tool.keywords.join(", "),
+      image: `${siteUrl}/opengraph-image`,
+      author: { "@id": `${siteUrl}/#organization` },
+      publisher: { "@id": `${siteUrl}/#organization` },
+    });
+  }
+
+  if (tool.faq.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${url}/#faq`,
+      mainEntity: tool.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    });
+  }
+
+  graph.push(organizationJsonLd());
+
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+/** ItemList for the /alat hub, so the set is understood as a collection. */
+export function toolCollectionJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${siteUrl}/alat/#tools`,
+    name: "Alat & Referensi Logistik CargoGrid",
+    numberOfItems: tools.length,
+    itemListElement: tools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: tool.title,
+      url: `${siteUrl}/alat/${tool.slug}`,
+    })),
+  };
 }
 
 /** Breadcrumb for a page nested one level below a section, e.g. /artikel/<slug>. */

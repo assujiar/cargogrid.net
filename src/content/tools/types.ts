@@ -7,7 +7,7 @@ import type { Block } from "../articles/types";
  * a different job from the essays under /artikel. Somebody looking up how many
  * cartons fit on a CDD has no interest in CargoGrid and is not going to read
  * 2.000 words to find out. So the model puts the instrument first and the prose
- * second, and the prose is there to make the answer trustworthy — where the
+ * second, and the prose is there to make the answer trustworthy, where the
  * formula comes from, what it assumes, when it stops being true.
  *
  * `Block` is borrowed wholesale from the article model rather than reinvented.
@@ -50,7 +50,7 @@ export interface Tool {
   /**
    * The literal phrasings this page is built to answer.
    *
-   * Rendered on-page under "Halaman ini menjawab", which is not an SEO trick —
+   * Rendered on-page under "Halaman ini menjawab", which is not an SEO trick , 
    * it is the fastest way for someone who arrived from a search to confirm in
    * one glance that they are in the right place, before they scroll. That it
    * also states the page's topic in the words people actually use is a genuine

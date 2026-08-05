@@ -4,9 +4,9 @@ export const tool: Tool = {
   slug: "kalkulator-muatan-truk",
   kind: "kalkulator",
   title: "Kalkulator Muatan Truk: Berapa Kardus Muat di CDD, Fuso, atau Tronton",
-  metaTitle: "Kalkulator Muatan Truk — Hitung Kapasitas CDE, CDD, Fuso, Tronton | CargoGrid",
+  metaTitle: "Kalkulator Muatan Truk: Hitung Kapasitas CDE, CDD, Fuso, Tronton | CargoGrid",
   description:
-    "Masukkan ukuran kardus dan pilih jenis truk. Hitung berapa yang muat secara ruang, berapa yang boleh menurut batas berat, dan mana dari keduanya yang lebih dulu membatasi.",
+    "Masukkan ukuran kardus dan pilih jenis truk. Hitung berapa yang muat secara ruang, berapa yang boleh menurut batas berat, mana dari keduanya yang lebih dulu membatasi, dan apakah muatan itu masih boleh melewati kelas jalan pada rute Anda.",
   keywords: [
     "kalkulator muatan truk",
     "kapasitas truk CDD",
@@ -16,20 +16,20 @@ export const tool: Tool = {
     "ukuran bak CDD",
   ],
   summary:
-    "Dua hal membatasi setiap muatan: ruang di dalam bak dan batas berat yang boleh dibawa. Kalkulator ini menghitung keduanya secara terpisah, menyebut mana yang lebih dulu tercapai, lalu memberi tahu berapa unit truk yang dibutuhkan untuk mengangkut seluruh kiriman.",
+    "Tiga hal membatasi setiap muatan: ruang di dalam bak, batas berat yang boleh dibawa, dan kelas jalan yang dilewati. Kalkulator ini menghitung ketiganya secara terpisah, menyebut mana yang lebih dulu mengikat, lalu memberi tahu berapa unit truk yang dibutuhkan untuk mengangkut seluruh kiriman.",
   searchIntents: [
     "Berapa kardus muat di truk CDD",
     "Kapasitas kubikasi truk Fuso dan tronton",
     "Ukuran bak dalam truk CDE, CDD, dan wingbox",
     "Butuh berapa truk untuk mengirim sekian kardus",
-    "Muatan penuh tapi berat masih di bawah batas — normalkah",
+    "Muatan penuh tapi berat masih di bawah batas, normalkah",
   ],
   publishedAt: "2026-08-05",
   blocks: [
     {
       type: "h2",
-      id: "dua-batas",
-      text: "Setiap muatan dibatasi dua hal, dan hanya satu yang terasa",
+      id: "tiga-batas",
+      text: "Setiap muatan dibatasi tiga hal, dan hanya satu yang terasa",
     },
     {
       type: "p",
@@ -38,6 +38,10 @@ export const tool: Tool = {
     {
       type: "p",
       text: "Karena itu kalkulator ini tidak pernah mengembalikan satu angka \"muat sekian\". Ia mengembalikan dua batas berdampingan dan menyebut mana yang mengikat, sebab justru itulah fakta yang menentukan keputusan. Muatan yang dibatasi ruang butuh kemasan yang lebih rapat atau bak yang lebih besar. Muatan yang dibatasi berat butuh unit tambahan, dan tidak ada penataan sepandai apa pun yang bisa mengubahnya.",
+    },
+    {
+      type: "p",
+      text: "Batas ketiga tidak ada hubungannya dengan kardus maupun timbangan: kelas jalan yang dilewati. Ruas jalan kelas III membatasi lebar kendaraan 2,1 meter, dan bodi standar 2,4 sampai 2,5 meter tidak bisa melewatinya berapa pun isinya. Dua batas pertama menjawab berapa yang muat; batas ketiga menjawab apakah muatan itu boleh berjalan, dan hanya yang ketiga yang bisa menghentikan kendaraan di tengah rute.",
     },
     {
       type: "callout",
@@ -52,7 +56,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Perhitungan ruangnya sengaja dibuat konservatif. Kalkulator mencoba enam cara mendirikan kardus, lalu untuk masing-masing menghitung berapa yang berjajar sepanjang bak, berapa yang melintang, dan berapa tumpukan yang muat ke atas — hasilnya dibulatkan ke bawah, lalu diambil susunan terbaik.",
+      text: "Perhitungan ruangnya sengaja dibuat konservatif. Kalkulator mencoba enam cara mendirikan kardus, lalu untuk masing-masing menghitung berapa yang berjajar sepanjang bak, berapa yang melintang, dan berapa tumpukan yang muat ke atas, hasilnya dibulatkan ke bawah, lalu diambil susunan terbaik.",
     },
     {
       type: "p",
@@ -82,6 +86,25 @@ export const tool: Tool = {
     },
     {
       type: "h2",
+      id: "kepatuhan",
+      text: "Pemeriksaan sebelum berangkat",
+    },
+    {
+      type: "p",
+      text: "Setelah rencana muatnya jadi, kalkulator memeriksanya terhadap kelas jalan yang Anda pilih dan menyebutkan apa yang perlu dipastikan: apakah lebar bodi masih lolos, apakah panjang kendaraan masih diizinkan, dan berapa batas kasar berat menurut muatan sumbu terberat pada kelas jalan itu. Golongan tol dan golongan penyeberangan kelas armadanya ikut ditampilkan, karena keduanya masuk ke biaya rute.",
+    },
+    {
+      type: "p",
+      text: "Nadanya sengaja tidak menghakimi. Alat ini tidak tahu STNK unit yang akan dipakai, tidak tahu berat kosongnya setelah karoseri, dan tidak tahu izin rutenya, jadi ia menyebutkan apa yang perlu diperiksa dan di mana angka pastinya berada, alih-alih menyatakan sesuatu sah atau tidak sah. Satu-satunya hal yang dinyatakan tegas adalah yang memang tidak mungkin: ruang muat yang lebih lebar daripada batas lebar kendaraan hampir selalu berarti salah ketik atau salah satuan.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "MST membatasi per sumbu, bukan berat total",
+      body: "Sebuah truk bisa lolos batas berat total tetapi tetap melanggar karena muatannya menumpuk di belakang, sehingga satu sumbu memikul lebih dari jatahnya. Artinya penataan muatan di atas bak bukan sekadar urusan kerapian, distribusi berat sepanjang bak menentukan sah atau tidaknya kendaraan yang sama dengan tonase yang sama persis.",
+    },
+    {
+      type: "h2",
       id: "angka-spesifikasi",
       text: "Kenapa angka spesifikasi di sini berupa rentang",
     },
@@ -103,11 +126,11 @@ export const tool: Tool = {
   faq: [
     {
       q: "Berapa kubikasi truk CDD?",
-      a: "Bak CDD standar biasanya sekitar 4,2 x 2,0 x 2,0 meter, atau kira-kira 17 meter kubik, dengan kapasitas berat sekitar 4 sampai 5 ton. Versi long menambah panjang bak menjadi sekitar 6,1 meter — sekitar 24 meter kubik — dengan tambahan kapasitas berat yang kecil.",
+      a: "Bak CDD standar sekitar 4,5 x 2,0 x 2,0 meter, kira-kira 18 meter kubik, dengan perkiraan muatan 3,5 sampai 5,5 ton. Versi long memanjangkan bak menjadi sekitar 5,8 meter, kira-kira 26 meter kubik, tanpa menambah kapasitas berat, sehingga cocok untuk barang ringan bervolume dan sia-sia untuk barang padat.",
     },
     {
-      q: "Berapa kapasitas truk tronton wingbox?",
-      a: "Tronton wingbox umumnya berbak sekitar 9,5 x 2,4 x 2,4 meter, sekitar 55 meter kubik, dengan kapasitas berat sekitar 12 sampai 20 ton tergantung konfigurasi sumbu dan izin rutenya. Dinding samping yang membuka penuh membuat pemuatan dengan forklift jauh lebih cepat untuk barang berpalet.",
+      q: "Berapa kapasitas tronton dan wingbox?",
+      a: "Tronton bergandar tiga berbodi boks panjang berbak sekitar 8,5 x 2,4 x 2,5 meter, kira-kira 51 meter kubik, dengan perkiraan muatan 10 sampai 16 ton. Wingbox bergandar dua lebih kecil, sekitar 42 meter kubik dengan muatan 5,5 sampai 9 ton. Wingbox pada rangkaian trailer jauh lebih besar, sekitar 76 meter kubik dengan muatan 18 sampai 28 ton. Dinding samping yang membuka penuh membuat pemuatan dengan forklift jauh lebih cepat untuk barang berpalet.",
     },
     {
       q: "Kenapa bak sudah penuh tapi beratnya masih jauh di bawah kapasitas?",
@@ -118,9 +141,18 @@ export const tool: Tool = {
       a: "Bisa sebagai dasar, dengan catatan angkanya konservatif. Perhitungan ruangnya memakai satu arah kardus yang seragam, sedangkan kru muat biasanya mencampur arah dan memuat lebih banyak. Untuk kiriman rutin, sebaiknya sesuaikan sekali dengan hasil muat sesungguhnya lalu pakai angka itu seterusnya.",
     },
     {
+      q: "Kenapa hasilnya berubah saat saya ganti kelas jalan?",
+      a: "Karena kelas jalan menetapkan batas lebar, panjang, dan muatan sumbu terberat pada ruas yang dilewati, dan angkanya berbeda antar kelas. Jalan kelas I mengizinkan lebar 2,5 meter, panjang 18 meter, dan MST 10 ton; kelas III membatasi lebar 2,1 meter, panjang 9 meter, dan MST 8 ton. Kendaraannya tidak berubah; ruas jalan yang dilewatinya yang berbeda.",
+    },
+    {
       q: "Apa beda JBB dan JBI?",
       a: "JBB adalah batas berat total menurut rancangan pabrikan kendaraan. JBI adalah batas yang diizinkan pada kelas jalan tertentu, dan bisa lebih rendah dari JBB. Yang menentukan pelanggaran di jembatan timbang adalah JBI.",
     },
+  ],
+  sources: [
+    { label: "PP 55/2012", detail: "Batas lebar, panjang, dan tinggi kendaraan bermotor, serta konsep JBB dan JBI yang menentukan payload legal." },
+    { label: "PP 79/2013 dan Permen PUPR 13/2024", detail: "Parameter kelas jalan dan muatan sumbu terberat yang dipakai pada pemeriksaan rute." },
+    { label: "Kepmen PUPR 176/KPTS/M/2025 dan ketentuan penyeberangan ASDP", detail: "Penggolongan kendaraan di jalan tol dan di kapal penyeberangan." },
   ],
   relatedArticles: ["odol-timbangan-jembatan-muatan-lebih", "perawatan-armada-preventif-vs-reaktif", "lonjakan-musiman-kapasitas-peak-season"],
   relatedTools: ["jenis-truk-indonesia", "kalkulator-cbm", "ukuran-kontainer"],

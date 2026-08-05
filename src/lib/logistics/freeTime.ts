@@ -23,7 +23,7 @@
  * gains or loses a chargeable day.
  */
 
-/** A calendar day, `YYYY-MM-DD`. No time, no zone — deliberately. */
+/** A calendar day, `YYYY-MM-DD`. No time, no zone, deliberately. */
 export type CalendarDate = string;
 
 const MS_PER_DAY = 86_400_000;
@@ -68,7 +68,7 @@ export interface TariffSlab {
  * surprise people: the rate for week three is often three to five times the
  * week-one rate, so a delay that doubles in length can quadruple in cost. The
  * defaults below are shaped like a real tariff but the amounts are placeholders
- * — the user's own DO is the only authority on the numbers.
+ *, the user's own DO is the only authority on the numbers.
  */
 export const DEFAULT_SLABS: TariffSlab[] = [
   { fromDay: 1, toDay: 3, ratePerDay: 300_000 },
@@ -98,7 +98,7 @@ export interface SlabCharge {
 export interface FreeTimeResult {
   lastFreeDay: CalendarDate;
   firstChargeableDay: CalendarDate;
-  /** Negative once the deadline has passed — the number people actually want. */
+  /** Negative once the deadline has passed, the number people actually want. */
   daysRemaining: number;
   chargeableDays: number;
   breakdown: SlabCharge[];
@@ -167,7 +167,7 @@ export function formatIDR(value: number): string {
 
 /**
  * Long-form Indonesian date. Used in results, where `2026-09-14` is correct but
- * reads as a serial number — and the whole point of the output is that someone
+ * reads as a serial number, and the whole point of the output is that someone
  * looks at it and recognises it as next Monday.
  */
 export function formatLongDate(date: CalendarDate): string {

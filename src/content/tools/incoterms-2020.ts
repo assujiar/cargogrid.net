@@ -4,7 +4,7 @@ export const tool: Tool = {
   slug: "incoterms-2020",
   kind: "referensi",
   title: "Incoterms 2020: Sebelas Aturan, Titik Risiko, dan Kesalahan yang Paling Mahal",
-  metaTitle: "Incoterms 2020 Lengkap — EXW, FOB, CIF, DAP, DDP Penjelasan | CargoGrid",
+  metaTitle: "Incoterms 2020 Lengkap: EXW, FOB, CIF, DAP, DDP | CargoGrid",
   description:
     "Tabel lengkap sebelas aturan Incoterms 2020: di mana risiko berpindah, sampai mana biaya penjual, siapa mengurus kepabeanan, dan siapa wajib berasuransi.",
   keywords: [
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "incoterms untuk kontainer",
   ],
   summary:
-    "Kebanyakan ringkasan Incoterms menjawab siapa membayar apa. Hampir tidak ada sengketa yang benar-benar soal itu. Sengketa terjadi soal di mana risiko berpindah — titik yang sering berada di tempat berbeda dari titik biaya.",
+    "Kebanyakan ringkasan Incoterms menjawab siapa membayar apa. Hampir tidak ada sengketa yang benar-benar soal itu. Sengketa terjadi soal di mana risiko berpindah, titik yang sering berada di tempat berbeda dari titik biaya.",
   searchIntents: [
     "Arti FOB, CIF, CFR, EXW, DAP, DDP",
     "Perbedaan FOB dan CIF",
@@ -33,7 +33,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Ini satu-satunya hal yang benar-benar perlu dikuasai dari Incoterms, dan justru yang paling sering hilang dari ringkasan. Pada CFR dan CIF, penjual membayar ongkos angkut sampai pelabuhan tujuan — tetapi risiko sudah berpindah ke pembeli sejak pelabuhan muat. Kontainer yang rusak di tengah laut adalah kerugian pembeli, atas pengiriman yang masih dibayar penjual.",
+      text: "Ini satu-satunya hal yang benar-benar perlu dikuasai dari Incoterms, dan justru yang paling sering hilang dari ringkasan. Pada CFR dan CIF, penjual membayar ongkos angkut sampai pelabuhan tujuan, tetapi risiko sudah berpindah ke pembeli sejak pelabuhan muat. Kontainer yang rusak di tengah laut adalah kerugian pembeli, atas pengiriman yang masih dibayar penjual.",
     },
     {
       type: "callout",
@@ -56,7 +56,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "FCA adalah aturan yang benar secara teknis untuk kontainer: risiko berpindah saat barang diserahkan ke pengangkut di tempat yang disepakati. Alasan historis orang tetap memakai FOB adalah bank penerbit letter of credit yang menuntut on-board bill of lading — dan justru itu yang dijawab edisi 2020, dengan membolehkan para pihak menyepakati B/L bercatatan on-board di bawah FCA.",
+      text: "FCA adalah aturan yang benar secara teknis untuk kontainer: risiko berpindah saat barang diserahkan ke pengangkut di tempat yang disepakati. Alasan historis orang tetap memakai FOB adalah bank penerbit letter of credit yang menuntut on-board bill of lading, dan justru itu yang dijawab edisi 2020, dengan membolehkan para pihak menyepakati B/L bercatatan on-board di bawah FCA.",
     },
     {
       type: "h2",
@@ -65,11 +65,11 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Pada edisi 2010, keduanya hanya mewajibkan Institute Cargo Clauses (C) — perlindungan terbatas yang pada dasarnya hanya menanggung kejadian besar seperti kapal kandas, terbakar, atau tenggelam. Sejak edisi 2020, CIP naik ke ICC (A) yang berperlindungan luas, sementara CIF tetap di ICC (C).",
+      text: "Pada edisi 2010, keduanya hanya mewajibkan Institute Cargo Clauses (C), perlindungan terbatas yang pada dasarnya hanya menanggung kejadian besar seperti kapal kandas, terbakar, atau tenggelam. Sejak edisi 2020, CIP naik ke ICC (A) yang berperlindungan luas, sementara CIF tetap di ICC (C).",
     },
     {
       type: "p",
-      text: "Konsekuensinya nyata: pembeli di bawah CIF yang mengira dirinya \"sudah diasuransikan penjual\" tidak tertutup untuk pencurian, basah, maupun penyok — tiga penyebab klaim yang paling sering terjadi. Bila perlindungan sungguhan yang dibutuhkan, naikkan ke ICC (A) secara eksplisit dalam kontrak, atau beli polis sendiri.",
+      text: "Konsekuensinya nyata: pembeli di bawah CIF yang mengira dirinya \"sudah diasuransikan penjual\" tidak tertutup untuk pencurian, basah, maupun penyok, tiga penyebab klaim yang paling sering terjadi. Bila perlindungan sungguhan yang dibutuhkan, naikkan ke ICC (A) secara eksplisit dalam kontrak, atau beli polis sendiri.",
     },
     {
       type: "h2",
@@ -78,7 +78,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Di bawah EXW, pengurusan ekspor menjadi kewajiban pembeli. Untuk transaksi lintas negara, itu berarti pembeli asing harus mengajukan pemberitahuan ekspor atas nama eksportir yang bukan dirinya — sesuatu yang secara administratif sering tidak mungkin dilakukan.",
+      text: "Di bawah EXW, pengurusan ekspor menjadi kewajiban pembeli. Untuk transaksi lintas negara, itu berarti pembeli asing harus mengajukan pemberitahuan ekspor atas nama eksportir yang bukan dirinya, sesuatu yang secara administratif sering tidak mungkin dilakukan.",
     },
     {
       type: "p",

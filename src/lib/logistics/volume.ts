@@ -2,7 +2,7 @@
  * Volume, volumetric weight and chargeable weight.
  *
  * This is the arithmetic behind the single most-searched question in Indonesian
- * logistics operations — "berapa CBM-nya, dan berapa yang ditagih?" — and it is
+ * logistics operations, "berapa CBM-nya, dan berapa yang ditagih?", and it is
  * deliberately kept free of React so it can be reasoned about, and corrected,
  * on its own terms.
  *
@@ -13,7 +13,7 @@
  * difference is why people keep two incompatible spreadsheets. They are the
  * same formula. 1 CBM is 1,000,000 cm3, so dividing by 6000 is multiplying by
  * 166.67 kg/CBM. Collapsing both into one factor means the calculator has one
- * code path, and — more useful to the reader — it makes the modes directly
+ * code path, and, more useful to the reader, it makes the modes directly
  * comparable: sea charges volume six times more leniently than air does.
  */
 
@@ -38,7 +38,7 @@ export interface Dimensions {
  * A shipping mode's volumetric convention.
  *
  * `kgPerCbm` is the whole model. `divisor` is carried alongside it purely
- * because that is the number printed on rate sheets and quoted by sales — a
+ * because that is the number printed on rate sheets and quoted by sales, a
  * calculator that shows only kg/CBM would be arithmetically right and
  * practically useless, because the user cannot check it against the document
  * in front of them.
@@ -59,8 +59,8 @@ export interface VolumetricMode {
  * `laut-lcl`, `udara-iata` and `express` are industry standards and safe to
  * default to. `darat` is not: domestic trucking has no single convention, and
  * 250 vs 333 kg/CBM is a ~33% difference on the same carton. It is included
- * because leaving it out would not stop anyone from needing the number — it
- * would only push them to reuse the air divisor by mistake — but its note is
+ * because leaving it out would not stop anyone from needing the number, it
+ * would only push them to reuse the air divisor by mistake, but its note is
  * blunt about where the real figure comes from.
  */
 export const VOLUMETRIC_MODES: VolumetricMode[] = [
@@ -83,14 +83,14 @@ export const VOLUMETRIC_MODES: VolumetricMode[] = [
     label: "Kurir/Express (/5000)",
     divisor: 5000,
     kgPerCbm: 1_000_000 / 5000,
-    note: "Divisor yang lazim dipakai perusahaan kurir internasional. Setara 200 kg per CBM — lebih mahal untuk barang ringan dibanding divisor 6000.",
+    note: "Divisor yang lazim dipakai perusahaan kurir internasional. Setara 200 kg per CBM, lebih mahal untuk barang ringan dibanding divisor 6000.",
   },
   {
     id: "darat",
     label: "Darat/domestik (perkiraan)",
     divisor: null,
     kgPerCbm: 250,
-    note: "Angkutan darat domestik tidak punya konvensi tunggal. 250 kg/CBM hanya titik awal — banyak operator memakai 300 atau 333. Pastikan angkanya ke operator sebelum dipakai menghitung harga jual.",
+    note: "Angkutan darat domestik tidak punya konvensi tunggal. 250 kg/CBM hanya titik awal, banyak operator memakai 300 atau 333. Pastikan angkanya ke operator sebelum dipakai menghitung harga jual.",
   },
 ];
 
@@ -147,7 +147,7 @@ export interface ShipmentResult extends LineResult {
   /**
    * The density at which the two weights cross over. Below it a shipment is
    * charged on volume, above it on weight. Knowing this number is what lets
-   * someone decide whether repacking is worth the effort — which is the
+   * someone decide whether repacking is worth the effort, which is the
    * decision the calculation is usually in service of.
    */
   breakEvenDensity: number;
@@ -177,7 +177,7 @@ function summarise(totalCbm: number, totalActualWeight: number, mode: Volumetric
 /**
  * Chargeable weight for a whole consignment.
  *
- * Note that the comparison happens once, on the totals — not per line. That
+ * Note that the comparison happens once, on the totals, not per line. That
  * matters and is not a simplification: carriers rate a shipment, not a carton,
  * so a pallet of dense goods and a pallet of light goods on the same booking
  * offset each other. Summing per-line chargeable weights would overstate the

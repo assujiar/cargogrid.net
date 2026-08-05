@@ -1,12 +1,12 @@
 /**
- * Incoterms 2020 — the eleven rules of the ICC.
+ * Incoterms 2020, the eleven rules of the ICC.
  *
  * The reason a reference table is worth building rather than linking: almost
  * every summary online answers "who pays for what", and almost nobody's actual
  * dispute is about who pays. Disputes are about where risk passed, which is a
  * different line on the map and frequently a different place entirely. Under
  * CFR and CIF the seller pays freight all the way to the destination port, yet
- * risk left them at the origin port — so cargo damaged mid-ocean is the buyer's
+ * risk left them at the origin port, so cargo damaged mid-ocean is the buyer's
  * loss on a shipment the seller is still paying for.
  *
  * Each entry therefore separates cost transfer from risk transfer and states
@@ -64,14 +64,14 @@ export const INCOTERMS: Incoterm[] = [
     bestFor:
       "Kargo kontainer. Untuk barang yang diserahkan di terminal atau depo, ini pengganti FOB yang benar secara teknis.",
     watchOut:
-      "Titik serahnya wajib ditulis eksplisit. \"FCA Jakarta\" tanpa alamat menyisakan pertanyaan apakah maksudnya gudang penjual atau terminal — dan jawabannya menentukan siapa menanggung ongkos trucking ke pelabuhan.",
+      "Titik serahnya wajib ditulis eksplisit. \"FCA Jakarta\" tanpa alamat menyisakan pertanyaan apakah maksudnya gudang penjual atau terminal, dan jawabannya menentukan siapa menanggung ongkos trucking ke pelabuhan.",
   },
   {
     code: "CPT",
     name: "Carriage Paid To",
     nameId: "Ongkos angkut dibayar sampai",
     mode: "semua-moda",
-    riskTransfer: "Saat barang diserahkan ke pengangkut pertama di negara asal — jauh sebelum barang tiba di tujuan.",
+    riskTransfer: "Saat barang diserahkan ke pengangkut pertama di negara asal, jauh sebelum barang tiba di tujuan.",
     costTransfer: "Sampai tempat tujuan yang disebutkan. Penjual membayar seluruh ongkos angkut utama.",
     exportClearance: "Penjual",
     importClearance: "Pembeli",
@@ -90,7 +90,7 @@ export const INCOTERMS: Incoterm[] = [
     exportClearance: "Penjual",
     importClearance: "Pembeli",
     insurance:
-      "Wajib, dan sejak Incoterms 2020 standarnya naik ke Institute Cargo Clauses (A) — perlindungan luas. Ini salah satu perubahan paling penting dari edisi 2010.",
+      "Wajib, dan sejak Incoterms 2020 standarnya naik ke Institute Cargo Clauses (A), perlindungan luas. Ini salah satu perubahan paling penting dari edisi 2010.",
     bestFor: "Barang bernilai tinggi lewat jalur multimoda, ketika pembeli ingin perlindungan luas tanpa mengurus polisnya sendiri.",
     watchOut:
       "Tingkat perlindungannya berbeda dari CIF, yang masih memakai ICC (C). Menyamakan keduanya membuat pembeli mengira dirinya terlindungi padahal tidak.",
@@ -107,7 +107,7 @@ export const INCOTERMS: Incoterm[] = [
     insurance: "Tidak diwajibkan, tetapi penjual menanggung risiko sepanjang jalan, jadi penjual yang berkepentingan menutupnya.",
     bestFor: "Penjual yang ingin mengendalikan pengalaman pengiriman sampai ke gudang pembeli tanpa mengurus kepabeanan impor.",
     watchOut:
-      "Bila barang tertahan di bea cukai karena pembeli lambat mengurus impor, biaya demurrage dan storage selama penahanan tetap menjadi tanggungan pembeli — tetapi yang ditelepon terminal biasanya penjual.",
+      "Bila barang tertahan di bea cukai karena pembeli lambat mengurus impor, biaya demurrage dan storage selama penahanan tetap menjadi tanggungan pembeli, tetapi yang ditelepon terminal biasanya penjual.",
   },
   {
     code: "DPU",
@@ -121,7 +121,7 @@ export const INCOTERMS: Incoterm[] = [
     insurance: "Tidak diwajibkan; risiko ada pada penjual sampai barang dibongkar.",
     bestFor: "Pengiriman ke tempat yang punya alat bongkar dan penjual sanggup mengatur prosesnya.",
     watchOut:
-      "Satu-satunya aturan yang mewajibkan penjual membongkar. Menggantikan DAT sejak edisi 2020 dan diperluas — tujuannya kini bisa di mana saja, tidak harus terminal. Pastikan alat bongkar benar-benar tersedia di lokasi.",
+      "Satu-satunya aturan yang mewajibkan penjual membongkar. Menggantikan DAT sejak edisi 2020 dan diperluas, tujuannya kini bisa di mana saja, tidak harus terminal. Pastikan alat bongkar benar-benar tersedia di lokasi.",
   },
   {
     code: "DDP",
@@ -148,7 +148,7 @@ export const INCOTERMS: Incoterm[] = [
     importClearance: "Pembeli",
     insurance: "Tidak diwajibkan.",
     bestFor: "Kargo curah dan barang berat yang dimuat langsung dengan crane dermaga.",
-    watchOut: "Tidak cocok untuk kontainer. Kontainer diserahkan ke terminal, bukan ke sisi lambung kapal — pakai FCA.",
+    watchOut: "Tidak cocok untuk kontainer. Kontainer diserahkan ke terminal, bukan ke sisi lambung kapal, pakai FCA.",
   },
   {
     code: "FOB",
@@ -160,7 +160,7 @@ export const INCOTERMS: Incoterm[] = [
     exportClearance: "Penjual",
     importClearance: "Pembeli",
     insurance: "Tidak diwajibkan.",
-    bestFor: "Kargo curah, kendaraan, alat berat — barang yang benar-benar dimuat satu per satu ke atas kapal.",
+    bestFor: "Kargo curah, kendaraan, alat berat, barang yang benar-benar dimuat satu per satu ke atas kapal.",
     watchOut:
       "Istilah yang paling sering salah pakai di Indonesia. Untuk kargo kontainer, barang diserahkan ke terminal berhari-hari sebelum naik kapal; menuliskan FOB berarti penjual menanggung risiko atas barang yang sudah tidak dikuasainya. FCA yang benar secara teknis.",
   },
@@ -169,7 +169,7 @@ export const INCOTERMS: Incoterm[] = [
     name: "Cost and Freight",
     nameId: "Ongkos dan angkutan",
     mode: "laut",
-    riskTransfer: "Saat barang berada di atas kapal di pelabuhan muat — sama seperti FOB.",
+    riskTransfer: "Saat barang berada di atas kapal di pelabuhan muat, sama seperti FOB.",
     costTransfer: "Sampai pelabuhan tujuan. Penjual membayar freight laut.",
     exportClearance: "Penjual",
     importClearance: "Pembeli",
@@ -187,7 +187,7 @@ export const INCOTERMS: Incoterm[] = [
     exportClearance: "Penjual",
     importClearance: "Pembeli",
     insurance:
-      "Wajib, minimum Institute Cargo Clauses (C) — perlindungan terbatas yang hanya menanggung kejadian besar seperti kapal kandas, terbakar, atau tenggelam.",
+      "Wajib, minimum Institute Cargo Clauses (C), perlindungan terbatas yang hanya menanggung kejadian besar seperti kapal kandas, terbakar, atau tenggelam.",
     bestFor: "Kargo curah, dan transaksi berbasis letter of credit yang mensyaratkan polis dari penjual.",
     watchOut:
       "ICC (C) tidak menanggung pencurian, basah, maupun penyok. Pembeli yang butuh perlindungan sungguhan harus membeli polis tambahan sendiri, atau menegosiasikan naik ke ICC (A).",
@@ -219,7 +219,7 @@ export const INCOTERMS_2020_CHANGES = [
   },
   {
     title: "Daftar biaya dikumpulkan pada satu pasal",
-    body: "Seluruh alokasi biaya kini terkumpul di pasal A9/B9 tiap aturan. Perubahan tata letak, bukan perubahan aturan — tetapi membuat sengketa biaya jauh lebih cepat diselesaikan karena semua ada di satu tempat.",
+    body: "Seluruh alokasi biaya kini terkumpul di pasal A9/B9 tiap aturan. Perubahan tata letak, bukan perubahan aturan, tetapi membuat sengketa biaya jauh lebih cepat diselesaikan karena semua ada di satu tempat.",
   },
   {
     title: "Kewajiban keamanan dinyatakan lebih tegas",

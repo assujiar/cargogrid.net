@@ -3,8 +3,8 @@
  *
  * Deliberately a separate, dependency-free module rather than a read of the
  * registry. The footer is a client component, so importing `tools` there would
- * ship every tool's prose blocks and FAQ answers — tens of kilobytes of
- * Indonesian text — to every visitor on every page, in order to render seven
+ * ship every tool's prose blocks and FAQ answers, tens of kilobytes of
+ * Indonesian text, to every visitor on every page, in order to render seven
  * anchor tags. This file carries only what the anchors need.
  *
  * The labels are also shorter than the H1s on purpose. "Kalkulator CBM, Berat

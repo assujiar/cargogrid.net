@@ -70,7 +70,7 @@ export default function GlossaryBrowser() {
               type="button"
               onClick={() => setQuery("")}
               aria-label="Hapus pencarian"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-400 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-2.5 text-slate-400 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -82,7 +82,7 @@ export default function GlossaryBrowser() {
             type="button"
             onClick={() => setActive("semua")}
             aria-pressed={active === "semua"}
-            className={`rounded-full px-3.5 py-1.5 font-mono text-[10px] font-black uppercase tracking-[0.1em] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
+            className={`min-h-[2.25rem] rounded-full px-4 py-2 font-mono text-[10px] font-black uppercase tracking-[0.1em] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
               active === "semua" ? "nm-btn-accent" : "nm-btn text-slate-600"
             }`}
           >
@@ -94,7 +94,7 @@ export default function GlossaryBrowser() {
               type="button"
               onClick={() => setActive(category)}
               aria-pressed={active === category}
-              className={`rounded-full px-3.5 py-1.5 font-mono text-[10px] font-black uppercase tracking-[0.1em] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
+              className={`min-h-[2.25rem] rounded-full px-4 py-2 font-mono text-[10px] font-black uppercase tracking-[0.1em] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
                 active === category ? "nm-btn-accent" : "nm-btn text-slate-600"
               }`}
             >
@@ -138,7 +138,7 @@ export default function GlossaryBrowser() {
                 <dt>
                   <a
                     href={`#${glossaryAnchor(entry)}`}
-                    className="font-display text-[15px] font-black text-slate-900 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+                    className="inline-flex min-h-[1.75rem] items-center font-display text-[15px] font-black text-slate-900 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                   >
                     {entry.term}
                   </a>
@@ -166,7 +166,7 @@ export default function GlossaryBrowser() {
                             setQuery("");
                             setActive("semua");
                           }}
-                          className="rounded-md bg-brand-teal/10 px-2 py-0.5 font-mono text-[10px] font-bold text-brand-teal transition-colors hover:bg-brand-teal/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+                          className="inline-flex min-h-[1.75rem] items-center rounded-md bg-brand-teal/10 px-2.5 py-1 font-mono text-[10px] font-bold text-brand-teal transition-colors hover:bg-brand-teal/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                         >
                           {reference}
                         </a>

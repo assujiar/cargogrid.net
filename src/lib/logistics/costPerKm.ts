@@ -134,13 +134,13 @@ export const ROUTE_PATTERNS: RoutePatternOption[] = [
     id: "pp-kosong",
     label: "Pulang pergi, balik kosong",
     detail:
-      "Berangkat bermuatan, kembali tanpa muatan. Pola paling umum, dan yang paling mahal — separuh jarak tidak menghasilkan pendapatan tetapi tetap memakan solar, ban, dan waktu sopir.",
+      "Berangkat bermuatan, kembali tanpa muatan. Pola paling umum, sekaligus yang paling mahal: separuh jarak tidak menghasilkan pendapatan tetapi tetap memakan solar, ban, dan waktu sopir.",
   },
   {
     id: "pp-bermuatan",
     label: "Pulang pergi, dua arah bermuatan",
     detail:
-      "Ada muatan balik yang membayar. Biaya per rit memang naik karena jaraknya sama, tetapi biaya per kilometer bermuatan turun tajam — inilah yang membuat rit balik layak dikejar.",
+      "Ada muatan balik yang membayar. Jarak tempuhnya sama dengan pola balik kosong, tetapi seluruh jarak itu kini menghasilkan pendapatan, sehingga biaya per kilometer bermuatan turun mendekati separuhnya. Inilah yang membuat rit balik layak dikejar.",
   },
   {
     id: "sekali-jalan",
@@ -178,14 +178,14 @@ export function distancesForPattern(
  * Angka awal yang ikut berubah ketika kelas armada diganti.
  *
  * Konsumsi bahan bakar, harga kendaraan, dan biaya ban tidak sedikit berbeda
- * antar kelas — melainkan berbeda berkali-kali lipat. Tractor head menempuh
+ * antar kelas, melainkan berbeda berkali-kali lipat. Tractor head menempuh
  * sekitar 2,5 km per liter; CDD bisa tiga kali lipat itu. Satu set ban trailer
  * berharga belasan kali set ban truk ringan. Membiarkan satu angka bawaan
  * berlaku untuk seluruh kelas berarti kalkulator yang menampilkan hasil sangat
  * meleset segera setelah orang memilih armada selain yang kebetulan menjadi
  * dasar angka bawaan itu.
  *
- * Rentangnya di sini kasar dan memang begitu adanya — konsumsi bahan bakar
+ * Rentangnya di sini kasar dan memang begitu adanya. Konsumsi bahan bakar
  * ditentukan medan, gaya mengemudi, umur mesin, dan bobot muatan, dan tidak ada
  * angka terbitan yang berlaku untuk semua. Karena itu profil ini disebut titik
  * awal, bukan patokan, dan kolomnya tetap bisa ditimpa. Angka yang benar datang

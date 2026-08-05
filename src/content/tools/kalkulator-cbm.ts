@@ -4,9 +4,9 @@ export const tool: Tool = {
   slug: "kalkulator-cbm",
   kind: "kalkulator",
   title: "Kalkulator CBM, Berat Volumetrik, dan Chargeable Weight",
-  metaTitle: "Kalkulator CBM & Berat Volumetrik — Hitung Chargeable Weight | CargoGrid",
+  metaTitle: "Kalkulator CBM & Berat Volumetrik: Hitung Chargeable Weight | CargoGrid",
   description:
-    "Hitung CBM dari dimensi kardus, lalu bandingkan berat aktual dengan berat volumetrik untuk laut LCL, udara, kurir, dan darat. Gratis, tanpa daftar, hasil bisa disalin ke penawaran.",
+    "Hitung CBM dari dimensi kardus, lalu bandingkan berat aktual dengan berat volumetrik untuk laut LCL, udara, kurir, dan darat. Gratis, hasilnya bisa langsung disalin ke penawaran.",
   keywords: [
     "kalkulator CBM",
     "cara hitung CBM",
@@ -17,7 +17,7 @@ export const tool: Tool = {
     "konversi CBM ke kg",
   ],
   summary:
-    "Masukkan panjang, lebar, tinggi, dan jumlah kardus. Kalkulator ini menghitung kubikasinya, mengubahnya menjadi berat volumetrik sesuai moda yang dipakai, lalu memberi tahu berat mana yang akan ditagih — beserta alasannya.",
+    "Masukkan panjang, lebar, tinggi, dan jumlah kardus. Kalkulator ini menghitung kubikasinya, mengubahnya menjadi berat volumetrik sesuai moda yang dipakai, lalu memberi tahu berat mana yang akan ditagih, berikut alasannya.",
   searchIntents: [
     "Cara menghitung CBM dari ukuran kardus",
     "Rumus berat volumetrik untuk kargo udara",
@@ -44,7 +44,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "insight",
       title: "Keduanya sebenarnya rumus yang sama",
-      body: "Satu meter kubik adalah 1.000.000 sentimeter kubik. Membaginya dengan 6.000 sama saja dengan mengalikannya dengan 166,67 kg per CBM. Jadi divisor 6.000 dan aturan 1 CBM = 1.000 kg bukan dua sistem yang berbeda — keduanya menyatakan hal yang persis sama, hanya dengan angka penukar yang berbeda. Laut menghargai volume enam kali lebih longgar daripada udara.",
+      body: "Satu meter kubik adalah 1.000.000 sentimeter kubik. Membaginya dengan 6.000 sama saja dengan mengalikannya dengan 166,67 kg per CBM. Jadi divisor 6.000 dan aturan 1 CBM = 1.000 kg bukan dua sistem yang berbeda; keduanya menyatakan hal yang persis sama, hanya dengan angka penukar yang berbeda. Laut menghargai volume enam kali lebih longgar daripada udara.",
     },
     {
       type: "table",
@@ -78,7 +78,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "example",
       title: "Contoh: kapan mengganti kemasan itu terbayar",
-      body: "Sepuluh kardus 100 x 50 x 40 cm berisi barang seberat 15 kg masing-masing. Volumenya 2 CBM, beratnya 150 kg. Lewat udara, berat volumetriknya 333 kg — lebih dari dua kali berat aslinya, dan itulah yang ditagih. Memadatkan isi yang sama ke dalam kardus 80 x 45 x 35 cm menurunkan volume ke 1,26 CBM dan berat tertagih ke 210 kg. Berat barangnya tidak berubah sedikit pun; yang berubah cuma udara yang ikut dikirim.",
+      body: "Sepuluh kardus 100 x 50 x 40 cm berisi barang seberat 15 kg masing-masing. Volumenya 2 CBM, beratnya 150 kg. Lewat udara, berat volumetriknya 333 kg, lebih dari dua kali berat aslinya, dan itulah yang ditagih. Memadatkan isi yang sama ke dalam kardus 80 x 45 x 35 cm menurunkan volume ke 1,26 CBM dan berat tertagih ke 210 kg. Berat barangnya tidak berubah sedikit pun; yang berubah cuma udara yang ikut dikirim.",
     },
     {
       type: "h2",
@@ -88,9 +88,9 @@ export const tool: Tool = {
     {
       type: "ol",
       items: [
-        "**Menjumlahkan chargeable weight per baris.** Pengangkut menagih satu kiriman, bukan satu kardus. Kardus padat dan kardus ringan dalam satu booking saling menutupi, sehingga perbandingan berat aktual dan volumetrik dilakukan sekali pada totalnya. Menghitung per baris lalu menjumlahkannya menghasilkan tagihan yang lebih besar dari yang sebenarnya — kesalahan spreadsheet yang paling sering ditemukan dalam penawaran.",
+        "**Menjumlahkan chargeable weight per baris.** Pengangkut menagih satu kiriman, bukan satu kardus. Kardus padat dan kardus ringan dalam satu booking saling menutupi, sehingga perbandingan berat aktual dan volumetrik dilakukan sekali pada totalnya. Menghitung per baris lalu menjumlahkannya menghasilkan tagihan yang lebih besar dari yang sebenarnya. Ini kesalahan spreadsheet yang paling sering ditemukan dalam penawaran.",
         "**Memakai ukuran barang, bukan ukuran kemasan luar.** Yang diukur adalah kardus terluar, termasuk palet bila barang dipaletkan. Palet menambah sekitar 15 sentimeter tinggi yang ikut ditagih.",
-        "**Mencampur satuan.** Dimensi dalam sentimeter dimasukkan ke rumus yang mengharapkan meter menghasilkan angka yang meleset sejuta kali lipat, dan anehnya kesalahan ini sering lolos karena hasilnya jelas-jelas salah sehingga orang mengoreksinya secara naluriah — sampai suatu hari tidak.",
+        "**Mencampur satuan.** Dimensi dalam sentimeter dimasukkan ke rumus yang mengharapkan meter menghasilkan angka yang meleset sejuta kali lipat, dan anehnya kesalahan ini sering lolos karena hasilnya jelas-jelas salah sehingga orang mengoreksinya secara naluriah, sampai suatu hari tidak.",
       ],
     },
     {

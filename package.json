@@ -11,7 +11,8 @@
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test:tracking": "node e2e/tracking.smoke.mjs",
-    "test:logistics": "tsx e2e/logistics.smoke.ts"
+    "test:logistics": "tsx e2e/logistics.smoke.ts",
+    "test:browser": "node e2e/tools.browser.mjs"
   },
   "browserslist": [
     "chrome >= 111",

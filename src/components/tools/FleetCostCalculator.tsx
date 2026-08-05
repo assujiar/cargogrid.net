@@ -17,27 +17,91 @@ import {
 import { formatIDR } from "../../lib/logistics/freeTime";
 import { formatNumber } from "../../lib/logistics/volume";
 import { classLabel, VEHICLE_ARCHETYPES, VEHICLE_CLASS_ORDER } from "../../content/reference/vehicles";
-import { FieldLabel, NumberField, ResultCard, ResultGrid, ToolPanel } from "./controls";
+import { NumberField, ResultCard, ResultGrid, SelectField, ToolPanel } from "./controls";
+
+/**
+ * Field-by-field guidance in plain Indonesian.
+ *
+ * Every line answers "what do I put in this box", not "what is this box
+ * called". A visitor who has to guess at faktor ketersediaan will type
+ * something plausible and walk away with a confident wrong tariff, and nothing
+ * on the page will look wrong.
+ */
+const TIPS = {
+  vehicle: "Kelas armada yang dihitung. Konsumsi bahan bakar, harga, dan biaya ban ikut menyesuaikan saat diganti.",
+  price: "Harga beli kendaraan termasuk karoseri. Biaya ban dan perawatan dihitung sebagai porsi dari angka ini.",
+  residual: "Perkiraan nilai jual kendaraan di akhir masa pakai, dalam persen dari harga beli. Umumnya 15 sampai 25 persen.",
+  life: "Berapa tahun kendaraan dipakai sebelum dijual. Dipakai membagi penyusutan per tahun.",
+  financing: "Total cicilan leasing atau sewa yang dibayar setahun. Isi 0 bila kendaraan dibeli tunai.",
+  plannedKm: "Target jarak tempuh kendaraan ini dalam setahun, sebelum dikurangi hari tidak beroperasi.",
+  availability:
+    "Persen waktu kendaraan benar-benar bisa jalan, di luar servis, rusak, dan menunggu muatan. Realistisnya 80 sampai 90 persen.",
+  trips: "Berapa kali kendaraan ini menjalani satu rit penuh dalam setahun. Satu rit berarti sekali berangkat berikut perjalanan baliknya.",
+  routePattern: "Pilih pola perjalanannya. Jarak bermuatan dan jarak kosong dihitung otomatis dari pilihan ini.",
+  oneWayKm: "Jarak sekali jalan saja, bukan pulang pergi. Perjalanan baliknya sudah dihitung oleh pola rute di atas.",
+  loadedKm: "Jarak yang ditempuh sambil membawa muatan. Hanya jarak inilah yang menghasilkan pendapatan.",
+  emptyKm: "Jarak tanpa muatan: rit balik kosong dan perjalanan menuju titik muat.",
+  payload: "Rata-rata muatan yang benar-benar dibawa, bukan kapasitas maksimum di brosur.",
+  volume: "Rata-rata volume muatan yang benar-benar dibawa. Isi 0 bila tarif Anda tidak berbasis volume.",
+  insurance: "Premi asuransi kendaraan dan muatan yang dibayar setahun.",
+  taxPermits: "Pajak kendaraan, biaya uji berkala, dan perizinan, dijumlahkan untuk setahun.",
+  crewFixed: "Gaji tetap sopir dan kernet setahun. Uang jalan tidak masuk sini, ada kolomnya sendiri di bawah.",
+  tracking: "Biaya GPS, langganan sistem, dan lisensi untuk kendaraan ini setahun.",
+  overhead: "Porsi biaya kantor, admin armada, dan dispatch yang dibebankan ke kendaraan ini setahun.",
+  fuelPrice: "Harga bahan bakar per liter yang benar-benar Anda bayar di rute ini.",
+  fuelLoaded: "Berapa kilometer ditempuh per liter saat membawa muatan. Ambil dari catatan pengisian solar Anda sendiri.",
+  fuelEmpty: "Berapa kilometer per liter saat jalan tanpa muatan. Biasanya lebih irit daripada saat bermuatan.",
+  additive: "Biaya cairan aditif seperti AdBlue per kilometer. Isi 0 bila kendaraan tidak memakainya.",
+  tyreLife: "Berapa kilometer satu set ban bertahan sebelum diganti, menurut pengalaman armada Anda.",
+  tyreRatio: "Harga satu set ban sebagai persen dari harga kendaraan. Titik awal yang lazim sekitar 6 persen.",
+  maintenanceRatio:
+    "Biaya perawatan dan perbaikan setahun sebagai persen dari harga kendaraan. Titik awal yang lazim sekitar 10 persen.",
+  lubricantsRatio: "Biaya oli dan bahan habis pakai sebagai persen dari biaya perawatan. Umumnya sekitar 12 persen.",
+  toll: "Total tarif tol sekali rit, pulang pergi. Cari tarif untuk golongan kendaraan Anda di ruas yang dilewati.",
+  ferry: "Total tarif penyeberangan sekali rit. Isi 0 bila rutenya tidak menyeberang.",
+  handling: "Biaya bongkar muat, forklift, atau alat bantu yang Anda tanggung per rit.",
+  parking: "Biaya parkir, retribusi, dan keamanan sepanjang satu rit.",
+  crewAllowance: "Uang jalan sopir dan kernet untuk satu rit, di luar gaji tetap.",
+  permit: "Biaya izin khusus, kajian rute, dan pengawalan. Hanya untuk angkutan alat berat atau muatan berizin khusus.",
+  margin: "Margin kotor yang ingin dicapai. Harga jual minimum dihitung sebagai biaya dibagi (100 persen dikurangi angka ini).",
+} as const;
 
 const GROUPED = VEHICLE_CLASS_ORDER.map((cls) => ({
   label: classLabel(cls),
   items: VEHICLE_ARCHETYPES.filter((v) => v.mainClass === cls),
 })).filter((group) => group.items.length > 0);
 
-/** Percentages are stored as fractions and edited as percentages. */
+/**
+ * Percentages are stored as fractions and edited as percentages.
+ *
+ * The rounding is not cosmetic: 0.1 as a float renders as 10.000000000000002
+ * once multiplied, and a field showing that has already lost the visitor.
+ */
 function PercentField({
   label,
   value,
   onChange,
   hint,
+  tip,
 }: {
   label: string;
   value: number;
   onChange: (value: number) => void;
   hint?: string;
+  tip?: string;
 }) {
   return (
-    <NumberField label={label} value={Math.round(value * 1000) / 10} onChange={(v) => onChange(v / 100)} min={0} max={100} step={1} suffix="%" hint={hint} />
+    <NumberField
+      label={label}
+      value={Math.round(value * 1000) / 10}
+      onChange={(v) => onChange(v / 100)}
+      min={0}
+      max={100}
+      step={1}
+      suffix="%"
+      hint={hint}
+      tip={tip}
+    />
   );
 }
 
@@ -45,7 +109,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <div className="nm-deboss rounded-2xl p-5">
       <h3 className="mb-4 font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{title}</h3>
-      <div className="grid gap-4 sm:grid-cols-2">{children}</div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{children}</div>
     </div>
   );
 }
@@ -67,11 +131,28 @@ function ratioSeededInput(base: FleetCostInput, ratios: MaintenanceRatios): Flee
   return { ...base, ...maintenanceFromRatios(base.acquisitionPrice, effectiveAnnualKm, ratios) };
 }
 
+/** Pattern the form opens on, and the one-way distance it is seeded from. */
+const INITIAL_PATTERN: RoutePattern = "pp-kosong";
+const INITIAL_ONE_WAY_KM = FLEET_COST_DEFAULTS.loadedKmPerTrip;
+
+/**
+ * The opening state has to satisfy the route pattern it claims to be showing.
+ *
+ * Seeding the distances straight from FLEET_COST_DEFAULTS left the form saying
+ * "pulang pergi, balik kosong" over 500 loaded and 150 empty kilometres, which
+ * that pattern cannot produce. Nothing looked broken, the totals were internally
+ * consistent, and the contradiction only resolved once the user happened to
+ * touch the distance field. Deriving the distances from the pattern here means
+ * the first render obeys the same rule as every render after it.
+ */
+const INITIAL_INPUT: FleetCostInput = ratioSeededInput(
+  { ...FLEET_COST_DEFAULTS, ...distancesForPattern(INITIAL_PATTERN, INITIAL_ONE_WAY_KM) },
+  DEFAULT_MAINTENANCE_RATIOS,
+);
+
 export default function FleetCostCalculator() {
   const [ratios, setRatios] = useState<MaintenanceRatios>(DEFAULT_MAINTENANCE_RATIOS);
-  const [input, setInput] = useState<FleetCostInput>(() =>
-    ratioSeededInput(FLEET_COST_DEFAULTS, DEFAULT_MAINTENANCE_RATIOS),
-  );
+  const [input, setInput] = useState<FleetCostInput>(INITIAL_INPUT);
   const [vehicleId, setVehicleId] = useState("CV034");
 
   /**
@@ -91,8 +172,8 @@ export default function FleetCostCalculator() {
       setInput((current) => reseedMaintenance(current, nextRatios));
     };
   }
-  const [routePattern, setRoutePattern] = useState<RoutePattern>("pp-kosong");
-  const [oneWayKm, setOneWayKm] = useState(FLEET_COST_DEFAULTS.loadedKmPerTrip);
+  const [routePattern, setRoutePattern] = useState<RoutePattern>(INITIAL_PATTERN);
+  const [oneWayKm, setOneWayKm] = useState(INITIAL_ONE_WAY_KM);
 
   /**
    * Pattern and distance are two inputs producing one pair of values, so both
@@ -142,43 +223,54 @@ export default function FleetCostCalculator() {
 
   const biggest = [...result.breakdown].sort((a, b) => b.amount - a.amount)[0];
 
+  /**
+   * Some archetypes do not belong in a per-kilometre model at all.
+   *
+   * Mining dumpers and road trains never see a public road -- the taxonomy
+   * records their toll class as site-only rather than a golongan. Modular
+   * transporters and SPMT are costed by project shift or hour, because the
+   * cargo sits still for days and the kilometres are trivial. Running them
+   * through a cost-per-km model produces a number that looks ordinary and
+   * means nothing, so the page says so rather than quietly obliging.
+   */
+  const notRoadCosted =
+    vehicle && (vehicle.mainClass === "Off-Highway" || vehicle.mainClass === "Heavy Haul" || vehicle.tollClass.includes("N/A"));
+
   return (
     <ToolPanel>
       <div className="flex flex-col gap-5">
-        <div>
-          <FieldLabel htmlFor="fleet-vehicle">Armada yang dihitung</FieldLabel>
-          <select
-            id="fleet-vehicle"
-            value={vehicleId}
-            onChange={(e) => pickVehicle(e.target.value)}
-            className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold lg:max-w-2xl"
-          >
-            {GROUPED.map((group) => (
-              <optgroup key={group.label} label={group.label}>
-                {group.items.map((v) => (
-                  <option key={v.id} value={v.id}>
-                    {v.marketNames} — {v.commercialType}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-          {vehicle && (
-            <p className="mt-2 max-w-2xl text-[12px] leading-[1.7] text-slate-500">
-              Dipakai untuk membandingkan muatan yang Anda isi dengan perkiraan kapasitas kelas ini:{" "}
-              {formatNumber(vehicle.planningPayload.min)}–{formatNumber(vehicle.planningPayload.max)} ton
-              {vehicle.planningVolume
-                ? `, ${formatNumber(vehicle.planningVolume.min)}–${formatNumber(vehicle.planningVolume.max)} m³`
-                : ""}
-              . Golongan tol {vehicle.tollClass}, golongan penyeberangan {vehicle.ferryClass}.
-            </p>
-          )}
-        </div>
+        <SelectField
+          label="Armada yang dihitung"
+          value={vehicleId}
+          onChange={pickVehicle}
+          tip={TIPS.vehicle}
+          className="lg:max-w-2xl"
+          hint={
+            vehicle
+              ? `Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min)} sampai ${formatNumber(vehicle.planningPayload.max)} ton${
+                  vehicle.planningVolume
+                    ? `, ${formatNumber(vehicle.planningVolume.min)} sampai ${formatNumber(vehicle.planningVolume.max)} m³`
+                    : ""
+                }. Golongan tol ${vehicle.tollClass}, golongan penyeberangan ${vehicle.ferryClass}.`
+              : undefined
+          }
+        >
+          {GROUPED.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {group.items.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.marketNames} ({v.commercialType})
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </SelectField>
 
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <Section title="Kepemilikan kendaraan">
             <NumberField
               label="Harga perolehan"
+              tip={TIPS.price}
               value={input.acquisitionPrice}
               onChange={(v) => setInput((current) => reseedMaintenance({ ...current, acquisitionPrice: v }))}
               min={0}
@@ -186,14 +278,15 @@ export default function FleetCostCalculator() {
               suffix="Rp"
               hint="Termasuk karoseri bila dimiliki sendiri. Biaya ban dan perawatan ikut menyesuaikan."
             />
-            <PercentField label="Nilai sisa" value={input.residualRatio} onChange={set("residualRatio")} hint="Perkiraan nilai jual di akhir masa pakai." />
-            <NumberField label="Umur ekonomis" value={input.usefulLifeYears} onChange={set("usefulLifeYears")} min={1} step={1} suffix="thn" />
-            <NumberField label="Cicilan atau sewa per tahun" value={input.financingPerYear} onChange={set("financingPerYear")} min={0} step={10_000_000} suffix="Rp" />
+            <PercentField label="Nilai sisa" value={input.residualRatio} onChange={set("residualRatio")} tip={TIPS.residual} />
+            <NumberField label="Umur ekonomis" value={input.usefulLifeYears} onChange={set("usefulLifeYears")} min={1} step={1} suffix="thn" tip={TIPS.life} />
+            <NumberField label="Cicilan atau sewa per tahun" value={input.financingPerYear} onChange={set("financingPerYear")} min={0} step={10_000_000} suffix="Rp" tip={TIPS.financing} />
           </Section>
 
           <Section title="Pemanfaatan armada">
             <NumberField
               label="Rencana km per tahun"
+              tip={TIPS.plannedKm}
               value={input.plannedAnnualKm}
               onChange={(v) => setInput((current) => reseedMaintenance({ ...current, plannedAnnualKm: v }))}
               min={0}
@@ -202,38 +295,35 @@ export default function FleetCostCalculator() {
             />
             <PercentField
               label="Faktor ketersediaan"
+              tip={TIPS.availability}
               value={input.availabilityFactor}
               onChange={(v) => setInput((current) => reseedMaintenance({ ...current, availabilityFactor: v }))}
               hint="Porsi waktu armada benar-benar bisa jalan, di luar servis dan rusak."
             />
-            <NumberField label="Jumlah rit per tahun" value={input.tripsPerYear} onChange={set("tripsPerYear")} min={0} step={10} suffix="rit" />
+            <NumberField label="Jumlah rit per tahun" value={input.tripsPerYear} onChange={set("tripsPerYear")} min={0} step={10} suffix="rit" tip={TIPS.trips} />
 
             {/* Route pattern first, distance second. People hold a route as
                 "Jakarta-Surabaya, pulang kosong", not as a loaded/empty split,
                 and making them do that translation puts an easy mistake right
                 in front of the input that most decides the answer. */}
-            <div className="sm:col-span-2">
-              <FieldLabel htmlFor="route-pattern">Pola rute</FieldLabel>
-              <select
-                id="route-pattern"
-                value={routePattern}
-                onChange={(e) => applyPattern(e.target.value as RoutePattern, oneWayKm)}
-                className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold"
-              >
-                {ROUTE_PATTERNS.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.label}
-                  </option>
-                ))}
-              </select>
-              <p className="mt-2 text-[12px] leading-[1.7] text-slate-500">
-                {ROUTE_PATTERNS.find((p) => p.id === routePattern)?.detail}
-              </p>
-            </div>
+            <SelectField
+              label="Pola rute"
+              value={routePattern}
+              onChange={(v) => applyPattern(v as RoutePattern, oneWayKm)}
+              tip={TIPS.routePattern}
+              hint={ROUTE_PATTERNS.find((p) => p.id === routePattern)?.detail}
+              className="sm:col-span-2"
+            >
+              {ROUTE_PATTERNS.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
+              ))}
+            </SelectField>
 
             {routePattern === "manual" ? (
               <>
-                <NumberField label="Km bermuatan per rit" value={input.loadedKmPerTrip} onChange={set("loadedKmPerTrip")} min={0} step={10} suffix="km" />
+                <NumberField label="Km bermuatan per rit" value={input.loadedKmPerTrip} onChange={set("loadedKmPerTrip")} min={0} step={10} suffix="km" tip={TIPS.loadedKm} />
                 <NumberField
                   label="Km kosong per rit"
                   value={input.emptyKmPerTrip}
@@ -241,6 +331,7 @@ export default function FleetCostCalculator() {
                   min={0}
                   step={10}
                   suffix="km"
+                  tip={TIPS.emptyKm}
                   hint="Jarak posisi awal dan rit balik tanpa muatan."
                 />
               </>
@@ -253,7 +344,8 @@ export default function FleetCostCalculator() {
                   min={0}
                   step={10}
                   suffix="km"
-                  hint="Jarak sekali jalan. Perjalanan baliknya dihitung otomatis sesuai pola rute."
+                  tip={TIPS.oneWayKm}
+                  hint="Perjalanan baliknya dihitung otomatis sesuai pola rute."
                 />
                 <div className="flex items-end">
                   <p className="pb-2.5 text-[12px] leading-[1.7] text-slate-500">
@@ -266,20 +358,20 @@ export default function FleetCostCalculator() {
                 </div>
               </>
             )}
-            <NumberField label="Muatan rata-rata sesungguhnya" value={input.actualPayloadTon} onChange={set("actualPayloadTon")} min={0} step={0.5} suffix="ton" hint="Rata-rata nyata, bukan kapasitas brosur." />
-            <NumberField label="Volume muatan rata-rata" value={input.actualVolumeM3} onChange={set("actualVolumeM3")} min={0} step={1} suffix="m³" hint="Isi 0 bila tarif tidak berbasis volume." />
+            <NumberField label="Muatan rata-rata sesungguhnya" value={input.actualPayloadTon} onChange={set("actualPayloadTon")} min={0} step={0.5} suffix="ton" tip={TIPS.payload} hint="Rata-rata nyata, bukan kapasitas brosur." />
+            <NumberField label="Volume muatan rata-rata" value={input.actualVolumeM3} onChange={set("actualVolumeM3")} min={0} step={1} suffix="m³" tip={TIPS.volume} />
           </Section>
 
           <Section title="Biaya tetap per tahun">
-            <NumberField label="Asuransi" value={input.insurancePerYear} onChange={set("insurancePerYear")} min={0} step={1_000_000} suffix="Rp" />
-            <NumberField label="Pajak, uji berkala, dan perizinan" value={input.taxPermitsPerYear} onChange={set("taxPermitsPerYear")} min={0} step={1_000_000} suffix="Rp" />
-            <NumberField label="Gaji tetap sopir dan kernet" value={input.crewFixedPerYear} onChange={set("crewFixedPerYear")} min={0} step={5_000_000} suffix="Rp" />
-            <NumberField label="GPS, langganan, dan lisensi" value={input.trackingSubscriptionPerYear} onChange={set("trackingSubscriptionPerYear")} min={0} step={1_000_000} suffix="Rp" />
-            <NumberField label="Overhead yang dibebankan" value={input.overheadPerYear} onChange={set("overheadPerYear")} min={0} step={5_000_000} suffix="Rp" hint="Porsi biaya kantor, admin armada, dan dispatch." />
+            <NumberField label="Asuransi" value={input.insurancePerYear} onChange={set("insurancePerYear")} min={0} step={1_000_000} suffix="Rp" tip={TIPS.insurance} />
+            <NumberField label="Pajak, uji berkala, dan perizinan" value={input.taxPermitsPerYear} onChange={set("taxPermitsPerYear")} min={0} step={1_000_000} suffix="Rp" tip={TIPS.taxPermits} />
+            <NumberField label="Gaji tetap sopir dan kernet" value={input.crewFixedPerYear} onChange={set("crewFixedPerYear")} min={0} step={5_000_000} suffix="Rp" tip={TIPS.crewFixed} />
+            <NumberField label="GPS, langganan, dan lisensi" value={input.trackingSubscriptionPerYear} onChange={set("trackingSubscriptionPerYear")} min={0} step={1_000_000} suffix="Rp" tip={TIPS.tracking} />
+            <NumberField label="Overhead yang dibebankan" value={input.overheadPerYear} onChange={set("overheadPerYear")} min={0} step={5_000_000} suffix="Rp" tip={TIPS.overhead} />
           </Section>
 
           <Section title="Biaya jalan per kilometer">
-            <NumberField label="Harga bahan bakar" value={input.fuelPricePerLitre} onChange={set("fuelPricePerLitre")} min={0} step={100} suffix="Rp/L" />
+            <NumberField label="Harga bahan bakar" value={input.fuelPricePerLitre} onChange={set("fuelPricePerLitre")} min={0} step={100} suffix="Rp/L" tip={TIPS.fuelPrice} />
             <NumberField
               label="Konsumsi saat bermuatan"
               value={input.fuelKmPerLitreLoaded}
@@ -287,7 +379,8 @@ export default function FleetCostCalculator() {
               min={0.1}
               step={0.1}
               suffix="km/L"
-              hint="Angka awal mengikuti kelas armada yang dipilih. Ganti dengan rata-rata dari catatan pengisian solar Anda sendiri — medan, umur mesin, dan gaya mengemudi menggesernya jauh."
+              tip={TIPS.fuelLoaded}
+              hint="Angka awal mengikuti kelas armada. Ganti dengan rata-rata dari catatan pengisian solar Anda sendiri."
             />
             <NumberField
               label="Konsumsi saat kosong"
@@ -296,31 +389,35 @@ export default function FleetCostCalculator() {
               min={0.1}
               step={0.1}
               suffix="km/L"
-              hint="Dihitung terpisah dari konsumsi bermuatan. Selisihnya nyata, dan bahan bakar adalah pos biaya terbesar."
+              tip={TIPS.fuelEmpty}
+              hint="Dihitung terpisah dari konsumsi bermuatan. Bahan bakar adalah pos biaya terbesar."
             />
-            <NumberField label="Cairan aditif" value={input.additivePerKm} onChange={set("additivePerKm")} min={0} step={50} suffix="Rp/km" />
-            <NumberField label="Umur ban" value={input.tyreLifeKm} onChange={set("tyreLifeKm")} min={1} step={5_000} suffix="km" />
+            <NumberField label="Cairan aditif" value={input.additivePerKm} onChange={set("additivePerKm")} min={0} step={50} suffix="Rp/km" tip={TIPS.additive} />
+            <NumberField label="Umur ban" value={input.tyreLifeKm} onChange={set("tyreLifeKm")} min={1} step={5_000} suffix="km" tip={TIPS.tyreLife} />
 
             {/* Percentages of purchase price rather than rupiah figures, so
                 they re-scale with the vehicle instead of needing re-entry per
                 class. The derived amount sits under each field -- a percentage
                 nobody can convert back is a percentage nobody can check. */}
             <PercentField
-              label="Harga satu set ban"
+              label="Ban, porsi harga kendaraan"
               value={ratios.tyreSetOfPrice}
               onChange={setRatio("tyreSetOfPrice")}
+              tip={TIPS.tyreRatio}
               hint={`Porsi harga kendaraan. Setara ${formatIDR(input.tyreSetCost)} per set, atau ${formatIDR(result.tyreCostPerKm)} per km.`}
             />
             <PercentField
-              label="Perawatan per tahun"
+              label="Perawatan setahun, porsi harga kendaraan"
               value={ratios.maintenanceOfPricePerYear}
               onChange={setRatio("maintenanceOfPricePerYear")}
+              tip={TIPS.maintenanceRatio}
               hint={`Porsi harga kendaraan per tahun. Setara ${formatIDR(input.maintenancePerKm)} per km pada ${formatNumber(result.effectiveAnnualKm, 0)} km setahun.`}
             />
             <PercentField
-              label="Oli dan bahan habis pakai"
+              label="Oli, porsi biaya perawatan"
               value={ratios.lubricantsOfMaintenance}
               onChange={setRatio("lubricantsOfMaintenance")}
+              tip={TIPS.lubricantsRatio}
               hint={`Porsi biaya perawatan. Setara ${formatIDR(input.lubricantsPerKm)} per km.`}
             />
           </Section>
@@ -356,14 +453,14 @@ export default function FleetCostCalculator() {
                   : "Sesuai golongan panjang kendaraan dan lintasannya."
               }
             />
-            <NumberField label="Bongkar muat dan alat" value={input.handlingPerTrip} onChange={set("handlingPerTrip")} min={0} step={50_000} suffix="Rp" />
-            <NumberField label="Parkir, retribusi, keamanan" value={input.parkingPerTrip} onChange={set("parkingPerTrip")} min={0} step={50_000} suffix="Rp" />
-            <NumberField label="Uang jalan sopir dan kernet" value={input.crewAllowancePerTrip} onChange={set("crewAllowancePerTrip")} min={0} step={50_000} suffix="Rp" />
-            <NumberField label="Izin khusus dan pengawalan" value={input.permitEscortPerTrip} onChange={set("permitEscortPerTrip")} min={0} step={100_000} suffix="Rp" hint="Hanya untuk angkutan alat berat atau muatan berizin khusus." />
+            <NumberField label="Bongkar muat dan alat" value={input.handlingPerTrip} onChange={set("handlingPerTrip")} min={0} step={50_000} suffix="Rp" tip={TIPS.handling} />
+            <NumberField label="Parkir, retribusi, keamanan" value={input.parkingPerTrip} onChange={set("parkingPerTrip")} min={0} step={50_000} suffix="Rp" tip={TIPS.parking} />
+            <NumberField label="Uang jalan sopir dan kernet" value={input.crewAllowancePerTrip} onChange={set("crewAllowancePerTrip")} min={0} step={50_000} suffix="Rp" tip={TIPS.crewAllowance} />
+            <NumberField label="Izin khusus dan pengawalan" value={input.permitEscortPerTrip} onChange={set("permitEscortPerTrip")} min={0} step={100_000} suffix="Rp" tip={TIPS.permit} />
           </Section>
 
           <Section title="Target margin">
-            <PercentField label="Margin kotor yang dituju" value={input.targetGrossMargin} onChange={set("targetGrossMargin")} hint="Harga jual minimum = biaya dibagi (100% dikurangi margin)." />
+            <PercentField label="Margin kotor yang dituju" value={input.targetGrossMargin} onChange={set("targetGrossMargin")} tip={TIPS.margin} hint="Harga jual minimum dihitung sebagai biaya dibagi sisa marginnya." />
           </Section>
         </div>
       </div>
@@ -375,7 +472,7 @@ export default function FleetCostCalculator() {
         <ResultCard label="Harga jual minimum" value={formatIDR(result.minimumSellingPerTrip)} hint={`${formatIDR(result.minimumSellingPerLoadedKm)} per km bermuatan`} emphasis />
       </ResultGrid>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+      <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
         <div className="nm-deboss rounded-2xl p-5">
           <p className="font-display text-sm font-bold text-slate-900">Ke mana uangnya pergi</p>
           <div className="mt-4 flex flex-col gap-3">
@@ -416,7 +513,7 @@ export default function FleetCostCalculator() {
                 <p className="font-display text-sm font-bold text-slate-900">Rit kosong</p>
                 <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
                   {formatNumber(result.emptyKmRatio * 100, 0)}% dari jarak tempuh berjalan tanpa muatan. Solar dan sopir
-                  tetap dibayar untuk kilometer itu, dan seluruh biayanya dibebankan ke km bermuatan — karena itu biaya
+                  tetap dibayar untuk kilometer itu, dan seluruh biayanya dibebankan ke km bermuatan, karena itu biaya
                   per km bermuatan ({formatIDR(result.costPerLoadedKm)}) selalu lebih tinggi daripada biaya per km total
                   ({formatIDR(result.costPerTotalKm)}).
                 </p>
@@ -425,7 +522,7 @@ export default function FleetCostCalculator() {
           </div>
 
           {inconsistent && (
-            <div className="nm-emboss-orange rounded-2xl bg-brand-orange/5 p-5">
+            <div className="nm-emboss rounded-2xl bg-white/60 p-5 ring-2 ring-brand-orange/35">
               <div className="flex items-start gap-4">
                 <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />
                 <div>
@@ -433,7 +530,7 @@ export default function FleetCostCalculator() {
                   <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
                     Jumlah rit dikali jarak per rit menghasilkan {formatNumber(result.impliedAnnualKm, 0)} km setahun,
                     sementara rencana km dikali faktor ketersediaan menghasilkan{" "}
-                    {formatNumber(result.effectiveAnnualKm, 0)} km — selisih{" "}
+                    {formatNumber(result.effectiveAnnualKm, 0)} km, selisih{" "}
                     {formatNumber(Math.abs(result.utilisationGap) * 100, 0)}%. Salah satu dari keduanya keliru, dan
                     seluruh angka per kilometer di atas ikut terbawa. Samakan dulu sebelum hasilnya dipakai menetapkan
                     tarif.
@@ -443,8 +540,25 @@ export default function FleetCostCalculator() {
             </div>
           )}
 
+          {notRoadCosted && vehicle && (
+            <div className="nm-emboss rounded-2xl bg-white/60 p-5 ring-2 ring-brand-orange/35">
+              <div className="flex items-start gap-4">
+                <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />
+                <div>
+                  <p className="font-display text-sm font-bold text-slate-900">Kelas ini tidak dihitung per kilometer</p>
+                  <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
+                    {vehicle.mainClass === "Off-Highway" || vehicle.tollClass.includes("N/A")
+                      ? "Kendaraan ini beroperasi di area kerja, bukan di jalan umum, sehingga tidak punya golongan tol maupun penyeberangan. Biayanya lazim dihitung per jam operasi atau per ton material yang dipindahkan, bukan per kilometer."
+                      : "Angkutan alat berat dan platform modular lazim dihitung per shift atau per jam proyek, bukan per kilometer. Muatannya diam berhari-hari untuk persiapan, kajian rute, dan pengawalan, dan biaya itulah yang mendominasi, bukan jarak tempuhnya."}{" "}
+                    Hasil di bawah tetap dihitung, tetapi perlakukan sebagai perbandingan kasar saja.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {(payloadOver || volumeOver) && vehicle && (
-            <div className="nm-emboss-orange rounded-2xl bg-brand-orange/5 p-5">
+            <div className="nm-emboss rounded-2xl bg-white/60 p-5 ring-2 ring-brand-orange/35">
               <div className="flex items-start gap-4">
                 <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />
                 <div>
@@ -456,7 +570,7 @@ export default function FleetCostCalculator() {
                     {volumeOver && vehicle.planningVolume
                       ? `Volume ${formatNumber(input.actualVolumeM3)} m³ melebihi perkiraan ${formatNumber(vehicle.planningVolume.max)} m³. `
                       : ""}
-                    Perkiraan ini bukan batas legal — periksa JBI pada dokumen kendaraan dan dimensi bak unit yang
+                    Perkiraan ini bukan batas legal, periksa JBI pada dokumen kendaraan dan dimensi bak unit yang
                     sesungguhnya dipakai.
                   </p>
                 </div>

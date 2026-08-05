@@ -176,9 +176,11 @@ export function checkCompliance(input: ComplianceInput): ComplianceCheck[] {
     checks.push({
       level: "periksa",
       title: "Muatan melampaui perkiraan kapasitas kelas ini",
-      detail: `Rencana muat ${Math.round(input.loadedWeightKg).toLocaleString("id-ID")} kg berada di atas perkiraan batas atas kelas ini, sekitar ${payloadMaxKg.toLocaleString("id-ID")} kg. Perkiraan ini bukan angka legal — yang mengikat adalah JBI pada dokumen kendaraan dikurangi berat kosongnya setelah karoseri. Pastikan ke STNK dan hasil uji berkala unit yang dipakai.`,
+      detail: `Rencana muat ${Math.round(input.loadedWeightKg).toLocaleString("id-ID")} kg berada di atas perkiraan batas atas kelas ini, sekitar ${payloadMaxKg.toLocaleString("id-ID")} kg. Perkiraan ini bukan angka legal, yang mengikat adalah JBI pada dokumen kendaraan dikurangi berat kosongnya setelah karoseri. Pastikan ke STNK dan hasil uji berkala unit yang dipakai.`,
     });
   }
+
+  const { maxWidthM, maxLengthM, mstTon } = roadClass;
 
   if (input.bodyWidthM > DIMENSION_LIMITS.widthM) {
     checks.push({
@@ -186,19 +188,19 @@ export function checkCompliance(input: ComplianceInput): ComplianceCheck[] {
       title: "Lebar ruang muat melebihi batas kendaraan",
       detail: `Lebar maksimum kendaraan bermotor adalah ${DIMENSION_LIMITS.widthM} meter. Ruang muat bagian dalam tidak mungkin lebih lebar daripada kendaraannya sendiri, jadi angka ${input.bodyWidthM} meter kemungkinan besar salah ketik atau salah satuan.`,
     });
-  } else if (input.bodyWidthM > roadClass.maxWidthM) {
+  } else if (maxWidthM !== null && input.bodyWidthM > maxWidthM) {
     checks.push({
       level: "langgar",
       title: `Terlalu lebar untuk jalan ${roadClass.code}`,
-      detail: `${roadClass.code} membatasi lebar kendaraan sampai ${roadClass.maxWidthM} meter, sedangkan ruang muat yang dipilih sudah ${input.bodyWidthM} meter sebelum menghitung tebal dinding bodi. Bodi standar 2,4 sampai 2,5 meter tidak bisa melewati ruas jalan kelas ini.`,
+      detail: `${roadClass.code} membatasi lebar kendaraan sampai ${maxWidthM} meter, sedangkan ruang muat yang dipilih sudah ${input.bodyWidthM} meter sebelum menghitung tebal dinding bodi. Bodi standar 2,4 sampai 2,5 meter tidak bisa melewati ruas jalan kelas ini.`,
     });
   }
 
-  if (vehicle.overallLengthM && vehicle.overallLengthM > roadClass.maxLengthM) {
+  if (vehicle.overallLengthM && maxLengthM !== null && vehicle.overallLengthM > maxLengthM) {
     checks.push({
       level: "langgar",
       title: `Terlalu panjang untuk jalan ${roadClass.code}`,
-      detail: `Panjang keseluruhan kelas armada ini sekitar ${vehicle.overallLengthM} meter, sementara ${roadClass.code} membatasi sampai ${roadClass.maxLengthM} meter. Pilih armada lain, atau pastikan rutenya melewati kelas jalan yang lebih tinggi.`,
+      detail: `Panjang keseluruhan kelas armada ini sekitar ${vehicle.overallLengthM} meter, sementara ${roadClass.code} membatasi sampai ${maxLengthM} meter. Pilih armada lain, atau pastikan rutenya melewati kelas jalan yang lebih tinggi.`,
     });
   }
 
@@ -212,14 +214,14 @@ export function checkCompliance(input: ComplianceInput): ComplianceCheck[] {
     checks.push({
       level: input.loadedWeightKg > roughAxleLimitKg ? "periksa" : "ok",
       title: `Muatan sumbu terberat di jalan ${roadClass.code}`,
-      detail: `${roadClass.code} membatasi muatan sumbu terberat ${roadClass.mstTon} ton. Dengan ${axles} sumbu, batas kasar berat totalnya sekitar ${roughAxleLimitKg.toLocaleString("id-ID")} kg — tetapi MST membatasi per sumbu, bukan total, dan distribusi muatan di atas bak yang menentukan. Muatan yang menumpuk di belakang bisa melanggar meski berat totalnya masih aman.`,
+      detail: `${roadClass.code} membatasi muatan sumbu terberat ${roadClass.mstTon} ton. Dengan ${axles} sumbu, batas kasar berat totalnya sekitar ${roughAxleLimitKg.toLocaleString("id-ID")} kg, tetapi MST membatasi per sumbu, bukan total, dan distribusi muatan di atas bak yang menentukan. Muatan yang menumpuk di belakang bisa melanggar meski berat totalnya masih aman.`,
     });
   }
 
   checks.push({
     level: "ok",
     title: "Golongan tol dan penyeberangan",
-    detail: `Kelas armada ini umumnya masuk golongan tol ${vehicle.tollClass} dan golongan penyeberangan ${vehicle.ferryClass}. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan — dua logika yang berbeda, dan keduanya perlu masuk perhitungan biaya rute.`,
+    detail: `Kelas armada ini umumnya masuk golongan tol ${vehicle.tollClass} dan golongan penyeberangan ${vehicle.ferryClass}. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan, dua logika yang berbeda, dan keduanya perlu masuk perhitungan biaya rute.`,
   });
 
   return checks;

@@ -82,13 +82,17 @@ export function ContainerTable() {
               <th scope="row" className={`${TD} font-display font-bold text-slate-900`}>{spec.name}</th>
               <td className={`${TD} font-mono text-[11px]`}>{spec.isoCode}</td>
               <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
-                {spec.inner.length} × {spec.inner.width} × {spec.inner.height}
+                {formatNumber(spec.inner.length, 3)} × {formatNumber(spec.inner.width, 3)} × {formatNumber(spec.inner.height, 3)}
               </td>
               <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
                 {spec.door ? `${spec.door.width} × ${spec.door.height}` : "Muat dari atas/samping"}
               </td>
-              <td className={`${TD} whitespace-nowrap font-semibold`}>{formatNumber(spec.capacityCbm, 1)} m³</td>
-              <td className={`${TD} whitespace-nowrap`}>{formatNumber(practicalCbm(spec), 1)} m³</td>
+              <td className={`${TD} whitespace-nowrap font-semibold`}>
+                {spec.volumeIsPlanningBasis ? `${formatNumber(spec.capacityCbm, 1)} m³` : <span className="text-slate-400">Bukan dasar rencana</span>}
+              </td>
+              <td className={`${TD} whitespace-nowrap`}>
+                {spec.volumeIsPlanningBasis ? `${formatNumber(practicalCbm(spec), 1)} m³` : <span className="text-slate-400">Pakai tapak dan tinggi</span>}
+              </td>
               <td className={`${TD} whitespace-nowrap`}>
                 {spec.tareKg === null ? <span className="text-slate-400">Per unit</span> : `${formatNumber(spec.tareKg)} kg`}
               </td>
@@ -138,16 +142,16 @@ function VehicleRow({ vehicle }: { vehicle: VehicleArchetype }) {
         {vehicle.planningVolume ? (
           <>
             <span className="font-semibold">
-              {formatNumber(vehicle.planningVolume.min)}–{formatNumber(vehicle.planningVolume.max)} m³
+              {formatNumber(vehicle.planningVolume.min)} sampai {formatNumber(vehicle.planningVolume.max)} m³
             </span>
             {volume && <span className="mt-0.5 block font-mono text-[10px] text-slate-500">bak {formatNumber(volume, 1)} m³</span>}
           </>
         ) : (
-          <span className="text-slate-400">—</span>
+          <span className="text-slate-400">, </span>
         )}
       </td>
       <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>
-        {formatNumber(vehicle.planningPayload.min)}–{formatNumber(vehicle.planningPayload.max)} t
+        {formatNumber(vehicle.planningPayload.min)} sampai {formatNumber(vehicle.planningPayload.max)} t
       </td>
       <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>{vehicle.tollClass}</td>
       <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>{vehicle.ferryClass}</td>
@@ -170,7 +174,7 @@ export function VehicleTable() {
             </SectionHeading>
             <TableWrap
               minWidth={980}
-              caption="Ukuran bak berasal dari karoseri, bukan pabrik sasis, sehingga dua unit dengan lambang sama bisa berbeda. Rentang di sini adalah perkiraan perencanaan, bukan rating legal — yang mengikat adalah JBI pada dokumen kendaraan dikurangi berat kosongnya setelah karoseri terpasang."
+              caption="Ukuran bak berasal dari karoseri, bukan pabrik sasis, sehingga dua unit dengan lambang sama bisa berbeda. Rentang di sini adalah perkiraan perencanaan, bukan rating legal, yang mengikat adalah JBI pada dokumen kendaraan dikurangi berat kosongnya setelah karoseri terpasang."
             >
               <thead>
                 <tr className="border-b border-slate-300/50">
@@ -202,7 +206,7 @@ export function RegulationsView() {
     <div className="flex flex-col gap-12">
       <div>
         <SectionHeading>Batas dimensi kendaraan</SectionHeading>
-        <TableWrap caption="Dasar: PP 55/2012. Batas tinggi punya dua syarat sekaligus, dan yang berlaku adalah yang lebih rendah — truk berbadan sempit karena itu punya batas tinggi di bawah 4,2 meter.">
+        <TableWrap caption="Dasar: PP 55/2012. Batas tinggi punya dua syarat sekaligus, dan yang berlaku adalah yang lebih rendah, truk berbadan sempit karena itu punya batas tinggi di bawah 4,2 meter.">
           <thead>
             <tr className="border-b border-slate-300/50">
               <th scope="col" className={TH}>Hal</th>
@@ -226,7 +230,7 @@ export function RegulationsView() {
 
       <div>
         <SectionHeading>Kelas jalan</SectionHeading>
-        <TableWrap caption="Inilah sebabnya truk yang sama bisa sah di satu rute dan melanggar di rute lain: yang membatasi adalah jalannya, bukan truknya. MST adalah muatan sumbu terberat, dan ia membatasi berat per sumbu — bukan berat total.">
+        <TableWrap caption="Inilah sebabnya truk yang sama bisa sah di satu rute dan melanggar di rute lain: yang membatasi adalah jalannya, bukan truknya. MST adalah muatan sumbu terberat, dan ia membatasi berat per sumbu, bukan berat total.">
           <thead>
             <tr className="border-b border-slate-300/50">
               <th scope="col" className={TH}>Kelas</th>
@@ -241,10 +245,10 @@ export function RegulationsView() {
             {ROAD_CLASSES.map((rc) => (
               <tr key={rc.code} className="border-b border-slate-300/30 last:border-0">
                 <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{rc.code}</th>
-                <td className={`${TD} whitespace-nowrap`}>{rc.maxWidthM} m</td>
-                <td className={`${TD} whitespace-nowrap`}>{rc.maxLengthM} m</td>
-                <td className={`${TD} whitespace-nowrap`}>{rc.maxHeightM} m</td>
-                <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{rc.mstTon} ton</td>
+                <td className={`${TD} whitespace-nowrap`}>{rc.maxWidthM === null ? <span className="text-slate-400">Per izin</span> : `${formatNumber(rc.maxWidthM, 1)} m`}</td>
+                <td className={`${TD} whitespace-nowrap`}>{rc.maxLengthM === null ? <span className="text-slate-400">Per izin</span> : `${formatNumber(rc.maxLengthM, 1)} m`}</td>
+                <td className={`${TD} whitespace-nowrap`}>{rc.maxHeightM === null ? <span className="text-slate-400">Per izin</span> : `${formatNumber(rc.maxHeightM, 1)} m`}</td>
+                <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{rc.mstTon === null ? <span className="font-normal text-slate-400">Per izin</span> : `${formatNumber(rc.mstTon, 1)} ton`}</td>
                 <td className={`${TD} min-w-[300px] leading-[1.7]`}>{rc.note}</td>
               </tr>
             ))}
@@ -254,7 +258,7 @@ export function RegulationsView() {
 
       <div>
         <SectionHeading>Golongan tol</SectionHeading>
-        <TableWrap caption="Dasar: Kepmen PUPR 176/KPTS/M/2025. Golongan menentukan kelompok tarif, bukan besaran tarifnya — tarif berbeda per ruas jalan dan per tanggal berlaku.">
+        <TableWrap caption="Dasar: Kepmen PUPR 176/KPTS/M/2025. Golongan menentukan kelompok tarif, bukan besaran tarifnya, tarif berbeda per ruas jalan dan per tanggal berlaku.">
           <thead>
             <tr className="border-b border-slate-300/50">
               <th scope="col" className={TH}>Golongan</th>
@@ -318,7 +322,7 @@ export function RegulationsView() {
         <SectionHeading>Satuan kapasitas yang benar per jenis bodi</SectionHeading>
         <TableWrap
           minWidth={880}
-          caption="Tidak setiap kendaraan pantas dinyatakan dalam meter kubik. Tangki diukur dengan liter dan kerapatan cairan, flatbed dengan loading meter dan titik beban, car carrier dengan jumlah unit. Memberi angka m³ untuk bodi-bodi itu bukan sekadar tidak berguna — ia mengajarkan satuan yang salah."
+          caption="Tidak setiap kendaraan pantas dinyatakan dalam meter kubik. Tangki diukur dengan liter dan kerapatan cairan, flatbed dengan loading meter dan titik beban, car carrier dengan jumlah unit. Memberi angka m³ untuk bodi-bodi itu bukan sekadar tidak berguna; ia mengajarkan satuan yang salah."
         >
           <thead>
             <tr className="border-b border-slate-300/50">
@@ -392,7 +396,7 @@ export function IncotermsTable() {
             {INCOTERMS.filter((term) => term.mode === group.mode).map((term) => (
               <div key={term.code} className="nm-deboss rounded-2xl p-5">
                 <p className="font-display text-sm font-bold text-slate-900">
-                  {term.code} — {term.nameId}
+                  {term.code}, {term.nameId}
                 </p>
                 <p className="mt-3 text-[12px] leading-[1.7] text-slate-600">
                   <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">Tepat untuk</span>

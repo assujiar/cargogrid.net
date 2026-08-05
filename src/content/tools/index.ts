@@ -15,7 +15,7 @@ import { tool as golonganTolPenyeberangan } from "./golongan-tol-penyeberangan";
  * Registry of the free tools and reference pages.
  *
  * Ordered by how often the underlying question gets asked on a working day,
- * which is also roughly the order of search volume — the hub page reads top to
+ * which is also roughly the order of search volume, the hub page reads top to
  * bottom as "what did you come here to find out".
  */
 const registry: Tool[] = [

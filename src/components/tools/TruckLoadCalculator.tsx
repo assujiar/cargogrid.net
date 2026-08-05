@@ -6,12 +6,32 @@ import { checkCompliance, planLoad, type ComplianceLevel } from "../../lib/logis
 import { formatNumber, type LengthUnit } from "../../lib/logistics/volume";
 import { classLabel, loadableArchetypes, VEHICLE_CLASS_ORDER } from "../../content/reference/vehicles";
 import { ROAD_CLASSES } from "../../content/reference/regulations";
-import { FieldLabel, NumberField, ResultCard, ResultGrid, ToggleField, ToolPanel } from "./controls";
+import { NumberField, ResultCard, ResultGrid, SelectField, ToggleField, ToolPanel } from "./controls";
+
+const TIPS = {
+  vehicle:
+    "Pilih kelas armada yang akan dipakai. Ukuran bak dan batas berat di bawahnya langsung menyesuaikan, dan tetap bisa Anda ubah.",
+  roadClass:
+    "Kelas jalan pada ruas tersempit yang dilewati, karena ruas itulah yang membatasi. Bila belum tahu, tanyakan ke dinas perhubungan setempat atau ke sopir yang biasa melewatinya.",
+  bodyLength: "Panjang ruang muat bagian dalam, bukan panjang kendaraan. Ukur dari dinding depan ke pintu belakang.",
+  bodyWidth: "Lebar ruang muat bagian dalam, diukur di antara kedua dinding bak.",
+  bodyHeight: "Tinggi ruang muat bagian dalam, dari lantai bak ke titik terendah atap.",
+  payload:
+    "Berat muatan maksimum yang Anda pakai sebagai batas. Angka pastinya: JBI di STNK dikurangi berat kosong unit setelah karoseri.",
+  cartonLength: "Panjang kardus bagian luar. Ukur kemasannya, bukan barang di dalamnya.",
+  cartonWidth: "Lebar kardus bagian luar.",
+  cartonHeight: "Tinggi kardus bagian luar, termasuk palet bila barang dipaletkan.",
+  cartonUnit: "Satuan untuk ketiga ukuran kardus. Ukuran ruang muat truk selalu dalam meter, terpisah dari pilihan ini.",
+  cartonWeight: "Berat satu kardus sesuai timbangan, sudah termasuk kemasannya.",
+  quantity: "Total kardus yang akan dikirim. Dipakai menghitung berapa unit truk yang dibutuhkan.",
+  rotation:
+    "Aktif berarti kardus boleh direbahkan atau diputar agar lebih banyak yang muat. Matikan untuk barang yang tidak boleh dibalik.",
+} as const;
 
 const UNITS: { value: LengthUnit; label: string }[] = [
-  { value: "cm", label: "cm" },
-  { value: "m", label: "m" },
-  { value: "mm", label: "mm" },
+  { value: "cm", label: "sentimeter (cm)" },
+  { value: "m", label: "meter (m)" },
+  { value: "mm", label: "milimeter (mm)" },
 ];
 
 const FLEET = loadableArchetypes();
@@ -20,7 +40,7 @@ const FLEET = loadableArchetypes();
  * Options are grouped by vehicle class in the plain-Indonesian names people
  * actually use. The dataset's own keys stay English so results can be traced
  * back to the research they came from, but none of that vocabulary belongs in
- * front of a visitor — a dropdown reading "Semi-trailer Body" reads like a
+ * front of a visitor, a dropdown reading "Semi-trailer Body" reads like a
  * leaked internal document rather than a tool.
  */
 const GROUPED = VEHICLE_CLASS_ORDER.map((cls) => ({
@@ -35,7 +55,7 @@ const LEVEL_STYLE: Record<ComplianceLevel, { wrap: string; icon: React.ReactNode
     icon: <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />,
   },
   langgar: {
-    wrap: "nm-emboss-orange bg-brand-orange/5",
+    wrap: "nm-emboss bg-white/60 ring-2 ring-brand-orange/35",
     icon: <ShieldAlert className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />,
   },
 };
@@ -86,7 +106,7 @@ export default function TruckLoadCalculator() {
   const limitCopy = {
     volume: {
       title: "Ruang yang lebih dulu habis",
-      body: "Bak penuh sementara timbangan masih longgar. Yang menolong adalah kemasan yang lebih rapat atau bak yang lebih besar — menambah unit hanya memindahkan udara.",
+      body: "Bak penuh sementara timbangan masih longgar. Yang menolong adalah kemasan yang lebih rapat atau bak yang lebih besar. Menambah unit hanya memindahkan udara.",
     },
     weight: {
       title: "Berat yang lebih dulu mentok",
@@ -106,55 +126,46 @@ export default function TruckLoadCalculator() {
     <ToolPanel>
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-5">
-          <div>
-            <FieldLabel htmlFor="vehicle">Armada</FieldLabel>
-            <select
-              id="vehicle"
-              value={vehicleId}
-              onChange={(e) => pickVehicle(e.target.value)}
-              className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold"
-            >
-              {GROUPED.map((group) => (
-                <optgroup key={group.label} label={group.label}>
-                  {group.items.map((v) => (
-                    <option key={v.id} value={v.id}>
-                      {v.marketNames} — {v.commercialType}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
-            <p className="mt-2 text-[12px] leading-[1.7] text-slate-500">
-              {vehicle.notes} Perkiraan kapasitas kelas ini {formatNumber(vehicle.planningPayload.min)}–
-              {formatNumber(vehicle.planningPayload.max)} ton
-              {vehicle.planningVolume
-                ? `, ruang muat ${formatNumber(vehicle.planningVolume.min)}–${formatNumber(vehicle.planningVolume.max)} m³`
-                : ""}
-              .
-            </p>
-          </div>
+          <SelectField
+            label="Armada"
+            value={vehicleId}
+            onChange={pickVehicle}
+            tip={TIPS.vehicle}
+            hint={`${vehicle.notes} Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min)} sampai ${formatNumber(vehicle.planningPayload.max)} ton${
+              vehicle.planningVolume
+                ? `, ruang muat ${formatNumber(vehicle.planningVolume.min)} sampai ${formatNumber(vehicle.planningVolume.max)} m³`
+                : ""
+            }.`}
+          >
+            {GROUPED.map((group) => (
+              <optgroup key={group.label} label={group.label}>
+                {group.items.map((v) => (
+                  <option key={v.id} value={v.id}>
+                    {v.marketNames} ({v.commercialType})
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </SelectField>
 
-          <div>
-            <FieldLabel htmlFor="roadclass">Kelas jalan pada rute</FieldLabel>
-            <select
-              id="roadclass"
-              value={roadClassCode}
-              onChange={(e) => setRoadClassCode(e.target.value)}
-              className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold"
-            >
-              {ROAD_CLASSES.map((r) => (
-                <option key={r.code} value={r.code}>
-                  {r.code} — lebar maks {r.maxWidthM} m, panjang maks {r.maxLengthM} m, MST {r.mstTon} ton
-                </option>
-              ))}
-            </select>
-            <p className="mt-2 text-[12px] leading-[1.7] text-slate-500">{roadClass.note}</p>
-          </div>
+          <SelectField
+            label="Kelas jalan pada rute"
+            value={roadClassCode}
+            onChange={setRoadClassCode}
+            tip={TIPS.roadClass}
+            hint={roadClass.note}
+          >
+            {ROAD_CLASSES.map((r) => (
+              <option key={r.code} value={r.code}>
+                {r.code}: lebar maks {r.maxWidthM} m, panjang maks {r.maxLengthM} m, MST {r.mstTon} ton
+              </option>
+            ))}
+          </SelectField>
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            <NumberField label="Panjang bak" value={body.length} onChange={(v) => setBody({ ...body, length: v })} min={0} step={0.1} suffix="m" />
-            <NumberField label="Lebar bak" value={body.width} onChange={(v) => setBody({ ...body, width: v })} min={0} step={0.1} suffix="m" />
-            <NumberField label="Tinggi bak" value={body.height} onChange={(v) => setBody({ ...body, height: v })} min={0} step={0.1} suffix="m" />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <NumberField label="Panjang bak" value={body.length} onChange={(v) => setBody({ ...body, length: v })} min={0} step={0.1} suffix="m" tip={TIPS.bodyLength} />
+            <NumberField label="Lebar bak" value={body.width} onChange={(v) => setBody({ ...body, width: v })} min={0} step={0.1} suffix="m" tip={TIPS.bodyWidth} />
+            <NumberField label="Tinggi bak" value={body.height} onChange={(v) => setBody({ ...body, height: v })} min={0} step={0.1} suffix="m" tip={TIPS.bodyHeight} />
           </div>
 
           <NumberField
@@ -164,38 +175,37 @@ export default function TruckLoadCalculator() {
             min={0}
             step={100}
             suffix="kg"
+            tip={TIPS.payload}
             hint="Angka pastinya adalah JBI pada dokumen kendaraan dikurangi berat kosong unit setelah karoseri terpasang."
           />
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <NumberField label="Panjang kardus" value={carton.length} onChange={(v) => setCarton({ ...carton, length: v })} min={0} step={1} />
-            <NumberField label="Lebar kardus" value={carton.width} onChange={(v) => setCarton({ ...carton, width: v })} min={0} step={1} />
-            <NumberField label="Tinggi kardus" value={carton.height} onChange={(v) => setCarton({ ...carton, height: v })} min={0} step={1} />
-            <div>
-              <FieldLabel htmlFor="carton-unit">Satuan kardus</FieldLabel>
-              <select
-                id="carton-unit"
-                value={carton.unit}
-                onChange={(e) => setCarton({ ...carton, unit: e.target.value as LengthUnit })}
-                className="nm-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold"
-              >
-                {UNITS.map((u) => (
-                  <option key={u.value} value={u.value}>
-                    {u.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <NumberField label="Berat per kardus" value={weightPerCarton} onChange={setWeightPerCarton} min={0} step={0.5} suffix="kg" />
-            <NumberField label="Total kardus dikirim" value={desiredQuantity} onChange={setDesiredQuantity} min={0} step={10} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <NumberField label="Panjang kardus" suffix={carton.unit} value={carton.length} onChange={(v) => setCarton({ ...carton, length: v })} min={0} step={1} tip={TIPS.cartonLength} />
+            <NumberField label="Lebar kardus" suffix={carton.unit} value={carton.width} onChange={(v) => setCarton({ ...carton, width: v })} min={0} step={1} tip={TIPS.cartonWidth} />
+            <NumberField label="Tinggi kardus" suffix={carton.unit} value={carton.height} onChange={(v) => setCarton({ ...carton, height: v })} min={0} step={1} tip={TIPS.cartonHeight} />
+            <SelectField
+              label="Satuan kardus"
+              value={carton.unit}
+              onChange={(v) => setCarton({ ...carton, unit: v as LengthUnit })}
+              tip={TIPS.cartonUnit}
+            >
+              {UNITS.map((u) => (
+                <option key={u.value} value={u.value}>
+                  {u.label}
+                </option>
+              ))}
+            </SelectField>
+            <NumberField label="Berat per kardus" value={weightPerCarton} onChange={setWeightPerCarton} min={0} step={0.5} suffix="kg" tip={TIPS.cartonWeight} />
+            <NumberField label="Total kardus dikirim" value={desiredQuantity} onChange={setDesiredQuantity} min={0} step={10} suffix="kardus" tip={TIPS.quantity} />
           </div>
 
           <ToggleField
             label="Kardus boleh direbahkan"
             checked={allowRotation}
             onChange={setAllowRotation}
+            tip={TIPS.rotation}
             hint="Matikan untuk barang bertanda this way up yang tidak boleh dibalik."
           />
         </div>
@@ -204,10 +214,10 @@ export default function TruckLoadCalculator() {
       <ResultGrid>
         <ResultCard label="Muat per unit" value={`${formatNumber(plan.maxCartons, 0)} kardus`} hint={`${plan.perLayer} per lapis × ${plan.layers} lapis`} emphasis />
         <ResultCard label="Batas ruang" value={`${formatNumber(plan.fitByVolume, 0)} kardus`} hint={`Bak ${formatNumber(plan.bodyCbm, 1)} m³`} />
-        <ResultCard label="Batas berat" value={`${formatNumber(plan.fitByWeight, 0)} kardus`} hint={`Muatan ${formatNumber(plan.loadedWeight)} kg`} />
+        <ResultCard label="Batas berat" value={`${formatNumber(plan.fitByWeight, 0)} kardus`} hint={`Pada batas ${formatNumber(payloadKg)} kg`} />
         <ResultCard
           label="Unit dibutuhkan"
-          value={plan.trucksNeeded ? `${plan.trucksNeeded} unit` : "—"}
+          value={plan.trucksNeeded ? `${formatNumber(plan.trucksNeeded, 0)} unit` : "Belum diisi"}
           hint={plan.remainderCartons ? `${plan.remainderCartons} kardus di unit terakhir` : "Isi jumlah kiriman"}
           emphasis
         />
@@ -215,7 +225,7 @@ export default function TruckLoadCalculator() {
 
       <div
         className={`mt-5 flex items-start gap-4 rounded-2xl p-5 ${
-          plan.limitedBy === "none" ? "nm-emboss-orange bg-brand-orange/5" : "nm-deboss"
+          plan.limitedBy === "none" ? "nm-emboss bg-white/60 ring-2 ring-brand-orange/35" : "nm-deboss"
         }`}
       >
         {plan.limitedBy === "none" ? (
@@ -236,10 +246,10 @@ export default function TruckLoadCalculator() {
       </div>
 
       {/* Compliance sits below the load plan, not beside it: the arithmetic
-          answers "how many fit", and this answers "may it travel" — a second
+          answers "how many fit", and this answers "may it travel", a second
           question that only becomes relevant once there is a plan to check. */}
-      <section aria-labelledby="kepatuhan" className="mt-8">
-        <h3 id="kepatuhan" className="mb-4 flex items-center gap-3 font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
+      <section aria-labelledby="kepatuhan-panel" className="mt-8">
+        <h3 id="kepatuhan-panel" className="mb-4 flex items-center gap-3 font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
           Yang perlu diperiksa sebelum berangkat
           <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
         </h3>

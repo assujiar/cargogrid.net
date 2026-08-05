@@ -4,7 +4,7 @@ export const tool: Tool = {
   slug: "kalkulator-demurrage",
   kind: "kalkulator",
   title: "Kalkulator Free Time, Demurrage, dan Detention",
-  metaTitle: "Kalkulator Demurrage & Free Time Kontainer — Hitung Tanggal Jatuh Tempo | CargoGrid",
+  metaTitle: "Kalkulator Demurrage & Free Time Kontainer: Hitung Tanggal Jatuh Tempo | CargoGrid",
   description:
     "Masukkan tanggal bongkar dan jumlah free time. Dapatkan tanggal terakhir bebas denda, jumlah hari yang tertagih, dan estimasi biayanya menurut tarif berjenjang milik Anda sendiri.",
   keywords: [
@@ -57,7 +57,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Perbedaan ini bukan sekadar peristilahan. Begitu kedua denda ditumpuk ke satu akun bernama biaya pelabuhan, jejak akar masalahnya hilang — padahal meja dokumen dan halaman gudang membutuhkan perbaikan yang sama sekali berbeda.",
+      text: "Perbedaan ini bukan sekadar peristilahan. Begitu kedua denda ditumpuk ke satu akun bernama biaya pelabuhan, jejak akar masalahnya hilang, padahal meja dokumen dan halaman gudang membutuhkan perbaikan yang sama sekali berbeda.",
     },
     {
       type: "h2",
@@ -72,7 +72,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "warning",
       title: "Periode termahal tahun depan sudah bisa ditandai sekarang",
-      body: "Libur Lebaran, Natal, tahun baru, dan cuti bersama semuanya sudah tertulis di kalender jauh hari. Untuk kiriman yang jadwalnya masih fleksibel, menggeser tanggal kedatangan beberapa hari jauh lebih murah daripada menanggung dendanya — dan keputusan itu paling murah diambil saat booking dibuat, bukan saat kapal sudah di tengah laut.",
+      body: "Libur Lebaran, Natal, tahun baru, dan cuti bersama semuanya sudah tertulis di kalender jauh hari. Untuk kiriman yang jadwalnya masih fleksibel, menggeser tanggal kedatangan beberapa hari jauh lebih murah daripada menanggung dendanya, dan keputusan itu paling murah diambil saat booking dibuat, bukan saat kapal sudah di tengah laut.",
     },
     {
       type: "h2",
@@ -87,7 +87,7 @@ export const tool: Tool = {
       type: "ol",
       items: [
         "**Apakah hari bongkar dihitung sebagai free time hari pertama?** Sebagian pelayaran menghitungnya, sebagian mulai menghitung keesokan harinya. Selisihnya persis satu hari, dan satu hari pada jenjang tarif tertinggi bukan angka yang bisa diabaikan.",
-        "**Apakah penomoran jenjang tarif dimulai ulang dari hari tertagih pertama?** Umumnya ya — jenjang ditulis sebagai hari ke-1 sampai ke-3 setelah free time. Kalkulator ini memakai asumsi tersebut, dan tabel jenjangnya bisa diubah seluruhnya bila milik Anda berbeda.",
+        "**Apakah penomoran jenjang tarif dimulai ulang dari hari tertagih pertama?** Umumnya ya, jenjang ditulis sebagai hari ke-1 sampai ke-3 setelah free time. Kalkulator ini memakai asumsi tersebut, dan tabel jenjangnya bisa diubah seluruhnya bila milik Anda berbeda.",
       ],
     },
     {
@@ -101,7 +101,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Tarif demurrage hampir selalu berjenjang naik. Tarif minggu ketiga kerap tiga sampai lima kali lipat tarif minggu pertama. Akibatnya, keterlambatan yang panjangnya dua kali lipat bisa berbiaya empat kali lipat — dan intuisi orang tentang \"telat beberapa hari lagi tidak apa-apa\" hampir selalu meleset ke arah yang salah.",
+      text: "Tarif demurrage hampir selalu berjenjang naik. Tarif minggu ketiga kerap tiga sampai lima kali lipat tarif minggu pertama. Akibatnya, keterlambatan yang panjangnya dua kali lipat bisa berbiaya empat kali lipat, dan intuisi orang tentang \"telat beberapa hari lagi tidak apa-apa\" hampir selalu meleset ke arah yang salah.",
     },
     {
       type: "p",

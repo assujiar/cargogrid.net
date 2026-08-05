@@ -4,9 +4,9 @@ export const tool: Tool = {
   slug: "ukuran-kontainer",
   kind: "referensi",
   title: "Ukuran dan Kapasitas Kontainer: 20 ft, 40 ft, High Cube, Reefer",
-  metaTitle: "Ukuran Kontainer 20 & 40 Feet — Dimensi, Kubikasi, Payload | CargoGrid",
+  metaTitle: "Ukuran Kontainer 20 & 40 Feet: Dimensi, Kubikasi, Payload | CargoGrid",
   description:
-    "Tabel dimensi dalam, bukaan pintu, kubikasi, tare, dan payload untuk kontainer 20 ft, 40 ft, 40 HC, 45 HC, reefer, open top, dan flat rack — berikut catatan kapan masing-masing dipakai.",
+    "Tabel dimensi dalam, bukaan pintu, kubikasi, tare, dan payload untuk kontainer 20 ft, 40 ft, 40 HC, 45 HC, reefer, open top, dan flat rack, berikut catatan kapan masing-masing dipakai.",
   keywords: [
     "ukuran kontainer 20 feet",
     "ukuran kontainer 40 feet",
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "ukuran container reefer",
   ],
   summary:
-    "Dimensi dalam, kubikasi, dan batas berat untuk delapan tipe kontainer yang beredar di rute Indonesia — beserta satu hal yang tidak bisa diberikan tabel mana pun, dan di mana angka sesungguhnya harus dicari.",
+    "Dimensi dalam, kubikasi, dan batas berat untuk delapan tipe kontainer yang beredar di rute Indonesia, beserta satu hal yang tidak bisa diberikan tabel mana pun, dan di mana angka sesungguhnya harus dicari.",
   searchIntents: [
     "Ukuran dalam kontainer 20 feet dan 40 feet",
     "Berapa CBM muat dalam satu kontainer",
@@ -33,7 +33,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Berat kosong kontainer berbeda beberapa ratus kilogram antar unit, bahkan untuk kotak dengan ukuran nominal yang sama. Artinya payload maksimum bukanlah sifat dari \"kontainer 20 kaki\" sama sekali — melainkan sifat dari unit tertentu, dan angkanya tercetak pada pelat CSC yang terpasang di daun pintu kanan.",
+      text: "Berat kosong kontainer berbeda beberapa ratus kilogram antar unit, bahkan untuk kotak dengan ukuran nominal yang sama. Artinya payload maksimum bukanlah sifat dari \"kontainer 20 kaki\" sama sekali, melainkan sifat dari unit tertentu, dan angkanya tercetak pada pelat CSC yang terpasang di daun pintu kanan.",
     },
     {
       type: "callout",
@@ -61,17 +61,17 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Kontainer 40 kaki punya ruang dua kali lipat 20 kaki, tetapi batas beratnya praktis sama saja — sekitar 28,8 ton berbanding 28,2 ton. Ruang berlipat dua, kapasitas berat tidak. Untuk barang padat seperti keramik, bahan kimia dalam drum, atau suku cadang logam, dua unit 20 kaki mengangkut kira-kira dua kali lipat tonase satu unit 40 kaki, meski totalnya kelihatan lebih mahal di rate sheet.",
+      text: "Kontainer 40 kaki punya ruang dua kali lipat 20 kaki, tetapi batas beratnya praktis sama saja, sekitar 28,8 ton berbanding 28,2 ton. Ruang berlipat dua, kapasitas berat tidak. Untuk barang padat seperti keramik, bahan kimia dalam drum, atau suku cadang logam, dua unit 20 kaki mengangkut kira-kira dua kali lipat tonase satu unit 40 kaki, meski totalnya kelihatan lebih mahal di rate sheet.",
     },
     {
       type: "callout",
       tone: "insight",
       title: "Cara cepat memutuskan",
-      body: "Bagi berat total muatan dengan volume totalnya. Di bawah sekitar 430 kg per meter kubik, ruang akan habis lebih dulu dan 40 kaki atau high cube yang tepat. Di atas itu, berat yang habis lebih dulu, dan yang Anda butuhkan adalah jumlah kontainer 20 kaki — bukan kotak yang lebih besar.",
+      body: "Bagi berat total muatan dengan volume totalnya. Di bawah sekitar 430 kg per meter kubik, ruang akan habis lebih dulu dan 40 kaki atau high cube yang tepat. Di atas itu, berat yang habis lebih dulu, dan yang Anda butuhkan adalah jumlah kontainer 20 kaki, bukan kotak yang lebih besar.",
     },
     {
       type: "p",
-      text: "Kesalahan yang sebaliknya juga umum: memesan 40 kaki standar untuk barang ringan bervolume, padahal high cube memberi tambahan sekitar sembilan meter kubik tanpa tambahan berat sedikit pun. Yang perlu diperiksa pada high cube hanyalah tinggi totalnya, yang mencapai 2,90 meter — periksa jembatan, portal, dan pintu gudang tujuan sebelum membooking.",
+      text: "Kesalahan yang sebaliknya juga umum: memesan 40 kaki standar untuk barang ringan bervolume, padahal high cube memberi tambahan sekitar sembilan meter kubik tanpa tambahan berat sedikit pun. Yang perlu diperiksa pada high cube hanyalah tinggi totalnya, yang mencapai 2,90 meter, periksa jembatan, portal, dan pintu gudang tujuan sebelum membooking.",
     },
     {
       type: "h2",
@@ -94,11 +94,11 @@ export const tool: Tool = {
     },
     {
       q: "Berapa CBM yang muat dalam kontainer 40 ft?",
-      a: "Kapasitas nominalnya sekitar 67 meter kubik untuk tipe standar dan sekitar 76 meter kubik untuk high cube. Secara praktis, rencanakan sekitar 85 persen dari angka itu — kira-kira 57 dan 65 meter kubik — karena penyusunan kardus tidak pernah sempurna.",
+      a: "Kapasitas nominalnya sekitar 67 meter kubik untuk tipe standar dan sekitar 76 meter kubik untuk high cube. Secara praktis, rencanakan sekitar 85 persen dari angka itu, kira-kira 57 dan 65 meter kubik, karena penyusunan kardus tidak pernah sempurna.",
     },
     {
       q: "Berapa payload maksimum kontainer 20 ft?",
-      a: "Sekitar 28,2 ton, dari berat kotor maksimum 30.480 kg dikurangi berat kosong sekitar 2,28 ton. Angka pastinya berbeda per unit dan tercetak pada pelat CSC di daun pintu. Perlu diingat juga bahwa payload kontainer bukan izin muat di jalan — yang berlaku adalah yang terendah di antara rating kontainer, rating chassis, dan JBKI yang diizinkan.",
+      a: "Sekitar 28,2 ton, dari berat kotor maksimum 30.480 kg dikurangi berat kosong sekitar 2,28 ton. Angka pastinya berbeda per unit dan tercetak pada pelat CSC di daun pintu. Perlu diingat juga bahwa payload kontainer bukan izin muat di jalan, yang berlaku adalah yang terendah di antara rating kontainer, rating chassis, dan JBKI yang diizinkan.",
     },
     {
       q: "Apa beda 40 ft standar dan 40 ft high cube?",
@@ -111,7 +111,7 @@ export const tool: Tool = {
   ],
   sources: [
     { label: "Spesifikasi equipment operator pelayaran", detail: "Dimensi dalam, kubikasi, berat kosong, dan payload untuk kontainer 20 dan 40 kaki, high cube, reefer, open top, serta flat rack." },
-    { label: "Konvensi CSC", detail: "Pelat pada daun pintu kontainer yang memuat berat kotor maksimum unit tersebut — satu-satunya angka berat yang mengikat." },
+    { label: "Konvensi CSC", detail: "Pelat pada daun pintu kontainer yang memuat berat kotor maksimum unit tersebut, satu-satunya angka berat yang mengikat." },
   ],
   relatedArticles: ["demurrage-detention-pelabuhan", "margin-per-job-forwarder", "dokumen-kepabeanan-arsip-digital"],
   relatedTools: ["kalkulator-cbm", "kalkulator-demurrage", "kamus-logistik"],

@@ -18,7 +18,11 @@ export default function Logo({ className = "", size = "md" }: LogoProps) {
   }
 
   return (
-    <div className={`flex items-center ${className}`} id="cargogrid-logo-wrapper">
+    // No id here on purpose. The logo renders in both the header and the
+    // footer, so a fixed id put two elements with the same id on every page --
+    // invalid HTML that breaks in-page anchors and trips accessibility tooling,
+    // and invisible until something tries to address one of them.
+    <div className={`flex items-center ${className}`} data-cargogrid-logo="">
       <img
         src={LOGO_SRC}
         alt="CargoGrid"

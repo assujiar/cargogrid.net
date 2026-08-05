@@ -1,17 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Search, Wrench, BookOpen } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import type { Tool } from "../../content/tools/types";
 import { relatedTools } from "../../content/tools";
 import { getArticle } from "../../content/articles";
 import ArticleBody from "../articles/ArticleBody";
+import { ACCENT_CLASSES, ToolBadge, ToolPattern, toolVisual } from "./toolVisuals";
 
 /**
  * Frame shared by every tool page.
  *
  * A server component with a `children` slot for the instrument itself, which is
  * the only interactive part. The consequence is that everything a crawler needs
- * — the H1, the intent list, the explanation, the FAQ, the outbound links —
+ *, the H1, the intent list, the explanation, the FAQ, the outbound links , 
  * arrives as server-rendered HTML, and the client bundle covers just the form.
  * That split is the whole point: these pages are built to be found, and a page
  * whose substance only appears after hydration is a page betting on the crawler
@@ -20,6 +21,8 @@ import ArticleBody from "../articles/ArticleBody";
 export default function ToolShell({ tool, children }: { tool: Tool; children: React.ReactNode }) {
   const related = relatedTools(tool);
   const articles = tool.relatedArticles.map(getArticle).filter((a) => a !== undefined);
+  const visual = toolVisual(tool.slug);
+  const accent = ACCENT_CLASSES[visual.accent];
 
   return (
     <article className="relative py-12 sm:py-16">
@@ -27,7 +30,7 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">
             <li>
-              <Link href="/" className="transition-colors hover:text-brand-teal">
+              <Link href="/" className="inline-flex min-h-[2rem] items-center transition-colors hover:text-brand-teal">
                 Home
               </Link>
             </li>
@@ -35,26 +38,27 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
               /
             </li>
             <li>
-              <Link href="/alat" className="transition-colors hover:text-brand-teal">
+              <Link href="/alat" className="inline-flex min-h-[2rem] items-center transition-colors hover:text-brand-teal">
                 Alat
               </Link>
             </li>
           </ol>
         </nav>
 
-        <header className="max-w-3xl">
-          <p className="mb-4 inline-flex items-center gap-2 font-mono text-[11px] font-black uppercase tracking-[0.16em] text-brand-teal">
-            {tool.kind === "kalkulator" ? (
-              <Wrench className="h-3.5 w-3.5" aria-hidden="true" />
-            ) : (
-              <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
-            )}
-            {tool.kind === "kalkulator" ? "Kalkulator gratis" : "Referensi"}
-          </p>
-          <h1 className="font-display text-3xl font-black leading-[1.15] tracking-tight text-slate-900 sm:text-[2.6rem]">
-            {tool.title}
-          </h1>
-          <p className="mt-6 text-base leading-[1.8] text-slate-600 sm:text-lg">{tool.summary}</p>
+        <header className="nm-emboss relative overflow-hidden rounded-3xl bg-[#eef2f6]/70 p-6 sm:p-8 lg:p-10">
+          <ToolPattern kind={visual.pattern} accent={visual.accent} className="opacity-70" />
+          <div className="relative max-w-3xl">
+            <div className="flex items-center gap-4">
+              <ToolBadge slug={tool.slug} size="lg" />
+              <p className={`font-mono text-[11px] font-black uppercase tracking-[0.16em] ${accent.softText}`}>
+                {tool.kind === "kalkulator" ? "Kalkulator gratis" : "Referensi"}
+              </p>
+            </div>
+            <h1 className="mt-6 font-display text-[1.9rem] font-black leading-[1.15] tracking-tight text-slate-900 sm:text-[2.6rem]">
+              {tool.title}
+            </h1>
+            <p className="mt-5 text-[15px] leading-[1.8] text-slate-600 sm:text-lg">{tool.summary}</p>
+          </div>
         </header>
 
         {/* Intent strip. Someone who arrived from a search needs to confirm in
@@ -134,17 +138,22 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
               <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
             </h2>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((item) => (
                 <Link
                   key={item.slug}
                   href={`/alat/${item.slug}`}
                   className="nm-emboss group flex h-full flex-col rounded-2xl bg-[#eef2f6]/60 p-5 transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                 >
-                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.14em] text-brand-teal">
-                    {item.kind === "kalkulator" ? "Kalkulator" : "Referensi"}
+                  <span className="mb-3 flex items-center gap-2.5">
+                    <ToolBadge slug={item.slug} size="sm" />
+                    <span
+                      className={`font-mono text-[9px] font-black uppercase tracking-[0.14em] ${ACCENT_CLASSES[toolVisual(item.slug).accent].softText}`}
+                    >
+                      {item.kind === "kalkulator" ? "Kalkulator" : "Referensi"}
+                    </span>
                   </span>
-                  <span className="mt-2 font-display text-[15px] font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-teal">
+                  <span className="font-display text-[15px] font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-teal">
                     {item.title}
                   </span>
                   <span className="mt-auto pt-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] text-brand-teal">
@@ -184,21 +193,21 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
         <aside className="nm-emboss mt-16 rounded-3xl bg-[#eef2f6]/70 p-7 sm:p-9">
           <p className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-brand-teal">CargoGrid OS</p>
           <p className="mt-4 max-w-2xl text-[15px] leading-[1.8] text-slate-700">
-            Alat di halaman ini menjawab satu kiriman. Kalau persoalannya adalah tiga puluh kiriman sekaligus — tenggat
-            yang tersebar di kepala beberapa orang, angka yang disalin ulang dari penawaran ke booking ke invoice —
+            Alat di halaman ini menjawab satu kiriman. Kalau persoalannya adalah tiga puluh kiriman sekaligus, tenggat
+            yang tersebar di kepala beberapa orang, angka yang disalin ulang dari penawaran ke booking ke invoice , 
             yang dibutuhkan bukan kalkulator, melainkan satu tempat penyimpanan yang dipakai bersama.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="/solusi"
-              className="nm-btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold text-slate-700 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+              className="nm-btn inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-xs font-extrabold text-slate-700 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               Lihat sistem &amp; modul
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
             <Link
               href="/kontak"
-              className="nm-btn-accent inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-extrabold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="nm-btn-accent inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-xs font-extrabold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Konsultasi gratis
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

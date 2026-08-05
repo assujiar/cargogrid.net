@@ -384,10 +384,18 @@ export function ToggleField({
             checked ? "bg-brand-teal" : "bg-slate-300"
           }`}
         >
+          {/* `left-1` is not decoration. Without an explicit left the knob is
+              placed at its static position, and the static position of an
+              out-of-flow child of a button is the centre of the button, because
+              buttons centre their content by default. The knob then started
+              28px in and the checked state pushed it clean out of the track.
+              Anchoring it to the left edge makes the travel the only thing the
+              translate has to express: 24px knob, 4px inset each side, 56px
+              track, so a 24px slide lands it flush against the far inset. */}
           <span
             aria-hidden="true"
-            className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-transform ${
-              checked ? "translate-x-7" : "translate-x-1"
+            className={`absolute left-1 top-1 h-6 w-6 rounded-full bg-white shadow transition-transform ${
+              checked ? "translate-x-6" : "translate-x-0"
             }`}
           />
         </button>

@@ -84,7 +84,7 @@ export default function PricingSection() {
             role="switch"
             aria-checked={isAnnual}
             aria-label={isEn ? "Toggle annual billing" : "Ubah ke tagihan tahunan"}
-            className="relative w-14 h-8 nm-deboss bg-slate-200 rounded-full transition-all duration-200 cursor-pointer p-1 border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
+            className="relative w-14 h-8 flex-shrink-0 nm-deboss bg-slate-200 rounded-full transition-all duration-200 cursor-pointer p-1 border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
           >
             <motion.div
               layout

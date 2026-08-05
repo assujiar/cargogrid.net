@@ -115,7 +115,12 @@ await page.goto(`${BASE}/alat/kalkulator-demurrage`, { waitUntil: "networkidle" 
 await page.waitForTimeout(400);
 await unlock(page);
 check("a second calculator opens without asking again", (await page.getByRole("button", { name: "Buka kalkulator" }).count()) === 0);
-check("the unlocked banner names the visitor", (await page.locator("body").textContent()).includes("Budi Santoso"));
+// Once unlocked the gate leaves nothing behind: no banner reciting the
+// visitor's own name back at them, no edit affordance for data they will never
+// revisit. Anything left over is furniture between them and the calculator.
+const unlockedBody = await page.locator("body").textContent();
+check("the gate leaves no residue after unlocking", !unlockedBody.includes("Terbuka untuk") && !unlockedBody.includes("Budi Santoso"));
+check("no edit affordance survives the unlock", (await page.getByRole("button", { name: /Ubah data/ }).count()) === 0);
 
 // Reference pages were never gated.
 await page.goto(`${BASE}/alat/jenis-truk-indonesia`, { waitUntil: "networkidle" });
@@ -132,6 +137,13 @@ for (const slug of TOOLS) {
 const hubResponse = await page.goto(`${BASE}/alat`, { waitUntil: "networkidle" });
 const hubCards = await page.locator('a[href^="/alat/"]').count();
 check("the hub lists every tool", hubResponse.status() === 200 && hubCards >= TOOLS.length, `${hubCards} links`);
+
+// The footer's tool list carries the same marks as the hub cards, so a visitor
+// who learned the truck icon upstairs recognises it downstairs.
+const footerToolLinks = page.locator('nav[aria-label="Alat gratis"] a[href^="/alat/"]');
+const footerToolCount = await footerToolLinks.count();
+const footerIconed = await footerToolLinks.locator("svg").count();
+check("the footer lists every tool with its icon", footerToolCount === TOOLS.length && footerIconed === TOOLS.length, `${footerToolCount} links, ${footerIconed} icons`);
 
 console.log("\ncbm calculator computes");
 

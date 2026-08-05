@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "./shared/LanguageProvider";
 import { companyAddressLine } from "../lib/companyInfo";
 import { TOOL_NAV_LINKS } from "../content/tools/navLinks";
+import { toolVisual, ACCENT_CLASSES } from "./tools/toolVisuals";
 import { openCookiePreferences } from "../lib/tracking";
 
 export default function Footer() {
@@ -107,16 +108,28 @@ export default function Footer() {
           <h2 className="font-display font-extrabold text-slate-900 text-xs uppercase tracking-widest">
             {isEn ? "Free Tools & Reference" : "Alat & Referensi Gratis"}
           </h2>
-          <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs sm:grid-cols-3 lg:grid-cols-5">
-            {TOOL_NAV_LINKS.map((tool) => (
-              <Link
-                key={tool.slug}
-                href={`/alat/${tool.slug}`}
-                className="hover:text-brand-orange transition-colors font-bold leading-snug"
-              >
-                {isEn ? tool.labelEn : tool.label}
-              </Link>
-            ))}
+          {/* Icon plus label, not label alone. Nine near-identical lines of
+              small bold text read as one grey block; the mark gives each row a
+              shape the eye can land on. items-start, because the labels wrap to
+              two lines in the two-column phone layout and a centred icon would
+              float against the middle of the text instead of its first line. */}
+          <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-xs sm:grid-cols-3 lg:grid-cols-5">
+            {TOOL_NAV_LINKS.map((tool) => {
+              const { Icon, accent } = toolVisual(tool.slug);
+              return (
+                <Link
+                  key={tool.slug}
+                  href={`/alat/${tool.slug}`}
+                  className="group flex items-start gap-2 hover:text-brand-orange transition-colors font-bold leading-snug"
+                >
+                  <Icon
+                    className={`mt-px h-3.5 w-3.5 flex-shrink-0 ${ACCENT_CLASSES[accent].text} transition-colors group-hover:text-brand-orange`}
+                    aria-hidden="true"
+                  />
+                  <span className="min-w-0">{isEn ? tool.labelEn : tool.label}</span>
+                </Link>
+              );
+            })}
           </div>
         </nav>
 

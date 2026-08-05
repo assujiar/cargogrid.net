@@ -130,8 +130,36 @@ export default function FleetCostCalculator() {
           </Section>
 
           <Section title="Biaya per rit">
-            <NumberField label="Tol" value={input.tollPerTrip} onChange={set("tollPerTrip")} min={0} step={50_000} suffix="Rp" hint="Sesuai golongan kendaraan dan ruas yang dilewati." />
-            <NumberField label="Penyeberangan" value={input.ferryPerTrip} onChange={set("ferryPerTrip")} min={0} step={50_000} suffix="Rp" hint="Sesuai golongan panjang kendaraan dan lintasannya." />
+            {/* The golongan is repeated here rather than only under the vehicle
+                picker. Somebody filling in a toll cost needs to know which
+                tariff column to read, and the answer being three sections up
+                the page is the same as it not being there. */}
+            <NumberField
+              label="Tol"
+              value={input.tollPerTrip}
+              onChange={set("tollPerTrip")}
+              min={0}
+              step={50_000}
+              suffix="Rp"
+              hint={
+                vehicle
+                  ? `Cari tarif golongan ${vehicle.tollClass} pada ruas yang dilewati, lalu jumlahkan sekali jalan dan pulang.`
+                  : "Sesuai golongan kendaraan dan ruas yang dilewati."
+              }
+            />
+            <NumberField
+              label="Penyeberangan"
+              value={input.ferryPerTrip}
+              onChange={set("ferryPerTrip")}
+              min={0}
+              step={50_000}
+              suffix="Rp"
+              hint={
+                vehicle
+                  ? `Cari tarif golongan ${vehicle.ferryClass} pada lintasan yang dipakai. Isi 0 bila rutenya tidak menyeberang.`
+                  : "Sesuai golongan panjang kendaraan dan lintasannya."
+              }
+            />
             <NumberField label="Bongkar muat dan alat" value={input.handlingPerTrip} onChange={set("handlingPerTrip")} min={0} step={50_000} suffix="Rp" />
             <NumberField label="Parkir, retribusi, keamanan" value={input.parkingPerTrip} onChange={set("parkingPerTrip")} min={0} step={50_000} suffix="Rp" />
             <NumberField label="Uang jalan sopir dan kernet" value={input.crewAllowancePerTrip} onChange={set("crewAllowancePerTrip")} min={0} step={50_000} suffix="Rp" />

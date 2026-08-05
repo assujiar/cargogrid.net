@@ -71,6 +71,33 @@ export const tool: Tool = {
     },
     {
       type: "h2",
+      id: "tol-dan-penyeberangan",
+      text: "Kenapa tarif tol dan penyeberangan harus Anda isi sendiri",
+    },
+    {
+      type: "p",
+      text: "Dua kolom itu sengaja dikosongkan dari angka bawaan yang mengikat, dan itu keputusan yang disengaja. Tarif tol berbeda per ruas jalan; tarif penyeberangan berbeda per lintasan. Keduanya juga berubah menurut tanggal berlaku.",
+    },
+    {
+      type: "p",
+      text: "Menanam satu tarif nasional ke dalam alat ini berarti menerbitkan angka yang akan salah dalam hitungan bulan, dan tidak akan ada yang tahu kapan mulai salahnya — termasuk Anda, yang justru memakainya untuk menetapkan tarif. Angka yang tampil sekarang hanyalah pengisi kolom supaya hasilnya tidak nol; ganti dengan tarif rute Anda sendiri.",
+    },
+    {
+      type: "ol",
+      items: [
+        "Pilih armada di bagian atas. Alat ini langsung menyebutkan **golongan tol** dan **golongan penyeberangan** kelas tersebut, dan mengulangnya tepat di sebelah kolom yang harus diisi.",
+        "Cari tarif untuk golongan itu pada ruas tol dan lintasan penyeberangan yang benar-benar dilewati rute Anda.",
+        "Masukkan totalnya per rit — jangan lupa menjumlahkan perjalanan berangkat dan pulang, karena seluruh perhitungan di halaman ini berbasis satu rit utuh.",
+      ],
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Golongan tol dan golongan penyeberangan tidak sama",
+      body: "Golongan tol mengikuti jumlah gandar; golongan penyeberangan mengikuti panjang keseluruhan kendaraan. Truk bergandar dua yang berbadan panjang bisa masuk golongan penyeberangan lebih tinggi daripada truk bergandar tiga yang pendek. Memakai golongan tol untuk mencari tarif kapal akan meleset, dan biasanya ke arah yang merugikan.",
+    },
+    {
+      type: "h2",
       id: "faktor-ketersediaan",
       text: "Faktor ketersediaan: pos yang paling sering dilebih-lebihkan",
     },
@@ -131,6 +158,14 @@ export const tool: Tool = {
     {
       q: "Bagaimana menetapkan harga jual minimum dari biaya?",
       a: "Bagi biaya dengan satu dikurangi margin yang dituju, bukan mengalikannya dengan margin. Biaya sepuluh juta dengan target margin dua puluh persen menghasilkan harga jual minimum dua belas setengah juta, bukan dua belas juta.",
+    },
+    {
+      q: "Kenapa tarif tol dan penyeberangan tidak sudah terisi otomatis?",
+      a: "Karena tarif tol berbeda per ruas jalan dan tarif penyeberangan berbeda per lintasan, dan keduanya berubah menurut tanggal berlaku. Satu tarif nasional yang ditanam di dalam alat akan menjadi salah tanpa ada yang menyadarinya. Yang alat ini sediakan adalah golongan kendaraan Anda — tarifnya ambil dari ruas dan lintasan yang benar-benar dilewati, lalu masukkan sebagai isian.",
+    },
+    {
+      q: "Bagaimana saya tahu masuk golongan berapa?",
+      a: "Pilih armada di bagian atas kalkulator, dan golongan tol serta golongan penyeberangannya langsung ditampilkan — termasuk diulang tepat di sebelah kolom biaya yang harus diisi. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
     },
     {
       q: "Apakah biaya tetap boleh dibebankan hanya pada kilometer bermuatan?",

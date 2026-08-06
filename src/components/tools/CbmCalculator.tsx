@@ -118,17 +118,17 @@ export default function CbmCalculator() {
                 <p className="min-w-0 text-[12px] leading-[1.6] text-slate-600">
                   {isEn ? (
                     <>
-                      {formatNumber(result.lines[index]?.cbmPerPiece ?? 0, 4)} CBM per piece, total{" "}
+                      {formatNumber(result.lines[index]?.cbmPerPiece ?? 0, 4, isEn)} CBM per piece, total{" "}
                       <strong className="font-bold text-slate-900">
-                        {formatNumber(result.lines[index]?.totalCbm ?? 0, 3)} CBM
+                        {formatNumber(result.lines[index]?.totalCbm ?? 0, 3, isEn)} CBM
                       </strong>{" "}
                       for this row
                     </>
                   ) : (
                     <>
-                      {formatNumber(result.lines[index]?.cbmPerPiece ?? 0, 4)} CBM per koli, total{" "}
+                      {formatNumber(result.lines[index]?.cbmPerPiece ?? 0, 4, isEn)} CBM per koli, total{" "}
                       <strong className="font-bold text-slate-900">
-                        {formatNumber(result.lines[index]?.totalCbm ?? 0, 3)} CBM
+                        {formatNumber(result.lines[index]?.totalCbm ?? 0, 3, isEn)} CBM
                       </strong>{" "}
                       untuk baris ini
                     </>
@@ -167,25 +167,25 @@ export default function CbmCalculator() {
       <ResultGrid>
         <ResultCard
           label="Total volume"
-          value={`${formatNumber(result.totalCbm, 3)} CBM`}
-          hint={isEn ? `${formatNumber(result.totalPieces, 0)} pcs` : `${formatNumber(result.totalPieces, 0)} koli`}
+          value={`${formatNumber(result.totalCbm, 3, isEn)} CBM`}
+          hint={isEn ? `${formatNumber(result.totalPieces, 0, isEn)} pcs` : `${formatNumber(result.totalPieces, 0, isEn)} koli`}
           icon={<Box className="h-3 w-3" aria-hidden="true" />}
         />
         <ResultCard
           label={isEn ? "Actual weight" : "Berat aktual"}
-          value={`${formatNumber(result.totalActualWeight)} kg`}
+          value={`${formatNumber(result.totalActualWeight, undefined, isEn)} kg`}
           hint={isEn ? "From the scale" : "Hasil timbangan"}
           icon={<Scale className="h-3 w-3" aria-hidden="true" />}
         />
         <ResultCard
           label={isEn ? "Volumetric weight" : "Berat volumetrik"}
-          value={`${formatNumber(result.volumetricWeight)} kg`}
-          hint={`${formatNumber(mode.kgPerCbm)} kg per CBM`}
+          value={`${formatNumber(result.volumetricWeight, undefined, isEn)} kg`}
+          hint={`${formatNumber(mode.kgPerCbm, undefined, isEn)} kg per CBM`}
           icon={<Ship className="h-3 w-3" aria-hidden="true" />}
         />
         <ResultCard
           label="Chargeable weight"
-          value={`${formatNumber(result.chargeableWeight)} kg`}
+          value={`${formatNumber(result.chargeableWeight, undefined, isEn)} kg`}
           hint={
             isEn
               ? result.basis === "volume"
@@ -214,16 +214,16 @@ export default function CbmCalculator() {
             {isEn ? (
               <>
                 Your cargo density is{" "}
-                <strong className="font-bold text-slate-900">{formatNumber(result.densityKgPerCbm)} kg/CBM</strong>,
+                <strong className="font-bold text-slate-900">{formatNumber(result.densityKgPerCbm, undefined, isEn)} kg/CBM</strong>,
                 against a break-even of{" "}
-                <strong className="font-bold text-slate-900">{formatNumber(result.breakEvenDensity)} kg/CBM</strong>.
+                <strong className="font-bold text-slate-900">{formatNumber(result.breakEvenDensity, undefined, isEn)} kg/CBM</strong>.
               </>
             ) : (
               <>
                 Kepadatan muatan Anda{" "}
-                <strong className="font-bold text-slate-900">{formatNumber(result.densityKgPerCbm)} kg/CBM</strong>,
+                <strong className="font-bold text-slate-900">{formatNumber(result.densityKgPerCbm, undefined, isEn)} kg/CBM</strong>,
                 berbanding ambang{" "}
-                <strong className="font-bold text-slate-900">{formatNumber(result.breakEvenDensity)} kg/CBM</strong>.
+                <strong className="font-bold text-slate-900">{formatNumber(result.breakEvenDensity, undefined, isEn)} kg/CBM</strong>.
               </>
             )}
           </p>

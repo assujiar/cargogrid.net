@@ -181,14 +181,14 @@ export default function TruckLoadCalculator() {
             tip={isEn ? TIPS_EN.vehicle : TIPS.vehicle}
             hint={
               isEn
-                ? `${vehicle.notesEn} This class's estimated capacity is ${formatNumber(vehicle.planningPayload.min)} to ${formatNumber(vehicle.planningPayload.max)} tonnes${
+                ? `${vehicle.notesEn} This class's estimated capacity is ${formatNumber(vehicle.planningPayload.min, undefined, isEn)} to ${formatNumber(vehicle.planningPayload.max, undefined, isEn)} tonnes${
                     vehicle.planningVolume
-                      ? `, load space ${formatNumber(vehicle.planningVolume.min)} to ${formatNumber(vehicle.planningVolume.max)} m³`
+                      ? `, load space ${formatNumber(vehicle.planningVolume.min, undefined, isEn)} to ${formatNumber(vehicle.planningVolume.max, undefined, isEn)} m³`
                       : ""
                   }.`
-                : `${vehicle.notes} Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min)} sampai ${formatNumber(vehicle.planningPayload.max)} ton${
+                : `${vehicle.notes} Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min, undefined, isEn)} sampai ${formatNumber(vehicle.planningPayload.max, undefined, isEn)} ton${
                     vehicle.planningVolume
-                      ? `, ruang muat ${formatNumber(vehicle.planningVolume.min)} sampai ${formatNumber(vehicle.planningVolume.max)} m³`
+                      ? `, ruang muat ${formatNumber(vehicle.planningVolume.min, undefined, isEn)} sampai ${formatNumber(vehicle.planningVolume.max, undefined, isEn)} m³`
                       : ""
                   }.`
             }
@@ -276,23 +276,23 @@ export default function TruckLoadCalculator() {
       <ResultGrid>
         <ResultCard
           label={isEn ? "Fits per unit" : "Muat per unit"}
-          value={`${formatNumber(plan.maxCartons, 0)} ${isEn ? "cartons" : "kardus"}`}
+          value={`${formatNumber(plan.maxCartons, 0, isEn)} ${isEn ? "cartons" : "kardus"}`}
           hint={isEn ? `${plan.perLayer} per layer × ${plan.layers} layers` : `${plan.perLayer} per lapis × ${plan.layers} lapis`}
           emphasis
         />
         <ResultCard
           label={isEn ? "Space limit" : "Batas ruang"}
-          value={`${formatNumber(plan.fitByVolume, 0)} ${isEn ? "cartons" : "kardus"}`}
-          hint={isEn ? `Body ${formatNumber(plan.bodyCbm, 1)} m³` : `Bak ${formatNumber(plan.bodyCbm, 1)} m³`}
+          value={`${formatNumber(plan.fitByVolume, 0, isEn)} ${isEn ? "cartons" : "kardus"}`}
+          hint={isEn ? `Body ${formatNumber(plan.bodyCbm, 1, isEn)} m³` : `Bak ${formatNumber(plan.bodyCbm, 1, isEn)} m³`}
         />
         <ResultCard
           label={isEn ? "Weight limit" : "Batas berat"}
-          value={`${formatNumber(plan.fitByWeight, 0)} ${isEn ? "cartons" : "kardus"}`}
-          hint={isEn ? `At the limit of ${formatNumber(payloadKg)} kg` : `Pada batas ${formatNumber(payloadKg)} kg`}
+          value={`${formatNumber(plan.fitByWeight, 0, isEn)} ${isEn ? "cartons" : "kardus"}`}
+          hint={isEn ? `At the limit of ${formatNumber(payloadKg, undefined, isEn)} kg` : `Pada batas ${formatNumber(payloadKg, undefined, isEn)} kg`}
         />
         <ResultCard
           label={isEn ? "Units needed" : "Unit dibutuhkan"}
-          value={plan.trucksNeeded ? `${formatNumber(plan.trucksNeeded, 0)} ${isEn ? "units" : "unit"}` : isEn ? "Not filled in" : "Belum diisi"}
+          value={plan.trucksNeeded ? `${formatNumber(plan.trucksNeeded, 0, isEn)} ${isEn ? "units" : "unit"}` : isEn ? "Not filled in" : "Belum diisi"}
           hint={
             plan.remainderCartons
               ? isEn
@@ -321,8 +321,8 @@ export default function TruckLoadCalculator() {
           <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">{limitCopy.body}</p>
           {plan.limitedBy !== "none" && (
             <p className="mt-3 font-mono text-[11px] font-bold text-slate-500">
-              {isEn ? "Space utilisation" : "Pemakaian ruang"} {formatNumber(plan.volumeUtilisation * 100, 0)}% ·{" "}
-              {isEn ? "weight utilisation" : "pemakaian berat"} {formatNumber(plan.weightUtilisation * 100, 0)}%
+              {isEn ? "Space utilisation" : "Pemakaian ruang"} {formatNumber(plan.volumeUtilisation * 100, 0, isEn)}% ·{" "}
+              {isEn ? "weight utilisation" : "pemakaian berat"} {formatNumber(plan.weightUtilisation * 100, 0, isEn)}%
             </p>
           )}
         </div>

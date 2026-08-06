@@ -104,21 +104,21 @@ export function ContainerTable() {
               <th scope="row" className={`${TD} font-display font-bold text-slate-900`}>{spec.name}</th>
               <td className={`${TD} font-mono text-[11px]`}>{spec.isoCode}</td>
               <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
-                {formatNumber(spec.inner.length, 3)} × {formatNumber(spec.inner.width, 3)} × {formatNumber(spec.inner.height, 3)}
+                {formatNumber(spec.inner.length, 3, isEn)} × {formatNumber(spec.inner.width, 3, isEn)} × {formatNumber(spec.inner.height, 3, isEn)}
               </td>
               <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
                 {spec.door ? `${spec.door.width} × ${spec.door.height}` : isEn ? "Loaded from top/side" : "Muat dari atas/samping"}
               </td>
               <td className={`${TD} whitespace-nowrap font-semibold`}>
                 {spec.volumeIsPlanningBasis ? (
-                  `${formatNumber(spec.capacityCbm, 1)} m³`
+                  `${formatNumber(spec.capacityCbm, 1, isEn)} m³`
                 ) : (
                   <span className="text-slate-400">{isEn ? "Not a planning basis" : "Bukan dasar rencana"}</span>
                 )}
               </td>
               <td className={`${TD} whitespace-nowrap`}>
                 {spec.volumeIsPlanningBasis ? (
-                  `${formatNumber(practicalCbm(spec), 1)} m³`
+                  `${formatNumber(practicalCbm(spec), 1, isEn)} m³`
                 ) : (
                   <span className="text-slate-400">{isEn ? "Use footprint and height" : "Pakai tapak dan tinggi"}</span>
                 )}
@@ -127,10 +127,10 @@ export function ContainerTable() {
                 {spec.tareKg === null ? (
                   <span className="text-slate-400">{isEn ? "Per unit" : "Per unit"}</span>
                 ) : (
-                  `${formatNumber(spec.tareKg)} kg`
+                  `${formatNumber(spec.tareKg, undefined, isEn)} kg`
                 )}
               </td>
-              <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{formatNumber(payloadKg(spec))} kg</td>
+              <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{formatNumber(payloadKg(spec), undefined, isEn)} kg</td>
             </tr>
           ))}
         </tbody>
@@ -221,19 +221,19 @@ export function RegulationsView() {
               <tr key={rc.code} className="border-b border-slate-300/30 last:border-0">
                 <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{isEn ? rc.codeEn : rc.code}</th>
                 <td className={`${TD} whitespace-nowrap`}>
-                  {rc.maxWidthM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxWidthM, 1)} m`}
+                  {rc.maxWidthM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxWidthM, 1, isEn)} m`}
                 </td>
                 <td className={`${TD} whitespace-nowrap`}>
-                  {rc.maxLengthM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxLengthM, 1)} m`}
+                  {rc.maxLengthM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxLengthM, 1, isEn)} m`}
                 </td>
                 <td className={`${TD} whitespace-nowrap`}>
-                  {rc.maxHeightM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxHeightM, 1)} m`}
+                  {rc.maxHeightM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxHeightM, 1, isEn)} m`}
                 </td>
                 <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>
                   {rc.mstTon === null ? (
                     <span className="font-normal text-slate-400">{isEn ? "Per permit" : "Per izin"}</span>
                   ) : (
-                    `${formatNumber(rc.mstTon, 1)} ${isEn ? "tonnes" : "ton"}`
+                    `${formatNumber(rc.mstTon, 1, isEn)} ${isEn ? "tonnes" : "ton"}`
                   )}
                 </td>
                 <td className={`${TD} min-w-[300px] leading-[1.7]`}>{isEn ? rc.noteEn : rc.note}</td>

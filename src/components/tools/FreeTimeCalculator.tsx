@@ -249,8 +249,8 @@ export default function FreeTimeCalculator() {
               label={result.withinFreeTime ? (isEn ? "Time remaining" : "Sisa waktu") : isEn ? "Chargeable days" : "Hari tertagih"}
               value={
                 result.withinFreeTime
-                  ? `${formatNumber(result.daysRemaining, 0)} ${isEn ? "days" : "hari"}`
-                  : `${formatNumber(result.chargeableDays, 0)} ${isEn ? "days" : "hari"}`
+                  ? `${formatNumber(result.daysRemaining, 0, isEn)} ${isEn ? "days" : "hari"}`
+                  : `${formatNumber(result.chargeableDays, 0, isEn)} ${isEn ? "days" : "hari"}`
               }
               hint={result.withinFreeTime ? (isEn ? "Still within free time" : "Masih dalam free time") : isEn ? "Past free time" : "Melewati free time"}
             />
@@ -280,12 +280,12 @@ export default function FreeTimeCalculator() {
                   <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
                     {isEn ? (
                       <>
-                        {formatNumber(result.daysRemaining, 0)} calendar days remain until {formatLongDate(result.lastFreeDay, true)}. Remember that
+                        {formatNumber(result.daysRemaining, 0, isEn)} calendar days remain until {formatLongDate(result.lastFreeDay, true)}. Remember that
                         weekends and national holidays are counted too.
                       </>
                     ) : (
                       <>
-                        Tersisa {formatNumber(result.daysRemaining, 0)} hari kalender sampai {formatLongDate(result.lastFreeDay)}. Ingat bahwa akhir
+                        Tersisa {formatNumber(result.daysRemaining, 0, isEn)} hari kalender sampai {formatLongDate(result.lastFreeDay)}. Ingat bahwa akhir
                         pekan dan libur nasional ikut terhitung.
                       </>
                     )}

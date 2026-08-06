@@ -4,9 +4,12 @@ export const tool: Tool = {
   slug: "biaya-operasional-truk",
   kind: "kalkulator",
   title: "Kalkulator Biaya Operasional Truk: Cost per KM, per Rit, dan per Ton-KM",
+  titleEn: "Truck Operating Cost Calculator: Cost per KM, per Trip, and per Ton-KM",
   metaTitle: "Kalkulator Biaya Operasional Truk: Cost per KM & Harga Jual Minimum | CargoGrid",
   description:
     "Tarif yang Anda tawarkan sudah menutup biaya sebenarnya, atau baru terasa aman di atas kertas? Kalkulator ini menyusun biaya tetap, bahan bakar, dan uang jalan armada Anda menjadi satu angka pembanding: biaya per kilometer bermuatan.",
+  descriptionEn:
+    "Does the rate you're quoting actually cover your real cost, or does it only look safe on paper? This calculator assembles your fleet's fixed costs, fuel, and per-diem into one comparison figure: cost per loaded kilometer.",
   keywords: [
     "cost per km truk",
     "biaya operasional truk per km",
@@ -17,12 +20,21 @@ export const tool: Tool = {
   ],
   summary:
     "Menentukan tarif tanpa tahu biaya sendiri adalah menebak dengan langkah tambahan. Kalkulator ini menyusun komponen biaya utama satu unit, dari penyusutan sampai uang jalan, lalu mengubahnya menjadi titik awal untuk menjawab penawaran: biaya per rit, per kilometer bermuatan, per ton-km, dan harga jual minimum. Komponen yang sifatnya situasional, seperti rit kosong di luar pola yang dipilih, hari tidak beroperasi, overhead kantor, dan risiko rute, tetap perlu ditambahkan sendiri sebelum angkanya dipakai sebagai dasar penawaran.",
+  summaryEn:
+    "Setting a rate without knowing your own cost is guessing with an extra step. This calculator assembles a single unit's main cost components, from depreciation to per-diem, then turns them into a starting point for answering a quote: cost per trip, per loaded kilometer, per ton-km, and minimum selling price. Situational components, such as empty legs outside the selected route pattern, non-operating days, office overhead, and route risk, still need to be added separately before the figures are used as the basis for a quote.",
   searchIntents: [
     "Cara menghitung biaya operasional truk per kilometer",
     "Menentukan tarif angkutan darat yang tidak rugi",
     "Berapa biaya per ton-km armada sendiri",
     "Kenapa rit balik kosong membuat tarif jadi mahal",
     "Harga jual minimum agar margin sesuai target",
+  ],
+  searchIntentsEn: [
+    "How to calculate truck operating cost per kilometer",
+    "Setting a road freight rate that doesn't lose money",
+    "What is the cost per ton-km for my own fleet",
+    "Why an empty return leg makes the rate expensive",
+    "Minimum selling price to hit a target margin",
   ],
   publishedAt: "2026-08-05",
   blocks: [
@@ -230,6 +242,211 @@ export const tool: Tool = {
       text: "Untuk mengetahui lane mana yang sesungguhnya merugi, biaya harus tercatat per pengiriman, bukan per asumsi, termasuk biaya susulan yang invoicenya baru datang berminggu-minggu kemudian. Itu persoalan pencatatan, dan tidak ada kalkulator yang bisa menyelesaikannya.",
     },
   ],
+  blocksEn: [
+    {
+      type: "h2",
+      id: "kenapa-tarif-sering-meleset",
+      text: "Why a rate that feels safe still loses money",
+    },
+    {
+      type: "p",
+      text: "The most common way to set a rate is to add up diesel, per-diem, and toll, then tack on a percentage. The result is almost always too low, and the reason isn't arithmetic, it's the line items that never get counted.",
+    },
+    {
+      type: "p",
+      text: "A truck keeps depreciating while it's parked. Its installment keeps running, its insurance keeps getting paid, its driver keeps getting a salary, and a share of office overhead keeps sitting on it. None of that shows up on any receipt from the trip, so it never feels like a cost of this run, even though it's usually the largest line item of all.",
+    },
+    {
+      type: "callout",
+      tone: "insight",
+      title: "Fixed cost is charged against every kilometer, including empty ones",
+      body: "A truck coming back with no load still depreciates and its driver still gets paid. Because of that, the entire trip's cost, loaded or empty, has to be recovered from revenue-generating kilometers alone. That's why cost per loaded km is always higher than cost per total km, and the gap between the two is the price you pay for the empty return leg.",
+    },
+    {
+      type: "h2",
+      id: "cara-kerja",
+      text: "How the calculation is structured",
+    },
+    {
+      type: "p",
+      text: "The sequence deliberately follows the standard fleet cost model, because that sequence is what makes the result traceable when someone questions the number.",
+    },
+    {
+      type: "ol",
+      items: [
+        "**Annual depreciation** = (acquisition price minus residual value) divided by economic life.",
+        "**Annual fixed cost** = depreciation plus installment, insurance, tax and permits, fixed crew salary, system subscriptions, and allocated overhead.",
+        "**Fixed cost per kilometer** = annual fixed cost divided by effective kilometers per year, which is planned kilometers multiplied by the fleet availability factor.",
+        "**Fuel cost per trip** is calculated separately for loaded distance and empty distance, because consumption genuinely differs and this is the single largest line item.",
+        "**Tire cost per kilometer** = the price of one set divided by its service life, plus maintenance, lubricants, and additive fluids.",
+        "**Cost per trip** = fixed cost per km multiplied by total distance, plus fuel, plus road cost per km multiplied by total distance, plus per-trip items such as toll, ferry crossing, loading/unloading, and per-diem.",
+      ],
+    },
+    {
+      type: "p",
+      text: "From that single cost-per-trip figure, every derived number used in negotiation flows on its own: cost per loaded kilometer to compare lanes, cost per ton-km to compare fleet efficiency, and minimum selling price to make sure the targeted margin is actually reached.",
+    },
+    {
+      type: "h2",
+      id: "pola-rute",
+      text: "Round trip or one-way: pick the pattern, don't calculate it yourself",
+    },
+    {
+      type: "p",
+      text: "The cost calculation works with two separate distances, loaded kilometers and empty kilometers, and that split is correct, because only loaded kilometers generate revenue. The problem is nobody keeps their route in that form. What people actually know is \"Jakarta-Surabaya, empty return\".",
+    },
+    {
+      type: "p",
+      text: "That's why this calculator asks for the route pattern first, then the one-way distance. Everything else is worked out on its own.",
+    },
+    {
+      type: "table",
+      caption: "Example on a 500 km one-way route",
+      head: ["Route pattern", "Loaded km", "Empty km", "When it applies"],
+      rows: [
+        ["Round trip, empty return", "500", "500", "The most common pattern. Half the distance generates no revenue but still burns diesel, tires, and driver time"],
+        ["Round trip, loaded both ways", "1,000", "0", "There's a paying return load. The distance covered is exactly the same, but cost per loaded kilometer drops sharply"],
+        ["One-way only", "500", "0", "The vehicle doesn't return, or the return trip is already charged to another job"],
+        ["Custom", "entered manually", "entered manually", "Partial return load, positioning distance, or a route with multiple stops"],
+      ],
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "The most expensive mistake on this page",
+      body: "Entering the one-way distance and then forgetting the return leg entirely. Cost per trip immediately reads as half of what it actually is, and the rate born from that loses money on every single trip, with no single line item that looks off when you check it again. Choosing the route pattern first rules that out.",
+    },
+    {
+      type: "h2",
+      id: "angka-awal",
+      text: "Default figures follow the fleet class, and you still need to replace them",
+    },
+    {
+      type: "p",
+      text: "Some line items don't just differ a little between fleet classes, they differ by multiples. A tractor-trailer combination covers about 2.5 kilometers per liter; a light truck can do three times that. So changing the fleet selection also changes fuel consumption, acquisition price, tire life, and fixed crew salary. Tire and maintenance costs adjust along with it automatically, because both are calculated as a share of vehicle price.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Fuel consumption has no fixed figure",
+      body: "Kilometers per liter is shaped by terrain, cargo weight, engine age, driving style, and how often the vehicle sits in traffic. Two identical units on different routes can differ by tens of percent. The default figure here exists only so the field isn't blank and isn't off by a whole class. The correct figure is in your own fleet's fuel logs, and since fuel is the largest cost line item, it's the one most worth measuring first.",
+    },
+    {
+      type: "p",
+      text: "The same principle applies to acquisition price: what's shown is a reasonable range for that class, not the price that applies to you. Every field can be overwritten, and it should be, before the result is used to set a rate.",
+    },
+    {
+      type: "h2",
+      id: "ban-dan-perawatan",
+      text: "Tires and maintenance calculated as a percentage of vehicle price",
+    },
+    {
+      type: "p",
+      text: "These three items, tire set price, maintenance cost, and lubricants, aren't entered in rupiah, but as a share of vehicle price. This is the standard approach in fleet cost analysis, and the reason is practical: tire and maintenance cost fundamentally tracks vehicle price. A more expensive truck runs bigger tires, pricier parts, and more demanding service intervals.",
+    },
+    {
+      type: "table",
+      caption: "Planning ratios used as a starting point",
+      head: ["Item", "Share", "Of", "What it means on a Rp 1.5 billion truck"],
+      rows: [
+        ["One tire set", "6%", "Acquisition price", "Rp 90 million per set"],
+        ["Maintenance and repair", "10% per year", "Acquisition price", "Rp 150 million per year"],
+        ["Oil and consumables", "12%", "Maintenance cost", "Rp 18 million per year"],
+      ],
+    },
+    {
+      type: "p",
+      text: "Note that maintenance is stated per **year**, then divided by effective kilometers per year to become a cost per kilometer. That division is what makes this ratio honest: a fleet covering 150,000 kilometers a year carries roughly the same annual maintenance bill as one covering 60,000 kilometers, so its cost per kilometer really is lower. Stating it directly as rupiah per kilometer would hide that relationship, and that relationship is exactly what explains why a fleet that runs infrequently struggles to compete on price.",
+    },
+    {
+      type: "callout",
+      tone: "insight",
+      title: "The rupiah amount is still shown",
+      body: "Below each percentage field, the calculator displays the rupiah value: per set, per year, and per kilometer. A percentage that can't be traced back to rupiah is a percentage nobody can check, and a figure nobody can check has no business setting a price.",
+    },
+    {
+      type: "p",
+      text: "These ratios are planning ratios, not published standards. A fleet with good maintenance discipline on light routes sits below them; an aging fleet on harsh terrain sits well above them. All three can be changed, and a fleet that already has its own workshop cost records should use its own figures.",
+    },
+    {
+      type: "h2",
+      id: "tol-dan-penyeberangan",
+      text: "Why you have to enter toll and ferry rates yourself",
+    },
+    {
+      type: "p",
+      text: "Those two fields are deliberately left without a binding default figure, and that's a deliberate decision. Toll rates differ by road segment; ferry rates differ by crossing. Both also change by effective date.",
+    },
+    {
+      type: "p",
+      text: "Baking a single national rate into this tool means publishing a figure that will be wrong within months, and nobody would know when it started being wrong, including you, the one using it to set a rate. That's why both fields start at zero, not at a sample figure. A sample figure that looks reasonable gets carried straight into the result by some users without ever being checked; a zero field demands attention.",
+    },
+    {
+      type: "ol",
+      items: [
+        "Select the fleet at the top. This tool immediately states that class's **toll category** and **ferry category**, and repeats it right next to the field you need to fill in.",
+        "Look up the rate for that category on the toll segments and ferry crossings your route actually uses.",
+        "Enter the total per trip, and don't forget to add both the outbound and return legs, because every calculation on this page runs on one complete trip.",
+      ],
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Toll category and ferry category are not the same",
+      body: "Toll category follows axle count; ferry category follows overall vehicle length. A two-axle truck with a long body can land in a higher ferry category than a short three-axle truck. Using the toll category to look up the ferry rate will be wrong, and usually in the direction that costs you money.",
+    },
+    {
+      type: "h2",
+      id: "faktor-ketersediaan",
+      text: "Availability factor: the line item most often overstated",
+    },
+    {
+      type: "p",
+      text: "A plan of a hundred and twenty thousand kilometers a year sounds reasonable until you subtract service days, days waiting for cargo, driver leave days, and breakdown days. The availability factor is where that honesty gets entered.",
+    },
+    {
+      type: "p",
+      text: "Raising it from 0.85 to 0.95 lowers fixed cost per kilometer by about ten percent on screen, and lowers nothing at all in the real world. What actually happens is the rate gets set against a utilization level that's never reached, and the gap shows up as a loss at year end with no single trip you can point to as the cause.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Two utilization figures need to agree with each other",
+      body: "Trips per year multiplied by distance per trip should come close to planned kilometers multiplied by the availability factor. If the two are far apart, one of them is wrong, and every per-kilometer figure gets carried along with the error. This calculator checks that consistency and flags it when the gap exceeds ten percent.",
+    },
+    {
+      type: "h2",
+      id: "rit-kosong",
+      text: "The empty return leg: the largest cost line that never gets billed",
+    },
+    {
+      type: "p",
+      text: "If twenty-three percent of the distance runs without a load, that means nearly a quarter of the diesel, nearly a quarter of the tire wear, and a quarter of the driver's paid time produces no revenue. The cost doesn't disappear; it just shifts onto the loaded trip.",
+    },
+    {
+      type: "p",
+      text: "That's why improving the return load almost always has more impact than negotiating diesel prices or trimming maintenance cost. The empty-kilometer ratio shown in the result above is the most direct way to see how much opportunity is sitting idle on your route.",
+    },
+    {
+      type: "h2",
+      id: "batas-alat-ini",
+      text: "What this tool can and can't answer",
+    },
+    {
+      type: "p",
+      text: "This tool calculates one unit on one route pattern, based on the assumptions you enter yourself, not a final cost that has already absorbed every field condition. It doesn't know which unit actually ran yesterday, how much it carried, how long it waited at the warehouse, or how much toll was actually paid. The figures entered here are averages, and averages always hide a losing lane behind a profitable one.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Before using this figure as the basis for a quote",
+      body: "Several components typically aren't fully captured here and still need to be added separately: empty kilometers outside the selected route pattern, non-operating days not reflected in the availability factor, office overhead not yet folded into fixed cost, and a route-risk buffer for weather, unofficial levies, or seasonal congestion. Treat this calculator's result as a starting point, not a final figure to send straight to a customer.",
+    },
+    {
+      type: "p",
+      text: "To find out which lane is genuinely losing money, cost has to be recorded per shipment, not per assumption, including follow-on charges whose invoices arrive weeks later. That's a record-keeping problem, and no calculator can solve it.",
+    },
+  ],
   faq: [
     {
       q: "Bagaimana cara menghitung biaya operasional truk per kilometer?",
@@ -276,9 +493,59 @@ export const tool: Tool = {
       a: "Pembebanannya ke seluruh kilometer, tetapi pemulihannya hanya bisa dari kilometer bermuatan. Itulah sebabnya perhitungan ini menghasilkan dua angka berbeda, dan yang dipakai menetapkan tarif adalah biaya per kilometer bermuatan.",
     },
   ],
+  faqEn: [
+    {
+      q: "How do you calculate truck operating cost per kilometer?",
+      a: "Add up all annual fixed costs including depreciation, then divide by effective kilometers per year to get fixed cost per km. Add road cost per km covering fuel, tires, maintenance, and lubricants. Add per-trip items such as toll, ferry crossing, loading/unloading, and per-diem, then divide the total by distance traveled.",
+    },
+    {
+      q: "Why is cost per loaded km higher than cost per total km?",
+      a: "Because empty kilometers generate no revenue but still burn diesel, tires, and driver time. The entire cost has to be recovered from loaded kilometers alone. The larger the share of empty running, the wider the gap between the two figures.",
+    },
+    {
+      q: "What is cost per ton-km and when is it used?",
+      a: "Cost per trip divided by the product of load in tons and loaded distance. This figure is used to compare efficiency across fleets and routes, because it normalizes shipments with different loads and distances.",
+    },
+    {
+      q: "How do you set a minimum selling price from cost?",
+      a: "Divide cost by one minus the targeted margin, not multiply it by the margin. A cost of ten million with a targeted margin of twenty percent gives a minimum selling price of twelve and a half million, not twelve million.",
+    },
+    {
+      q: "How many km per liter for a CDD, fuso, or tronton truck?",
+      a: "As a rough starting point: light trucks such as CDE and CDD run about 8 km per liter loaded, medium fuso-class trucks about 5.5, tronton about 4.5, and a tractor-trailer combination about 2.5. These figures shift widely with terrain, cargo weight, engine age, and driving style, two identical units on different routes can differ by tens of percent. Use the average from your own fleet's fuel logs before the result is used to set a rate.",
+    },
+    {
+      q: "Why are tire and maintenance costs entered as a percentage, not rupiah?",
+      a: "Because both fundamentally track vehicle price, a more expensive truck runs bigger tires and pricier parts. Stored as a percentage, both adjust automatically the moment the fleet or its price changes; stored as rupiah, every fleet class needs its own figure and each one goes stale on its own schedule. The starting point is 6% of price for one tire set, 10% of price per year for maintenance, and 12% of maintenance cost for lubricants. The rupiah value is still shown below each field.",
+    },
+    {
+      q: "Why do the figures change on their own when I switch the fleet selection?",
+      a: "Because fuel consumption, acquisition price, tire cost, tire life, maintenance cost, and fixed crew salary all differ by multiples across fleet classes. Keeping one figure for every class would produce a calculation that's badly off the moment you pick a fleet other than the one the default figures are based on. Every field can still be overwritten.",
+    },
+    {
+      q: "How do you calculate a round trip versus a one-way route?",
+      a: "Pick the route pattern, then enter the one-way distance, the calculator translates it on its own. Round trip with empty return becomes the one-way loaded distance plus an equal empty distance. Round trip loaded both ways becomes twice the distance, all of it loaded. For a partial return load, choose Custom and enter both separately.",
+    },
+    {
+      q: "Why aren't toll and ferry rates already filled in?",
+      a: "Because toll rates differ by road segment and ferry rates differ by crossing, and both change by effective date. A single national rate baked into the tool would become wrong without anyone noticing. What this tool provides is your vehicle's category, take the rate from the segments and crossings your route actually uses, and enter it as an input.",
+    },
+    {
+      q: "How do I know which category applies?",
+      a: "Select the fleet at the top of the calculator, and its toll category and ferry category are shown immediately, including repeated right next to the cost field you need to fill in. Toll category follows axle count, ferry category follows overall vehicle length.",
+    },
+    {
+      q: "Can fixed cost be charged only against loaded kilometers?",
+      a: "It's charged against every kilometer, but it can only be recovered from loaded kilometers. That's why this calculation produces two different figures, and the one used to set a rate is cost per loaded kilometer.",
+    },
+  ],
   sources: [
     { label: "Model biaya armada", detail: "Struktur perhitungan biaya tetap, biaya jalan, dan biaya per rit mengikuti model cost per km yang lazim dipakai dalam analisis armada niaga." },
     { label: "Tarif tol dan penyeberangan", detail: "Sengaja tidak ditanam di dalam alat ini. Tarif berbeda per ruas jalan dan per lintasan serta berubah menurut tanggal berlaku, jadi seluruhnya masuk sebagai isian pengguna." },
+  ],
+  sourcesEn: [
+    { label: "Fleet cost model", detail: "The calculation structure for fixed cost, road cost, and cost per trip follows the cost-per-km model standard in commercial fleet cost analysis." },
+    { label: "Toll and ferry rates", detail: "Deliberately not baked into this tool. Rates differ by road segment and by crossing and change by effective date, so all of it is entered as a user input." },
   ],
   relatedArticles: ["margin-per-job-forwarder", "negosiasi-tarif-tahunan-kontrak-shipper", "perawatan-armada-preventif-vs-reaktif"],
   relatedTools: ["jenis-truk-indonesia", "kalkulator-muatan-truk", "golongan-tol-penyeberangan"],

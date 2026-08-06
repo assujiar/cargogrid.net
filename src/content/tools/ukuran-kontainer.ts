@@ -4,9 +4,12 @@ export const tool: Tool = {
   slug: "ukuran-kontainer",
   kind: "referensi",
   title: "Ukuran dan Kapasitas Kontainer: 20 ft, 40 ft, High Cube, Reefer",
+  titleEn: "Container Sizes and Capacities: 20 ft, 40 ft, High Cube, Reefer",
   metaTitle: "Ukuran Kontainer 20 & 40 Feet: Dimensi, Kubikasi, Payload | CargoGrid",
   description:
     "Berapa CBM dan payload maksimum kontainer 20 kaki dibanding 40 kaki? Delapan tipe kontainer yang beredar di rute Indonesia ada di tabel ini, lengkap dengan dimensi dalam dan batas beratnya.",
+  descriptionEn:
+    "How many CBM and what's the maximum payload of a 20-foot container versus a 40-foot? Eight container types running Indonesian routes are laid out in this table, complete with internal dimensions and weight limits.",
   keywords: [
     "ukuran kontainer 20 feet",
     "ukuran kontainer 40 feet",
@@ -17,12 +20,21 @@ export const tool: Tool = {
   ],
   summary:
     "Dimensi dalam, kubikasi, dan batas berat untuk delapan tipe kontainer yang beredar di rute Indonesia, beserta satu hal yang tidak bisa diberikan tabel mana pun, dan di mana angka sesungguhnya harus dicari.",
+  summaryEn:
+    "Internal dimensions, cubic capacity, and weight limits for eight container types running Indonesian routes, plus the one thing no table can give you, and where to find the real numbers.",
   searchIntents: [
     "Ukuran dalam kontainer 20 feet dan 40 feet",
     "Berapa CBM muat dalam satu kontainer",
     "Payload maksimum kontainer 20 ft",
     "Beda 40 ft standar dan 40 ft high cube",
     "Dimensi kontainer reefer dibanding dry container",
+  ],
+  searchIntentsEn: [
+    "Internal dimensions of 20-foot and 40-foot containers",
+    "How many CBM fit in one container",
+    "Maximum payload of a 20 ft container",
+    "Difference between standard 40 ft and 40 ft high cube",
+    "Reefer container dimensions compared to dry container",
   ],
   publishedAt: "2026-08-05",
   blocks: [
@@ -87,6 +99,68 @@ export const tool: Tool = {
       text: "Satu biaya lagi yang rutin terlupa dari costing: reefer membutuhkan pasokan listrik atau genset selama seluruh perjalanan darat, dan sewa genset beserta pemantauan suhunya langsung menggerus margin bila tidak dimasukkan sejak penawaran.",
     },
   ],
+  blocksEn: [
+    {
+      type: "h2",
+      id: "angka-yang-mengikat",
+      text: "One warning before using any of these numbers",
+    },
+    {
+      type: "p",
+      text: "Tare weight varies by several hundred kilograms between units, even for boxes of the same nominal size, and door opening as well as cubic capacity shift depending on the manufacturer and the unit's age. That means maximum payload is not a property of a \"20-foot container\" at all — it is a property of that specific unit, and the figure is stamped on the CSC plate mounted on the right-hand door leaf. The numbers in this table are general reference points; for the unit that will actually be used, verify them against the equipment interchange receipt or the official specification from the shipping line or container depot before finalizing your load plan.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "The CSC plate is the only binding number",
+      body: "People plan a 28-ton load off a table like this one, then find out the difference at the weighbridge. Use this table to answer \"does it fit\" and \"which box class do I need.\" For the weight figure you'll be held to, read the plate on the unit actually allocated to you.",
+    },
+    {
+      type: "h2",
+      id: "kubikasi-nyata",
+      text: "Nominal cubic capacity versus cubic capacity actually used",
+    },
+    {
+      type: "p",
+      text: "Almost no load ever reaches nominal capacity. Cartons don't stack themselves perfectly, pallets leave gaps between footprints, and dunnage takes its own share. Quoting a customer 33 CBM and then only loading 27 is a routine way to lose money on LCL consolidation.",
+    },
+    {
+      type: "p",
+      text: "That's why the table above shows a realistic figure at 85 percent utilization alongside the nominal figure. For palletized goods of uniform size, utilization can run higher. For a mix of cartons in different sizes, it's often lower.",
+    },
+    {
+      type: "h2",
+      id: "dua-puluh-vs-empat-puluh",
+      text: "Why two 20-foot units often beat one 40-foot",
+    },
+    {
+      type: "p",
+      text: "A 40-foot container has twice the space of a 20-foot, but its weight limit is practically the same, around 28.8 tons versus 28.2 tons. Space doubles; weight capacity doesn't. For dense cargo such as ceramics, chemicals in drums, or metal parts, two 20-foot units carry roughly twice the tonnage of one 40-foot unit, even though the total looks more expensive on the rate sheet.",
+    },
+    {
+      type: "callout",
+      tone: "insight",
+      title: "A quick way to decide",
+      body: "Divide the total cargo weight by its total volume. Below roughly 430 kg per cubic meter, space runs out first, and a 40-foot or high cube is the right call. Above that, weight runs out first, and what you need is more 20-foot containers, not a bigger box.",
+    },
+    {
+      type: "p",
+      text: "The reverse mistake is just as common: booking a standard 40-foot for light, bulky cargo, when a high cube gives roughly nine more cubic meters at no extra weight allowance. What to check on a high cube is mainly its overall height, which runs around 2.90 meters depending on the unit — check bridges, gantries, and the destination warehouse door before booking.",
+    },
+    {
+      type: "h2",
+      id: "reefer",
+      text: "Reefer: don't use dry container figures",
+    },
+    {
+      type: "p",
+      text: "Internal space in a reefer is considerably smaller than a dry container of the same length, because the refrigeration unit and insulation lining eat into it. A 20-foot reefer holds only around 28 CBM against roughly 33 CBM for a dry container. Calculating cubic capacity for seafood exports using dry container figures is a mistake that only surfaces at stuffing.",
+    },
+    {
+      type: "p",
+      text: "One more cost routinely left out of costing: a reefer needs a power supply or genset for the entire inland journey, and genset rental plus temperature monitoring eats straight into margin if it isn't built into the quote from the start.",
+    },
+  ],
   faq: [
     {
       q: "Berapa ukuran dalam kontainer 20 feet?",
@@ -109,9 +183,35 @@ export const tool: Tool = {
       a: "Karena unit refrigerasi dan insulasi dinding memakan ruang dalam. Reefer 20 kaki hanya sekitar 28 meter kubik dibanding sekitar 33 meter kubik pada dry container dengan panjang luar yang sama.",
     },
   ],
+  faqEn: [
+    {
+      q: "What are the internal dimensions of a 20-foot container?",
+      a: "Around 5.90 x 2.35 x 2.39 meters, with a nominal capacity of roughly 33 cubic meters. The door opening is narrower than the internal width, around 2.34 x 2.28 meters, and that opening is often the real constraint for oversized cargo.",
+    },
+    {
+      q: "How many CBM fit in a 40 ft container?",
+      a: "Nominal capacity is around 67 cubic meters for the standard type and around 76 cubic meters for high cube. In practice, plan on roughly 85 percent of that figure — about 57 and 65 cubic meters — because carton stacking almost never gets that tight.",
+    },
+    {
+      q: "What is the maximum payload of a 20 ft container?",
+      a: "Around 28.2 tons, from a maximum gross weight of 30,480 kg minus a tare weight of roughly 2.28 tons. The exact figure differs per unit and is stamped on the CSC plate on the door leaf. It's also worth remembering that container payload is not the same as the road load permit — what applies is whichever is lowest among the container rating, the chassis rating, and the permitted JBKI.",
+    },
+    {
+      q: "What's the difference between a standard 40 ft and a 40 ft high cube?",
+      a: "High cube is about 30 centimeters taller, adding roughly nine cubic meters at practically the same weight limit. Overall height comes to around 2.90 meters depending on the unit, so the inland route and the destination warehouse door need to be confirmed as clear before booking.",
+    },
+    {
+      q: "Why is a reefer container smaller than a standard container?",
+      a: "Because the refrigeration unit and wall insulation eat into internal space. A 20-foot reefer holds only around 28 cubic meters against roughly 33 cubic meters for a dry container of the same external length.",
+    },
+  ],
   sources: [
     { label: "Spesifikasi equipment operator pelayaran", detail: "Dimensi dalam, kubikasi, berat kosong, dan payload untuk kontainer 20 dan 40 kaki, high cube, reefer, open top, serta flat rack." },
     { label: "Konvensi CSC", detail: "Pelat pada daun pintu kontainer yang memuat berat kotor maksimum unit tersebut, satu-satunya angka berat yang mengikat." },
+  ],
+  sourcesEn: [
+    { label: "Shipping line equipment specifications", detail: "Internal dimensions, cubic capacity, tare weight, and payload for 20- and 40-foot containers, high cube, reefer, open top, and flat rack." },
+    { label: "CSC Convention", detail: "The plate on the container door leaf listing the unit's maximum gross weight, the only binding weight figure." },
   ],
   relatedArticles: ["demurrage-detention-pelabuhan", "margin-per-job-forwarder", "dokumen-kepabeanan-arsip-digital"],
   relatedTools: ["kalkulator-cbm", "kalkulator-demurrage", "kamus-logistik"],

@@ -76,7 +76,7 @@ function SpecList({ vehicle, isEn, compact = false }: { vehicle: VehicleArchetyp
       <SpecRow label={isEn ? "Axles" : "Gandar"} value={vehicle.totalAxles} />
       <SpecRow
         label={isEn ? "Est. payload" : "Perkiraan muatan"}
-        value={`${formatNumber(vehicle.planningPayload.min)}-${formatNumber(vehicle.planningPayload.max)} t`}
+        value={`${formatNumber(vehicle.planningPayload.min, undefined, isEn)}-${formatNumber(vehicle.planningPayload.max, undefined, isEn)} t`}
       />
       {!compact && <SpecRow label={isEn ? "Toll class" : "Gol. tol"} value={vehicle.tollClass} />}
       {!compact && <SpecRow label={isEn ? "Ferry class" : "Gol. kapal"} value={vehicle.ferryClass} />}

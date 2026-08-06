@@ -220,7 +220,7 @@ export function calculateShipment(lines: CargoLine[], mode: VolumetricMode): Shi
   };
 }
 
-/** Formats a number for display with Indonesian separators. */
-export function formatNumber(value: number, maximumFractionDigits = 2): string {
-  return new Intl.NumberFormat("id-ID", { maximumFractionDigits }).format(value);
+/** Formats a number for display, with Indonesian or English separators. */
+export function formatNumber(value: number, maximumFractionDigits = 2, isEn = false): string {
+  return new Intl.NumberFormat(isEn ? "en-US" : "id-ID", { maximumFractionDigits }).format(value);
 }

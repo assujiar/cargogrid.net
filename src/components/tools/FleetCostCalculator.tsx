@@ -291,14 +291,14 @@ export default function FleetCostCalculator() {
           hint={
             vehicle
               ? isEn
-                ? `This class's estimated capacity is ${formatNumber(vehicle.planningPayload.min)} to ${formatNumber(vehicle.planningPayload.max)} tonnes${
+                ? `This class's estimated capacity is ${formatNumber(vehicle.planningPayload.min, undefined, isEn)} to ${formatNumber(vehicle.planningPayload.max, undefined, isEn)} tonnes${
                     vehicle.planningVolume
-                      ? `, ${formatNumber(vehicle.planningVolume.min)} to ${formatNumber(vehicle.planningVolume.max)} m³`
+                      ? `, ${formatNumber(vehicle.planningVolume.min, undefined, isEn)} to ${formatNumber(vehicle.planningVolume.max, undefined, isEn)} m³`
                       : ""
                   }. Toll class ${vehicle.tollClass}, ferry class ${vehicle.ferryClass}.`
-                : `Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min)} sampai ${formatNumber(vehicle.planningPayload.max)} ton${
+                : `Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min, undefined, isEn)} sampai ${formatNumber(vehicle.planningPayload.max, undefined, isEn)} ton${
                     vehicle.planningVolume
-                      ? `, ${formatNumber(vehicle.planningVolume.min)} sampai ${formatNumber(vehicle.planningVolume.max)} m³`
+                      ? `, ${formatNumber(vehicle.planningVolume.min, undefined, isEn)} sampai ${formatNumber(vehicle.planningVolume.max, undefined, isEn)} m³`
                       : ""
                   }. Golongan tol ${vehicle.tollClass}, golongan penyeberangan ${vehicle.ferryClass}.`
               : undefined
@@ -445,14 +445,14 @@ export default function FleetCostCalculator() {
                     {isEn ? (
                       <>
                         Distance per trip becomes{" "}
-                        <strong className="font-bold text-slate-700">{formatNumber(input.loadedKmPerTrip, 0)} km loaded</strong> and{" "}
-                        {formatNumber(input.emptyKmPerTrip, 0)} km empty.
+                        <strong className="font-bold text-slate-700">{formatNumber(input.loadedKmPerTrip, 0, isEn)} km loaded</strong> and{" "}
+                        {formatNumber(input.emptyKmPerTrip, 0, isEn)} km empty.
                       </>
                     ) : (
                       <>
                         Jarak per rit menjadi{" "}
-                        <strong className="font-bold text-slate-700">{formatNumber(input.loadedKmPerTrip, 0)} km bermuatan</strong> dan{" "}
-                        {formatNumber(input.emptyKmPerTrip, 0)} km kosong.
+                        <strong className="font-bold text-slate-700">{formatNumber(input.loadedKmPerTrip, 0, isEn)} km bermuatan</strong> dan{" "}
+                        {formatNumber(input.emptyKmPerTrip, 0, isEn)} km kosong.
                       </>
                     )}
                   </p>
@@ -575,8 +575,8 @@ export default function FleetCostCalculator() {
               tip={isEn ? TIPS_EN.maintenanceRatio : TIPS.maintenanceRatio}
               hint={
                 isEn
-                  ? `Share of vehicle price per year. Equivalent to ${formatIDR(input.maintenancePerKm, true)} per km at ${formatNumber(result.effectiveAnnualKm, 0)} km a year.`
-                  : `Porsi harga kendaraan per tahun. Setara ${formatIDR(input.maintenancePerKm)} per km pada ${formatNumber(result.effectiveAnnualKm, 0)} km setahun.`
+                  ? `Share of vehicle price per year. Equivalent to ${formatIDR(input.maintenancePerKm, true)} per km at ${formatNumber(result.effectiveAnnualKm, 0, isEn)} km a year.`
+                  : `Porsi harga kendaraan per tahun. Setara ${formatIDR(input.maintenancePerKm)} per km pada ${formatNumber(result.effectiveAnnualKm, 0, isEn)} km setahun.`
               }
             />
             <PercentField
@@ -685,7 +685,7 @@ export default function FleetCostCalculator() {
         <ResultCard
           label={isEn ? "Cost per trip" : "Biaya per rit"}
           value={formatIDR(result.totalCostPerTrip, isEn)}
-          hint={`${formatNumber(result.totalKmPerTrip, 0)} km total`}
+          hint={`${formatNumber(result.totalKmPerTrip, 0, isEn)} km total`}
           emphasis
         />
         <ResultCard
@@ -725,7 +725,7 @@ export default function FleetCostCalculator() {
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="text-[12px] leading-snug text-slate-600">{part.label}</span>
                     <span className="whitespace-nowrap font-mono text-[11px] font-bold text-slate-900">
-                      {formatNumber(share * 100, 0)}%
+                      {formatNumber(share * 100, 0, isEn)}%
                     </span>
                   </div>
                   <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-slate-300/50">
@@ -757,14 +757,14 @@ export default function FleetCostCalculator() {
                 <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
                   {isEn ? (
                     <>
-                      {formatNumber(result.emptyKmRatio * 100, 0)}% of the distance travelled runs without a load. Fuel and the driver are
+                      {formatNumber(result.emptyKmRatio * 100, 0, isEn)}% of the distance travelled runs without a load. Fuel and the driver are
                       still paid for those kilometres, and their full cost is charged onto the loaded kilometres, which is why the cost per
                       loaded km ({formatIDR(result.costPerLoadedKm, true)}) is always higher than the cost per total km (
                       {formatIDR(result.costPerTotalKm, true)}).
                     </>
                   ) : (
                     <>
-                      {formatNumber(result.emptyKmRatio * 100, 0)}% dari jarak tempuh berjalan tanpa muatan. Solar dan sopir tetap dibayar
+                      {formatNumber(result.emptyKmRatio * 100, 0, isEn)}% dari jarak tempuh berjalan tanpa muatan. Solar dan sopir tetap dibayar
                       untuk kilometer itu, dan seluruh biayanya dibebankan ke km bermuatan, karena itu biaya per km bermuatan (
                       {formatIDR(result.costPerLoadedKm)}) selalu lebih tinggi daripada biaya per km total ({formatIDR(result.costPerTotalKm)}
                       ).
@@ -786,16 +786,16 @@ export default function FleetCostCalculator() {
                   <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
                     {isEn ? (
                       <>
-                        Trips multiplied by distance per trip yields {formatNumber(result.impliedAnnualKm, 0)} km a year, while planned km
-                        multiplied by the availability factor yields {formatNumber(result.effectiveAnnualKm, 0)} km, a gap of{" "}
-                        {formatNumber(Math.abs(result.utilisationGap) * 100, 0)}%. One of the two is wrong, and every per-kilometre figure
+                        Trips multiplied by distance per trip yields {formatNumber(result.impliedAnnualKm, 0, isEn)} km a year, while planned km
+                        multiplied by the availability factor yields {formatNumber(result.effectiveAnnualKm, 0, isEn)} km, a gap of{" "}
+                        {formatNumber(Math.abs(result.utilisationGap) * 100, 0, isEn)}%. One of the two is wrong, and every per-kilometre figure
                         above inherits it. Reconcile them before using the result to set a rate.
                       </>
                     ) : (
                       <>
-                        Jumlah rit dikali jarak per rit menghasilkan {formatNumber(result.impliedAnnualKm, 0)} km setahun, sementara rencana
-                        km dikali faktor ketersediaan menghasilkan {formatNumber(result.effectiveAnnualKm, 0)} km, selisih{" "}
-                        {formatNumber(Math.abs(result.utilisationGap) * 100, 0)}%. Salah satu dari keduanya keliru, dan seluruh angka per
+                        Jumlah rit dikali jarak per rit menghasilkan {formatNumber(result.impliedAnnualKm, 0, isEn)} km setahun, sementara rencana
+                        km dikali faktor ketersediaan menghasilkan {formatNumber(result.effectiveAnnualKm, 0, isEn)} km, selisih{" "}
+                        {formatNumber(Math.abs(result.utilisationGap) * 100, 0, isEn)}%. Salah satu dari keduanya keliru, dan seluruh angka per
                         kilometer di atas ikut terbawa. Samakan dulu sebelum hasilnya dipakai menetapkan tarif.
                       </>
                     )}
@@ -842,10 +842,10 @@ export default function FleetCostCalculator() {
                     {isEn ? (
                       <>
                         {payloadOver
-                          ? `The ${formatNumber(input.actualPayloadTon)} t load exceeds the estimated upper limit of ${formatNumber(vehicle.planningPayload.max)} t. `
+                          ? `The ${formatNumber(input.actualPayloadTon, undefined, isEn)} t load exceeds the estimated upper limit of ${formatNumber(vehicle.planningPayload.max, undefined, isEn)} t. `
                           : ""}
                         {volumeOver && vehicle.planningVolume
-                          ? `The ${formatNumber(input.actualVolumeM3)} m³ volume exceeds the estimated ${formatNumber(vehicle.planningVolume.max)} m³. `
+                          ? `The ${formatNumber(input.actualVolumeM3, undefined, isEn)} m³ volume exceeds the estimated ${formatNumber(vehicle.planningVolume.max, undefined, isEn)} m³. `
                           : ""}
                         This estimate isn't a legal limit, check the JBI on the vehicle's documents and the actual body dimensions of the
                         unit used.
@@ -853,10 +853,10 @@ export default function FleetCostCalculator() {
                     ) : (
                       <>
                         {payloadOver
-                          ? `Muatan ${formatNumber(input.actualPayloadTon)} ton melebihi perkiraan batas atas ${formatNumber(vehicle.planningPayload.max)} ton. `
+                          ? `Muatan ${formatNumber(input.actualPayloadTon, undefined, isEn)} ton melebihi perkiraan batas atas ${formatNumber(vehicle.planningPayload.max, undefined, isEn)} ton. `
                           : ""}
                         {volumeOver && vehicle.planningVolume
-                          ? `Volume ${formatNumber(input.actualVolumeM3)} m³ melebihi perkiraan ${formatNumber(vehicle.planningVolume.max)} m³. `
+                          ? `Volume ${formatNumber(input.actualVolumeM3, undefined, isEn)} m³ melebihi perkiraan ${formatNumber(vehicle.planningVolume.max, undefined, isEn)} m³. `
                           : ""}
                         Perkiraan ini bukan batas legal, periksa JBI pada dokumen kendaraan dan dimensi bak unit yang sesungguhnya dipakai.
                       </>

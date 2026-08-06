@@ -63,7 +63,7 @@ export const article: Article = {
         [
           "Pengecualian (rusak, hilang, terlambat parah)",
           "Bisa dilaporkan lewat portal sebagai intake awal",
-          "Hampir selalu — penyelesaiannya butuh penilaian, bukan tampilan data",
+          "Hampir selalu: penyelesaiannya butuh penilaian, bukan tampilan data",
         ],
       ],
     },

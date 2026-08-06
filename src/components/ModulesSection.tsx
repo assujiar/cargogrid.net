@@ -90,9 +90,9 @@ export default function ModulesSection() {
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
               {isEn ? (
-                "All modules share one database, so quotation, stock, and invoice data never need to be entered twice. Activate the layer you need most first — commercial, operations, warehouse, or finance."
+                "All modules share one database, so quotation, stock, and invoice data never need to be entered twice. Activate the layer you need most first: commercial, operations, warehouse, or finance."
               ) : (
-                "Semua modul berbagi satu database yang sama, jadi data quotation, stok, hingga invoice tidak perlu dimasukkan dua kali. Aktifkan dulu fase yang paling Anda butuhkan — komersial, operasional, gudang, atau keuangan."
+                "Semua modul berbagi satu database yang sama, jadi data quotation, stok, hingga invoice tidak perlu dimasukkan dua kali. Aktifkan dulu fase yang paling Anda butuhkan: komersial, operasional, gudang, atau keuangan."
               )}
             </p>
           </div>
@@ -104,7 +104,7 @@ export default function ModulesSection() {
           <p className="text-slate-700 text-xs sm:text-sm font-semibold leading-relaxed">
             {isEn ? (
               <>
-                Your team is probably tired of chasing RFQs scattered across five different chats, right? The CRM &amp; RFQ Management module pulls every inquiry into one place — complete with SLA timers, an assigned PIC, and follow-up status.
+                Your team is probably tired of chasing RFQs scattered across five different chats, right? The CRM &amp; RFQ Management module pulls every inquiry into one place, complete with SLA timers, an assigned PIC, and follow-up status.
               </>
             ) : (
               <>

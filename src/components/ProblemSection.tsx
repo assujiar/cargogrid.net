@@ -46,8 +46,8 @@ export default function ProblemSection() {
         {/* Illustrative Data Disclaimer */}
         <p className="text-xs sm:text-sm text-slate-500 font-semibold italic text-center max-w-3xl mx-auto mb-8">
           {isEn
-            ? "Figures below are illustrative patterns compiled from common operational pain points across the logistics industry — not measurements from a specific study."
-            : "Angka-angka di bawah adalah pola ilustratif yang dirangkum dari titik masalah operasional umum di industri logistik — bukan hasil pengukuran dari studi tertentu."}
+            ? "Figures below are illustrative patterns compiled from common operational pain points across the logistics industry, not measurements from a specific study."
+            : "Angka-angka di bawah adalah pola ilustratif yang dirangkum dari titik masalah operasional umum di industri logistik, bukan hasil pengukuran dari studi tertentu."}
         </p>
 
         {/* Problem Cards Grid - Perfectly Aligned, Elegant Grid Layout */}
@@ -148,11 +148,11 @@ export default function ProblemSection() {
             <p className="text-slate-700 text-sm font-semibold leading-relaxed">
               {isEn ? (
                 <>
-                  Picture a typical case: Pak Andi, an operations manager at a mid-sized forwarder. His team might easily burn <strong className="text-slate-900 font-extrabold">3 hours a day</strong> just chasing down POD paperwork, cross-checking delivery status, and answering the same &ldquo;where&rsquo;s my shipment&rdquo; questions from customers. Once a team like his switches to the e-POD flow, proof of receipt lands straight in the system the moment cargo is delivered — no more phone tag with drivers, no more digging through WhatsApp threads. That reclaimed time can go toward moving the next shipment forward instead of chasing paper.
+                  Picture a typical case: Pak Andi, an operations manager at a mid-sized forwarder. His team might easily burn <strong className="text-slate-900 font-extrabold">3 hours a day</strong> just chasing down POD paperwork, cross-checking delivery status, and answering the same &ldquo;where&rsquo;s my shipment&rdquo; questions from customers. Once a team like his switches to the e-POD flow, proof of receipt lands straight in the system the moment cargo is delivered: no more phone tag with drivers, no more digging through WhatsApp threads. That reclaimed time can go toward moving the next shipment forward instead of chasing paper.
                 </>
               ) : (
                 <>
-                  Bayangkan skenario yang umum terjadi: Pak Andi, manajer operasi di sebuah perusahaan forwarder skala menengah. Timnya bisa saja menghabiskan <strong className="text-slate-900 font-extrabold">3 jam sehari</strong> hanya untuk mengejar POD, mencocokkan status pengiriman, dan menjawab pertanyaan customer yang itu-itu saja soal posisi barang. Setelah beralih ke alur e-POD, bukti terima langsung masuk ke sistem begitu barang sampai di tujuan — tidak perlu lagi telepon-teleponan dengan supir atau menggali riwayat chat WhatsApp. Waktu yang tadinya terbuang itu bisa dipakai tim untuk fokus mengurus shipment berikutnya.
+                  Bayangkan skenario yang umum terjadi: Pak Andi, manajer operasi di sebuah perusahaan forwarder skala menengah. Timnya bisa saja menghabiskan <strong className="text-slate-900 font-extrabold">3 jam sehari</strong> hanya untuk mengejar POD, mencocokkan status pengiriman, dan menjawab pertanyaan customer yang itu-itu saja soal posisi barang. Setelah beralih ke alur e-POD, bukti terima langsung masuk ke sistem begitu barang sampai di tujuan: tidak perlu lagi telepon-teleponan dengan supir atau menggali riwayat chat WhatsApp. Waktu yang tadinya terbuang itu bisa dipakai tim untuk fokus mengurus shipment berikutnya.
                 </>
               )}
             </p>

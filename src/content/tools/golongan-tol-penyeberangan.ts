@@ -53,7 +53,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "warning",
       title: "Jumlah roda bukan jumlah gandar",
-      body: "CDD berroda enam tetapi bergandar dua, karena roda belakangnya ganda pada satu sumbu. Golongan tol menghitung gandar, bukan roda. Kekeliruan ini rutin membuat anggaran tol satu golongan lebih tinggi daripada yang sebenarnya dibayar. Yang menggolongkan di gerbang tol adalah konfigurasi gandar yang benar-benar terpasang pada kendaraan, bukan sebutan pasarnya seperti CDD atau tronton — dua truk dengan sebutan sama bisa digolongkan beda kalau sumbunya beda. Untuk unit yang konfigurasinya berada di dekat batas dua golongan, penilaian di lapangan bisa berbeda antar gerbang, jadi cocokkan dulu jumlah gandar dan data di STNK sebelum berasumsi soal golongannya.",
+      body: "CDD berroda enam tetapi bergandar dua, karena roda belakangnya ganda pada satu sumbu. Golongan tol menghitung gandar, bukan roda. Kekeliruan ini rutin membuat anggaran tol satu golongan lebih tinggi daripada yang sebenarnya dibayar. Yang menggolongkan di gerbang tol adalah konfigurasi gandar yang benar-benar terpasang pada kendaraan, bukan sebutan pasarnya seperti CDD atau tronton: dua truk dengan sebutan sama bisa digolongkan beda kalau sumbunya beda. Untuk unit yang konfigurasinya berada di dekat batas dua golongan, penilaian di lapangan bisa berbeda antar gerbang, jadi cocokkan dulu jumlah gandar dan data di STNK sebelum berasumsi soal golongannya.",
     },
     {
       type: "h2",
@@ -117,7 +117,7 @@ export const tool: Tool = {
   faq: [
     {
       q: "Truk CDD masuk golongan tol berapa?",
-      a: "Umumnya Golongan II, karena bergandar dua. Roda belakangnya ganda pada satu sumbu, sehingga berroda enam tetapi tetap dua gandar. Tapi golongan tol menghitung gandar yang benar-benar terpasang, bukan sebutan CDD-nya — untuk unit modifikasi atau varian sumbu tiga, cocokkan dulu jumlah gandar dan data STNK sebelum menetapkan golongannya, karena gerbang tol yang memutuskan berdasarkan konfigurasi di lokasi.",
+      a: "Umumnya Golongan II, karena bergandar dua. Roda belakangnya ganda pada satu sumbu, sehingga berroda enam tetapi tetap dua gandar. Tapi golongan tol menghitung gandar yang benar-benar terpasang, bukan sebutan CDD-nya: untuk unit modifikasi atau varian sumbu tiga, cocokkan dulu jumlah gandar dan data STNK sebelum menetapkan golongannya, karena gerbang tol yang memutuskan berdasarkan konfigurasi di lokasi.",
     },
     {
       q: "Rangkaian tractor head dengan trailer 40 kaki masuk golongan apa?",

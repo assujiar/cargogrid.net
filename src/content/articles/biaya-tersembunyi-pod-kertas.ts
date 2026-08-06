@@ -24,7 +24,7 @@ export const article: Article = {
     "Biaya POD kertas nyaris tak pernah tercatat sebagai biaya operasional; ia menyamar jadi piutang yang telat cair, jam admin yang terkuras, dan klaim yang terpaksa dibayar.",
     "Satu lembar POD melewati sedikitnya enam titik serah tangan sebelum selesai; waktu dan risiko terbesar justru menumpuk di satu titik, yaitu serah terima dari driver ke admin yang tidak tercatat.",
     "POD yang telat cuma menunda tagihan; POD yang hilang di titik serah terima itu bisa menggugurkannya sepenuhnya. Dua persoalan ini beda jauh tingkat bahayanya.",
-    "Sebelum membeli sistem apa pun, ukur dulu siklus balik POD Anda sendiri per titik — dari situ terlihat apakah masalahnya ada di kecepatan atau di titik hilangnya.",
+    "Sebelum membeli sistem apa pun, ukur dulu siklus balik POD Anda sendiri per titik. Dari situ terlihat apakah masalahnya ada di kecepatan atau di titik hilangnya.",
   ],
   blocks: [
     {
@@ -123,7 +123,7 @@ export const article: Article = {
       type: "callout",
       tone: "example",
       title: "Contoh perhitungan: angka disederhanakan, ganti dengan milik Anda",
-      body: "Misalkan omzet Rp 6 miliar per bulan, setara Rp 200 juta per hari kalender, dengan rata-rata POD kembali dalam 7 hari dan biaya modal 12% per tahun (setara sekitar 0,033% per hari). Kalau digitalisasi memangkas jeda itu dari 7 hari menjadi 1 hari, ada sekitar Rp 1,2 miliar piutang yang berputar lebih cepat. Biaya menahan dana sebesar itu selama 6 hari ekstra: Rp 1,2 miliar x 0,033% x 6, sekitar Rp 2,4 juta per bulan. Ini angka bulat untuk ilustrasi, bukan hasil audit satu perusahaan tertentu — tapi begitu Anda memakai fasilitas modal kerja bank, biaya kesempatan semacam ini langsung terasa di rekening koran.",
+      body: "Misalkan omzet Rp 6 miliar per bulan, setara Rp 200 juta per hari kalender, dengan rata-rata POD kembali dalam 7 hari dan biaya modal 12% per tahun (setara sekitar 0,033% per hari). Kalau digitalisasi memangkas jeda itu dari 7 hari menjadi 1 hari, ada sekitar Rp 1,2 miliar piutang yang berputar lebih cepat. Biaya menahan dana sebesar itu selama 6 hari ekstra: Rp 1,2 miliar x 0,033% x 6, sekitar Rp 2,4 juta per bulan. Ini angka bulat untuk ilustrasi, bukan hasil audit satu perusahaan tertentu, tapi begitu Anda memakai fasilitas modal kerja bank, biaya kesempatan semacam ini langsung terasa di rekening koran.",
     },
     {
       type: "table",

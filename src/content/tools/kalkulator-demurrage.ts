@@ -81,7 +81,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Kalkulator ini menghitung dari tanggal bongkar — hari kontainer turun dari kapal — sebagai titik mula free time. Itu konvensi paling umum dipakai di pelabuhan Indonesia, tapi bukan satu-satunya: sebagian pelayaran atau terminal menghitung mulai dari tanggal kontainer dinyatakan tersedia diambil, sebagian lain dari tanggal gate-out, dan sebagian menggabungkan free time demurrage dengan detention jadi satu pool hari alih-alih memisahkannya seperti pada tabel di atas. Kalau kontrak Anda memakai titik mula atau konvensi yang berbeda, sesuaikan tanggal yang dimasukkan ke kalkulator, jangan asumsikan tanggal bongkar selalu berlaku.",
+      text: "Kalkulator ini menghitung dari tanggal bongkar (hari kontainer turun dari kapal) sebagai titik mula free time. Itu konvensi paling umum dipakai di pelabuhan Indonesia, tapi bukan satu-satunya: sebagian pelayaran atau terminal menghitung mulai dari tanggal kontainer dinyatakan tersedia diambil, sebagian lain dari tanggal gate-out, dan sebagian menggabungkan free time demurrage dengan detention jadi satu pool hari alih-alih memisahkannya seperti pada tabel di atas. Kalau kontrak Anda memakai titik mula atau konvensi yang berbeda, sesuaikan tanggal yang dimasukkan ke kalkulator, jangan asumsikan tanggal bongkar selalu berlaku.",
     },
     {
       type: "p",
@@ -96,7 +96,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Ketiga jawaban itu ada di Delivery Order dan di kontrak dengan pelayaran. Menanyakannya sekali, lalu mencatatnya per pelayaran, menghilangkan sebagian besar kelas kejutan ini. Tapi kalau hasil kalkulator ini pernah berbeda dari yang tertulis di invoice, invoice dan kontrak pelayaranlah yang berlaku — angka di halaman ini adalah estimasi untuk perencanaan internal, bukan dokumen penagihan resmi.",
+      text: "Ketiga jawaban itu ada di Delivery Order dan di kontrak dengan pelayaran. Menanyakannya sekali, lalu mencatatnya per pelayaran, menghilangkan sebagian besar kelas kejutan ini. Tapi kalau hasil kalkulator ini pernah berbeda dari yang tertulis di invoice, invoice dan kontrak pelayaranlah yang berlaku: angka di halaman ini adalah estimasi untuk perencanaan internal, bukan dokumen penagihan resmi.",
     },
     {
       type: "h2",
@@ -128,7 +128,7 @@ export const tool: Tool = {
   faq: [
     {
       q: "Bagaimana cara menghitung demurrage kontainer?",
-      a: "Ambil tanggal bongkar kontainer sebagai titik mula default, tambahkan jumlah hari free time dari Delivery Order, dan Anda mendapat perkiraan hari bebas terakhir — konfirmasi dulu apakah pelayaran Anda memang menghitung dari tanggal bongkar, karena sebagian menghitung dari titik lain. Setiap hari kalender setelah itu sampai kontainer diambil adalah hari yang berpotensi tertagih, dikalikan tarif jenjang yang berlaku pada hari tersebut. Hasilnya estimasi untuk perencanaan; invoice resmi dari pelayaran tetap jadi acuan akhir.",
+      a: "Ambil tanggal bongkar kontainer sebagai titik mula default, tambahkan jumlah hari free time dari Delivery Order, dan Anda mendapat perkiraan hari bebas terakhir. Konfirmasi dulu apakah pelayaran Anda memang menghitung dari tanggal bongkar, karena sebagian menghitung dari titik lain. Setiap hari kalender setelah itu sampai kontainer diambil adalah hari yang berpotensi tertagih, dikalikan tarif jenjang yang berlaku pada hari tersebut. Hasilnya estimasi untuk perencanaan; invoice resmi dari pelayaran tetap jadi acuan akhir.",
     },
     {
       q: "Apakah hari Sabtu, Minggu, dan libur nasional ikut memakan free time?",

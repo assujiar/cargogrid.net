@@ -71,7 +71,7 @@ export const article: Article = {
     {
       type: "ul",
       items: [
-        "Cabang, rute, atau tim yang ikut pilot sudah ditentukan secara tertulis, termasuk alasan kenapa dipilih — idealnya karena paling sibuk atau paling rumit, bukan paling nyaman.",
+        "Cabang, rute, atau tim yang ikut pilot sudah ditentukan secara tertulis, termasuk alasan kenapa dipilih: idealnya karena paling sibuk atau paling rumit, bukan paling nyaman.",
         "Proses yang diuji sudah jelas cakupannya: end-to-end dari RFQ sampai invoice, atau hanya satu modul tertentu.",
         "Ada daftar tertulis tentang apa yang sengaja tidak termasuk dalam pilot, supaya cakupannya tidak melebar diam-diam di tengah jalan.",
       ],
@@ -93,7 +93,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "Jumlah job minimum yang akan diproses lewat sistem baru selama masa pilot sudah ditetapkan di depan, bukan 'sebanyak yang sempat'.",
-        "Sampel mencakup kasus yang biasanya merepotkan di lapangan — multi-drop, retur, perubahan mendadak, back-to-back job — bukan cuma yang alurnya mulus.",
+        "Sampel mencakup kasus yang biasanya merepotkan di lapangan (multi-drop, retur, perubahan mendadak, back-to-back job), bukan cuma yang alurnya mulus.",
         "Data yang dipakai adalah transaksi operasional riil, bukan data contoh yang sudah disiapkan vendor.",
       ],
     },
@@ -110,7 +110,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "Daftar nama dan peran spesifik yang ikut pilot sudah ditulis, bukan sekadar 'tim operasional'.",
-        "Peran-peran yang terlibat dalam alur kerja yang diuji ikut serta bersamaan — kalau prosesnya melibatkan sales, operasional, dan finance, ketiganya memakai sistem yang sama selama pilot, bukan cuma satu pihak yang mengetes lalu melaporkan ke yang lain.",
+        "Peran-peran yang terlibat dalam alur kerja yang diuji ikut serta bersamaan: kalau prosesnya melibatkan sales, operasional, dan finance, ketiganya memakai sistem yang sama selama pilot, bukan cuma satu pihak yang mengetes lalu melaporkan ke yang lain.",
         "Satu orang ditunjuk sebagai penanggung jawab harian yang mencatat kendala dan memastikan sistem benar-benar dipakai, bukan cuma dicoba sekali di awal.",
       ],
     },
@@ -156,7 +156,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "Angka lolos dan angka gagal sudah dituliskan untuk tiap metrik dasar, bukan disimpulkan setelah pilot selesai.",
-        "Ada minimal satu skenario yang, kalau terjadi, akan membuat tim memutuskan berhenti — dituliskan secara eksplisit, bukan diandaikan begitu saja.",
+        "Ada minimal satu skenario yang, kalau terjadi, akan membuat tim memutuskan berhenti. Skenario ini dituliskan secara eksplisit, bukan diandaikan begitu saja.",
         "Kriteria ini disetujui oleh orang yang tidak mengusulkan pembelian sistem ini, supaya penilaiannya tidak berat sebelah.",
       ],
     },
@@ -173,7 +173,7 @@ export const article: Article = {
       type: "ul",
       items: [
         "Ada satu tempat pusat mencatat tiap kendala yang muncul selama pilot, terpisah dari percakapan harian di grup chat.",
-        "Setiap entri punya tingkat keparahan — misalnya: menghambat pekerjaan, atau sekadar tidak nyaman — dan status penyelesaiannya.",
+        "Setiap entri punya tingkat keparahan (misalnya menghambat pekerjaan, atau sekadar tidak nyaman) dan status penyelesaiannya.",
         "Log ini direview setidaknya mingguan selama pilot berjalan, bukan hanya dibaca sekali di hari terakhir.",
       ],
     },
@@ -191,14 +191,14 @@ export const article: Article = {
       items: [
         "Sudah jelas siapa dari pihak vendor yang menangani tim Anda selama pilot, dan apakah orang yang sama akan menangani setelah go-live atau berpindah ke tim support umum.",
         "Ada kejelasan tertulis soal waktu respons yang biasa berlaku untuk pertanyaan atau kendala setelah masa implementasi selesai.",
-        "Dicatat berapa kali tim Anda perlu menghubungi support untuk hal yang seharusnya bisa dilakukan sendiri lewat sistem — semakin sering, semakin besar ketergantungan jangka panjangnya.",
+        "Dicatat berapa kali tim Anda perlu menghubungi support untuk hal yang seharusnya bisa dilakukan sendiri lewat sistem. Semakin sering, semakin besar ketergantungan jangka panjangnya.",
       ],
     },
     {
       type: "callout",
       tone: "warning",
       title: "Dua pertanyaan yang jawabannya benar-benar membedakan vendor",
-      body: "Minta vendor menceritakan satu implementasi yang sempat tidak berjalan mulus dan apa yang berubah sesudahnya, lalu tanyakan apa yang produknya tidak bisa lakukan. Vendor yang mengaku belum pernah gagal sedang mengatakan sesuatu, entah soal jumlah pelanggannya yang masih sedikit, entah soal kejujurannya. Vendor yang mengiyakan semua permintaan tanpa mempertanyakan apa pun juga bukan tanda fleksibel — itu biasanya tanda percakapan sulitnya ditunda ke fase setelah kontrak diteken.",
+      body: "Minta vendor menceritakan satu implementasi yang sempat tidak berjalan mulus dan apa yang berubah sesudahnya, lalu tanyakan apa yang produknya tidak bisa lakukan. Vendor yang mengaku belum pernah gagal sedang mengatakan sesuatu, entah soal jumlah pelanggannya yang masih sedikit, entah soal kejujurannya. Vendor yang mengiyakan semua permintaan tanpa mempertanyakan apa pun juga bukan tanda fleksibel. Itu biasanya tanda percakapan sulitnya ditunda ke fase setelah kontrak diteken.",
     },
     {
       type: "h2",
@@ -212,7 +212,7 @@ export const article: Article = {
     {
       type: "ul",
       items: [
-        "Format ekspor untuk tiap jenis data — job, invoice, data pelanggan, dokumen — sudah dikonfirmasi tertulis, bukan dijanjikan lisan saat demo.",
+        "Format ekspor untuk tiap jenis data (job, invoice, data pelanggan, dokumen) sudah dikonfirmasi tertulis, bukan dijanjikan lisan saat demo.",
         "Waktu yang dibutuhkan untuk ekspor data secara penuh sudah diuji langsung selama pilot, bukan diasumsikan dari brosur.",
         "Sudah jelas siapa pemilik data selama masa berlangganan dan setelah kerja sama berakhir, termasuk berapa lama data disimpan di sistem vendor sebelum dihapus.",
       ],
@@ -224,7 +224,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Selama pilot, data operasional riil — termasuk data pelanggan dan tarif — sudah masuk ke sistem pihak ketiga. Tinjauan keamanan bukan langkah formalitas yang bisa ditunda sampai kontrak penuh, karena risikonya sudah berjalan sejak hari pertama pilot.",
+      text: "Selama pilot, data operasional riil (termasuk data pelanggan dan tarif) sudah masuk ke sistem pihak ketiga. Tinjauan keamanan bukan langkah formalitas yang bisa ditunda sampai kontrak penuh, karena risikonya sudah berjalan sejak hari pertama pilot.",
     },
     {
       type: "ul",
@@ -241,7 +241,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Ilmu ekonomi punya satu prinsip yang gampang dimengerti tapi susah dijalankan: biaya yang sudah keluar dan tidak bisa ditarik kembali seharusnya tidak ikut memengaruhi keputusan berikutnya. Yang relevan hanya biaya dan manfaat yang masih ada di depan mata. Setelah mengeluarkan waktu dan tenaga untuk pilot, menghentikannya terasa seperti mengakui kesalahan sendiri — itulah salah satu alasan kenapa keputusan akhir sebaiknya tidak diambil oleh orang yang sama yang mengusulkan pembelian ini.",
+      text: "Ilmu ekonomi punya satu prinsip yang gampang dimengerti tapi susah dijalankan: biaya yang sudah keluar dan tidak bisa ditarik kembali seharusnya tidak ikut memengaruhi keputusan berikutnya. Yang relevan hanya biaya dan manfaat yang masih ada di depan mata. Setelah mengeluarkan waktu dan tenaga untuk pilot, menghentikannya terasa seperti mengakui kesalahan sendiri: itulah salah satu alasan kenapa keputusan akhir sebaiknya tidak diambil oleh orang yang sama yang mengusulkan pembelian ini.",
     },
     {
       type: "p",
@@ -268,7 +268,7 @@ export const article: Article = {
       items: [
         "Sudah jelas siapa yang berwenang memutuskan lanjut atau berhenti di akhir pilot, dan idealnya bukan orang yang sama yang mengusulkan sistem ini di awal.",
         "Keputusan diambil berdasarkan kriteria lolos/gagal yang ditulis di poin 5, bukan kesan umum yang terbentuk selama pilot berjalan.",
-        "Total biaya tahun kedua dan ketiga — termasuk penambahan pengguna dan modul — sudah masuk pertimbangan, bukan cuma harga tahun pertama yang sering disubsidi.",
+        "Total biaya tahun kedua dan ketiga (termasuk penambahan pengguna dan modul) sudah masuk pertimbangan, bukan cuma harga tahun pertama yang sering disubsidi.",
         "Tanggal keputusan sudah ditetapkan di depan dan tidak bergeser-geser. Perpanjangan pilot yang terus-menerus biasanya tanda tidak ada yang berani menyimpulkan hasilnya, bukan tanda pilotnya memang butuh waktu lebih lama.",
       ],
     },
@@ -284,20 +284,20 @@ export const article: Article = {
     {
       type: "ul",
       items: [
-        "**Lolos sesuai kriteria di poin 5.** Lanjutkan ke tahap berikutnya, dan tetapkan kriteria baru untuk tahap itu — jangan bawa kriteria pilot ke tahap implementasi penuh begitu saja.",
+        "**Lolos sesuai kriteria di poin 5.** Lanjutkan ke tahap berikutnya, dan tetapkan kriteria baru untuk tahap itu. Jangan bawa kriteria pilot ke tahap implementasi penuh begitu saja.",
         "**Gagal sesuai kriteria di poin 5.** Hentikan. Biaya yang sudah keluar adalah harga dari informasi yang baru saja didapat, dan itu jauh lebih murah dibanding komitmen penuh yang berhasil dihindari.",
         "**Tidak jelas, karena datanya tidak terkumpul atau tim belum sempat benar-benar memakainya.** Ini bukan hasil netral. Ini kegagalan pada rancangan pilotnya sendiri, biasanya karena salah satu dari sepuluh poin di atas belum punya jawaban tertulis sebelum pilot dimulai. Menjalankannya lagi dengan cara yang sama hanya akan menghasilkan ketidakjelasan yang sama.",
       ],
     },
     {
       type: "p",
-      text: "Hasil ketiga ini paling sering muncul, dan paling sering pula disalahartikan sebagai capaian yang cukup untuk lanjut ke tahap berikutnya. Padahal ia sedang memberi tahu satu hal penting: dalam kondisi kerja sehari-hari, tim belum tentu punya kapasitas mengadopsi sistem baru sambil tetap menjalankan operasional seperti biasa. Masalah itu tidak hilang begitu saja di tahap berikutnya — cakupannya justru lebih besar.",
+      text: "Hasil ketiga ini paling sering muncul, dan paling sering pula disalahartikan sebagai capaian yang cukup untuk lanjut ke tahap berikutnya. Padahal ia sedang memberi tahu satu hal penting: dalam kondisi kerja sehari-hari, tim belum tentu punya kapasitas mengadopsi sistem baru sambil tetap menjalankan operasional seperti biasa. Masalah itu tidak hilang begitu saja di tahap berikutnya; cakupannya justru lebih besar.",
     },
   ],
   faq: [
     {
       q: "Sebaiknya pilot itu berbayar atau gratis?",
-      a: "Pilot berbayar cenderung ditanggapi lebih serius oleh kedua pihak, dan itu menguntungkan Anda. Yang lebih menentukan daripada soal bayar-tidaknya adalah kejelasan tertulis tentang apa yang terjadi kalau pilot dinyatakan tidak berhasil: siapa menanggung apa, bagaimana data dikembalikan, dan apakah masih ada kewajiban yang tersisa — persis yang dicek di poin 8 checklist ini.",
+      a: "Pilot berbayar cenderung ditanggapi lebih serius oleh kedua pihak, dan itu menguntungkan Anda. Yang lebih menentukan daripada soal bayar-tidaknya adalah kejelasan tertulis tentang apa yang terjadi kalau pilot dinyatakan tidak berhasil: siapa menanggung apa, bagaimana data dikembalikan, dan apakah masih ada kewajiban yang tersisa, persis yang dicek di poin 8 checklist ini.",
     },
     {
       q: "Bagaimana kalau tim menolak sistem baru selama pilot berlangsung?",

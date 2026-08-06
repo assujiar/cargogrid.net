@@ -116,8 +116,8 @@ export default function SuperAdminPortal({ onNavigateToQuestionnaire, lang = "id
         setIsLoggedIn(false);
         setLoginError(
           langRef.current === "en"
-            ? "Cannot verify admin access. The is_admin() function is missing from the database — apply supabase_admin_access.sql."
-            : "Tidak dapat memverifikasi akses admin. Fungsi is_admin() belum ada di database — jalankan supabase_admin_access.sql.",
+            ? "Cannot verify admin access. The is_admin() function is missing from the database: apply supabase_admin_access.sql."
+            : "Tidak dapat memverifikasi akses admin. Fungsi is_admin() belum ada di database: jalankan supabase_admin_access.sql.",
         );
         setIsAuthLoading(false);
         return;

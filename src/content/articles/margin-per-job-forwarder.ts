@@ -7,7 +7,7 @@ export const article: Article = {
   title: "Margin Job yang Terlihat Sehat Saat Diambil Bisa Susut Begitu Tagihan Vendor Lengkap",
   metaTitle: "Cara Menghitung Margin Per Job untuk Perusahaan Logistik",
   description:
-    "Margin bulanan yang terlihat sehat digabung dari job-job dengan performa yang bisa sangat berbeda. Breakdown ini merekonstruksi margin satu job dari lima angka — harga jual, biaya akrual, biaya aktual, surcharge, dan alokasi overhead — lengkap dengan cara menghitungnya sendiri di job-job Anda.",
+    "Margin bulanan yang terlihat sehat digabung dari job-job dengan performa yang bisa sangat berbeda. Breakdown ini merekonstruksi margin satu job dari lima angka (harga jual, biaya akrual, biaya aktual, surcharge, dan alokasi overhead), lengkap dengan cara menghitungnya sendiri di job-job Anda.",
   keywords: [
     "margin per job logistik",
     "cara menghitung margin per job",
@@ -20,19 +20,19 @@ export const article: Article = {
   summary:
     "Margin per job bukan sekadar pendapatan dikurangi biaya di atas kertas. Ada jeda waktu antara harga jual yang sudah pasti sejak quotation disetujui dan biaya aktual yang baru lengkap setelah semua vendor menagih, lalu ada surcharge dan alokasi overhead yang sering luput dari hitungan cepat. Breakdown ini merekonstruksi kelima angka itu pada satu job ilustratif, lalu menunjukkan cara mengukurnya sendiri di job-job Anda.",
   takeaways: [
-    "Margin bulanan adalah angka gabungan dari puluhan job yang performanya bisa sangat berbeda — yang berguna untuk keputusan adalah sebaran per job, bukan rata-ratanya.",
+    "Margin bulanan adalah angka gabungan dari puluhan job yang performanya bisa sangat berbeda: yang berguna untuk keputusan adalah sebaran per job, bukan rata-ratanya.",
     "Margin satu job dibentuk oleh lima angka: harga jual, biaya akrual (estimasi), biaya aktual, surcharge, dan alokasi overhead. Dua angka terakhir yang paling sering luput dari hitungan cepat.",
-    "Pada contoh perhitungan ilustratif di artikel ini, margin yang terlihat 29,4% saat job baru diambil turun jadi 13,2% setelah kelima angka itu direkonsiliasi penuh — bukan karena ada yang salah, tapi karena belum lengkap.",
+    "Pada contoh perhitungan ilustratif di artikel ini, margin yang terlihat 29,4% saat job baru diambil turun jadi 13,2% setelah kelima angka itu direkonsiliasi penuh, bukan karena ada yang salah, tapi karena belum lengkap.",
     "Sales yang dikomisi dari omzet akan mengejar volume, bukan margin. Itu respons rasional terhadap ukuran yang keliru, bukan kesalahan mereka.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Saat job baru disepakati, harga jual dikurangi estimasi biaya sudah cukup untuk menghitung margin di atas kertas, dan angka itu biasanya terlihat sehat. Begitu semua tagihan vendor masuk, surcharge tercatat, dan alokasi overhead dibebankan, margin job yang sama bisa susut jauh — pada contoh di artikel ini, dari 29,4% jadi 13,2% — tanpa ada kesalahan hitung di mana pun. Breakdown ini merekonstruksi lima angka yang membuat jarak itu terjadi: harga jual, biaya akrual saat job dibuat, biaya aktual setelah tagihan vendor lengkap, surcharge yang sering dibebankan terpisah, dan alokasi overhead yang baru masuk belakangan — supaya rumus \"pendapatan dikurangi biaya\" berhenti jadi rumus di atas kertas dan mulai bisa dipakai sendiri di job-job Anda.",
+      text: "Saat job baru disepakati, harga jual dikurangi estimasi biaya sudah cukup untuk menghitung margin di atas kertas, dan angka itu biasanya terlihat sehat. Begitu semua tagihan vendor masuk, surcharge tercatat, dan alokasi overhead dibebankan, margin job yang sama bisa susut jauh (pada contoh di artikel ini, dari 29,4% jadi 13,2%) tanpa ada kesalahan hitung di mana pun. Breakdown ini merekonstruksi lima angka yang membuat jarak itu terjadi: harga jual, biaya akrual saat job dibuat, biaya aktual setelah tagihan vendor lengkap, surcharge yang sering dibebankan terpisah, dan alokasi overhead yang baru masuk belakangan, supaya rumus \"pendapatan dikurangi biaya\" berhenti jadi rumus di atas kertas dan mulai bisa dipakai sendiri di job-job Anda.",
     },
     {
       type: "p",
-      text: "Contoh job dan seluruh nominal di bawah ini sepenuhnya rekaan, disusun supaya urutan hitungannya gampang diikuti — bukan catatan satu job atau satu customer tertentu, dan bukan klaim bahwa sekian persen job forwarder pasti merugi. Klaim semacam itu, tanpa data dari perusahaan Anda sendiri, tidak lebih berguna daripada margin bulanan yang sudah digabung dari awal. Yang bisa langsung dipakai dari sini bukan angka 29,4% atau 13,2% itu sendiri, melainkan kelima titik pengukurannya, dan cara mengukurnya sendiri di job-job Anda ada di bagian akhir artikel ini.",
+      text: "Contoh job dan seluruh nominal di bawah ini sepenuhnya rekaan, disusun supaya urutan hitungannya gampang diikuti, bukan catatan satu job atau satu customer tertentu, dan bukan klaim bahwa sekian persen job forwarder pasti merugi. Klaim semacam itu, tanpa data dari perusahaan Anda sendiri, tidak lebih berguna daripada margin bulanan yang sudah digabung dari awal. Yang bisa langsung dipakai dari sini bukan angka 29,4% atau 13,2% itu sendiri, melainkan kelima titik pengukurannya, dan cara mengukurnya sendiri di job-job Anda ada di bagian akhir artikel ini.",
     },
     {
       type: "p",
@@ -49,7 +49,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Margin agregat adalah ringkasan semacam itu: ia menjawab \"berapa\", bukan \"job yang mana\". Keputusan yang perlu diambil forwarder hampir selalu berbentuk yang kedua — customer mana, rute mana, job mana. Karena itu, angka gabungan memang tidak dirancang untuk menjawab pertanyaan itu, secanggih apa pun cara menghitungnya.",
+      text: "Margin agregat adalah ringkasan semacam itu: ia menjawab \"berapa\", bukan \"job yang mana\". Keputusan yang perlu diambil forwarder hampir selalu berbentuk yang kedua: customer mana, rute mana, job mana. Karena itu, angka gabungan memang tidak dirancang untuk menjawab pertanyaan itu, secanggih apa pun cara menghitungnya.",
     },
     {
       type: "h2",
@@ -65,7 +65,7 @@ export const article: Article = {
       caption: "Lima angka yang menyusun margin satu job",
       head: ["Angka", "Diketahui sejak kapan", "Definisi"],
       rows: [
-        ["Harga jual", "Sejak quotation disetujui", "Nominal yang ditagihkan ke customer — sudah pasti sebelum job berjalan."],
+        ["Harga jual", "Sejak quotation disetujui", "Nominal yang ditagihkan ke customer, yang sudah pasti sebelum job berjalan."],
         [
           "Biaya akrual (estimasi)",
           "Sejak job dibuat",
@@ -79,7 +79,7 @@ export const article: Article = {
         [
           "Surcharge",
           "Biasanya ketahuan belakangan, kerap ditagihkan terpisah",
-          "Biaya tambahan di luar tarif dasar — waktu tunggu, pengiriman ulang, revisi dokumen — yang sering dicatat ke akun umum, bukan ke job penyebabnya.",
+          "Biaya tambahan di luar tarif dasar (waktu tunggu, pengiriman ulang, revisi dokumen) yang sering dicatat ke akun umum, bukan ke job penyebabnya.",
         ],
         [
           "Alokasi overhead",
@@ -99,7 +99,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Akibatnya, keputusan paling penting — menerima job ini dengan harga segini, untuk customer ini — hampir selalu diambil sebelum biaya aktualnya tersedia. Data yang lengkap baru muncul setelah keputusan itu sendiri sudah tidak bisa diubah lagi.",
+      text: "Akibatnya, keputusan paling penting (menerima job ini dengan harga segini, untuk customer ini) hampir selalu diambil sebelum biaya aktualnya tersedia. Data yang lengkap baru muncul setelah keputusan itu sendiri sudah tidak bisa diubah lagi.",
     },
     {
       type: "callout",
@@ -114,7 +114,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Contoh berikut satu job ilustratif, disederhanakan supaya urutan hitungannya mudah diikuti — bukan catatan job atau customer tertentu. Anggap satu pengiriman 1x20' FCL rute Jakarta–Surabaya, dengan harga jual ke customer disepakati Rp8.500.000.",
+      text: "Contoh berikut satu job ilustratif, disederhanakan supaya urutan hitungannya mudah diikuti, bukan catatan job atau customer tertentu. Anggap satu pengiriman 1x20' FCL rute Jakarta–Surabaya, dengan harga jual ke customer disepakati Rp8.500.000.",
     },
     {
       type: "table",
@@ -130,13 +130,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Selisih Rp350.000 di atas datang dari sumber yang lazim ditemui: trucking dan pelabuhan naik sedikit karena penyesuaian rute dan biaya storage, sementara biaya agen tujuan naik paling besar karena customer meminta tiga kali revisi invoice — jenis biaya administrasi yang jarang punya kode akun sendiri, sehingga baru kelihatan setelah tagihan agen benar-benar masuk.",
+      text: "Selisih Rp350.000 di atas datang dari sumber yang lazim ditemui: trucking dan pelabuhan naik sedikit karena penyesuaian rute dan biaya storage, sementara biaya agen tujuan naik paling besar karena customer meminta tiga kali revisi invoice, jenis biaya administrasi yang jarang punya kode akun sendiri, sehingga baru kelihatan setelah tagihan agen benar-benar masuk.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "Surcharge yang paling gampang hilang dari hitungan job",
-      body: "Tagihan waktu tunggu, pengiriman ulang, atau revisi dokumen sering datang dari vendor yang sama, hanya di baris tagihan yang terpisah dari tarif dasar. Kalau tim finance mencatatnya ke akun beban operasional umum alih-alih ke job penyebabnya, margin job itu di sistem akan selalu terlihat lebih sehat daripada kenyataannya — bukan karena direkayasa, tapi karena struktur pencatatannya memang tidak menyambungkan biaya itu kembali ke job asalnya.",
+      body: "Tagihan waktu tunggu, pengiriman ulang, atau revisi dokumen sering datang dari vendor yang sama, hanya di baris tagihan yang terpisah dari tarif dasar. Kalau tim finance mencatatnya ke akun beban operasional umum alih-alih ke job penyebabnya, margin job itu di sistem akan selalu terlihat lebih sehat daripada kenyataannya, bukan karena direkayasa, tapi karena struktur pencatatannya memang tidak menyambungkan biaya itu kembali ke job asalnya.",
     },
     {
       type: "p",
@@ -147,7 +147,7 @@ export const article: Article = {
       caption: "Contoh perhitungan, angka disederhanakan: rekonstruksi margin dari harga jual sampai margin bersih",
       head: ["Tahap", "Nilai", "Sisa margin (Rp)", "Sisa margin (%)"],
       rows: [
-        ["Harga jual ke customer", "—", "Rp8.500.000", "100,0%"],
+        ["Harga jual ke customer", "-", "Rp8.500.000", "100,0%"],
         ["Dikurangi biaya langsung aktual", "-Rp6.350.000", "Rp2.150.000", "25,3%"],
         ["Dikurangi surcharge waktu tunggu truk", "-Rp350.000", "Rp1.800.000", "21,2%"],
         ["Dikurangi alokasi overhead (8% dari harga jual)", "-Rp680.000", "Rp1.120.000", "13,2%"],
@@ -155,7 +155,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Bandingkan dengan margin yang terlihat saat job baru diambil: harga jual Rp8.500.000 dikurangi estimasi biaya langsung Rp6.000.000 saja sudah menunjukkan margin Rp2.500.000, atau 29,4%. Angka itu belum salah pada saat dihitung, cuma belum lengkap. Begitu biaya aktual, surcharge, dan alokasi overhead masuk satu per satu, margin job yang sama turun jadi Rp1.120.000, atau 13,2%. Job ini tetap untung pada contoh ini, tapi jarak antara 29,4% dan 13,2% itulah yang biasanya tidak pernah terlihat kalau margin cuma pernah dicek sekali, saat quotation baru disetujui. Andaikan surcharge atau revisi dokumen pada job serupa terjadi dua kali lipat, atau alokasi overheadnya sedikit lebih besar, margin bersihnya bisa saja tergerus sampai ke titik impas — itu sebabnya job yang di atas kertas terlihat aman pada saat pengambilan keputusan tetap perlu direkonsiliasi ulang setelah selesai, bukan diasumsikan tetap sehat.",
+      text: "Bandingkan dengan margin yang terlihat saat job baru diambil: harga jual Rp8.500.000 dikurangi estimasi biaya langsung Rp6.000.000 saja sudah menunjukkan margin Rp2.500.000, atau 29,4%. Angka itu belum salah pada saat dihitung, cuma belum lengkap. Begitu biaya aktual, surcharge, dan alokasi overhead masuk satu per satu, margin job yang sama turun jadi Rp1.120.000, atau 13,2%. Job ini tetap untung pada contoh ini, tapi jarak antara 29,4% dan 13,2% itulah yang biasanya tidak pernah terlihat kalau margin cuma pernah dicek sekali, saat quotation baru disetujui. Andaikan surcharge atau revisi dokumen pada job serupa terjadi dua kali lipat, atau alokasi overheadnya sedikit lebih besar, margin bersihnya bisa saja tergerus sampai ke titik impas. Itu sebabnya job yang di atas kertas terlihat aman pada saat pengambilan keputusan tetap perlu direkonsiliasi ulang setelah selesai, bukan diasumsikan tetap sehat.",
     },
     {
       type: "h2",
@@ -179,12 +179,12 @@ export const article: Article = {
         [
           "Pengiriman ulang",
           "Saat bongkar gagal dan harus diulang keesokan harinya, biayanya lebih sering dibebankan ke pos operasional umum daripada ke job penyebabnya",
-          "—",
+          "-",
         ],
         [
           "Demurrage & detention",
           "Biasanya dicatat di akun terpisah, sehingga job penyebabnya tetap terlihat sehat di atas kertas",
-          "—",
+          "-",
         ],
         [
           "Waktu administrasi berlebihan",
@@ -194,7 +194,7 @@ export const article: Article = {
         [
           "Biaya modal",
           "Job dengan termin pembayaran panjang secara riil lebih mahal dibanding termin pendek, meski margin nominal keduanya sama",
-          "—",
+          "-",
         ],
       ],
     },
@@ -209,7 +209,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Begitu margin per job sudah di tangan — bukan cuma satu job seperti contoh di atas, tapi puluhan job dalam sebulan — tahan dulu godaan untuk langsung merata-ratakannya. Merata-ratakan cuma membawa Anda kembali ke masalah yang sama dari awal artikel ini.",
+      text: "Begitu margin per job sudah di tangan (bukan cuma satu job seperti contoh di atas, tapi puluhan job dalam sebulan), tahan dulu godaan untuk langsung merata-ratakannya. Merata-ratakan cuma membawa Anda kembali ke masalah yang sama dari awal artikel ini.",
     },
     {
       type: "p",
@@ -229,7 +229,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Di laporan bulanan, dua skenario ini terlihat kembar identik. Pada skenario B, sekitar sepertiga job-nya (21 dari 66) berada di margin di bawah 5% — angka hipotetis untuk menunjukkan bentuk polanya, bukan pengamatan tentang forwarder pada umumnya. Kalau pola seperti itu memang muncul di data Anda sendiri, sepertiga volume itu bisa berubah jadi kerugian nyata hanya gara-gara satu kali kenaikan tarif vendor, dan satu-satunya cara mengetahuinya adalah mengukur, bukan menerka dari margin bulanan yang sudah digabung.",
+      text: "Di laporan bulanan, dua skenario ini terlihat kembar identik. Pada skenario B, sekitar sepertiga job-nya (21 dari 66) berada di margin di bawah 5% (angka hipotetis untuk menunjukkan bentuk polanya, bukan pengamatan tentang forwarder pada umumnya). Kalau pola seperti itu memang muncul di data Anda sendiri, sepertiga volume itu bisa berubah jadi kerugian nyata hanya gara-gara satu kali kenaikan tarif vendor, dan satu-satunya cara mengetahuinya adalah mengukur, bukan menerka dari margin bulanan yang sudah digabung.",
     },
     {
       type: "h2",
@@ -280,7 +280,7 @@ export const article: Article = {
         [
           "Memang strategi yang disengaja",
           "Margin tipis tapi volumenya besar, jadi referensi, atau kepadatan rutenya menopang job lain",
-          "Sah-sah saja, selama ini keputusan sadar — bukan sesuatu yang baru ketahuan setahun kemudian",
+          "Sah-sah saja, selama ini keputusan sadar, bukan sesuatu yang baru ketahuan setahun kemudian",
         ],
       ],
     },
@@ -311,7 +311,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Angka yang lebih berguna bukan rata-rata dari 20–30 job itu",
-      body: "Sama seperti sebaran job dalam sebulan, sebaran 20–30 job yang diukur satu per satu ini juga lebih berguna dilihat urut daripada dirata-ratakan. Job dengan margin kontribusi terendah biasanya berbagi satu penyebab yang sama — vendor yang sama, rute yang sama, atau customer yang sama — dan itu titik pertama yang layak diperbaiki, karena kemungkinan besar akan berulang di job-job berikutnya kalau dibiarkan.",
+      body: "Sama seperti sebaran job dalam sebulan, sebaran 20–30 job yang diukur satu per satu ini juga lebih berguna dilihat urut daripada dirata-ratakan. Job dengan margin kontribusi terendah biasanya berbagi satu penyebab yang sama (vendor yang sama, rute yang sama, atau customer yang sama), dan itu titik pertama yang layak diperbaiki, karena kemungkinan besar akan berulang di job-job berikutnya kalau dibiarkan.",
     },
     {
       type: "p",
@@ -321,7 +321,7 @@ export const article: Article = {
   faq: [
     {
       q: "Apakah margin per job relevan untuk perusahaan trucking, bukan cuma forwarder?",
-      a: "Relevan, hanya satuannya beda. Untuk trucking, ukuran yang lebih bermakna biasanya margin per rit atau per kendaraan per hari, karena aset utamanya memang kapasitas armada, bukan job demi job seperti forwarder. Lima angka yang sama — harga jual, biaya akrual, biaya aktual, surcharge, dan alokasi overhead — tetap berlaku, cuma dihitung per rit.",
+      a: "Relevan, hanya satuannya beda. Untuk trucking, ukuran yang lebih bermakna biasanya margin per rit atau per kendaraan per hari, karena aset utamanya memang kapasitas armada, bukan job demi job seperti forwarder. Lima angka yang sama (harga jual, biaya akrual, biaya aktual, surcharge, dan alokasi overhead) tetap berlaku, cuma dihitung per rit.",
     },
     {
       q: "Seberapa sering rekonsiliasi seperti ini perlu diulang?",

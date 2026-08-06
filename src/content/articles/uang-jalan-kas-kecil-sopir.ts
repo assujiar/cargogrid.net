@@ -20,10 +20,10 @@ export const article: Article = {
   publishedAt: "2026-07-25",
   updatedAt: "2026-08-06",
   summary:
-    "Sebagian besar perusahaan membaca selisih uang jalan yang tak terjelaskan sebagai soal kejujuran sopir. Kami pikir itu keliru sasaran: akar masalahnya ada di kebijakan pengecualian yang tidak pernah ditulis jelas — kategori biaya mana yang memang tak akan pernah berstruk, ambang varians berapa yang layak ditinjau, dan siapa yang berwenang menyetujui pengecualian tanpa menunggu rapat. Tulisan ini posisi kami, lengkap dengan data varians, waktu rekonsiliasi, dan rancangan kebijakan yang kami rekomendasikan.",
+    "Sebagian besar perusahaan membaca selisih uang jalan yang tak terjelaskan sebagai soal kejujuran sopir. Kami pikir itu keliru sasaran: akar masalahnya ada di kebijakan pengecualian yang tidak pernah ditulis jelas: kategori biaya mana yang memang tak akan pernah berstruk, ambang varians berapa yang layak ditinjau, dan siapa yang berwenang menyetujui pengecualian tanpa menunggu rapat. Tulisan ini posisi kami, lengkap dengan data varians, waktu rekonsiliasi, dan rancangan kebijakan yang kami rekomendasikan.",
   takeaways: [
     "Selisih uang jalan yang tak terjelaskan biasanya bukan soal kejujuran sopir, melainkan kebijakan pengecualian yang tidak pernah ditulis: kategori biaya mana yang memang tak akan pernah berstruk, dan siapa yang berwenang menyetujui pengecualian.",
-    "Biaya tanpa struk jatuh ke tiga kategori dengan akar penyebab berbeda — retribusi informal yang memang tak pernah menerbitkan bukti, kertas yang rusak di jalan, dan nota yang sengaja tak diminta — dan hanya kategori terakhir yang benar-benar butuh pemeriksaan.",
+    "Biaya tanpa struk jatuh ke tiga kategori dengan akar penyebab berbeda: retribusi informal yang memang tak pernah menerbitkan bukti, kertas yang rusak di jalan, dan nota yang sengaja tak diminta. Hanya kategori terakhir yang benar-benar butuh pemeriksaan.",
     "Dua angka yang layak dipantau: rasio selisih tak terjelaskan terhadap total uang jalan yang cair tiap bulan, dan lama waktu rekonsiliasi di akhir bulan. Keduanya jauh lebih jujur dibanding kesan subjektif admin soal sopir mana yang terlihat mencurigakan.",
     "Memverifikasi tiap struk dengan ketat yang sama menghabiskan lebih banyak jam admin daripada nilai yang dipertaruhkan; ambang audit bertingkat berbasis varians dari rata-rata rute jauh lebih efisien, dan itu yang seharusnya jadi kebijakan tertulis, bukan pengetahuan tak resmi di kepala satu orang.",
   ],
@@ -34,7 +34,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Posisi kami: sebagian besar selisih yang tidak terjelaskan di laporan uang jalan bukan berasal dari niat menyembunyikan uang, melainkan dari kebijakan yang tidak pernah ditulis dengan jelas — kategori biaya mana yang memang tidak akan pernah punya struk, ambang nominal berapa yang layak dipertanyakan, dan siapa yang berwenang menyetujui pengecualian tanpa menunggu rapat. Begitu kebijakan ini ditulis dan diukur, selisihnya biasanya menyusut jauh lebih cepat daripada hasil menaikkan pengawasan atas sopir.",
+      text: "Posisi kami: sebagian besar selisih yang tidak terjelaskan di laporan uang jalan bukan berasal dari niat menyembunyikan uang, melainkan dari kebijakan yang tidak pernah ditulis dengan jelas: kategori biaya mana yang memang tidak akan pernah punya struk, ambang nominal berapa yang layak dipertanyakan, dan siapa yang berwenang menyetujui pengecualian tanpa menunggu rapat. Begitu kebijakan ini ditulis dan diukur, selisihnya biasanya menyusut jauh lebih cepat daripada hasil menaikkan pengawasan atas sopir.",
     },
     {
       type: "h2",
@@ -47,11 +47,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Masalahnya, struk yang hilang kena hujan dan struk yang sengaja tidak diminta supaya sisanya bisa disimpan terlihat sama persis di atas kertas. Kantor yang menyamakan keduanya lalu menaikkan kecurigaan ke semua laporan sebenarnya sedang menghukum kejadian di luar kendali siapa pun dengan beban yang sama seperti kejadian yang memang perlu ditelusuri. Berapa proporsi laporan yang benar-benar disengaja itu bukan pertanyaan yang bisa dijawab dari selisih struk saja — dan mengejar jawabannya lewat rasa curiga cuma membuang waktu.",
+      text: "Masalahnya, struk yang hilang kena hujan dan struk yang sengaja tidak diminta supaya sisanya bisa disimpan terlihat sama persis di atas kertas. Kantor yang menyamakan keduanya lalu menaikkan kecurigaan ke semua laporan sebenarnya sedang menghukum kejadian di luar kendali siapa pun dengan beban yang sama seperti kejadian yang memang perlu ditelusuri. Berapa proporsi laporan yang benar-benar disengaja itu bukan pertanyaan yang bisa dijawab dari selisih struk saja, dan mengejar jawabannya lewat rasa curiga cuma membuang waktu.",
     },
     {
       type: "p",
-      text: "Ekonom punya nama untuk pola ini, dan kami pikir istilahnya membantu meletakkan soalnya di tempat yang tepat: **principal-agent problem**, dirumuskan formal oleh Michael Jensen dan William Meckling pada 1976. Sebelum uang keluar, kantor tak pernah tahu pasti ongkos wajar suatu perjalanan — ini **adverse selection**. Setelah uang keluar, kantor juga tak tahu persis untuk apa saja uang itu dipakai — ini **moral hazard**. Keduanya soal informasi yang timpang, bukan soal watak. Menaruh akuntan di kursi penumpang tiap truk jelas tidak realistis, jadi yang bisa diubah cuma desain sistemnya.",
+      text: "Ekonom punya nama untuk pola ini, dan kami pikir istilahnya membantu meletakkan soalnya di tempat yang tepat: **principal-agent problem**, dirumuskan formal oleh Michael Jensen dan William Meckling pada 1976. Sebelum uang keluar, kantor tak pernah tahu pasti ongkos wajar suatu perjalanan: ini **adverse selection**. Setelah uang keluar, kantor juga tak tahu persis untuk apa saja uang itu dipakai: ini **moral hazard**. Keduanya soal informasi yang timpang, bukan soal watak. Menaruh akuntan di kursi penumpang tiap truk jelas tidak realistis, jadi yang bisa diubah cuma desain sistemnya.",
     },
     {
       type: "quote",
@@ -93,7 +93,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kategori pertama dan kedua bukan soal disiplin sopir sama sekali — itu soal struktur biaya di jalan yang memang tidak pernah menerbitkan bukti resmi, atau kertas yang rusak sebelum sempat disetorkan. Baru kategori ketiga yang benar-benar butuh mekanisme pemeriksaan, dan itu pun menurut kami lebih efektif diselesaikan lewat ambang varians daripada lewat rasa curiga yang disebar rata ke semua laporan.",
+      text: "Kategori pertama dan kedua bukan soal disiplin sopir sama sekali: itu soal struktur biaya di jalan yang memang tidak pernah menerbitkan bukti resmi, atau kertas yang rusak sebelum sempat disetorkan. Baru kategori ketiga yang benar-benar butuh mekanisme pemeriksaan, dan itu pun menurut kami lebih efektif diselesaikan lewat ambang varians daripada lewat rasa curiga yang disebar rata ke semua laporan.",
     },
     {
       type: "h2",
@@ -118,11 +118,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Flat rate mendorong sopir berhemat karena sisa uang jadi haknya, tapi cara berhemat itu tidak selalu sejalan dengan kepentingan perusahaan: ada yang memilih jalur non-tol demi menyimpan selisih tol, ada yang memangkas istirahat, ada yang parkir di bahu jalan terlarang daripada membayar parkir resmi. Kalau kondisi berubah di luar dugaan — macet parah, tarif tol naik mendadak, jalan ditutup — sopir menanggung sendiri selisihnya, dan itu yang biasanya berujung telepon minta tambahan.",
+      text: "Flat rate mendorong sopir berhemat karena sisa uang jadi haknya, tapi cara berhemat itu tidak selalu sejalan dengan kepentingan perusahaan: ada yang memilih jalur non-tol demi menyimpan selisih tol, ada yang memangkas istirahat, ada yang parkir di bahu jalan terlarang daripada membayar parkir resmi. Kalau kondisi berubah di luar dugaan (macet parah, tarif tol naik mendadak, jalan ditutup), sopir menanggung sendiri selisihnya, dan itu yang biasanya berujung telepon minta tambahan.",
     },
     {
       type: "p",
-      text: "Reimbursement penuh punya masalah kebalikannya: karena semua diganti sesuai struk, tidak ada dorongan berhemat, dan celah nota fiktif jadi mungkin muncul. Skema ini juga membebani arus kas sopir sendiri — ia menombok dulu, menunggu verifikasi, kadang berhari-hari, sebelum diganti. Untuk perjalanan jauh yang mahal, sopir bisa kehabisan uang sebelum reimbursement cair, lalu menelepon minta talangan. Skema yang niatnya menjamin sopir tak pernah rugi, pada praktiknya bisa membuatnya jadi pihak paling dulu kehabisan uang.",
+      text: "Reimbursement penuh punya masalah kebalikannya: karena semua diganti sesuai struk, tidak ada dorongan berhemat, dan celah nota fiktif jadi mungkin muncul. Skema ini juga membebani arus kas sopir sendiri: ia menombok dulu, menunggu verifikasi, kadang berhari-hari, sebelum diganti. Untuk perjalanan jauh yang mahal, sopir bisa kehabisan uang sebelum reimbursement cair, lalu menelepon minta talangan. Skema yang niatnya menjamin sopir tak pernah rugi, pada praktiknya bisa membuatnya jadi pihak paling dulu kehabisan uang.",
     },
     {
       type: "h2",
@@ -141,7 +141,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Rasio di atas 3% dan waktu rekonsiliasi yang masih menyita berhari-hari adalah tanda paling jelas, menurut kami, bahwa desain kebijakannya belum selesai — bukan tanda bahwa sopirnya perlu diawasi lebih ketat. Dua angka ini juga jauh lebih mudah dilacak dari waktu ke waktu dibanding mencoba menilai watak orang per orang.",
+      text: "Rasio di atas 3% dan waktu rekonsiliasi yang masih menyita berhari-hari adalah tanda paling jelas, menurut kami, bahwa desain kebijakannya belum selesai, bukan tanda bahwa sopirnya perlu diawasi lebih ketat. Dua angka ini juga jauh lebih mudah dilacak dari waktu ke waktu dibanding mencoba menilai watak orang per orang.",
     },
     {
       type: "h2",
@@ -155,10 +155,10 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "**Ambang nominal bebas bukti.** Di bawah nominal ini (misalnya Rp20.000, disesuaikan dengan kondisi masing-masing armada), retribusi dan uang keamanan informal tidak wajib disertai struk resmi — foto lokasi dan catatan singkat sudah cukup.",
+        "**Ambang nominal bebas bukti.** Di bawah nominal ini (misalnya Rp20.000, disesuaikan dengan kondisi masing-masing armada), retribusi dan uang keamanan informal tidak wajib disertai struk resmi: foto lokasi dan catatan singkat sudah cukup.",
         "**Klasifikasi biaya per kategori.** Biaya yang polanya stabil (makan, retribusi kecil, parkir rutin) masuk flat rate; biaya besar yang berubah-ubah di luar kendali sopir (BBM, tol, darurat seperti ban pecah) masuk reimbursement berbukti foto.",
         "**Ambang varians untuk tinjauan.** Klaim dalam rentang wajar rata-rata rute, dihitung dari data tiga bulan terakhir, lolos tanpa ditelaah manusia; penyimpangan besar ditahan untuk konfirmasi, bukan setiap klaim diperiksa satu per satu.",
-        "**Jalur eskalasi yang jelas.** Penyimpangan berulang pada sopir atau rute yang sama, tiga bulan berturut-turut, naik ke supervisor operasional — bukan ditangani berulang-ulang di level admin keuangan yang sama.",
+        "**Jalur eskalasi yang jelas.** Penyimpangan berulang pada sopir atau rute yang sama, tiga bulan berturut-turut, naik ke supervisor operasional, bukan ditangani berulang-ulang di level admin keuangan yang sama.",
         "**Jadwal peninjauan nominal flat rate.** Ditinjau ulang tiap kali tarif tol atau harga BBM berubah signifikan, memakai angka di sekitar median atau persentil ke-60 dari data aktual, supaya tidak terlalu rendah dan memancing sopir mencari jalan pintas.",
       ],
     },
@@ -190,11 +190,11 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Memverifikasi setiap struk dengan ketat yang sama itu, menurut kami, kebijakan yang salah alamat — bukan kebijakan yang ketat. Ongkos memeriksa nota Rp5.000 sama besarnya dengan memeriksa nota Rp500.000, padahal nilai yang dipertaruhkan jauh berbeda, dan jam admin yang habis mengejar recehan itu jam yang tidak dipakai untuk menangkap penyimpangan besar yang sungguhan merugikan.",
+      text: "Memverifikasi setiap struk dengan ketat yang sama itu, menurut kami, kebijakan yang salah alamat, bukan kebijakan yang ketat. Ongkos memeriksa nota Rp5.000 sama besarnya dengan memeriksa nota Rp500.000, padahal nilai yang dipertaruhkan jauh berbeda, dan jam admin yang habis mengejar recehan itu jam yang tidak dipakai untuk menangkap penyimpangan besar yang sungguhan merugikan.",
     },
     {
       type: "p",
-      text: "Kami juga tidak sedang bilang bahwa kecurigaan pada laporan uang jalan itu sepenuhnya keliru — kategori ketiga yang kami sebut di atas memang nyata, dan ambang varians dirancang justru untuk menangkapnya. Yang kami tolak adalah caranya: menaikkan pengawasan atas semua laporan untuk masalah yang sebenarnya cuma butuh kebijakan tertulis dan ambang yang jelas. Kalau rasio selisih di armada Anda masih di atas 3% dan admin masih menghabiskan berhari-hari tiap akhir bulan untuk rekonsiliasi, itu menurut kami bukan tanda perlu pengawasan yang lebih ketat. Itu tanda kebijakannya belum ditulis.",
+      text: "Kami juga tidak sedang bilang bahwa kecurigaan pada laporan uang jalan itu sepenuhnya keliru: kategori ketiga yang kami sebut di atas memang nyata, dan ambang varians dirancang justru untuk menangkapnya. Yang kami tolak adalah caranya: menaikkan pengawasan atas semua laporan untuk masalah yang sebenarnya cuma butuh kebijakan tertulis dan ambang yang jelas. Kalau rasio selisih di armada Anda masih di atas 3% dan admin masih menghabiskan berhari-hari tiap akhir bulan untuk rekonsiliasi, itu menurut kami bukan tanda perlu pengawasan yang lebih ketat. Itu tanda kebijakannya belum ditulis.",
     },
   ],
   cta: {

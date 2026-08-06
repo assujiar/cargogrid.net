@@ -19,10 +19,10 @@ export const article: Article = {
   publishedAt: "2026-07-09",
   updatedAt: "2026-08-06",
   summary:
-    "Checklist ini bukan daftar KPI yang sebaiknya Anda pantau — itu topik lain. Ini daftar enam kolom yang harus terisi di balik KPI apa pun yang sudah Anda pantau: pembilang, penyebut, aturan stempel waktu, pengecualian, pemilik, dan contoh sengketa yang biasa memicu perdebatan. On-time delivery 98% bisa berarti lima hal berbeda tergantung mana dari keenam kolom itu yang belum dituliskan jelas.",
+    "Checklist ini bukan daftar KPI yang sebaiknya Anda pantau. Itu topik lain. Ini daftar enam kolom yang harus terisi di balik KPI apa pun yang sudah Anda pantau: pembilang, penyebut, aturan stempel waktu, pengecualian, pemilik, dan contoh sengketa yang biasa memicu perdebatan. On-time delivery 98% bisa berarti lima hal berbeda tergantung mana dari keenam kolom itu yang belum dituliskan jelas.",
   takeaways: [
     "KPI tanpa definisi tertulis pelan-pelan bergeser menguntungkan siapa pun yang menyusun laporannya, dan itu bisa terjadi tanpa ada niat curang sedikit pun.",
-    "Enam kolom — pembilang, penyebut, aturan stempel waktu, pengecualian, pemilik, contoh sengketa — harus terisi untuk tiap KPI sebelum angkanya layak dikirim ke customer.",
+    "Enam kolom (pembilang, penyebut, aturan stempel waktu, pengecualian, pemilik, contoh sengketa) harus terisi untuk tiap KPI sebelum angkanya layak dikirim ke customer.",
     "Rata-rata menyembunyikan kegagalan individual; P90 membongkarnya ke permukaan dan jauh lebih sulit dipoles.",
     "Kalau sebuah indikator tidak pernah mengubah keputusan siapa pun, coret saja. Mempertahankannya demi laporan yang terlihat lengkap cuma menambah halaman, bukan menambah nilai.",
   ],
@@ -33,7 +33,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Selisih antara angka di laporan Anda dan hitungan customer sendiri jarang muncul karena ada yang memanipulasi data. Begitu sebuah ukuran dijadikan target, ia cenderung berhenti jadi ukuran yang baik — itu hukum Goodhart, dan berlaku tanpa perlu ada siapa pun yang berniat curang. Definisi yang belum dituliskan jelas akan diisi dengan asumsi yang paling menguntungkan sudut pandang masing-masing pihak, dan celah itu umumnya ditemukan begitu ada tekanan untuk mengejar angka.",
+      text: "Selisih antara angka di laporan Anda dan hitungan customer sendiri jarang muncul karena ada yang memanipulasi data. Begitu sebuah ukuran dijadikan target, ia cenderung berhenti jadi ukuran yang baik. Itu hukum Goodhart, dan berlaku tanpa perlu ada siapa pun yang berniat curang. Definisi yang belum dituliskan jelas akan diisi dengan asumsi yang paling menguntungkan sudut pandang masing-masing pihak, dan celah itu umumnya ditemukan begitu ada tekanan untuk mengejar angka.",
     },
     {
       type: "h2",
@@ -42,7 +42,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Checklist ini bukan daftar KPI yang sebaiknya dipantau — itu topik lain. Ini daftar enam kolom yang harus terisi di balik KPI apa pun yang sudah Anda pantau, supaya angkanya tahan diperiksa siapa pun, termasuk customer yang menghitung ulang dari sisi mereka sendiri.",
+      text: "Checklist ini bukan daftar KPI yang sebaiknya dipantau. Itu topik lain. Ini daftar enam kolom yang harus terisi di balik KPI apa pun yang sudah Anda pantau, supaya angkanya tahan diperiksa siapa pun, termasuk customer yang menghitung ulang dari sisi mereka sendiri.",
     },
     {
       type: "ol",
@@ -52,7 +52,7 @@ export const article: Article = {
         "**Aturan stempel waktu.** Momen mana yang dianggap sah sebagai titik ukur, dan toleransi apa yang masih diterima sebelum sesuatu dianggap meleset.",
         "**Pengecualian.** Kejadian di luar kendali Anda yang dikeluarkan dari perhitungan, dan bagaimana kejadian itu tetap dilaporkan supaya tidak hilang begitu saja dari catatan.",
         "**Pemilik.** Satu nama atau satu jabatan yang bertanggung jawab kalau angkanya memburuk. Tanpa ini, tidak ada yang akan menindaklanjuti.",
-        "**Contoh sengketa.** Skenario nyata yang paling sering memicu perdebatan soal angka ini, antara tim internal atau dengan customer — bukti bahwa definisinya sudah diuji, bukan cuma ditulis di atas kertas.",
+        "**Contoh sengketa.** Skenario nyata yang paling sering memicu perdebatan soal angka ini, antara tim internal atau dengan customer: bukti bahwa definisinya sudah diuji, bukan cuma ditulis di atas kertas.",
       ],
     },
     {
@@ -72,7 +72,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sembilan dari sepuluh pengiriman bisa saja selesai dalam 2 hari, sementara satu sisanya molor sampai 6 hari. Rata-ratanya tetap terlihat wajar, padahal sepersepuluh customer Anda baru saja mengalami layanan yang buruk, dan merekalah yang biasanya menelepon mengeluh lalu pelan-pelan pindah ke kompetitor. Variasi yang melekat pada proses seperti ini — variasi sebab umum, istilah dari pengendalian mutu statistik ala Shewhart dan Deming — tidak berkurang dengan menegur orang; satu-satunya cara menguranginya adalah mengubah prosesnya sendiri.",
+      text: "Sembilan dari sepuluh pengiriman bisa saja selesai dalam 2 hari, sementara satu sisanya molor sampai 6 hari. Rata-ratanya tetap terlihat wajar, padahal sepersepuluh customer Anda baru saja mengalami layanan yang buruk, dan merekalah yang biasanya menelepon mengeluh lalu pelan-pelan pindah ke kompetitor. Variasi yang melekat pada proses seperti ini (variasi sebab umum, istilah dari pengendalian mutu statistik ala Shewhart dan Deming) tidak berkurang dengan menegur orang; satu-satunya cara menguranginya adalah mengubah prosesnya sendiri.",
     },
     {
       type: "table",
@@ -121,11 +121,11 @@ export const article: Article = {
         "**Aturan stempel waktu.** Dihitung pada RFQ yang keputusannya (menang, kalah, atau hangus) sudah final dalam periode laporan, bukan pada RFQ yang diajukan di periode itu.",
         "**Pengecualian.** RFQ yang dibatalkan customer sebelum quotation terkirim dikeluarkan dari penyebut.",
         "**Pemilik.** Kepala tim komersial, dengan tiap kekalahan wajib disertai kode alasan.",
-        "**Contoh sengketa.** RFQ yang \"hangus\" karena tidak pernah ditindaklanjuti kadang dicatat sebagai \"kalah karena harga\" oleh sales yang tidak ingin dianggap lambat merespons — makanya jumlah RFQ yang tidak pernah dijawab perlu dihitung terpisah, bukan digabung ke alasan kalah.",
+        "**Contoh sengketa.** RFQ yang \"hangus\" karena tidak pernah ditindaklanjuti kadang dicatat sebagai \"kalah karena harga\" oleh sales yang tidak ingin dianggap lambat merespons. Makanya jumlah RFQ yang tidak pernah dijawab perlu dihitung terpisah, bukan digabung ke alasan kalah.",
       ],
     },
     { type: "h3", text: "Operasional" },
-    { type: "p", text: "**On-time delivery — bersih dan kotor**" },
+    { type: "p", text: "**On-time delivery: bersih dan kotor**" },
     {
       type: "ul",
       items: [
@@ -235,7 +235,7 @@ export const article: Article = {
       items: [
         "**Warnanya konsisten hijau.** Kalau sepanjang tahun angkanya tidak pernah keluar dari target, kemungkinan besar ia tidak sedang mengukur apa pun yang benar-benar bervariasi.",
         "**Tanpa pemilik.** Selama tidak ada satu nama pun yang bisa ditunjuk bertanggung jawab, tidak akan ada yang menindaklanjuti kalau angkanya memburuk.",
-        "**Total volume tanpa konteks.** Jumlah shipment naik 12% — itu kabar baik atau tanda bahaya? Pertanyaan itu sulit dijawab tanpa melihat margin dan kapasitas yang menopangnya.",
+        "**Total volume tanpa konteks.** Jumlah shipment naik 12%. Apakah itu kabar baik atau tanda bahaya? Pertanyaan itu sulit dijawab tanpa melihat margin dan kapasitas yang menopangnya.",
         "**Datanya dikumpulkan manual setiap bulan.** Pengisiannya biasanya berhenti duluan justru di bulan tersibuk, persis ketika informasi itu paling dibutuhkan.",
       ],
     },

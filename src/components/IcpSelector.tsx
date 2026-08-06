@@ -168,7 +168,7 @@ export default function IcpSelector() {
                 <div className="relative mt-2">
                   <Quote className="absolute -top-3 -left-2 w-8 h-8 text-slate-200 -z-10" />
                   <span className="text-[9px] font-mono text-slate-400 uppercase tracking-widest font-black block pl-5 mb-1.5">
-                    {isEn ? "Illustrative scenario — outcome this role aims for" : "Skenario ilustratif — target hasil yang dikejar peran ini"}
+                    {isEn ? "Illustrative scenario: outcome this role aims for" : "Skenario ilustratif: target hasil yang dikejar peran ini"}
                   </span>
                   <p className="text-slate-600 text-xs font-semibold leading-relaxed pl-5 relative z-10">
                     &quot;{isEn ? (activeIcp.personaQuoteEn || activeIcp.personaQuote) : activeIcp.personaQuote}&quot;

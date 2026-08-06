@@ -34,8 +34,8 @@ export default function ArticleIndexView() {
           </h1>
           <p className="mt-6 text-base leading-[1.8] text-slate-600 sm:text-lg">
             Tulisan teknis tentang hal yang jarang masuk brosur: ke mana margin bocor, kenapa POD telat pulang, dan apa
-            yang benar benar berubah ketika sebuah proses didigitalkan. Bentuknya sengaja tidak seragam — Catatan
-            Lapangan, Checklist Audit, Data Breakdown, Regulatory Explainer, Teardown Kasus, Tanya Jawab, sampai Opini —
+            yang benar benar berubah ketika sebuah proses didigitalkan. Bentuknya sengaja tidak seragam: Catatan
+            Lapangan, Checklist Audit, Data Breakdown, Regulatory Explainer, Teardown Kasus, Tanya Jawab, sampai Opini,
             karena tiap masalah logistik punya cara paling jujur untuk dibedah, bukan satu formula yang dipaksakan ke
             semuanya.
           </p>

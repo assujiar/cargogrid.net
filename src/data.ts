@@ -196,8 +196,8 @@ export const icpList: IcpItem[] = [
     personaRoleEn: "Director / Owner",
     personaFocus: "Win-rate, Profit Margin, & Customer Experience",
     personaFocusEn: "Win-rate, Profit Margin, & Customer Experience",
-    personaQuote: "Target saya: RFQ luar negeri yang biasanya butuh 24 jam untuk direspon, bisa dipangkas jadi sekitar 10 menit lewat CargoGrid — dengan margin quote yang tetap aman terkunci.",
-    personaQuoteEn: "My target: cutting overseas RFQ response time from around 24 hours down to about 10 minutes with CargoGrid — while keeping quote margins safely locked in.",
+    personaQuote: "Target saya: RFQ luar negeri yang biasanya butuh 24 jam untuk direspon, bisa dipangkas jadi sekitar 10 menit lewat CargoGrid, dengan margin quote yang tetap aman terkunci.",
+    personaQuoteEn: "My target: cutting overseas RFQ response time from around 24 hours down to about 10 minutes with CargoGrid, while keeping quote margins safely locked in.",
   },
   {
     id: "3pl",
@@ -429,11 +429,11 @@ export const pricingPackages: PackageItem[] = [
     implementationNotes: "Setup domain custom dan branding portal biasanya selesai dalam 3-5 hari kerja setelah data logo dan DNS diserahkan.",
     implementationNotesEn: "Custom domain and portal branding setup is typically completed within 3-5 business days once logo and DNS details are provided.",
     limitations: [
-      "Belum termasuk modul RFQ, dispatch, atau billing — murni tracking & portal customer.",
+      "Belum termasuk modul RFQ, dispatch, atau billing, murni tracking & portal customer.",
       "Kuota 150 shipment/bulan; kelebihan kuota dikenakan biaya tambahan per shipment.",
     ],
     limitationsEn: [
-      "Does not include RFQ, dispatch, or billing modules — tracking & customer portal only.",
+      "Does not include RFQ, dispatch, or billing modules, tracking & customer portal only.",
       "Quota is 150 shipments/month; overage is billed per additional shipment.",
     ],
     addOns: ["Domain custom tambahan", "Kuota shipment tracking tambahan", "Integrasi notifikasi WhatsApp"],
@@ -514,11 +514,11 @@ export const pricingPackages: PackageItem[] = [
     implementationNotes: "Termasuk pendampingan 30 hari pilot kerja: setup manifest, training driver app, dan konfigurasi billing-readiness rules bersama tim kami.",
     implementationNotesEn: "Includes a 30-day working pilot with hands-on support: manifest setup, driver app training, and billing-readiness rule configuration with our team.",
     limitations: [
-      "Modul WMS pergudangan penuh (rack/bin, putaway) tidak termasuk — perlu paket Warehouse WMS atau ERP Suite.",
+      "Modul WMS pergudangan penuh (rack/bin, putaway) tidak termasuk, perlu paket Warehouse WMS atau ERP Suite.",
       "Modul akuntansi/GL belum termasuk; billing readiness hanya memicu draft invoice, bukan pembukuan penuh.",
     ],
     limitationsEn: [
-      "Full warehouse WMS features (rack/bin, putaway) are not included — requires Warehouse WMS or ERP Suite.",
+      "Full warehouse WMS features (rack/bin, putaway) are not included, requires Warehouse WMS or ERP Suite.",
       "Accounting/GL module not included; billing readiness only triggers draft invoices, not full bookkeeping.",
     ],
     addOns: ["Modul Warehouse WMS", "Modul akuntansi & GL", "Kapasitas driver/user tambahan"],
@@ -556,11 +556,11 @@ export const pricingPackages: PackageItem[] = [
     implementationNotes: "Tim kami membantu pemetaan layout rack/bin gudang eksisting dan migrasi data stok awal (stock opname) sebelum go-live.",
     implementationNotesEn: "Our team assists with mapping your existing rack/bin layout and migrating initial stock data (stock opname) before go-live.",
     limitations: [
-      "Modul dispatch armada trucking tidak termasuk — perlu paket Operations Pro atau ERP Suite.",
+      "Modul dispatch armada trucking tidak termasuk, perlu paket Operations Pro atau ERP Suite.",
       "Cocok untuk 1-5 lokasi gudang aktif dalam paket dasar; lokasi tambahan dikenakan biaya per gudang.",
     ],
     limitationsEn: [
-      "Trucking fleet dispatch module is not included — requires Operations Pro or ERP Suite.",
+      "Trucking fleet dispatch module is not included, requires Operations Pro or ERP Suite.",
       "Base package covers 1-5 active warehouse locations; additional locations are billed per site.",
     ],
     addOns: ["Lokasi gudang tambahan", "Integrasi barcode scanner khusus", "Modul dispatch armada trucking"],

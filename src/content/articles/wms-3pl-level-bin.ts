@@ -22,10 +22,10 @@ export const article: Article = {
     "Kumpulan pertanyaan berulang dari tim operasional gudang 3PL: kapan stok wajib dicatat sampai level bin, kapan lokasi sederhana sudah cukup, dan bagaimana bentuknya satu transaksi tercatat dari barang diterima sampai dikirim.",
   takeaways: [
     "Stok agregat menjawab 'berapa banyak'. Ledger level bin menjawab 'unit yang mana, di lokasi mana, sejak kapan'. Untuk operasional harian, gudang butuh jawaban kedua.",
-    "Tidak semua gudang butuh sampai ke level bin — gudang dengan satu customer, SKU sedikit, dan turnover tinggi sering sudah cukup dengan lokasi sederhana.",
+    "Tidak semua gudang butuh sampai ke level bin: gudang dengan satu customer, SKU sedikit, dan turnover tinggi sering sudah cukup dengan lokasi sederhana.",
     "Tanpa data lokasi, kecepatan picking bergantung pada hafalan staf tertentu, artinya bergantung pada orang, bukan pada sistem.",
     "Storage billing yang bisa dipertanggungjawabkan nyaris mustahil dihitung tanpa data ruang dan durasi penyimpanan per unit.",
-    "Stok opname penuh yang sampai menghentikan operasional biasanya tanda ada masalah mendasar yang belum dibereskan — sesuatu yang bisa dihindari kalau ledger lokasi berjalan benar.",
+    "Stok opname penuh yang sampai menghentikan operasional biasanya tanda ada masalah mendasar yang belum dibereskan, sesuatu yang bisa dihindari kalau ledger lokasi berjalan benar.",
   ],
   blocks: [
     {
@@ -130,7 +130,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Untuk mayoritas gudang 3PL di Indonesia, barcode atau QR code sudah lebih dari cukup dan jauh lebih murah. RFID baru masuk akal untuk kondisi tertentu: pemeriksaan massal tanpa perlu garis pandang langsung, aset bernilai sangat tinggi, atau permintaan khusus dari customer. Mulai dari barcode dulu — kalau memang kurang, kebutuhannya akan terlihat dengan sendirinya.",
+      text: "Untuk mayoritas gudang 3PL di Indonesia, barcode atau QR code sudah lebih dari cukup dan jauh lebih murah. RFID baru masuk akal untuk kondisi tertentu: pemeriksaan massal tanpa perlu garis pandang langsung, aset bernilai sangat tinggi, atau permintaan khusus dari customer. Mulai dari barcode dulu. Kalau memang kurang, kebutuhannya akan terlihat dengan sendirinya.",
     },
     {
       type: "h2",
@@ -143,7 +143,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Supaya tidak abstrak, begini bentuknya kalau diturunkan ke satu transaksi. Contoh berikut disederhanakan untuk menunjukkan cara ledger bekerja, bukan catatan satu gudang atau customer tertentu — angka, kode lokasi, dan jumlah karton di bawah ini cuma ilustrasi:",
+      text: "Supaya tidak abstrak, begini bentuknya kalau diturunkan ke satu transaksi. Contoh berikut disederhanakan untuk menunjukkan cara ledger bekerja, bukan catatan satu gudang atau customer tertentu; angka, kode lokasi, dan jumlah karton di bawah ini cuma ilustrasi:",
     },
     {
       type: "ol",
@@ -151,7 +151,7 @@ export const article: Article = {
         "**Receipt (terima barang).** Satu palet berisi 40 karton dari satu SKU tiba dari customer. Staf memindai palet di dock, dan ledger mencatat 40 karton itu di lokasi dock sementara, lengkap dengan nomor batch dan tanggal terima.",
         "**Move / putaway (pindah ke rak).** Palet dipindai lagi saat diletakkan ke rak, misalnya bin A-03-02. Ledger memindahkan catatan 40 karton itu dari lokasi dock ke A-03-02, dengan timestamp perpindahan.",
         "**Pick (ambil untuk order).** Order keluar meminta 12 karton dari SKU yang sama. Staf memindai bin A-03-02 saat mengambil, dan ledger menguranginya jadi 28 karton yang tercatat masih di bin itu.",
-        "**Adjust (koreksi).** Cycle count rutin di zona A-03 menemukan cuma 27 karton, bukan 28. Selisih satu karton dicatat sebagai koreksi di bin A-03-02, lengkap dengan tanggal dan alasan sementara \"belum diketahui\" — bukan sekadar mengubah angka total customer itu di laporan bulanan.",
+        "**Adjust (koreksi).** Cycle count rutin di zona A-03 menemukan cuma 27 karton, bukan 28. Selisih satu karton dicatat sebagai koreksi di bin A-03-02, lengkap dengan tanggal dan alasan sementara \"belum diketahui\", bukan sekadar mengubah angka total customer itu di laporan bulanan.",
         "**Ship (kirim keluar).** Order berikutnya mengambil 27 karton sisanya. Bin A-03-02 kembali ke nol untuk SKU ini, siap dipakai SKU lain, dan seluruh riwayatnya, dari terima sampai kirim, tetap bisa ditelusuri lagi kapan pun dibutuhkan.",
       ],
     },
@@ -182,7 +182,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Opname penuh yang mengharuskan gudang tutup sehari, kadang lebih, selama ini terlanjur dianggap biaya yang wajar ditanggung — dianggap tak terhindarkan karena satu-satunya cara memastikan total stok benar, menurut anggapan itu, adalah menghitung semuanya sekaligus.",
+      text: "Opname penuh yang mengharuskan gudang tutup sehari, kadang lebih, selama ini terlanjur dianggap biaya yang wajar ditanggung, dianggap tak terhindarkan karena satu-satunya cara memastikan total stok benar, menurut anggapan itu, adalah menghitung semuanya sekaligus.",
     },
     {
       type: "p",
@@ -192,7 +192,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Selisih opname itu gejala, bukan penyakitnya",
-      body: "Begitu opname menemukan selisih, pertanyaan yang biasanya langsung muncul adalah 'berapa selisihnya'. Pertanyaan yang jauh lebih berguna adalah 'sejak kapan selisih ini mulai muncul'. Tanpa catatan pergerakan per lokasi, pertanyaan kedua ini tidak akan pernah terjawab, sehingga koreksi cuma dilakukan di angka akhir tanpa pernah menyentuh akar masalahnya — dan selisih yang sama muncul lagi di periode berikutnya.",
+      body: "Begitu opname menemukan selisih, pertanyaan yang biasanya langsung muncul adalah 'berapa selisihnya'. Pertanyaan yang jauh lebih berguna adalah 'sejak kapan selisih ini mulai muncul'. Tanpa catatan pergerakan per lokasi, pertanyaan kedua ini tidak akan pernah terjawab, sehingga koreksi cuma dilakukan di angka akhir tanpa pernah menyentuh akar masalahnya, dan selisih yang sama muncul lagi di periode berikutnya.",
     },
     {
       type: "h3",
@@ -230,7 +230,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Perhatikan, tidak satu pun dari empat penyebab ini berhubungan dengan pilihan software. Semuanya soal persiapan fisik dan disiplin menjalankan proses — justru bagian yang paling jarang dibahas saat memilih vendor, padahal paling menentukan berhasil-tidaknya implementasi.",
+      text: "Perhatikan, tidak satu pun dari empat penyebab ini berhubungan dengan pilihan software. Semuanya soal persiapan fisik dan disiplin menjalankan proses, justru bagian yang paling jarang dibahas saat memilih vendor, padahal paling menentukan berhasil-tidaknya implementasi.",
     },
     {
       type: "h3",
@@ -241,7 +241,7 @@ export const article: Article = {
       items: [
         "**Beri nama semua lokasi secara fisik lebih dulu**, sebelum menyentuh software apa pun. Pasang label besar yang terbaca dari jarak beberapa meter dengan pola yang bisa ditebak: lorong, bay, level. Pekerjaan ini cuma butuh beberapa hari, tapi menentukan langkah-langkah berikutnya.",
         "**Petakan stok yang sudah ada.** Melelahkan, tapi kalau dilewati, data akan salah sejak hari pertama.",
-        "**Wajibkan pemindaian di proses inbound lebih dulu.** Kuasai satu proses sampai benar-benar lancar sebelum menambah proses lain. Inbound dipilih lebih dulu karena di situlah data lokasi lahir — kesalahan di titik ini menular ke semua proses sesudahnya.",
+        "**Wajibkan pemindaian di proses inbound lebih dulu.** Kuasai satu proses sampai benar-benar lancar sebelum menambah proses lain. Inbound dipilih lebih dulu karena di situlah data lokasi lahir: kesalahan di titik ini menular ke semua proses sesudahnya.",
         "**Baru lanjutkan ke picking**, setelah data lokasi bisa dipercaya. Daftar picking dengan lokasi yang salah lebih berbahaya daripada tidak ada daftar sama sekali.",
         "**Terakhir, baru aktifkan storage billing otomatis.** Bagian ini paling bernilai secara komersial, tapi cuma bisa diandalkan kalau tiga langkah sebelumnya sudah berjalan konsisten.",
       ],

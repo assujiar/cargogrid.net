@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Incoterms 2020: Sebelas Aturan, Titik Risiko, dan Kesalahan yang Paling Mahal",
   metaTitle: "Incoterms 2020 Lengkap: EXW, FOB, CIF, DAP, DDP | CargoGrid",
   description:
-    "FOB atau CIF, di titik mana risiko sebenarnya berpindah ke pembeli? Bukan soal siapa bayar apa — sebelas aturan Incoterms 2020 di sini disusun berdasarkan titik pindah risikonya.",
+    "FOB atau CIF, di titik mana risiko sebenarnya berpindah ke pembeli? Bukan soal siapa bayar apa: sebelas aturan Incoterms 2020 di sini disusun berdasarkan titik pindah risikonya.",
   keywords: [
     "incoterms 2020",
     "perbedaan FOB dan CIF",

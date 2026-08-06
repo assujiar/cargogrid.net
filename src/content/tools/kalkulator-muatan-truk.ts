@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Kalkulator Muatan Truk: Berapa Kardus Muat di CDD, Fuso, atau Tronton",
   metaTitle: "Kalkulator Muatan Truk: Hitung Kapasitas CDE, CDD, Fuso, Tronton | CargoGrid",
   description:
-    "Sedang menentukan CDD atau Fuso untuk kiriman ini? Masukkan ukuran kardus, berat per kardus, dan jumlahnya — kalkulator ini menyebutkan batas mana yang mengikat lebih dulu, ruang atau berat.",
+    "Sedang menentukan CDD atau Fuso untuk kiriman ini? Masukkan ukuran kardus, berat per kardus, dan jumlahnya, lalu kalkulator ini menyebutkan batas mana yang mengikat lebih dulu, ruang atau berat.",
   keywords: [
     "kalkulator muatan truk",
     "kapasitas truk CDD",

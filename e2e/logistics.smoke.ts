@@ -425,7 +425,11 @@ check("the truck page's headline count matches the taxonomy", truckRef.title.inc
 check("the truck page's summary count matches too", truckRef.summary.includes("Enam puluh satu"), VEHICLE_ARCHETYPES.length === 61);
 
 const glossaryTool = getTool("kamus-logistik")!;
-check("the glossary page does not overstate its size", glossaryTool.description.includes("Seratus lima puluh"), GLOSSARY.length === 150);
+check(
+  "the glossary page does not overstate its size",
+  glossaryTool.description.toLowerCase().includes("seratus lima puluh"),
+  GLOSSARY.length === 150,
+);
 
 // Container figures are quoted in prose as well as rendered from data; a
 // reconciled spec that leaves the prose behind is the same defect in reverse.

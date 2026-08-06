@@ -159,9 +159,9 @@ export default function LeadCaptureForm() {
             </h1>
             <p className="text-slate-600 text-sm font-semibold leading-relaxed">
               {isEn ? (
-                <>A free 45-minute session reviews your operational workflow from <strong className="text-slate-800 font-bold">request to payment</strong>. Bring a sample RFQ, job sheet, or your current POD process — you'll come away with a one-page written summary covering duplicate-work points, data risks, and the modules relevant to your operation.</>
+                <>A free 45-minute session reviews your operational workflow from <strong className="text-slate-800 font-bold">request to payment</strong>. Bring a sample RFQ, job sheet, or your current POD process, and you'll come away with a one-page written summary covering duplicate-work points, data risks, and the modules relevant to your operation.</>
               ) : (
-                <>Sesi konsultasi 45 menit untuk meninjau alur kerja Anda dari <strong className="text-slate-800 font-bold">RFQ hingga Billing</strong>, gratis. Siapkan contoh RFQ, job sheet, atau alur POD Anda saat ini — Anda akan menerima ringkasan tertulis satu halaman berisi titik kerja duplikat, risiko data, dan modul yang relevan.</>
+                <>Sesi konsultasi 45 menit untuk meninjau alur kerja Anda dari <strong className="text-slate-800 font-bold">RFQ hingga Billing</strong>, gratis. Siapkan contoh RFQ, job sheet, atau alur POD Anda saat ini, dan Anda akan menerima ringkasan tertulis satu halaman berisi titik kerja duplikat, risiko data, dan modul yang relevan.</>
               )}
             </p>
 
@@ -193,8 +193,8 @@ export default function LeadCaptureForm() {
                 </div>
                 <span>
                   {isEn
-                    ? "A mockup tracking-portal page carrying your company logo — a visual example, not a live system."
-                    : "Mockup halaman pelacakan berlogo perusahaan Anda — contoh visual, bukan sistem yang sudah live."}
+                    ? "A mockup tracking-portal page carrying your company logo: a visual example, not a live system."
+                    : "Mockup halaman pelacakan berlogo perusahaan Anda: contoh visual, bukan sistem yang sudah live."}
                 </span>
               </div>
             </div>
@@ -210,8 +210,8 @@ export default function LeadCaptureForm() {
 
             <p className="text-[11px] text-slate-500 font-semibold leading-relaxed">
               {isEn
-                ? "The audit and demo are non-binding — no commercial agreement until you and our team sign a formal SLA."
-                : "Audit dan demo ini tidak mengikat kontrak apa pun — belum ada perjanjian komersial sampai Anda dan tim kami menandatangani SLA resmi."}
+                ? "The audit and demo are non-binding: no commercial agreement until you and our team sign a formal SLA."
+                : "Audit dan demo ini tidak mengikat kontrak apa pun, belum ada perjanjian komersial sampai Anda dan tim kami menandatangani SLA resmi."}
             </p>
           </div>
 

@@ -30,7 +30,7 @@ export const article: Article = {
   blocks: [
     {
       type: "p",
-      text: "Kasus berikut adalah gabungan dari pola yang berulang di banyak rute logistik darat Indonesia, disederhanakan menjadi satu truk supaya penyebabnya lebih mudah dilacak — bukan catatan satu perusahaan atau satu sopir tertentu. Bayangkan sebuah truk tronton yang tiga tahun terakhir menjalani rute yang sama: mengangkut besi beton dari pabrik di Cilegon ke gudang distributor di Bandung, dua rit sehari. Buku kir mencatat muatan sumbu terberat 20 ton. Tapi setiap kali antre di gerbang pabrik, timbangan hampir selalu menunjukkan 27 ton, dan sebagian besar truk di belakangnya menunjukkan angka serupa.",
+      text: "Kasus berikut adalah gabungan dari pola yang berulang di banyak rute logistik darat Indonesia, disederhanakan menjadi satu truk supaya penyebabnya lebih mudah dilacak, bukan catatan satu perusahaan atau satu sopir tertentu. Bayangkan sebuah truk tronton yang tiga tahun terakhir menjalani rute yang sama: mengangkut besi beton dari pabrik di Cilegon ke gudang distributor di Bandung, dua rit sehari. Buku kir mencatat muatan sumbu terberat 20 ton. Tapi setiap kali antre di gerbang pabrik, timbangan hampir selalu menunjukkan 27 ton, dan sebagian besar truk di belakangnya menunjukkan angka serupa.",
     },
     {
       type: "p",
@@ -70,7 +70,7 @@ export const article: Article = {
       type: "callout",
       tone: "warning",
       title: "Sanksi pelanggar berulang bisa jauh lebih mahal dari tilang pertama, tapi bentuknya tidak seragam",
-      body: "Truk yang tertangkap ODOL untuk kedua atau ketiga kalinya kerap menghadapi lebih dari sekadar denda: kir bisa dibekukan, STNK bisa ditahan, dan izin trayek bisa masuk pengawasan khusus. Bentuk dan berat sanksi ini bervariasi tergantung catatan pelanggaran, wilayah penegakan, dan kebijakan dinas perhubungan setempat — bukan aturan tunggal yang berlaku sama di semua kasus. Ongkos ini jarang dihitung sebelum kejadian pertama, padahal berpotensi paling mahal dari semua konsekuensi yang dibahas di sini.",
+      body: "Truk yang tertangkap ODOL untuk kedua atau ketiga kalinya kerap menghadapi lebih dari sekadar denda: kir bisa dibekukan, STNK bisa ditahan, dan izin trayek bisa masuk pengawasan khusus. Bentuk dan berat sanksi ini bervariasi tergantung catatan pelanggaran, wilayah penegakan, dan kebijakan dinas perhubungan setempat, bukan aturan tunggal yang berlaku sama di semua kasus. Ongkos ini jarang dihitung sebelum kejadian pertama, padahal berpotensi paling mahal dari semua konsekuensi yang dibahas di sini.",
     },
     {
       type: "h2",
@@ -119,7 +119,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kembali ke truk tronton di rute Cilegon-Bandung tadi — kasus gabungan yang disederhanakan, bukan pembukuan satu perusahaan tertentu. Kalau rute yang dilewati punya jembatan timbang tetap yang aktif setiap hari, bukan razia sporadis, peluang tertangkap dalam satu rit bisa jauh lebih tinggi. Contoh perhitungan berikut, angka disederhanakan untuk menunjukkan caranya: memakai peluang tertangkap sekitar 40%, dengan sanksi yang sudah memperhitungkan riwayat pelanggaran sebelumnya.",
+      text: "Kembali ke truk tronton di rute Cilegon-Bandung tadi (kasus gabungan yang disederhanakan, bukan pembukuan satu perusahaan tertentu). Kalau rute yang dilewati punya jembatan timbang tetap yang aktif setiap hari, bukan razia sporadis, peluang tertangkap dalam satu rit bisa jauh lebih tinggi. Contoh perhitungan berikut, angka disederhanakan untuk menunjukkan caranya: memakai peluang tertangkap sekitar 40%, dengan sanksi yang sudah memperhitungkan riwayat pelanggaran sebelumnya.",
     },
     {
       type: "table",
@@ -145,7 +145,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Angka paling menentukan di atas adalah peluang tertangkap, jauh lebih menentukan dibanding nominal denda atau ongkos bengkel itu sendiri, dan angka ini berbeda jauh antar rute. Di jalur arteri dengan razia sporadis, peluang tertangkap bisa di bawah 5%, sehingga true cost tambahan jauh lebih kecil dari tambahan pendapatannya — situasi yang membuat kebiasaan ini bertahan bertahun-tahun tanpa terasa jadi masalah.",
+      text: "Angka paling menentukan di atas adalah peluang tertangkap, jauh lebih menentukan dibanding nominal denda atau ongkos bengkel itu sendiri, dan angka ini berbeda jauh antar rute. Di jalur arteri dengan razia sporadis, peluang tertangkap bisa di bawah 5%, sehingga true cost tambahan jauh lebih kecil dari tambahan pendapatannya, yaitu situasi yang membuat kebiasaan ini bertahan bertahun-tahun tanpa terasa jadi masalah.",
     },
     {
       type: "p",
@@ -208,7 +208,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau kerangka ini diterapkan pada kasus truk tadi, hasilnya kira-kira begini: muatan disesuaikan dengan kir begitu masuk jalur berjembatan timbang tetap, dan tetap sedikit di atas kir di jalur arteri yang pengawasannya longgar. Keputusannya didasarkan pada hitungan, bukan kebiasaan jalur — sehingga jelas rute mana yang masih menguntungkan untuk ditambah muatannya, dan rute mana yang sebenarnya sedang mengantar kerugian yang belum kelihatan.",
+      text: "Kalau kerangka ini diterapkan pada kasus truk tadi, hasilnya kira-kira begini: muatan disesuaikan dengan kir begitu masuk jalur berjembatan timbang tetap, dan tetap sedikit di atas kir di jalur arteri yang pengawasannya longgar. Keputusannya didasarkan pada hitungan, bukan kebiasaan jalur, sehingga jelas rute mana yang masih menguntungkan untuk ditambah muatannya, dan rute mana yang sebenarnya sedang mengantar kerugian yang belum kelihatan.",
     },
   ],
   faq: [
@@ -231,13 +231,13 @@ export const article: Article = {
   ],
   cta: {
     title: "Hitung true cost per rit truk Anda sendiri",
-    body: "Rp2.450.000 di kasus tadi cuma pendapatan kotor. Kalkulator biaya operasional truk menyusun ongkos per rit, per km bermuatan, dan per ton-km dari asumsi armada Anda sendiri — titik awal yang sama untuk menambahkan expected cost ditilang, bongkar paksa, dan percepatan keausan sebelum memutuskan menambah muatan di rute berikutnya.",
+    body: "Rp2.450.000 di kasus tadi cuma pendapatan kotor. Kalkulator biaya operasional truk menyusun ongkos per rit, per km bermuatan, dan per ton-km dari asumsi armada Anda sendiri, yaitu titik awal yang sama untuk menambahkan expected cost ditilang, bongkar paksa, dan percepatan keausan sebelum memutuskan menambah muatan di rute berikutnya.",
     linkHref: "/alat/biaya-operasional-truk",
     linkLabel: "Buka Kalkulator Biaya Operasional Truk",
   },
   byline: {
     author: "Tim Editorial CargoGrid",
-    note: "Disusun dari pengamatan pola operasional trucking darat dan penindakan jembatan timbang di rute-rute Jawa yang berulang, dirangkai sebagai kasus ilustratif — bukan audit satu perusahaan tertentu.",
+    note: "Disusun dari pengamatan pola operasional trucking darat dan penindakan jembatan timbang di rute-rute Jawa yang berulang, dirangkai sebagai kasus ilustratif, bukan audit satu perusahaan tertentu.",
   },
   related: ["perawatan-armada-preventif-vs-reaktif", "margin-per-job-forwarder", "kpi-operasional-logistik"],
   relatedTools: ["biaya-operasional-truk", "kalkulator-muatan-truk"],

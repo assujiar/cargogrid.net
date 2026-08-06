@@ -4,7 +4,7 @@ import { buildMetadata } from "../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/",
-  title: "CargoGrid OS — Platform Logistik Modern untuk Freight Forwarder, 3PL & Trucking",
+  title: "CargoGrid OS - Platform Logistik Modern untuk Freight Forwarder, 3PL & Trucking",
   description:
     "Kelola RFQ, penawaran harga, dispatch armada, WMS, e-POD, hingga billing dan akuntansi dalam satu platform logistik terhubung. Hentikan pekerjaan manual di Excel dan WhatsApp.",
   keywords: [

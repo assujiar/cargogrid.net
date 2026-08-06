@@ -187,9 +187,9 @@ export default function DelayCalculator() {
               </div>
               <p className="text-[10px] text-slate-400 font-semibold leading-relaxed mt-1">
                 {isEn ? (
-                  "*This is your own assumption for how much of the leakage above CargoGrid could help you recover — adjust it up or down. It is not a guaranteed outcome."
+                  "*This is your own assumption for how much of the leakage above CargoGrid could help you recover, adjust it up or down. It is not a guaranteed outcome."
                 ) : (
-                  "*Ini adalah asumsi Anda sendiri soal seberapa besar kebocoran di atas yang berpotensi dipulihkan dengan bantuan CargoGrid — sesuaikan sesuai keyakinan Anda. Bukan hasil yang dijamin."
+                  "*Ini adalah asumsi Anda sendiri soal seberapa besar kebocoran di atas yang berpotensi dipulihkan dengan bantuan CargoGrid, sesuaikan sesuai keyakinan Anda. Bukan hasil yang dijamin."
                 )}
               </p>
             </div>
@@ -255,9 +255,9 @@ export default function DelayCalculator() {
                 </p>
                 <p className="text-[10px] text-slate-400 font-semibold mt-1 leading-relaxed">
                   {isEn ? (
-                    "*Estimated using an assumed average invoice value of Rp 3.000.000 per shipment for illustration — not a measured company average."
+                    "*Estimated using an assumed average invoice value of Rp 3.000.000 per shipment for illustration, not a measured company average."
                   ) : (
-                    "*Menggunakan asumsi nilai invoice rata-rata Rp 3.000.000 per pengiriman sebagai ilustrasi — bukan angka rata-rata terukur perusahaan."
+                    "*Menggunakan asumsi nilai invoice rata-rata Rp 3.000.000 per pengiriman sebagai ilustrasi, bukan angka rata-rata terukur perusahaan."
                   )}
                 </p>
               </motion.div>

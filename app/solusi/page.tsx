@@ -7,9 +7,9 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/solusi",
-  title: "Sistem & Modul CargoGrid OS — CRM, WMS, Dispatch & Billing Terhubung",
+  title: "Sistem & Modul CargoGrid OS - CRM, WMS, Dispatch & Billing Terhubung",
   description:
-    "7 modul siap pakai: CRM & RFQ, Pricing & Rate Book, WMS & Putaway, Job Dispatch, Job Costing, Billing & ERP Accounting, hingga Branded Customer Portal — semua berjalan dari satu alur data yang sama.",
+    "7 modul siap pakai: CRM & RFQ, Pricing & Rate Book, WMS & Putaway, Job Dispatch, Job Costing, Billing & ERP Accounting, hingga Branded Customer Portal, semua berjalan dari satu alur data yang sama.",
   keywords: [
     "sistem operasi logistik",
     "modul WMS",

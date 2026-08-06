@@ -19,7 +19,7 @@ export const article: Article = {
   publishedAt: "2026-04-28",
   updatedAt: "2026-08-06",
   summary:
-    "Termin di kontrak dan tanggal uang benar-benar cair mengukur dua rentang yang berbeda, dan laporan umur piutang standar cuma menangkap sebagian di antaranya. Breakdown ini memecah perjalanan satu invoice jadi lima tanggal — job selesai, invoice terbit, invoice diterima lengkap, jatuh tempo, dan uang masuk — lalu menunjukkan cara mengukur kelimanya di invoice-invoice Anda sendiri, bukan cuma mempercayai satu contoh yang terdengar dramatis.",
+    "Termin di kontrak dan tanggal uang benar-benar cair mengukur dua rentang yang berbeda, dan laporan umur piutang standar cuma menangkap sebagian di antaranya. Breakdown ini memecah perjalanan satu invoice jadi lima tanggal: job selesai, invoice terbit, invoice diterima lengkap, jatuh tempo, dan uang masuk, lalu menunjukkan cara mengukur kelimanya di invoice-invoice Anda sendiri, bukan cuma mempercayai satu contoh yang terdengar dramatis.",
   takeaways: [
     "Satu invoice punya lima tanggal kunci: job selesai (T0), invoice terbit (T1), invoice diterima lengkap (T2), jatuh tempo (T3), dan uang masuk (T4). DSO standar cuma mengukur T1 ke T4, melewatkan T0 ke T1 sama sekali.",
     "Contoh 60 hari yang dipakai di artikel ini disederhanakan untuk menunjukkan cara membaca waterfall-nya, bukan rata-rata industri atau catatan satu perusahaan tertentu.",
@@ -29,15 +29,15 @@ export const article: Article = {
   blocks: [
     {
       type: "p",
-      text: "Termin di kontrak forwarding hampir selalu tertulis jelas: 30 hari, kadang 45 atau 60, dihitung dari tanggal invoice. Yang jarang tertulis di mana pun adalah berapa hari yang sudah berlalu sebelum invoice itu sendiri sempat terbit — rentang yang, pada contoh di artikel ini, cukup panjang untuk membuat DSO 41 hari yang sudah terlihat molor tetap kalah jauh dari 60 hari yang sebenarnya berlalu sejak barang diterima. Breakdown ini memecah perjalanan satu invoice jadi lima tanggal, supaya rentang yang hilang itu punya nama dan bisa diukur, bukan cuma jadi selisih yang tidak terjelaskan di rekening.",
+      text: "Termin di kontrak forwarding hampir selalu tertulis jelas: 30 hari, kadang 45 atau 60, dihitung dari tanggal invoice. Yang jarang tertulis di mana pun adalah berapa hari yang sudah berlalu sebelum invoice itu sendiri sempat terbit. Rentang ini, pada contoh di artikel ini, cukup panjang untuk membuat DSO 41 hari yang sudah terlihat molor tetap kalah jauh dari 60 hari yang sebenarnya berlalu sejak barang diterima. Breakdown ini memecah perjalanan satu invoice jadi lima tanggal, supaya rentang yang hilang itu punya nama dan bisa diukur, bukan cuma jadi selisih yang tidak terjelaskan di rekening.",
     },
     {
       type: "p",
-      text: "Angka 41 dan 60 hari di atas sepenuhnya rekaan, dipilih supaya cara membaca breakdown-nya gampang diikuti — bukan rata-rata industri, dan bukan klaim bahwa semua job forwarder pasti molor sampai hari ke-60. Yang bisa langsung dipakai dari sini bukan kedua angka itu, melainkan kelima titik tanggal yang menyusunnya; cara mengukurnya sendiri di invoice-invoice Anda ada di bagian akhir artikel ini.",
+      text: "Angka 41 dan 60 hari di atas sepenuhnya rekaan, dipilih supaya cara membaca breakdown-nya gampang diikuti. Angka itu bukan rata-rata industri, dan bukan klaim bahwa semua job forwarder pasti molor sampai hari ke-60. Yang bisa langsung dipakai dari sini bukan kedua angka itu, melainkan kelima titik tanggal yang menyusunnya; cara mengukurnya sendiri di invoice-invoice Anda ada di bagian akhir artikel ini.",
     },
     {
       type: "p",
-      text: "Pertanyaan \"kenapa kas menipis padahal termin cuma 30 hari\" biasanya dijawab dengan saling tunjuk: finance bilang customer telat bayar, sales membela diri karena terminnya sudah disepakati dan customer yang dimaksud termasuk yang tertib membayar. Ketiga versi itu bisa sama-sama benar, karena yang belum pernah diukur adalah rentang sebelum invoice itu terbit sama sekali — rentang yang tidak masuk kolom mana pun di laporan umur piutang.",
+      text: "Pertanyaan \"kenapa kas menipis padahal termin cuma 30 hari\" biasanya dijawab dengan saling tunjuk: finance bilang customer telat bayar, sales membela diri karena terminnya sudah disepakati dan customer yang dimaksud termasuk yang tertib membayar. Ketiga versi itu bisa sama-sama benar, karena yang belum pernah diukur adalah rentang sebelum invoice itu terbit sama sekali. Rentang itu tidak masuk kolom mana pun di laporan umur piutang.",
     },
     {
       type: "h2",
@@ -79,7 +79,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Untuk perusahaan jasa seperti forwarding, definisi baku itu punya titik buta. Sumber daya Anda mulai terkunci sejak jasanya dijalankan (T0), bukan sejak invoice-nya terbit (T1), dan jarak antara keduanya bisa mencapai berminggu-minggu tergantung berapa banyak pihak yang harus menagih dulu ke Anda. Karena rumus DSO baru mulai berjalan dari T1, rentang T0 ke T1 otomatis jatuh di luar jangkauan pengukuran itu — bukan karena disembunyikan, tapi karena metodenya memang tidak dirancang untuk menangkap rentang tersebut.",
+      text: "Untuk perusahaan jasa seperti forwarding, definisi baku itu punya titik buta. Sumber daya Anda mulai terkunci sejak jasanya dijalankan (T0), bukan sejak invoice-nya terbit (T1), dan jarak antara keduanya bisa mencapai berminggu-minggu tergantung berapa banyak pihak yang harus menagih dulu ke Anda. Karena rumus DSO baru mulai berjalan dari T1, rentang T0 ke T1 otomatis jatuh di luar jangkauan pengukuran itu, bukan karena disembunyikan, tapi karena metodenya memang tidak dirancang untuk menangkap rentang tersebut.",
     },
     {
       type: "h2",
@@ -106,7 +106,7 @@ export const article: Article = {
     { type: "h3", text: "Selisih data antara operasional dan finance" },
     {
       type: "p",
-      text: "Operasional mencatat job di satu tempat, finance menagih dari tempat lain, dan di antara keduanya ada proses penyalinan data — ekspor Excel, atau diketik ulang manual. Selisihnya biasanya sepele: nomor kontainer beda satu huruf, tanggal muat beda satu hari. Sepele bagi Anda, belum tentu bagi bagian hutang customer yang memang tugasnya mencocokkan dokumen sampai detail terkecil. Karena sumber jedanya ada di struktur internal sendiri, ini juga yang paling bisa dihapus: begitu invoice dibuat langsung dari data job yang sama tanpa salin-tempel di tengah jalan, kesalahan kelas ini nyaris hilang.",
+      text: "Operasional mencatat job di satu tempat, finance menagih dari tempat lain, dan di antara keduanya ada proses penyalinan data: ekspor Excel, atau diketik ulang manual. Selisihnya biasanya sepele: nomor kontainer beda satu huruf, tanggal muat beda satu hari. Sepele bagi Anda, belum tentu bagi bagian hutang customer yang memang tugasnya mencocokkan dokumen sampai detail terkecil. Karena sumber jedanya ada di struktur internal sendiri, ini juga yang paling bisa dihapus: begitu invoice dibuat langsung dari data job yang sama tanpa salin-tempel di tengah jalan, kesalahan kelas ini nyaris hilang.",
     },
     { type: "h3", text: "Persetujuan internal yang menumpuk" },
     {
@@ -134,13 +134,13 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Penolakan semacam ini berbahaya justru karena senyapnya. Invoice tidak dikembalikan; ia hanya tidak pernah masuk antrean pembayaran. Anda baru sadar saat menagih dan diberi tahu dokumennya memang kurang sejak awal — dan T2 baru tercatat sejak dokumennya lengkap, bukan sejak tanggal Anda mengirim.",
+      text: "Penolakan semacam ini berbahaya justru karena senyapnya. Invoice tidak dikembalikan; ia hanya tidak pernah masuk antrean pembayaran. Anda baru sadar saat menagih dan diberi tahu dokumennya memang kurang sejak awal, dan T2 baru tercatat sejak dokumennya lengkap, bukan sejak tanggal Anda mengirim.",
     },
     {
       type: "callout",
       tone: "warning",
       title: "T3 dihitung dari T2, bukan dari T1",
-      body: "Di banyak kontrak, termin baru berjalan sejak invoice diterima lengkap dan benar oleh bagian penerimaan customer (T2), bukan sejak tanggal invoice Anda terbitkan (T1). Invoice yang Anda kirim tanggal 1 tapi baru dinyatakan lengkap tanggal 20 berarti T3-nya otomatis bergeser 19 hari sesuai klausul itu sendiri. Minta bukti terima bertanggal untuk setiap invoice — email pun cukup. Tanpa bukti ini, T2 Anda cuma perkiraan, dan Anda tidak punya dasar untuk menagih keterlambatan yang sebenarnya terjadi di T3 ke T4.",
+      body: "Di banyak kontrak, termin baru berjalan sejak invoice diterima lengkap dan benar oleh bagian penerimaan customer (T2), bukan sejak tanggal invoice Anda terbitkan (T1). Invoice yang Anda kirim tanggal 1 tapi baru dinyatakan lengkap tanggal 20 berarti T3-nya otomatis bergeser 19 hari sesuai klausul itu sendiri. Minta bukti terima bertanggal untuk setiap invoice, email pun cukup. Tanpa bukti ini, T2 Anda cuma perkiraan, dan Anda tidak punya dasar untuk menagih keterlambatan yang sebenarnya terjadi di T3 ke T4.",
     },
     {
       type: "h2",
@@ -183,19 +183,19 @@ export const article: Article = {
       head: ["Tanggal", "Kejadian", "Hari sejak T0"],
       rows: [
         ["T0", "Job selesai, POD ditandatangani", "Hari 0"],
-        ["—", "POD kembali ke kantor, tagihan vendor terakhir masuk, invoice disusun dan disetujui internal", "+19 hari"],
+        ["-", "POD kembali ke kantor, tagihan vendor terakhir masuk, invoice disusun dan disetujui internal", "+19 hari"],
         ["T1", "Invoice terbit dan terkirim ke customer", "Hari 19"],
-        ["—", "Dokumen diverifikasi, dicatat lengkap oleh bagian hutang customer", "+9 hari"],
+        ["-", "Dokumen diverifikasi, dicatat lengkap oleh bagian hutang customer", "+9 hari"],
         ["T2", "Invoice tercatat diterima lengkap", "Hari 28"],
-        ["—", "Termin kontrak 30 hari berjalan", "+30 hari"],
+        ["-", "Termin kontrak 30 hari berjalan", "+30 hari"],
         ["T3", "Jatuh tempo", "Hari 58"],
-        ["—", "Menunggu siklus bayar customer berikutnya", "+2 hari"],
+        ["-", "Menunggu siklus bayar customer berikutnya", "+2 hari"],
         ["T4", "Uang masuk rekening", "Hari 60"],
       ],
     },
     {
       type: "p",
-      text: "Perhatikan cara membacanya. Dari 60 hari total pada contoh ini, DSO standar yang dihitung dari T1 ke T4 akan menunjukkan angka 41 hari — sudah kelihatan lebih panjang dari termin 30 hari yang tertulis di kontrak. Tapi angka DSO itu sendiri masih menyembunyikan 19 hari di T0 ke T1, rentang yang terjadi sebelum invoice bahkan sempat terbit, dan sepenuhnya berada di tangan Anda sendiri untuk dipangkas.",
+      text: "Perhatikan cara membacanya. Dari 60 hari total pada contoh ini, DSO standar yang dihitung dari T1 ke T4 akan menunjukkan angka 41 hari, sudah kelihatan lebih panjang dari termin 30 hari yang tertulis di kontrak. Tapi angka DSO itu sendiri masih menyembunyikan 19 hari di T0 ke T1, rentang yang terjadi sebelum invoice bahkan sempat terbit, dan sepenuhnya berada di tangan Anda sendiri untuk dipangkas.",
     },
     {
       type: "table",
@@ -224,8 +224,8 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "**Kumpulkan 20 invoice terakhir yang sudah lunas.** Bukan yang masih outstanding — tanpa T4 yang pasti, perhitungannya tidak bisa selesai.",
-        "**Catat lima tanggalnya** dari sumber yang sudah ada: T0 dari catatan job selesai atau POD, T1 dari tanggal invoice diterbitkan, T2 dari bukti terima kalau ada (kalau tidak ada, catat sebagai tidak diketahui — itu sendiri sudah jadi temuan), T3 dari klausul termin di kontrak dihitung dari T2, T4 dari tanggal mutasi rekening.",
+        "**Kumpulkan 20 invoice terakhir yang sudah lunas.** Bukan yang masih outstanding: tanpa T4 yang pasti, perhitungannya tidak bisa selesai.",
+        "**Catat lima tanggalnya** dari sumber yang sudah ada: T0 dari catatan job selesai atau POD, T1 dari tanggal invoice diterbitkan, T2 dari bukti terima kalau ada (kalau tidak ada, catat sebagai tidak diketahui, itu sendiri sudah jadi temuan), T3 dari klausul termin di kontrak dihitung dari T2, T4 dari tanggal mutasi rekening.",
         "**Hitung dua jarak per invoice**: T1 dikurangi T0, dan T4 dikurangi T3. Dua angka ini yang paling sering luput dari laporan DSO standar.",
         "**Bandingkan T3 hasil hitungan dengan T3 yang tertulis di sistem penagihan.** Kalau beda, itu tanda tanggal jatuh tempo di sistem Anda salah dihitung, bukan tanda customer telat.",
         "**Rata-ratakan tiap jarak dari 20 invoice itu.** Itulah baseline nyata perusahaan Anda, bukan asumsi dari satu kasus yang paling diingat.",
@@ -235,7 +235,7 @@ export const article: Article = {
       type: "callout",
       tone: "insight",
       title: "Angka yang paling penting bukan rata-ratanya",
-      body: "Setelah 20 invoice terukur, urutkan T1 dikurangi T0 dari yang terbesar, jangan cuma lihat rata-ratanya. Invoice dengan jarak terpanjang biasanya punya satu penyebab yang berulang — vendor yang sama, jenis job yang sama, atau customer yang sama. Itu titik pertama yang layak diperbaiki, karena kemungkinan besar akan berulang lagi di 20 invoice berikutnya kalau dibiarkan.",
+      body: "Setelah 20 invoice terukur, urutkan T1 dikurangi T0 dari yang terbesar, jangan cuma lihat rata-ratanya. Invoice dengan jarak terpanjang biasanya punya satu penyebab yang berulang: vendor yang sama, jenis job yang sama, atau customer yang sama. Itu titik pertama yang layak diperbaiki, karena kemungkinan besar akan berulang lagi di 20 invoice berikutnya kalau dibiarkan.",
     },
     {
       type: "h2",

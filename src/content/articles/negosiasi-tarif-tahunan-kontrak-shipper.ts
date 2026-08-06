@@ -25,7 +25,7 @@ export const article: Article = {
     "Rate review yang efektif dimulai dari biaya riil per lane yang dihitung sendiri, bukan dari menanggapi angka pembanding yang disebut procurement.",
     "BBM dan upah minimum adalah dua komponen yang paling mudah diindeksasi otomatis lewat formula, karena keduanya punya patokan resmi yang bisa diverifikasi kedua pihak.",
     "Komitmen volume, biaya tol, dan waktu tunggu di gudang customer punya jawaban yang berbeda-beda tergantung karakter rute, bukan satu aturan yang berlaku rata untuk semua lane.",
-    "Harga termurah di tender kompetitif kadang berasal dari hitungan biaya yang keliru, bukan efisiensi operasi yang benar-benar lebih baik — pola yang dikenal sebagai winner's curse.",
+    "Harga termurah di tender kompetitif kadang berasal dari hitungan biaya yang keliru, bukan efisiensi operasi yang benar-benar lebih baik, yaitu pola yang dikenal sebagai winner's curse.",
   ],
   blocks: [
     {
@@ -60,7 +60,7 @@ export const article: Article = {
       items: [
         "**BBM riil, bukan asumsi tahun lalu.** Harga solar industri bisa berubah signifikan dalam setahun.",
         "**Rasio truk kosong saat kembali (backhaul).** Rute dengan muatan balik kosong menanggung biaya BBM dan tol penuh, meski cuma dibayar sekali jalan.",
-        "**Waktu tunggu di gudang customer.** Truk yang mengantre berjam-jam kehilangan kapasitas yang seharusnya dipakai untuk rit berikutnya — dibahas lebih detail di pertanyaan lain di bawah.",
+        "**Waktu tunggu di gudang customer.** Truk yang mengantre berjam-jam kehilangan kapasitas yang seharusnya dipakai untuk rit berikutnya (dibahas lebih detail di pertanyaan lain di bawah).",
         "**Upah sopir dan uang jalan**, termasuk lembur kalau rute itu sering molor dari estimasi normal.",
         "**Asuransi dan depresiasi armada**, terutama untuk rute dengan riwayat klaim tinggi.",
         "**Biaya modal dari termin pembayaran.** Termin 60 hari menanggung biaya modal lebih nyata dibanding termin 30 hari, meski tarif nominalnya sama.",
@@ -194,7 +194,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Dalam tender dengan banyak peserta, taksiran biaya masing-masing tersebar di sekitar angka biaya sesungguhnya: sebagian terlalu tinggi, sebagian terlalu rendah. Penawar dengan taksiran paling rendah yang menang, dan taksiran paling rendah itu tidak selalu datang dari operasi paling efisien — kadang cuma dari hitungan yang keliru. Berikut ilustrasi yang disederhanakan untuk menunjukkan polanya, bukan catatan satu tender tertentu:",
+      text: "Dalam tender dengan banyak peserta, taksiran biaya masing-masing tersebar di sekitar angka biaya sesungguhnya: sebagian terlalu tinggi, sebagian terlalu rendah. Penawar dengan taksiran paling rendah yang menang, dan taksiran paling rendah itu tidak selalu datang dari operasi paling efisien: kadang cuma dari hitungan yang keliru. Berikut ilustrasi yang disederhanakan untuk menunjukkan polanya, bukan catatan satu tender tertentu:",
     },
     {
       type: "table",

@@ -78,7 +78,7 @@ export default function Footer() {
             <Logo size="md" />
             <p className="text-xs text-slate-600 font-semibold leading-relaxed max-w-sm mt-2">
               {isEn
-                ? "CargoGrid helps freight forwarders and 3PL providers run a shipment job — from quotation to billing — in one workspace."
+                ? "CargoGrid helps freight forwarders and 3PL providers run a shipment job, from quotation to billing, in one workspace."
                 : "CargoGrid membantu forwarder dan penyedia 3PL mengelola satu pekerjaan pengiriman, dari penawaran hingga tagihan, dalam satu ruang kerja."}
             </p>
           </div>

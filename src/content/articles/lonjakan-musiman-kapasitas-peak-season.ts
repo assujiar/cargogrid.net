@@ -7,7 +7,7 @@ export const article: Article = {
   title: "Menghitung Buffer Kapasitas Musim Puncak dari Data Lonjakan Historis",
   metaTitle: "Cara Menghitung Buffer Kapasitas Musim Puncak",
   description:
-    "Cara menghitung buffer kapasitas musim puncak dari data historis: mengukur sebaran lonjakan, rasio kritis ongkos kekurangan-kelebihan, lead time vendor, dan titik impas kapasitas tetap vs fleksibel — lengkap contoh perhitungan yang bisa ditiru dengan data sendiri.",
+    "Cara menghitung buffer kapasitas musim puncak dari data historis: mengukur sebaran lonjakan, rasio kritis ongkos kekurangan-kelebihan, lead time vendor, dan titik impas kapasitas tetap vs fleksibel, lengkap contoh perhitungan yang bisa ditiru dengan data sendiri.",
   keywords: [
     "menghitung buffer kapasitas musim puncak",
     "rasio kritis kapasitas logistik",
@@ -19,10 +19,10 @@ export const article: Article = {
   publishedAt: "2026-07-07",
   updatedAt: "2026-08-06",
   summary:
-    "Buffer kapasitas musim puncak bisa dihitung dari data, bukan ditebak dari perasaan. Tulisan ini membedah angkanya jadi lima komponen — sebaran lonjakan historis, rasio kritis ongkos kekurangan-kelebihan, lead time vendor, kapasitas tetap vs fleksibel, dan titik impas biayanya — lengkap dengan contoh perhitungan bergaya spreadsheet yang bisa langsung ditiru memakai data operasional sendiri.",
+    "Buffer kapasitas musim puncak bisa dihitung dari data, bukan ditebak dari perasaan. Tulisan ini membedah angkanya jadi lima komponen: sebaran lonjakan historis, rasio kritis ongkos kekurangan-kelebihan, lead time vendor, kapasitas tetap vs fleksibel, dan titik impas biayanya, lengkap dengan contoh perhitungan bergaya spreadsheet yang bisa langsung ditiru memakai data operasional sendiri.",
   takeaways: [
     "Rasio kritis (Cu ÷ (Cu + Co)) menentukan persentil data historis mana yang layak jadi target buffer, bukan rata-rata dan bukan skenario terburuk yang pernah tercatat.",
-    "Lima titik data musim puncak sudah cukup dipetakan lewat metode peringkat terdekat (nearest-rank), tanpa perlu software statistik khusus — cukup spreadsheet biasa.",
+    "Lima titik data musim puncak sudah cukup dipetakan lewat metode peringkat terdekat (nearest-rank), tanpa perlu software statistik khusus: cukup spreadsheet biasa.",
     "Skema kapasitas siaga (bayar murah untuk menahan slot, tarif penuh hanya saat benar-benar ditarik) mengubah titik impas antara Cu dan Co, sehingga buffer yang ekonomis bisa dipasang di persentil lebih tinggi tanpa menambah ongkos kelebihan.",
     "Metode yang sama berlaku untuk buffer tenaga kerja gudang, hanya satuannya berganti dari truk per hari menjadi tenaga kerja per shift.",
   ],
@@ -43,18 +43,18 @@ export const article: Article = {
     {
       type: "ol",
       items: [
-        "**Sebaran lonjakan historis** — seberapa jauh permintaan musim puncak biasa menyimpang dari hari biasa, dilihat dari beberapa musim terakhir, bukan cuma musim paling baru.",
-        "**Rasio kritis** — perbandingan ongkos kekurangan kapasitas (Cu) dengan ongkos kelebihan kapasitas (Co), yang menentukan persentil data historis mana yang layak jadi target service level.",
-        "**Lead time vendor** — berapa lama sebelum window musim puncak, kapasitas subkontraktor atau tenaga tambahan harus sudah dikunci.",
-        "**Alokasi kapasitas tetap vs fleksibel** — berapa besar buffer yang masuk akal disewa penuh, dan berapa besar yang lebih murah disiagakan lewat kontrak fleksibel.",
-        "**Titik impas biaya** — pada tingkat pemakaian berapa persen, skema sewa penuh justru lebih murah dibanding skema siaga, dan sebaliknya.",
+        "**Sebaran lonjakan historis**: seberapa jauh permintaan musim puncak biasa menyimpang dari hari biasa, dilihat dari beberapa musim terakhir, bukan cuma musim paling baru.",
+        "**Rasio kritis**: perbandingan ongkos kekurangan kapasitas (Cu) dengan ongkos kelebihan kapasitas (Co), yang menentukan persentil data historis mana yang layak jadi target service level.",
+        "**Lead time vendor**: berapa lama sebelum window musim puncak, kapasitas subkontraktor atau tenaga tambahan harus sudah dikunci.",
+        "**Alokasi kapasitas tetap vs fleksibel**: berapa besar buffer yang masuk akal disewa penuh, dan berapa besar yang lebih murah disiagakan lewat kontrak fleksibel.",
+        "**Titik impas biaya**: pada tingkat pemakaian berapa persen, skema sewa penuh justru lebih murah dibanding skema siaga, dan sebaliknya.",
       ],
     },
     {
       type: "callout",
       tone: "insight",
       title: "Tentang Angka-Angka di Bawah Ini",
-      body: "Semua nilai rupiah, persentase, dan jumlah truk pada contoh perhitungan berikut bersifat ilustratif untuk menunjukkan caranya — bukan catatan biaya atau volume satu perusahaan tertentu. Setiap tabel ditulis supaya barisnya bisa disalin langsung ke spreadsheet dan diisi ulang dengan data historis sendiri.",
+      body: "Semua nilai rupiah, persentase, dan jumlah truk pada contoh perhitungan berikut bersifat ilustratif untuk menunjukkan caranya, bukan catatan biaya atau volume satu perusahaan tertentu. Setiap tabel ditulis supaya barisnya bisa disalin langsung ke spreadsheet dan diisi ulang dengan data historis sendiri.",
     },
     {
       type: "h2",
@@ -98,18 +98,18 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Sebarannya lebar dan condong ke kanan: satu musim (Lebaran 2026, +109%) menarik rata-rata dan rentangnya jauh lebih tinggi dibanding empat musim lain yang mengelompok di kisaran 48–71%. Ini alasan kenapa aturan “tambah persentase tetap tiap tahun” gampang meleset — sebaran datanya tidak simetris, jadi angka tunggal apa pun akan kebesaran di sebagian besar musim atau kekecilan di musim yang melonjak tajam.",
+      text: "Sebarannya lebar dan condong ke kanan: satu musim (Lebaran 2026, +109%) menarik rata-rata dan rentangnya jauh lebih tinggi dibanding empat musim lain yang mengelompok di kisaran 48–71%. Ini alasan kenapa aturan “tambah persentase tetap tiap tahun” gampang meleset: sebaran datanya tidak simetris, jadi angka tunggal apa pun akan kebesaran di sebagian besar musim atau kekecilan di musim yang melonjak tajam.",
     },
     {
       type: "p",
-      text: "Yang dibutuhkan bukan rata-rata, tapi persentil tertentu dari sebaran itu — dan persentil yang tepat ditentukan oleh rasio kritis pada komponen berikutnya. Untuk kumpulan data sekecil ini, cara paling praktis menghitung persentil adalah metode **peringkat terdekat** (nearest-rank): urutkan data dari terkecil ke terbesar, lalu ambil elemen pada peringkat ⌈p × n⌉, dengan p target persentil dalam desimal dan n jumlah titik data.",
+      text: "Yang dibutuhkan bukan rata-rata, tapi persentil tertentu dari sebaran itu, dan persentil yang tepat ditentukan oleh rasio kritis pada komponen berikutnya. Untuk kumpulan data sekecil ini, cara paling praktis menghitung persentil adalah metode **peringkat terdekat** (nearest-rank): urutkan data dari terkecil ke terbesar, lalu ambil elemen pada peringkat ⌈p × n⌉, dengan p target persentil dalam desimal dan n jumlah titik data.",
     },
     {
       type: "table",
       caption: "Contoh: menentukan persentil ke-80 dari 5 titik data",
       head: ["Langkah", "Formula", "Hasil"],
       rows: [
-        ["Urutkan data naik", "48%, 52%, 65%, 71%, 109%", "—"],
+        ["Urutkan data naik", "48%, 52%, 65%, 71%, 109%", "-"],
         ["Hitung peringkat target", "⌈0,80 × 5⌉", "peringkat ke-4"],
         ["Ambil nilai pada peringkat itu", "nilai ke-4 dari data terurut", "71%"],
       ],
@@ -125,31 +125,31 @@ export const article: Article = {
     },
     {
       type: "table",
-      caption: "Komponen ongkos kekurangan (Cu) dan kelebihan (Co) — contoh perhitungan, angka disederhanakan untuk ilustrasi",
+      caption: "Komponen ongkos kekurangan (Cu) dan kelebihan (Co): contoh perhitungan, angka disederhanakan untuk ilustrasi",
       head: ["Komponen", "Definisi", "Nilai ilustratif"],
       rows: [
         [
-          "Cu — kredit SLA",
+          "Cu: kredit SLA",
           "Kompensasi ke customer saat order gagal dilayani sesuai janji, skenario paling umum",
           "≈Rp50.000/order",
         ],
         [
-          "Cu — reroute darurat",
+          "Cu: reroute darurat",
           "Kurir instan pengganti saat kapasitas reguler penuh",
           "3–4× tarif normal",
         ],
         [
-          "Cu — rata-rata tertimbang (dipakai sebagai Cu)",
+          "Cu: rata-rata tertimbang (dipakai sebagai Cu)",
           "Gabungan kedua skenario kekurangan di atas, tertimbang frekuensi kejadian",
           "≈Rp90.000/order",
         ],
         [
-          "Co — sewa truk nganggur",
+          "Co: sewa truk nganggur",
           "Tarif sewa harian dibayar penuh meski truk tidak beroperasi",
           "Rp900.000/truk/hari",
         ],
         [
-          "Co — per order (dipakai sebagai Co)",
+          "Co: per order (dipakai sebagai Co)",
           "Ongkos sewa truk dibagi kapasitas 40 order/truk",
           "≈Rp22.500/order",
         ],
@@ -168,7 +168,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Rasio kritis 0,80 mengarah ke persentil ke-80, yang pada data lima musim di atas sama dengan 71% — bukan rata-rata (69%) dan bukan skenario terburuk (109%). Begitu target service level dan angka lonjakannya diketahui, langkah berikutnya menerjemahkannya ke volume harian dan jumlah truk.",
+      text: "Rasio kritis 0,80 mengarah ke persentil ke-80, yang pada data lima musim di atas sama dengan 71%, bukan rata-rata (69%) dan bukan skenario terburuk (109%). Begitu target service level dan angka lonjakannya diketahui, langkah berikutnya menerjemahkannya ke volume harian dan jumlah truk.",
     },
     {
       type: "table",
@@ -197,7 +197,7 @@ export const article: Article = {
     },
     {
       type: "table",
-      caption: "Jendela waktu penguncian kapasitas (ilustratif — sesuaikan dengan siklus komitmen vendor sendiri)",
+      caption: "Jendela waktu penguncian kapasitas (ilustratif, sesuaikan dengan siklus komitmen vendor sendiri)",
       head: ["Waktu relatif terhadap window musim puncak", "Aktivitas"],
       rows: [
         ["H-8 minggu", "Kunci kontrak kapasitas fleksibel (biaya siaga) untuk buffer inti"],
@@ -218,7 +218,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Menyewa penuh gap kapasitas antara kapasitas inti dan target buffer punya konsekuensi: begitu realisasi lonjakan datang di bawah target — seperti empat dari lima musim pada data di atas — sebagian besar sewa itu berakhir jadi biaya tanpa hasil. Kontrak kapasitas fleksibel mengubah struktur ongkos itu: biaya siaga kecil untuk menahan slot, tarif penuh hanya pada hari truk benar-benar ditarik ke lapangan.",
+      text: "Menyewa penuh gap kapasitas antara kapasitas inti dan target buffer punya konsekuensi: begitu realisasi lonjakan datang di bawah target (seperti empat dari lima musim pada data di atas), sebagian besar sewa itu berakhir jadi biaya tanpa hasil. Kontrak kapasitas fleksibel mengubah struktur ongkos itu: biaya siaga kecil untuk menahan slot, tarif penuh hanya pada hari truk benar-benar ditarik ke lapangan.",
     },
     {
       type: "table",
@@ -236,7 +236,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pada skenario realisasi rendah di atas, skema siaga berakhir sekitar seperempat dari biaya sewa penuh — bukan karena kapasitasnya lebih sedikit, tapi karena ongkos kelebihan (Co) yang dibayar untuk hari-hari tidak terpakai jauh lebih kecil.",
+      text: "Pada skenario realisasi rendah di atas, skema siaga berakhir sekitar seperempat dari biaya sewa penuh, bukan karena kapasitasnya lebih sedikit, tapi karena ongkos kelebihan (Co) yang dibayar untuk hari-hari tidak terpakai jauh lebih kecil.",
     },
     {
       type: "h2",
@@ -262,7 +262,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau realisasi pemakaian buffer historis biasanya di bawah 83% dari kapasitas cadangan, skema siaga lebih murah. Kalau catatan historisnya justru sering di atas angka itu — misalnya buffer yang dikunci nyaris selalu habis terpakai — sewa penuh mulai sepadan, dan biaya siaga tambahan cuma jadi lapisan ongkos ekstra yang tidak perlu.",
+      text: "Kalau realisasi pemakaian buffer historis biasanya di bawah 83% dari kapasitas cadangan, skema siaga lebih murah. Kalau catatan historisnya justru sering di atas angka itu (misalnya buffer yang dikunci nyaris selalu habis terpakai), sewa penuh mulai sepadan, dan biaya siaga tambahan cuma jadi lapisan ongkos ekstra yang tidak perlu.",
     },
     {
       type: "h2",
@@ -295,7 +295,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Baris-baris berikut bisa disalin langsung ke spreadsheet kosong. Setiap baris menunjukkan apa yang perlu diisi, bukan hasil akhirnya — hasilnya baru muncul setelah data historis sendiri dimasukkan.",
+      text: "Baris-baris berikut bisa disalin langsung ke spreadsheet kosong. Setiap baris menunjukkan apa yang perlu diisi, bukan hasil akhirnya, hasilnya baru muncul setelah data historis sendiri dimasukkan.",
     },
     {
       type: "table",
@@ -343,7 +343,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Idealnya, dua angka ini ditinjau delapan minggu sebelum window musim puncak berikutnya — musim yang baru lewat ditambahkan ke tabel sebaran, Cu dan Co ditinjau ulang karena tarif bisa berubah, dan rasio kritis beserta target persentilnya dihitung ulang dari sana. Prosesnya sama tiap tahun; yang berbeda cuma satu baris data baru yang ditambahkan.",
+      text: "Idealnya, dua angka ini ditinjau delapan minggu sebelum window musim puncak berikutnya: musim yang baru lewat ditambahkan ke tabel sebaran, Cu dan Co ditinjau ulang karena tarif bisa berubah, dan rasio kritis beserta target persentilnya dihitung ulang dari sana. Prosesnya sama tiap tahun; yang berbeda cuma satu baris data baru yang ditambahkan.",
     },
   ],
   faq: [
@@ -353,7 +353,7 @@ export const article: Article = {
     },
     {
       q: "Kenapa tidak langsung memakai angka lonjakan tertinggi yang pernah tercatat sebagai buffer, supaya paling aman?",
-      a: "Karena target service level ditentukan oleh rasio kritis, bukan oleh titik data paling ekstrem. Pada contoh perhitungan di atas, rasio kritisnya 0,80, mengarah ke P80 (71%), bukan P100 (109%). Memasang buffer setinggi skenario ekstrem berarti membayar ongkos kelebihan penuh di hampir semua musim lain, hanya untuk menutup satu kejadian yang jarang berulang — secara hitungan bukan pilihan paling murah, meski kelihatan paling aman di atas kertas.",
+      a: "Karena target service level ditentukan oleh rasio kritis, bukan oleh titik data paling ekstrem. Pada contoh perhitungan di atas, rasio kritisnya 0,80, mengarah ke P80 (71%), bukan P100 (109%). Memasang buffer setinggi skenario ekstrem berarti membayar ongkos kelebihan penuh di hampir semua musim lain, hanya untuk menutup satu kejadian yang jarang berulang, secara hitungan bukan pilihan paling murah, meski kelihatan paling aman di atas kertas.",
     },
   ],
   cta: {

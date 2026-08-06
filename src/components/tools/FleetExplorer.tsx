@@ -36,11 +36,49 @@ function illustrationSrc(id: string): string | null {
   return MISSING_ILLUSTRATION.has(id) ? null : `/fleet-illustration/${id}.png`;
 }
 
-function SpecTile({ label, value }: { label: string; value: string }) {
+/**
+ * One spec, as a label/value row rather than a boxed tile.
+ *
+ * Tiles in a grid have a fixed width, and several archetypes carry values
+ * that simply do not fit one -- "6x4/8x4 + multi-axle", "multi-axle lines",
+ * "N/A / site". Clipping them with `truncate` hid the part that
+ * distinguishes a heavy-haul prime mover from an SPMT, which is exactly the
+ * information the row exists to carry. A row lets the value wrap and take
+ * the height it needs, so the card survives both the narrow column and the
+ * longest string in the taxonomy.
+ */
+function SpecRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="nm-deboss-sm rounded-xl px-3 py-2.5">
-      <p className="font-mono text-[8px] font-black uppercase tracking-[0.1em] text-slate-400">{label}</p>
-      <p className="mt-1 truncate text-[12px] font-bold text-slate-800">{value}</p>
+    <div className="flex items-baseline justify-between gap-3 border-b border-slate-300/40 py-2 last:border-0">
+      <span className="flex-shrink-0 font-mono text-[8px] font-black uppercase tracking-[0.1em] text-slate-400">
+        {label}
+      </span>
+      <span className="text-right text-[12px] font-bold leading-[1.5] text-slate-800">{value}</span>
+    </div>
+  );
+}
+
+/**
+ * `compact` is what a card shows, the full list is what the dialog shows.
+ *
+ * A card's job is to let someone rule an archetype in or out while
+ * scanning 61 of them, and the two figures that actually do that are how
+ * many axles it runs and how much it carries. Toll and ferry class matter
+ * when costing a route, which is a different task performed on one chosen
+ * vehicle -- so they wait behind the button rather than competing for
+ * attention in every card.
+ */
+function SpecList({ vehicle, compact = false }: { vehicle: VehicleArchetype; compact?: boolean }) {
+  return (
+    <div className="nm-deboss-sm rounded-xl px-3.5 py-0.5">
+      {!compact && <SpecRow label="Konfigurasi" value={vehicle.axleConfig} />}
+      <SpecRow label="Gandar" value={vehicle.totalAxles} />
+      <SpecRow
+        label="Perkiraan muatan"
+        value={`${formatNumber(vehicle.planningPayload.min)}-${formatNumber(vehicle.planningPayload.max)} t`}
+      />
+      {!compact && <SpecRow label="Gol. tol" value={vehicle.tollClass} />}
+      {!compact && <SpecRow label="Gol. kapal" value={vehicle.ferryClass} />}
     </div>
   );
 }
@@ -56,12 +94,7 @@ function VehicleCard({ vehicle, onOpenIllustration }: { vehicle: VehicleArchetyp
         <p className="mt-1 text-[12px] leading-[1.6] text-slate-500">{vehicle.commercialType}</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <SpecTile label="Konfigurasi" value={`${vehicle.axleConfig} · ${vehicle.totalAxles} gandar`} />
-        <SpecTile label="Perkiraan muatan" value={`${formatNumber(vehicle.planningPayload.min)}-${formatNumber(vehicle.planningPayload.max)} t`} />
-        <SpecTile label="Gol. tol" value={vehicle.tollClass} />
-        <SpecTile label="Gol. kapal" value={vehicle.ferryClass} />
-      </div>
+      <SpecList vehicle={vehicle} compact />
 
       <button
         type="button"
@@ -143,11 +176,8 @@ function IllustrationDialog({
             )}
           </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-            <SpecTile label="Konfigurasi" value={`${vehicle.axleConfig} · ${vehicle.totalAxles} gandar`} />
-            <SpecTile label="Perkiraan muatan" value={`${formatNumber(vehicle.planningPayload.min)}-${formatNumber(vehicle.planningPayload.max)} t`} />
-            <SpecTile label="Gol. tol" value={vehicle.tollClass} />
-            <SpecTile label="Gol. kapal" value={vehicle.ferryClass} />
+          <div className="mt-5">
+            <SpecList vehicle={vehicle} />
           </div>
 
           <p className="mt-5 text-[13px] leading-[1.75] text-slate-600">{vehicle.notes}</p>
@@ -228,7 +258,11 @@ export default function FleetExplorer() {
               <span className="text-slate-400">{group.items.length}</span>
             </h2>
           )}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Two-up at every width above phones: this grid now lives inside
+              ToolShell's narrower instrument column, where a third card
+              would squeeze each one below the width its longest spec value
+              needs. */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {group.items.map((vehicle) => (
               <VehicleCard key={vehicle.id} vehicle={vehicle} onOpenIllustration={handleOpenIllustration} />
             ))}

@@ -21,8 +21,15 @@ export default function SiteShell({ children }: SiteShellProps) {
     // motion/react animation on the page (whileHover, whileInView, etc.)
     // without needing per-component guards.
     <MotionConfig reducedMotion="user">
+      {/* `overflow-x-clip`, not `overflow-hidden`: both stop the ambient
+          glows below from widening the page, but `hidden` also turns this
+          element into a scroll container, and a scroll container between a
+          `position: sticky` child and the viewport silently kills the
+          stickiness (the child then sticks to an ancestor that never
+          scrolls). `clip` clips without becoming scrollable, so the
+          two-column tool pages can pin a column. */}
       <div
-        className="min-h-screen bg-navy-dark text-slate-800 flex flex-col font-sans selection:bg-brand-teal/20 selection:text-brand-teal-hover relative overflow-hidden"
+        className="min-h-screen bg-navy-dark text-slate-800 flex flex-col font-sans selection:bg-brand-teal/20 selection:text-brand-teal-hover relative overflow-x-clip"
         id="cargogrid-root-container"
       >
         {/* Immersive Soft Neumorphic Ambient Highlights.

@@ -16,6 +16,7 @@
 
 export interface ContainerSpec {
   id: string;
+  /** Already the international container name ("40 ft High Cube (40' HC)"); no English twin needed. */
   name: string;
   /** ISO size/type code, e.g. 22G1. Useful when reading a bayplan or an EDI message. */
   isoCode: string;
@@ -58,7 +59,9 @@ export interface ContainerSpec {
    */
   payloadKg: number;
   useFor: string;
+  useForEn: string;
   caution: string;
+  cautionEn: string;
 }
 
 export const CONTAINER_SPECS: ContainerSpec[] = [
@@ -75,8 +78,12 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     payloadKg: 28200,
     useFor:
       "Kargo padat: keramik, bahan kimia dalam drum, suku cadang logam, kertas. Barang yang lebih dulu habis batas beratnya sebelum habis ruangnya.",
+    useForEn:
+      "Dense cargo: ceramics, chemicals in drums, metal parts, paper. Freight that maxes out on weight before it maxes out on space.",
     caution:
       "Ruangnya jarang terpakai penuh untuk barang berat. Banyak pelayaran juga membatasi berat kotor di bawah 30.480 kg mengikuti aturan jalan negara tujuan.",
+    cautionEn:
+      "The cube is rarely filled for heavy cargo. Many carriers also cap gross weight below 30,480 kg to comply with the destination country's road regulations.",
   },
   {
     id: "40gp",
@@ -90,8 +97,11 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     maxGrossKg: 32500,
     payloadKg: 28800,
     useFor: "Kargo bervolume dengan berat sedang: barang jadi berkardus, furnitur, komponen otomotif.",
+    useForEn: "Voluminous cargo of moderate weight: cartoned finished goods, furniture, automotive components.",
     caution:
       "Ruangnya dua kali lipat 20 kaki, batas beratnya praktis sama. Untuk barang padat, dua unit 20 kaki mengangkut sekitar dua kali lipat tonase satu unit 40 kaki.",
+    cautionEn:
+      "The cube is double that of a 20 ft box, but the weight limit is practically the same. For dense cargo, two 20 ft units carry roughly twice the tonnage of one 40 ft unit.",
   },
   {
     id: "40hc",
@@ -106,8 +116,12 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     payloadKg: 28620,
     useFor:
       "Barang ringan bervolume besar: tekstil, kemasan plastik, foam, produk konsumen. Tambahan 30 cm tinggi memberi sekitar 9 m3 ekstra tanpa tambahan berat.",
+    useForEn:
+      "Light, high-volume goods: textiles, plastic packaging, foam, consumer products. The extra 30 cm of height adds roughly 9 m3 of capacity at no weight penalty.",
     caution:
       "Tinggi totalnya 2,90 m. Periksa batas tinggi rute darat, jembatan, dan pintu gudang tujuan sebelum memesan, terutama untuk pengiriman ke area industri lama.",
+    cautionEn:
+      "Overall height is 2.90 m. Check road route height clearances, bridges, and destination warehouse door heights before booking, especially for deliveries into older industrial areas.",
   },
   {
     id: "45hc",
@@ -121,8 +135,11 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     maxGrossKg: 32500,
     payloadKg: 27600,
     useFor: "Muatan bervolume sangat besar pada rute yang menyediakannya.",
+    useForEn: "Very high-volume cargo on routes where the equipment is available.",
     caution:
       "Ketersediaan terbatas di banyak rute Indonesia, dan tidak semua chassis trailer bisa membawanya. Pastikan ketersediaan armada darat sebelum membooking.",
+    cautionEn:
+      "Availability is limited on many Indonesian routes, and not every trailer chassis can carry it. Confirm inland haulage equipment availability before booking.",
   },
   {
     id: "20rf",
@@ -136,8 +153,11 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     maxGrossKg: null,
     payloadKg: 27770,
     useFor: "Barang berpendingin dan beku: hasil laut, hortikultura, farmasi, produk susu.",
+    useForEn: "Chilled and frozen cargo: seafood, horticultural produce, pharmaceuticals, dairy products.",
     caution:
       "Ruang dalamnya jauh lebih kecil daripada 20 ft biasa karena unit pendingin dan insulasi memakan tempat. Jangan menghitung kubikasi memakai angka dry container.",
+    cautionEn:
+      "Internal volume is significantly smaller than a standard 20 ft box, since the refrigeration unit and insulation take up space. Do not calculate cube using dry container figures.",
   },
   {
     id: "40rf",
@@ -151,8 +171,11 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     maxGrossKg: null,
     payloadKg: 29670,
     useFor: "Ekspor rantai dingin bervolume: udang, tuna, buah, produk olahan beku.",
+    useForEn: "High-volume cold chain exports: shrimp, tuna, fruit, frozen processed products.",
     caution:
       "Butuh pasokan listrik atau genset selama seluruh perjalanan darat. Biaya genset dan monitoring suhu sering terlupa dari costing dan langsung menggerus margin.",
+    cautionEn:
+      "Requires a power supply or genset for the entire inland journey. Genset costs and temperature monitoring are frequently left out of costing and go straight to eroding margin.",
   },
   {
     id: "20ot",
@@ -166,8 +189,11 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     maxGrossKg: null,
     payloadKg: 28400,
     useFor: "Barang yang harus dimuat dari atas dengan crane: mesin, marmer, pipa panjang.",
+    useForEn: "Cargo that must be top-loaded by crane: machinery, marble, long pipes.",
     caution:
       "Atapnya hanya terpal dan palang. Muatan yang menonjol di atas garis atap kena biaya out of gauge, dan tarifnya tidak sebanding dengan tarif kontainer biasa.",
+    cautionEn:
+      "The roof is only a tarpaulin over removable bows. Cargo protruding above the roofline is charged as out of gauge, and the rate is not comparable to standard container rates.",
   },
   {
     id: "40fr",
@@ -181,8 +207,12 @@ export const CONTAINER_SPECS: ContainerSpec[] = [
     maxGrossKg: null,
     payloadKg: 40000,
     useFor: "Alat berat, transformator, boat, mesin produksi yang melebihi lebar atau tinggi kontainer biasa.",
+    useForEn:
+      "Heavy machinery, transformers, boats, production equipment exceeding the width or height of a standard container.",
     caution:
       "Tarifnya dihitung sebagai proyek, bukan per kontainer. Lashing dan surveyor wajib, dan slot kapal harus dipesan jauh lebih awal.",
+    cautionEn:
+      "Rates are quoted as a project, not per container. Lashing and a surveyor are mandatory, and vessel space must be booked well in advance.",
   },
 ];
 
@@ -203,6 +233,8 @@ export function payloadKg(spec: ContainerSpec): number {
 function assertContainerIntegrity(): void {
   for (const spec of CONTAINER_SPECS) {
     if (spec.capacityCbm <= 0) throw new Error(`Container ${spec.id} has a non-positive capacity`);
+    if (!spec.useForEn.trim()) throw new Error(`Container ${spec.id}: useForEn is empty`);
+    if (!spec.cautionEn.trim()) throw new Error(`Container ${spec.id}: cautionEn is empty`);
     if (spec.tareKg === null || spec.maxGrossKg === null) continue;
 
     const derived = spec.maxGrossKg - spec.tareKg;

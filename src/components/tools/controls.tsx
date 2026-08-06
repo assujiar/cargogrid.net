@@ -2,6 +2,7 @@
 
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { HelpCircle, X } from "lucide-react";
+import { useLanguage } from "../shared/LanguageProvider";
 
 /**
  * Form and result primitives shared by the four calculators.
@@ -34,6 +35,8 @@ import { HelpCircle, X } from "lucide-react";
  * be left stranded over the form.
  */
 function Tooltip({ text, label, panelId }: { text: string; label: string; panelId: string }) {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const [open, setOpen] = useState(false);
   const id = panelId;
   const wrapRef = useRef<HTMLSpanElement>(null);
@@ -63,7 +66,7 @@ function Tooltip({ text, label, panelId }: { text: string; label: string; panelI
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={open ? id : undefined}
-        aria-label={`Penjelasan kolom ${label}`}
+        aria-label={isEn ? `Explanation for ${label}` : `Penjelasan kolom ${label}`}
         className={`relative inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors after:absolute after:-inset-2 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
           open ? "bg-brand-teal/15 text-brand-teal" : "text-slate-400 hover:bg-white/60 hover:text-brand-teal"
         }`}
@@ -85,7 +88,7 @@ function Tooltip({ text, label, panelId }: { text: string; label: string; panelI
             <button
               type="button"
               onClick={() => setOpen(false)}
-              aria-label="Tutup penjelasan"
+              aria-label={isEn ? "Close explanation" : "Tutup penjelasan"}
               className="relative -mr-1 -mt-1 rounded-lg p-2 text-slate-400 transition-colors after:absolute after:-inset-1 after:content-[''] hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               <X className="h-3.5 w-3.5" aria-hidden="true" />
@@ -130,36 +133,42 @@ export function FieldLabel({
 /* ------------------------------------------------------- number formatting */
 
 /**
- * Indonesian grouping: `.` every three digits, `,` before the decimal tail.
+ * Digit grouping in the active locale: dot-thousands/comma-decimal for
+ * Indonesian, comma-thousands/dot-decimal for English.
  *
  * Written by hand rather than through Intl.NumberFormat because this runs on
  * every keystroke over a half-typed value. "1500000," is not a number and
- * Intl would either reject it or silently drop the comma the user just typed
- * to start the decimal part.
+ * Intl would either reject it or silently drop the separator the user just
+ * typed to start the decimal part.
  */
-function group(raw: string): string {
-  const [whole, ...rest] = raw.split(",");
-  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  return rest.length > 0 ? `${grouped},${rest.join("")}` : grouped;
+function group(raw: string, isEn: boolean): string {
+  const decimal = isEn ? "." : ",";
+  const groupChar = isEn ? "," : ".";
+  const [whole, ...rest] = raw.split(decimal);
+  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, groupChar);
+  return rest.length > 0 ? `${grouped}${decimal}${rest.join("")}` : grouped;
 }
 
-/** Keeps digits and at most one decimal comma; drops grouping dots and everything else. */
-function sanitise(input: string): string {
-  const cleaned = input.replace(/\./g, "").replace(/[^0-9,]/g, "");
-  const first = cleaned.indexOf(",");
+/** Keeps digits and at most one decimal separator; drops grouping characters and everything else. */
+function sanitise(input: string, isEn: boolean): string {
+  const decimal = isEn ? "." : ",";
+  const groupChar = isEn ? "," : ".";
+  const cleaned = input.split(groupChar).join("").replace(new RegExp(`[^0-9${decimal === "." ? "\\." : ","}]`, "g"), "");
+  const first = cleaned.indexOf(decimal);
   if (first === -1) return cleaned;
-  return cleaned.slice(0, first + 1) + cleaned.slice(first + 1).replace(/,/g, "");
+  return cleaned.slice(0, first + 1) + cleaned.slice(first + 1).split(decimal).join("");
 }
 
-function toNumber(raw: string): number | null {
-  if (raw === "" || raw === ",") return null;
-  const parsed = Number(raw.replace(",", "."));
+function toNumber(raw: string, isEn: boolean): number | null {
+  const decimal = isEn ? "." : ",";
+  if (raw === "" || raw === decimal) return null;
+  const parsed = Number(isEn ? raw : raw.replace(",", "."));
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-function toEditable(value: number): string {
+function toEditable(value: number, isEn: boolean): string {
   if (!Number.isFinite(value)) return "";
-  return group(String(value).replace(".", ","));
+  return group(isEn ? String(value) : String(value).replace(".", ","), isEn);
 }
 
 function countDigits(input: string): number {
@@ -197,12 +206,14 @@ interface NumberFieldProps {
 }
 
 export function NumberField({ label, value, onChange, min, max, step = 1, suffix, hint, tip }: NumberFieldProps) {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const caretRef = useRef<number | null>(null);
   const [draft, setDraft] = useState<string | null>(null);
 
-  const shown = draft ?? toEditable(value);
+  const shown = draft ?? toEditable(value, isEn);
 
   // Restoring the caret has to happen after React writes the grouped value
   // back into the DOM. Doing it inside onChange would set a position into the
@@ -219,12 +230,12 @@ export function NumberField({ label, value, onChange, min, max, step = 1, suffix
     const caret = element.selectionStart ?? typed.length;
     const digitsBeforeCaret = countDigits(typed.slice(0, caret));
 
-    const cleaned = sanitise(typed);
-    const formatted = group(cleaned);
+    const cleaned = sanitise(typed, isEn);
+    const formatted = group(cleaned, isEn);
     caretRef.current = caretAfterDigits(formatted, digitsBeforeCaret);
     setDraft(formatted);
 
-    const parsed = toNumber(cleaned);
+    const parsed = toNumber(cleaned, isEn);
     // An empty or half-typed value leaves the model alone. Coercing "" to 0
     // would flash a zeroed result mid-keystroke, and on a field like free-time
     // days that flash is a wrong date on screen.
@@ -232,7 +243,7 @@ export function NumberField({ label, value, onChange, min, max, step = 1, suffix
   }
 
   function handleBlur() {
-    const parsed = toNumber(sanitise(draft ?? ""));
+    const parsed = toNumber(sanitise(draft ?? "", isEn), isEn);
     setDraft(null);
     if (parsed === null) return;
     // Clamping happens here rather than on every keystroke: rejecting

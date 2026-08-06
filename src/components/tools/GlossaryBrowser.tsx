@@ -5,10 +5,12 @@ import { Search, X } from "lucide-react";
 import {
   GLOSSARY,
   GLOSSARY_CATEGORIES,
+  GLOSSARY_CATEGORIES_EN,
   glossaryAnchor,
   type GlossaryCategory,
   type GlossaryEntry,
 } from "../../content/reference/glossary";
+import { useLanguage } from "../shared/LanguageProvider";
 
 const CATEGORY_ORDER: GlossaryCategory[] = [
   "ekspor-impor",
@@ -25,14 +27,20 @@ const CATEGORY_ORDER: GlossaryCategory[] = [
  * in the HTML a crawler receives, so every one of the 131 entries is indexable
  * on its own terms and deep-linkable by anchor. The search box makes the page
  * usable; it is not what makes the page exist.
+ *
+ * The haystack always includes both languages regardless of the toggle: a
+ * visitor reading the English side may still type the Indonesian
+ * abbreviation they saw on a document, and there is no cost to matching it.
  */
 function matches(entry: GlossaryEntry, needle: string): boolean {
   if (!needle) return true;
-  const haystack = `${entry.term} ${entry.expansion || ""} ${entry.definition}`.toLowerCase();
+  const haystack = `${entry.term} ${entry.termEn || ""} ${entry.expansion || ""} ${entry.expansionEn || ""} ${entry.definition} ${entry.definitionEn}`.toLowerCase();
   return haystack.includes(needle);
 }
 
 export default function GlossaryBrowser() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<GlossaryCategory | "semua">("semua");
 
@@ -61,15 +69,15 @@ export default function GlossaryBrowser() {
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Cari istilah, singkatan, atau kata dalam definisinya"
-            aria-label="Cari istilah logistik"
+            placeholder={isEn ? "Search terms, abbreviations, or a word in their definition" : "Cari istilah, singkatan, atau kata dalam definisinya"}
+            aria-label={isEn ? "Search logistics terms" : "Cari istilah logistik"}
             className="nm-input w-full rounded-xl py-3 pl-11 pr-11 text-sm font-semibold"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery("")}
-              aria-label="Hapus pencarian"
+              aria-label={isEn ? "Clear search" : "Hapus pencarian"}
               className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-2.5 text-slate-400 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               <X className="h-4 w-4" aria-hidden="true" />
@@ -86,7 +94,7 @@ export default function GlossaryBrowser() {
               active === "semua" ? "nm-btn-accent" : "nm-btn text-slate-600"
             }`}
           >
-            Semua
+            {isEn ? "All" : "Semua"}
           </button>
           {CATEGORY_ORDER.map((category) => (
             <button
@@ -98,21 +106,27 @@ export default function GlossaryBrowser() {
                 active === category ? "nm-btn-accent" : "nm-btn text-slate-600"
               }`}
             >
-              {GLOSSARY_CATEGORIES[category]}
+              {isEn ? GLOSSARY_CATEGORIES_EN[category] : GLOSSARY_CATEGORIES[category]}
             </button>
           ))}
         </div>
 
         <p aria-live="polite" className="mt-4 font-mono text-[11px] font-bold text-slate-500">
-          {total} dari {GLOSSARY.length} istilah
+          {isEn ? `${total} of ${GLOSSARY.length} terms` : `${total} dari ${GLOSSARY.length} istilah`}
         </p>
       </div>
 
       {total === 0 && (
         <div className="nm-deboss rounded-2xl p-8 text-center">
           <p className="text-[14px] leading-[1.7] text-slate-600">
-            Tidak ada istilah yang cocok dengan &ldquo;{query}&rdquo;. Coba kata yang lebih pendek, atau cari lewat
-            kategori.
+            {isEn ? (
+              <>No terms match &ldquo;{query}&rdquo;. Try a shorter word, or browse by category.</>
+            ) : (
+              <>
+                Tidak ada istilah yang cocok dengan &ldquo;{query}&rdquo;. Coba kata yang lebih pendek, atau cari lewat
+                kategori.
+              </>
+            )}
           </p>
         </div>
       )}
@@ -123,7 +137,7 @@ export default function GlossaryBrowser() {
             id={`kategori-${group.category}`}
             className="mb-5 flex items-center gap-3 font-mono text-[11px] font-black uppercase tracking-[0.14em] text-slate-500"
           >
-            {GLOSSARY_CATEGORIES[group.category]}
+            {isEn ? GLOSSARY_CATEGORIES_EN[group.category] : GLOSSARY_CATEGORIES[group.category]}
             <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
             <span className="text-slate-400">{group.entries.length}</span>
           </h2>
@@ -140,17 +154,19 @@ export default function GlossaryBrowser() {
                     href={`#${glossaryAnchor(entry)}`}
                     className="inline-flex min-h-[1.75rem] items-center font-display text-[15px] font-black text-slate-900 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                   >
-                    {entry.term}
+                    {isEn ? entry.termEn || entry.term : entry.term}
                   </a>
-                  {entry.expansion && (
-                    <span className="mt-1 block text-[12px] font-semibold italic text-slate-500">{entry.expansion}</span>
+                  {(isEn ? entry.expansionEn || entry.expansion : entry.expansion) && (
+                    <span className="mt-1 block text-[12px] font-semibold italic text-slate-500">
+                      {isEn ? entry.expansionEn || entry.expansion : entry.expansion}
+                    </span>
                   )}
                 </dt>
-                <dd className="mt-3 text-[13px] leading-[1.75] text-slate-600">{entry.definition}</dd>
+                <dd className="mt-3 text-[13px] leading-[1.75] text-slate-600">{isEn ? entry.definitionEn : entry.definition}</dd>
                 {entry.seeAlso && entry.seeAlso.length > 0 && (
                   <dd className="mt-3 flex flex-wrap items-center gap-2">
                     <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-slate-400">
-                      Lihat juga
+                      {isEn ? "See also" : "Lihat juga"}
                     </span>
                     {entry.seeAlso.map((reference) => {
                       const target = GLOSSARY.find((e) => e.term.toLowerCase() === reference.toLowerCase());
@@ -168,7 +184,7 @@ export default function GlossaryBrowser() {
                           }}
                           className="inline-flex min-h-[1.75rem] items-center rounded-md bg-brand-teal/10 px-2.5 py-1 font-mono text-[10px] font-bold text-brand-teal transition-colors hover:bg-brand-teal/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                         >
-                          {reference}
+                          {isEn ? target.termEn || target.term : target.term}
                         </a>
                       );
                     })}

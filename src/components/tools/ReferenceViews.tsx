@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { CONTAINER_SPECS, payloadKg, practicalCbm } from "../../content/reference/containers";
 import { INCOTERMS, INCOTERMS_2020_CHANGES } from "../../content/reference/incoterms";
@@ -11,13 +13,17 @@ import {
   WEIGHT_CONCEPTS,
 } from "../../content/reference/regulations";
 import { formatNumber } from "../../lib/logistics/volume";
+import { useLanguage } from "../shared/LanguageProvider";
 
 /**
  * Halaman referensi statis.
  *
- * Server component tanpa satu baris pun JavaScript sisi klien -- isinya data
- * murni, dan tabel rujukan yang harus menunggu hidrasi sebelum bisa dibaca
- * gagal pada satu-satunya tugas yang dimilikinya.
+ * Was a pure server component -- no client JavaScript at all -- until the
+ * ID/EN toggle needed to reach it. Every table here is still fully present
+ * in the initial render regardless of language, just switched between two
+ * already-translated strings rather than fetched or computed, so the cost
+ * of that trade is one hydration step, not a page that goes blank while
+ * JavaScript loads.
  *
  * Setiap tabel duduk di dalam pembungkus `overflow-x-auto` sendiri. Tabel-tabel
  * ini lebar secara alamiah dan sebagian besar pengunjungnya datang dari
@@ -25,6 +31,20 @@ import { formatNumber } from "../../lib/logistics/volume";
  * atau badan halaman yang menggeser ke samping. Hanya yang pertama yang bisa
  * dipakai.
  */
+
+/** Only two values ever occur in the source data, so a lookup replaces a stored field on every Incoterm row. */
+const CLEARANCE_LABELS: Record<"Penjual" | "Pembeli", { id: string; en: string }> = {
+  Penjual: { id: "Penjual", en: "Seller" },
+  Pembeli: { id: "Pembeli", en: "Buyer" },
+};
+
+/** Same reasoning as CLEARANCE_LABELS: four fixed Indonesian words, translated at render time. */
+const VOLUME_RELEVANCE_LABELS: Record<"Tinggi" | "Sedang" | "Rendah" | "Tidak relevan", { id: string; en: string }> = {
+  Tinggi: { id: "Tinggi", en: "High" },
+  Sedang: { id: "Sedang", en: "Medium" },
+  Rendah: { id: "Rendah", en: "Low" },
+  "Tidak relevan": { id: "Tidak relevan", en: "Not relevant" },
+};
 
 function TableWrap({ children, caption, minWidth = 720 }: { children: React.ReactNode; caption: string; minWidth?: number }) {
   return (
@@ -54,18 +74,27 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 }
 
 export function ContainerTable() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+
   return (
     <div className="flex flex-col gap-6">
-      <TableWrap caption="Dimensi dan kapasitas mengikuti spesifikasi equipment yang diterbitkan operator pelayaran. Berat kosong berbeda antar unit; untuk reefer, open top, dan flat rack operatornya memang tidak menerbitkannya secara seragam. Angka berat yang mengikat selalu yang tertera pada pelat CSC di daun pintu unit yang dialokasikan ke Anda.">
+      <TableWrap
+        caption={
+          isEn
+            ? "Dimensions and capacity follow the equipment specification published by the carrier. Tare weight varies between units; for reefer, open top, and flat rack, carriers do not publish it uniformly at all. The binding weight figure is always the one printed on the CSC plate on the door of the unit allocated to you."
+            : "Dimensi dan kapasitas mengikuti spesifikasi equipment yang diterbitkan operator pelayaran. Berat kosong berbeda antar unit; untuk reefer, open top, dan flat rack operatornya memang tidak menerbitkannya secara seragam. Angka berat yang mengikat selalu yang tertera pada pelat CSC di daun pintu unit yang dialokasikan ke Anda."
+        }
+      >
         <thead>
           <tr className="border-b border-slate-300/50">
-            <th scope="col" className={TH}>Tipe</th>
-            <th scope="col" className={TH}>Kode ISO</th>
-            <th scope="col" className={TH}>Dimensi dalam (m)</th>
-            <th scope="col" className={TH}>Bukaan pintu (m)</th>
-            <th scope="col" className={TH}>Kubikasi</th>
-            <th scope="col" className={TH}>Realistis 85%</th>
-            <th scope="col" className={TH}>Berat kosong</th>
+            <th scope="col" className={TH}>{isEn ? "Type" : "Tipe"}</th>
+            <th scope="col" className={TH}>{isEn ? "ISO code" : "Kode ISO"}</th>
+            <th scope="col" className={TH}>{isEn ? "Inner dimensions (m)" : "Dimensi dalam (m)"}</th>
+            <th scope="col" className={TH}>{isEn ? "Door aperture (m)" : "Bukaan pintu (m)"}</th>
+            <th scope="col" className={TH}>{isEn ? "Cube" : "Kubikasi"}</th>
+            <th scope="col" className={TH}>{isEn ? "Realistic 85%" : "Realistis 85%"}</th>
+            <th scope="col" className={TH}>{isEn ? "Tare" : "Berat kosong"}</th>
             <th scope="col" className={TH}>Payload</th>
           </tr>
         </thead>
@@ -75,21 +104,33 @@ export function ContainerTable() {
               <th scope="row" className={`${TD} font-display font-bold text-slate-900`}>{spec.name}</th>
               <td className={`${TD} font-mono text-[11px]`}>{spec.isoCode}</td>
               <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
-                {formatNumber(spec.inner.length, 3)} × {formatNumber(spec.inner.width, 3)} × {formatNumber(spec.inner.height, 3)}
+                {formatNumber(spec.inner.length, 3, isEn)} × {formatNumber(spec.inner.width, 3, isEn)} × {formatNumber(spec.inner.height, 3, isEn)}
               </td>
               <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
-                {spec.door ? `${spec.door.width} × ${spec.door.height}` : "Muat dari atas/samping"}
+                {spec.door ? `${spec.door.width} × ${spec.door.height}` : isEn ? "Loaded from top/side" : "Muat dari atas/samping"}
               </td>
               <td className={`${TD} whitespace-nowrap font-semibold`}>
-                {spec.volumeIsPlanningBasis ? `${formatNumber(spec.capacityCbm, 1)} m³` : <span className="text-slate-400">Bukan dasar rencana</span>}
+                {spec.volumeIsPlanningBasis ? (
+                  `${formatNumber(spec.capacityCbm, 1, isEn)} m³`
+                ) : (
+                  <span className="text-slate-400">{isEn ? "Not a planning basis" : "Bukan dasar rencana"}</span>
+                )}
               </td>
               <td className={`${TD} whitespace-nowrap`}>
-                {spec.volumeIsPlanningBasis ? `${formatNumber(practicalCbm(spec), 1)} m³` : <span className="text-slate-400">Pakai tapak dan tinggi</span>}
+                {spec.volumeIsPlanningBasis ? (
+                  `${formatNumber(practicalCbm(spec), 1, isEn)} m³`
+                ) : (
+                  <span className="text-slate-400">{isEn ? "Use footprint and height" : "Pakai tapak dan tinggi"}</span>
+                )}
               </td>
               <td className={`${TD} whitespace-nowrap`}>
-                {spec.tareKg === null ? <span className="text-slate-400">Per unit</span> : `${formatNumber(spec.tareKg)} kg`}
+                {spec.tareKg === null ? (
+                  <span className="text-slate-400">{isEn ? "Per unit" : "Per unit"}</span>
+                ) : (
+                  `${formatNumber(spec.tareKg, undefined, isEn)} kg`
+                )}
               </td>
-              <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{formatNumber(payloadKg(spec))} kg</td>
+              <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{formatNumber(payloadKg(spec), undefined, isEn)} kg</td>
             </tr>
           ))}
         </tbody>
@@ -100,14 +141,18 @@ export function ContainerTable() {
           <div key={spec.id} className="nm-deboss rounded-2xl p-5">
             <p className="font-display text-sm font-bold text-slate-900">{spec.name}</p>
             <p className="mt-3 text-[12px] leading-[1.7] text-slate-600">
-              <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">Dipakai untuk</span>
+              <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">
+                {isEn ? "Used for" : "Dipakai untuk"}
+              </span>
               <br />
-              {spec.useFor}
+              {isEn ? spec.useForEn : spec.useFor}
             </p>
             <p className="mt-3 text-[12px] leading-[1.7] text-slate-600">
-              <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-orange">Yang perlu diperiksa</span>
+              <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-orange">
+                {isEn ? "What to check" : "Yang perlu diperiksa"}
+              </span>
               <br />
-              {spec.caution}
+              {isEn ? spec.cautionEn : spec.caution}
             </p>
           </div>
         ))}
@@ -117,25 +162,34 @@ export function ContainerTable() {
 }
 
 export function RegulationsView() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+
   return (
     <div className="flex flex-col gap-12">
       <div>
-        <SectionHeading>Batas dimensi kendaraan</SectionHeading>
-        <TableWrap caption="Dasar: PP 55/2012. Batas tinggi punya dua syarat sekaligus, dan yang berlaku adalah yang lebih rendah, truk berbadan sempit karena itu punya batas tinggi di bawah 4,2 meter.">
+        <SectionHeading>{isEn ? "Vehicle dimension limits" : "Batas dimensi kendaraan"}</SectionHeading>
+        <TableWrap
+          caption={
+            isEn
+              ? "Basis: PP 55/2012. The height limit carries two conditions at once, and whichever is lower governs -- a narrow-bodied truck therefore has a height limit below 4.2 metres."
+              : "Dasar: PP 55/2012. Batas tinggi punya dua syarat sekaligus, dan yang berlaku adalah yang lebih rendah, truk berbadan sempit karena itu punya batas tinggi di bawah 4,2 meter."
+          }
+        >
           <thead>
             <tr className="border-b border-slate-300/50">
-              <th scope="col" className={TH}>Hal</th>
+              <th scope="col" className={TH}>{isEn ? "Topic" : "Hal"}</th>
               <th scope="col" className={TH}>Parameter</th>
-              <th scope="col" className={TH}>Ketentuan</th>
-              <th scope="col" className={TH}>Dasar</th>
+              <th scope="col" className={TH}>{isEn ? "Rule" : "Ketentuan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Basis" : "Dasar"}</th>
             </tr>
           </thead>
           <tbody>
             {DIMENSION_RULES.map((rule) => (
               <tr key={rule.parameter} className="border-b border-slate-300/30 last:border-0">
-                <td className={`${TD} whitespace-nowrap font-semibold`}>{rule.topic}</td>
-                <th scope="row" className={`${TD} font-display font-bold text-slate-900`}>{rule.parameter}</th>
-                <td className={`${TD} min-w-[320px] leading-[1.7]`}>{rule.rule}</td>
+                <td className={`${TD} whitespace-nowrap font-semibold`}>{isEn ? rule.topicEn : rule.topic}</td>
+                <th scope="row" className={`${TD} font-display font-bold text-slate-900`}>{isEn ? rule.parameterEn : rule.parameter}</th>
+                <td className={`${TD} min-w-[320px] leading-[1.7]`}>{isEn ? rule.ruleEn : rule.rule}</td>
                 <td className={`${TD} whitespace-nowrap font-mono text-[11px] text-slate-500`}>{rule.basis}</td>
               </tr>
             ))}
@@ -144,27 +198,45 @@ export function RegulationsView() {
       </div>
 
       <div>
-        <SectionHeading>Kelas jalan</SectionHeading>
-        <TableWrap caption="Inilah sebabnya truk yang sama bisa sah di satu rute dan melanggar di rute lain: yang membatasi adalah jalannya, bukan truknya. MST adalah muatan sumbu terberat, dan ia membatasi berat per sumbu, bukan berat total.">
+        <SectionHeading>{isEn ? "Road classes" : "Kelas jalan"}</SectionHeading>
+        <TableWrap
+          caption={
+            isEn
+              ? "This is why the same truck can be legal on one route and in violation on another: the constraint is the road, not the truck. MST is the maximum single-axle load, and it caps weight per axle, not total weight."
+              : "Inilah sebabnya truk yang sama bisa sah di satu rute dan melanggar di rute lain: yang membatasi adalah jalannya, bukan truknya. MST adalah muatan sumbu terberat, dan ia membatasi berat per sumbu, bukan berat total."
+          }
+        >
           <thead>
             <tr className="border-b border-slate-300/50">
-              <th scope="col" className={TH}>Kelas</th>
-              <th scope="col" className={TH}>Lebar maks</th>
-              <th scope="col" className={TH}>Panjang maks</th>
-              <th scope="col" className={TH}>Tinggi maks</th>
+              <th scope="col" className={TH}>{isEn ? "Class" : "Kelas"}</th>
+              <th scope="col" className={TH}>{isEn ? "Max width" : "Lebar maks"}</th>
+              <th scope="col" className={TH}>{isEn ? "Max length" : "Panjang maks"}</th>
+              <th scope="col" className={TH}>{isEn ? "Max height" : "Tinggi maks"}</th>
               <th scope="col" className={TH}>MST</th>
-              <th scope="col" className={TH}>Catatan</th>
+              <th scope="col" className={TH}>{isEn ? "Note" : "Catatan"}</th>
             </tr>
           </thead>
           <tbody>
             {ROAD_CLASSES.map((rc) => (
               <tr key={rc.code} className="border-b border-slate-300/30 last:border-0">
-                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{rc.code}</th>
-                <td className={`${TD} whitespace-nowrap`}>{rc.maxWidthM === null ? <span className="text-slate-400">Per izin</span> : `${formatNumber(rc.maxWidthM, 1)} m`}</td>
-                <td className={`${TD} whitespace-nowrap`}>{rc.maxLengthM === null ? <span className="text-slate-400">Per izin</span> : `${formatNumber(rc.maxLengthM, 1)} m`}</td>
-                <td className={`${TD} whitespace-nowrap`}>{rc.maxHeightM === null ? <span className="text-slate-400">Per izin</span> : `${formatNumber(rc.maxHeightM, 1)} m`}</td>
-                <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>{rc.mstTon === null ? <span className="font-normal text-slate-400">Per izin</span> : `${formatNumber(rc.mstTon, 1)} ton`}</td>
-                <td className={`${TD} min-w-[300px] leading-[1.7]`}>{rc.note}</td>
+                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{isEn ? rc.codeEn : rc.code}</th>
+                <td className={`${TD} whitespace-nowrap`}>
+                  {rc.maxWidthM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxWidthM, 1, isEn)} m`}
+                </td>
+                <td className={`${TD} whitespace-nowrap`}>
+                  {rc.maxLengthM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxLengthM, 1, isEn)} m`}
+                </td>
+                <td className={`${TD} whitespace-nowrap`}>
+                  {rc.maxHeightM === null ? <span className="text-slate-400">{isEn ? "Per permit" : "Per izin"}</span> : `${formatNumber(rc.maxHeightM, 1, isEn)} m`}
+                </td>
+                <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>
+                  {rc.mstTon === null ? (
+                    <span className="font-normal text-slate-400">{isEn ? "Per permit" : "Per izin"}</span>
+                  ) : (
+                    `${formatNumber(rc.mstTon, 1, isEn)} ${isEn ? "tonnes" : "ton"}`
+                  )}
+                </td>
+                <td className={`${TD} min-w-[300px] leading-[1.7]`}>{isEn ? rc.noteEn : rc.note}</td>
               </tr>
             ))}
           </tbody>
@@ -172,23 +244,29 @@ export function RegulationsView() {
       </div>
 
       <div>
-        <SectionHeading>Golongan tol</SectionHeading>
-        <TableWrap caption="Dasar: Kepmen PUPR 176/KPTS/M/2025. Golongan menentukan kelompok tarif, bukan besaran tarifnya, tarif berbeda per ruas jalan dan per tanggal berlaku.">
+        <SectionHeading>{isEn ? "Toll class" : "Golongan tol"}</SectionHeading>
+        <TableWrap
+          caption={
+            isEn
+              ? "Basis: Kepmen PUPR 176/KPTS/M/2025. The class determines which tariff group a vehicle falls into, not the tariff amount itself -- tariffs differ per toll segment and per effective date."
+              : "Dasar: Kepmen PUPR 176/KPTS/M/2025. Golongan menentukan kelompok tarif, bukan besaran tarifnya, tarif berbeda per ruas jalan dan per tanggal berlaku."
+          }
+        >
           <thead>
             <tr className="border-b border-slate-300/50">
-              <th scope="col" className={TH}>Golongan</th>
-              <th scope="col" className={TH}>Kendaraan</th>
-              <th scope="col" className={TH}>Dasar penggolongan</th>
-              <th scope="col" className={TH}>Catatan</th>
+              <th scope="col" className={TH}>{isEn ? "Class" : "Golongan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Vehicle" : "Kendaraan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Classification basis" : "Dasar penggolongan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Note" : "Catatan"}</th>
             </tr>
           </thead>
           <tbody>
             {TOLL_CLASSES.map((tc) => (
               <tr key={tc.golongan} className="border-b border-slate-300/30 last:border-0">
-                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{tc.golongan}</th>
-                <td className={`${TD} min-w-[220px] leading-[1.7]`}>{tc.description}</td>
-                <td className={`${TD} min-w-[200px] leading-[1.7]`}>{tc.rule}</td>
-                <td className={`${TD} min-w-[280px] leading-[1.7]`}>{tc.note}</td>
+                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{isEn ? tc.golonganEn : tc.golongan}</th>
+                <td className={`${TD} min-w-[220px] leading-[1.7]`}>{isEn ? tc.descriptionEn : tc.description}</td>
+                <td className={`${TD} min-w-[200px] leading-[1.7]`}>{isEn ? tc.ruleEn : tc.rule}</td>
+                <td className={`${TD} min-w-[280px] leading-[1.7]`}>{isEn ? tc.noteEn : tc.note}</td>
               </tr>
             ))}
           </tbody>
@@ -196,23 +274,29 @@ export function RegulationsView() {
       </div>
 
       <div>
-        <SectionHeading>Golongan penyeberangan</SectionHeading>
-        <TableWrap caption="Logikanya berbeda dari golongan tol: penyeberangan menggolongkan berdasarkan panjang keseluruhan dan fungsi kendaraan, bukan jumlah gandar. Truk bergandar dua yang panjang bisa masuk golongan lebih tinggi daripada truk bergandar tiga yang pendek.">
+        <SectionHeading>{isEn ? "Ferry class" : "Golongan penyeberangan"}</SectionHeading>
+        <TableWrap
+          caption={
+            isEn
+              ? "The logic is completely different from toll class: ferry classification runs on overall length and vehicle function, not axle count. A long two-axle truck can land in a higher class than a short three-axle one."
+              : "Logikanya berbeda dari golongan tol: penyeberangan menggolongkan berdasarkan panjang keseluruhan dan fungsi kendaraan, bukan jumlah gandar. Truk bergandar dua yang panjang bisa masuk golongan lebih tinggi daripada truk bergandar tiga yang pendek."
+          }
+        >
           <thead>
             <tr className="border-b border-slate-300/50">
-              <th scope="col" className={TH}>Golongan</th>
-              <th scope="col" className={TH}>Jenis kendaraan</th>
-              <th scope="col" className={TH}>Rentang panjang</th>
-              <th scope="col" className={TH}>Catatan</th>
+              <th scope="col" className={TH}>{isEn ? "Class" : "Golongan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Vehicle type" : "Jenis kendaraan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Length band" : "Rentang panjang"}</th>
+              <th scope="col" className={TH}>{isEn ? "Note" : "Catatan"}</th>
             </tr>
           </thead>
           <tbody>
             {FERRY_CLASSES.map((fc) => (
               <tr key={fc.golongan} className="border-b border-slate-300/30 last:border-0">
-                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{fc.golongan}</th>
-                <td className={`${TD} min-w-[240px] leading-[1.7]`}>{fc.vehicleType}</td>
-                <td className={`${TD} whitespace-nowrap font-semibold`}>{fc.lengthBand}</td>
-                <td className={`${TD} min-w-[260px] leading-[1.7]`}>{fc.note}</td>
+                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{isEn ? fc.golonganEn : fc.golongan}</th>
+                <td className={`${TD} min-w-[240px] leading-[1.7]`}>{isEn ? fc.vehicleTypeEn : fc.vehicleType}</td>
+                <td className={`${TD} whitespace-nowrap font-semibold`}>{isEn ? fc.lengthBandEn : fc.lengthBand}</td>
+                <td className={`${TD} min-w-[260px] leading-[1.7]`}>{isEn ? fc.noteEn : fc.note}</td>
               </tr>
             ))}
           </tbody>
@@ -220,13 +304,13 @@ export function RegulationsView() {
       </div>
 
       <div>
-        <SectionHeading>Kategori kendaraan dan konsep berat</SectionHeading>
+        <SectionHeading>{isEn ? "Vehicle category and weight concepts" : "Kategori kendaraan dan konsep berat"}</SectionHeading>
         <div className="grid gap-4 sm:grid-cols-2">
           {[...VEHICLE_CATEGORIES, ...WEIGHT_CONCEPTS].map((rule) => (
             <div key={`${rule.topic}-${rule.parameter}`} className="nm-deboss rounded-2xl p-5">
-              <p className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">{rule.topic}</p>
-              <p className="mt-1.5 font-display text-sm font-bold text-slate-900">{rule.parameter}</p>
-              <p className="mt-2 text-[12px] leading-[1.7] text-slate-600">{rule.rule}</p>
+              <p className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">{isEn ? rule.topicEn : rule.topic}</p>
+              <p className="mt-1.5 font-display text-sm font-bold text-slate-900">{isEn ? rule.parameterEn : rule.parameter}</p>
+              <p className="mt-2 text-[12px] leading-[1.7] text-slate-600">{isEn ? rule.ruleEn : rule.rule}</p>
               <p className="mt-2 font-mono text-[10px] text-slate-400">{rule.basis}</p>
             </div>
           ))}
@@ -234,30 +318,36 @@ export function RegulationsView() {
       </div>
 
       <div>
-        <SectionHeading>Satuan kapasitas yang benar per jenis bodi</SectionHeading>
+        <SectionHeading>{isEn ? "The right capacity unit per body type" : "Satuan kapasitas yang benar per jenis bodi"}</SectionHeading>
         <TableWrap
           minWidth={880}
-          caption="Tidak setiap kendaraan pantas dinyatakan dalam meter kubik. Tangki diukur dengan liter dan kerapatan cairan, flatbed dengan loading meter dan titik beban, car carrier dengan jumlah unit. Memberi angka m³ untuk bodi-bodi itu bukan sekadar tidak berguna; ia mengajarkan satuan yang salah."
+          caption={
+            isEn
+              ? "Not every vehicle deserves to be stated in cubic metres. Tankers are measured in litres and liquid density, flatbeds in loading metres and point loads, car carriers in unit count. Giving those bodies an m³ figure isn't just useless; it teaches the wrong unit."
+              : "Tidak setiap kendaraan pantas dinyatakan dalam meter kubik. Tangki diukur dengan liter dan kerapatan cairan, flatbed dengan loading meter dan titik beban, car carrier dengan jumlah unit. Memberi angka m³ untuk bodi-bodi itu bukan sekadar tidak berguna; ia mengajarkan satuan yang salah."
+          }
         >
           <thead>
             <tr className="border-b border-slate-300/50">
-              <th scope="col" className={TH}>Jenis bodi</th>
-              <th scope="col" className={TH}>Cara menghitung</th>
-              <th scope="col" className={TH}>Satuan</th>
-              <th scope="col" className={TH}>Muatan khas</th>
-              <th scope="col" className={TH}>Relevansi volume</th>
-              <th scope="col" className={TH}>Yang menentukan</th>
+              <th scope="col" className={TH}>{isEn ? "Body type" : "Jenis bodi"}</th>
+              <th scope="col" className={TH}>{isEn ? "How to calculate" : "Cara menghitung"}</th>
+              <th scope="col" className={TH}>{isEn ? "Unit" : "Satuan"}</th>
+              <th scope="col" className={TH}>{isEn ? "Typical cargo" : "Muatan khas"}</th>
+              <th scope="col" className={TH}>{isEn ? "Volume relevance" : "Relevansi volume"}</th>
+              <th scope="col" className={TH}>{isEn ? "What determines it" : "Yang menentukan"}</th>
             </tr>
           </thead>
           <tbody>
             {BODY_CAPACITY_LOGIC.map((body) => (
               <tr key={body.body} className="border-b border-slate-300/30 last:border-0">
-                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{body.body}</th>
-                <td className={`${TD} min-w-[220px] leading-[1.7]`}>{body.formula}</td>
-                <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>{body.unit}</td>
-                <td className={`${TD} min-w-[180px] leading-[1.7]`}>{body.cargo}</td>
-                <td className={`${TD} whitespace-nowrap font-semibold`}>{body.volumeRelevance}</td>
-                <td className={`${TD} min-w-[220px] leading-[1.7]`}>{body.variables}</td>
+                <th scope="row" className={`${TD} whitespace-nowrap font-display font-bold text-slate-900`}>{isEn ? body.bodyEn : body.body}</th>
+                <td className={`${TD} min-w-[220px] leading-[1.7]`}>{isEn ? body.formulaEn : body.formula}</td>
+                <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>{isEn ? body.unitEn : body.unit}</td>
+                <td className={`${TD} min-w-[180px] leading-[1.7]`}>{isEn ? body.cargoEn : body.cargo}</td>
+                <td className={`${TD} whitespace-nowrap font-semibold`}>
+                  {isEn ? VOLUME_RELEVANCE_LABELS[body.volumeRelevance].en : VOLUME_RELEVANCE_LABELS[body.volumeRelevance].id}
+                </td>
+                <td className={`${TD} min-w-[220px] leading-[1.7]`}>{isEn ? body.variablesEn : body.variables}</td>
               </tr>
             ))}
           </tbody>
@@ -268,9 +358,18 @@ export function RegulationsView() {
 }
 
 export function IncotermsTable() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+
   const groups = [
-    { mode: "semua-moda" as const, label: "Berlaku untuk semua moda angkutan" },
-    { mode: "laut" as const, label: "Khusus angkutan laut dan perairan darat" },
+    {
+      mode: "semua-moda" as const,
+      label: isEn ? "Applies to every transport mode" : "Berlaku untuk semua moda angkutan",
+    },
+    {
+      mode: "laut" as const,
+      label: isEn ? "Sea and inland waterway transport only" : "Khusus angkutan laut dan perairan darat",
+    },
   ];
 
   return (
@@ -279,15 +378,21 @@ export function IncotermsTable() {
         <div key={group.mode}>
           <SectionHeading>{group.label}</SectionHeading>
 
-          <TableWrap caption="Perhatikan bahwa titik pindah risiko dan titik pindah biaya sering berada di tempat berbeda. Itulah sumber sebagian besar sengketa, bukan besaran biayanya.">
+          <TableWrap
+            caption={
+              isEn
+                ? "Notice that the point risk transfers and the point cost transfers are often in different places. That is the source of most disputes, not the amount of the cost."
+                : "Perhatikan bahwa titik pindah risiko dan titik pindah biaya sering berada di tempat berbeda. Itulah sumber sebagian besar sengketa, bukan besaran biayanya."
+            }
+          >
             <thead>
               <tr className="border-b border-slate-300/50">
-                <th scope="col" className={TH}>Aturan</th>
-                <th scope="col" className={TH}>Risiko pindah di</th>
-                <th scope="col" className={TH}>Biaya penjual sampai</th>
-                <th scope="col" className={TH}>Ekspor</th>
-                <th scope="col" className={TH}>Impor</th>
-                <th scope="col" className={TH}>Asuransi</th>
+                <th scope="col" className={TH}>{isEn ? "Rule" : "Aturan"}</th>
+                <th scope="col" className={TH}>{isEn ? "Risk transfers at" : "Risiko pindah di"}</th>
+                <th scope="col" className={TH}>{isEn ? "Seller's cost runs to" : "Biaya penjual sampai"}</th>
+                <th scope="col" className={TH}>{isEn ? "Export" : "Ekspor"}</th>
+                <th scope="col" className={TH}>{isEn ? "Import" : "Impor"}</th>
+                <th scope="col" className={TH}>{isEn ? "Insurance" : "Asuransi"}</th>
               </tr>
             </thead>
             <tbody>
@@ -297,11 +402,15 @@ export function IncotermsTable() {
                     <span className="font-display text-sm font-black text-slate-900">{term.code}</span>
                     <span className="mt-0.5 block font-sans text-[11px] font-normal text-slate-500">{term.name}</span>
                   </th>
-                  <td className={`${TD} min-w-[200px] text-[12px] leading-[1.7]`}>{term.riskTransfer}</td>
-                  <td className={`${TD} min-w-[180px] text-[12px] leading-[1.7]`}>{term.costTransfer}</td>
-                  <td className={`${TD} whitespace-nowrap text-[12px]`}>{term.exportClearance}</td>
-                  <td className={`${TD} whitespace-nowrap text-[12px]`}>{term.importClearance}</td>
-                  <td className={`${TD} min-w-[200px] text-[12px] leading-[1.7]`}>{term.insurance}</td>
+                  <td className={`${TD} min-w-[200px] text-[12px] leading-[1.7]`}>{isEn ? term.riskTransferEn : term.riskTransfer}</td>
+                  <td className={`${TD} min-w-[180px] text-[12px] leading-[1.7]`}>{isEn ? term.costTransferEn : term.costTransfer}</td>
+                  <td className={`${TD} whitespace-nowrap text-[12px]`}>
+                    {isEn ? CLEARANCE_LABELS[term.exportClearance].en : CLEARANCE_LABELS[term.exportClearance].id}
+                  </td>
+                  <td className={`${TD} whitespace-nowrap text-[12px]`}>
+                    {isEn ? CLEARANCE_LABELS[term.importClearance].en : CLEARANCE_LABELS[term.importClearance].id}
+                  </td>
+                  <td className={`${TD} min-w-[200px] text-[12px] leading-[1.7]`}>{isEn ? term.insuranceEn : term.insurance}</td>
                 </tr>
               ))}
             </tbody>
@@ -311,17 +420,21 @@ export function IncotermsTable() {
             {INCOTERMS.filter((term) => term.mode === group.mode).map((term) => (
               <div key={term.code} className="nm-deboss rounded-2xl p-5">
                 <p className="font-display text-sm font-bold text-slate-900">
-                  {term.code}, {term.nameId}
+                  {term.code}, {isEn ? term.name : term.nameId}
                 </p>
                 <p className="mt-3 text-[12px] leading-[1.7] text-slate-600">
-                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">Tepat untuk</span>
+                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">
+                    {isEn ? "Best for" : "Tepat untuk"}
+                  </span>
                   <br />
-                  {term.bestFor}
+                  {isEn ? term.bestForEn : term.bestFor}
                 </p>
                 <p className="mt-3 text-[12px] leading-[1.7] text-slate-600">
-                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-orange">Yang sering keliru</span>
+                  <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-orange">
+                    {isEn ? "Common mistake" : "Yang sering keliru"}
+                  </span>
                   <br />
-                  {term.watchOut}
+                  {isEn ? term.watchOutEn : term.watchOut}
                 </p>
               </div>
             ))}
@@ -330,12 +443,12 @@ export function IncotermsTable() {
       ))}
 
       <div>
-        <SectionHeading>Yang berubah dari edisi 2010</SectionHeading>
+        <SectionHeading>{isEn ? "What changed from the 2010 edition" : "Yang berubah dari edisi 2010"}</SectionHeading>
         <div className="grid gap-4 sm:grid-cols-2">
           {INCOTERMS_2020_CHANGES.map((change) => (
             <div key={change.title} className="nm-deboss rounded-2xl p-5">
-              <p className="font-display text-sm font-bold text-slate-900">{change.title}</p>
-              <p className="mt-2 text-[12px] leading-[1.7] text-slate-600">{change.body}</p>
+              <p className="font-display text-sm font-bold text-slate-900">{isEn ? change.titleEn : change.title}</p>
+              <p className="mt-2 text-[12px] leading-[1.7] text-slate-600">{isEn ? change.bodyEn : change.body}</p>
             </div>
           ))}
         </div>

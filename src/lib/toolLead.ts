@@ -33,28 +33,39 @@ export function normalisePhone(input: string): string {
   return input.replace(/[\s().-]/g, "");
 }
 
-export function validateToolLead(lead: ToolLead): Partial<Record<ToolLeadField, string>> {
+/**
+ * `isEn` defaults to false rather than being threaded everywhere: the API
+ * route calls this with no language context at all (it validates a raw
+ * POST body from any client, including one bypassing the browser form
+ * entirely), so Indonesian is the only message this call site could ever
+ * show truthfully. ToolGate passes the visitor's real toggle state; that
+ * server-side fallback path stays Indonesian regardless, which only shows
+ * up on the rare 422 a client-side check should already have caught.
+ */
+export function validateToolLead(lead: ToolLead, isEn = false): Partial<Record<ToolLeadField, string>> {
   const errors: Partial<Record<ToolLeadField, string>> = {};
 
   const name = lead.name.trim();
-  if (!name) errors.name = "Nama lengkap wajib diisi.";
-  else if (name.length < 2) errors.name = "Nama terlalu pendek.";
-  else if (name.length > 160) errors.name = "Nama terlalu panjang.";
+  if (!name) errors.name = isEn ? "Full name is required." : "Nama lengkap wajib diisi.";
+  else if (name.length < 2) errors.name = isEn ? "Name is too short." : "Nama terlalu pendek.";
+  else if (name.length > 160) errors.name = isEn ? "Name is too long." : "Nama terlalu panjang.";
 
   const company = lead.company.trim();
-  if (!company) errors.company = "Nama perusahaan wajib diisi.";
-  else if (company.length > 160) errors.company = "Nama perusahaan terlalu panjang.";
+  if (!company) errors.company = isEn ? "Company name is required." : "Nama perusahaan wajib diisi.";
+  else if (company.length > 160) errors.company = isEn ? "Company name is too long." : "Nama perusahaan terlalu panjang.";
 
   const email = lead.email.trim();
-  if (!email) errors.email = "Email wajib diisi.";
-  else if (!EMAIL_SHAPE.test(email)) errors.email = "Format email belum benar, contoh: nama@perusahaan.co.id";
-  else if (email.length > 255) errors.email = "Email terlalu panjang.";
+  if (!email) errors.email = isEn ? "Email is required." : "Email wajib diisi.";
+  else if (!EMAIL_SHAPE.test(email))
+    errors.email = isEn ? "Email format looks wrong, e.g.: name@company.com" : "Format email belum benar, contoh: nama@perusahaan.co.id";
+  else if (email.length > 255) errors.email = isEn ? "Email is too long." : "Email terlalu panjang.";
 
   const phone = lead.phone.trim();
   const digits = normalisePhone(phone).replace(/^\+/, "");
-  if (!phone) errors.phone = "Nomor HP wajib diisi.";
-  else if (!PHONE_DIGITS.test(phone) || digits.length < 8) errors.phone = "Nomor HP belum benar, contoh: 0812 3456 7890";
-  else if (digits.length > 20) errors.phone = "Nomor HP terlalu panjang.";
+  if (!phone) errors.phone = isEn ? "Phone number is required." : "Nomor HP wajib diisi.";
+  else if (!PHONE_DIGITS.test(phone) || digits.length < 8)
+    errors.phone = isEn ? "Phone number looks wrong, e.g.: 0812 3456 7890" : "Nomor HP belum benar, contoh: 0812 3456 7890";
+  else if (digits.length > 20) errors.phone = isEn ? "Phone number is too long." : "Nomor HP terlalu panjang.";
 
   return errors;
 }

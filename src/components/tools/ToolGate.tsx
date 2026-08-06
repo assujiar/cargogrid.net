@@ -38,6 +38,7 @@ import { useLanguage } from "../shared/LanguageProvider";
 interface FieldSpec {
   key: ToolLeadField;
   label: string;
+  labelEn: string;
   placeholder: string;
   autoComplete: string;
   inputMode?: "text" | "email" | "tel";
@@ -47,18 +48,21 @@ const FIELDS: FieldSpec[] = [
   {
     key: "name",
     label: "Nama lengkap",
+    labelEn: "Full name",
     placeholder: "Budi Santoso",
     autoComplete: "name",
   },
   {
     key: "company",
     label: "Nama perusahaan",
+    labelEn: "Company name",
     placeholder: "PT Logistik Nusantara",
     autoComplete: "organization",
   },
   {
     key: "email",
     label: "Email kerja",
+    labelEn: "Work email",
     placeholder: "nama@perusahaan.co.id",
     autoComplete: "email",
     inputMode: "email",
@@ -66,6 +70,7 @@ const FIELDS: FieldSpec[] = [
   {
     key: "phone",
     label: "Nomor HP",
+    labelEn: "Phone number",
     placeholder: "0812 3456 7890",
     autoComplete: "tel",
     inputMode: "tel",
@@ -75,13 +80,16 @@ const FIELDS: FieldSpec[] = [
 export default function ToolGate({
   toolSlug,
   toolTitle,
+  toolTitleEn,
   children,
 }: {
   toolSlug: string;
   toolTitle: string;
+  toolTitleEn: string;
   children: React.ReactNode;
 }) {
   const { lang } = useLanguage();
+  const isEn = lang === "en";
   const formId = useId();
 
   // Starts locked on both server and client, then unlocks on mount if this
@@ -113,7 +121,7 @@ export default function ToolGate({
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    const found = validateToolLead(lead);
+    const found = validateToolLead(lead, isEn);
     setErrors(found);
     if (Object.keys(found).length > 0) {
       const first = FIELDS.find((f) => found[f.key]);
@@ -138,10 +146,18 @@ export default function ToolGate({
           setSubmitting(false);
           return;
         }
-        setSaveWarning("Data Anda belum tersimpan di sistem kami, tetapi kalkulator sudah bisa dipakai.");
+        setSaveWarning(
+          isEn
+            ? "Your details weren't saved in our system, but the calculator is ready to use."
+            : "Data Anda belum tersimpan di sistem kami, tetapi kalkulator sudah bisa dipakai.",
+        );
       }
     } catch {
-      setSaveWarning("Data Anda belum tersimpan di sistem kami, tetapi kalkulator sudah bisa dipakai.");
+      setSaveWarning(
+        isEn
+          ? "Your details weren't saved in our system, but the calculator is ready to use."
+          : "Data Anda belum tersimpan di sistem kami, tetapi kalkulator sudah bisa dipakai.",
+      );
     }
 
     storeLead(lead);
@@ -156,7 +172,7 @@ export default function ToolGate({
     return (
       <div className="nm-emboss flex min-h-[18rem] items-center justify-center rounded-3xl bg-[#eef2f6]/60 p-8">
         <Loader2 className="h-5 w-5 animate-spin text-slate-400" aria-hidden="true" />
-        <span className="sr-only">Memuat</span>
+        <span className="sr-only">{isEn ? "Loading" : "Memuat"}</span>
       </div>
     );
   }
@@ -176,18 +192,18 @@ export default function ToolGate({
       <div className="flex items-center gap-3 bg-gradient-to-r from-brand-teal to-brand-teal-accent px-6 py-4 sm:px-8">
         <Lock className="h-4 w-4 flex-shrink-0 text-white/90" aria-hidden="true" />
         <p className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-white/95">
-          Isi data untuk membuka kalkulator
+          {isEn ? "Enter your details to unlock the calculator" : "Isi data untuk membuka kalkulator"}
         </p>
       </div>
 
       <div className="p-6 sm:p-8">
         <h2 id={`${formId}-heading`} className="font-display text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
-          {toolTitle}
+          {isEn ? toolTitleEn : toolTitle}
         </h2>
         <p className="mt-3 max-w-2xl text-[14px] leading-[1.75] text-slate-600">
-          Kalkulator ini gratis. Kami hanya meminta data kontak Anda sekali, lalu seluruh kalkulator di halaman Alat
-          terbuka di perangkat ini. Penjelasan, contoh perhitungan, dan tabel rujukan di bawah tetap bisa dibaca tanpa
-          mengisi apa pun.
+          {isEn
+            ? "This calculator is free. We only ask for your contact details once, then every calculator on the Tools page unlocks on this device. The explanation, worked examples, and reference tables below stay readable without filling in anything."
+            : "Kalkulator ini gratis. Kami hanya meminta data kontak Anda sekali, lalu seluruh kalkulator di halaman Alat terbuka di perangkat ini. Penjelasan, contoh perhitungan, dan tabel rujukan di bawah tetap bisa dibaca tanpa mengisi apa pun."}
         </p>
 
         <form onSubmit={handleSubmit} noValidate className="mt-7 flex flex-col gap-5">
@@ -201,7 +217,7 @@ export default function ToolGate({
                     htmlFor={id}
                     className="mb-2 block font-mono text-[10px] font-black uppercase tracking-[0.12em] text-slate-500"
                   >
-                    {field.label}
+                    {isEn ? field.labelEn : field.label}
                     <span className="ml-1 text-brand-orange" aria-hidden="true">
                       *
                     </span>
@@ -245,11 +261,11 @@ export default function ToolGate({
               {submitting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                  Menyiapkan kalkulator
+                  {isEn ? "Preparing calculator" : "Menyiapkan kalkulator"}
                 </>
               ) : (
                 <>
-                  Buka kalkulator
+                  {isEn ? "Unlock calculator" : "Buka kalkulator"}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </>
               )}

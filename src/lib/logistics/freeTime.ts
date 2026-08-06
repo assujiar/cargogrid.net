@@ -157,8 +157,8 @@ export function calculateFreeTime(input: FreeTimeInput): FreeTimeResult {
   };
 }
 
-export function formatIDR(value: number): string {
-  return new Intl.NumberFormat("id-ID", {
+export function formatIDR(value: number, isEn = false): string {
+  return new Intl.NumberFormat(isEn ? "en-US" : "id-ID", {
     style: "currency",
     currency: "IDR",
     maximumFractionDigits: 0,
@@ -166,13 +166,13 @@ export function formatIDR(value: number): string {
 }
 
 /**
- * Long-form Indonesian date. Used in results, where `2026-09-14` is correct but
- * reads as a serial number, and the whole point of the output is that someone
- * looks at it and recognises it as next Monday.
+ * Long-form date. Used in results, where `2026-09-14` is correct but reads as
+ * a serial number, and the whole point of the output is that someone looks at
+ * it and recognises it as next Monday.
  */
-export function formatLongDate(date: CalendarDate): string {
+export function formatLongDate(date: CalendarDate, isEn = false): string {
   const [y, m, d] = date.split("-").map(Number);
-  return new Intl.DateTimeFormat("id-ID", {
+  return new Intl.DateTimeFormat(isEn ? "en-US" : "id-ID", {
     weekday: "long",
     day: "numeric",
     month: "long",

@@ -13,6 +13,7 @@ import {
 } from "../../lib/logistics/freeTime";
 import { formatNumber } from "../../lib/logistics/volume";
 import { DateField, NumberField, ResultCard, ResultGrid, ToggleField, ToolPanel } from "./controls";
+import { useLanguage } from "../shared/LanguageProvider";
 
 const TIPS = {
   startDate:
@@ -26,6 +27,18 @@ const TIPS = {
   slabFrom: "Dihitung sejak hari tertagih pertama, bukan sejak tanggal bongkar. Jenjang pertama biasanya mulai di hari ke-1.",
   slabTo: "Hari tertagih terakhir yang masih memakai tarif ini. Isi 0 untuk jenjang terakhir yang berlaku seterusnya.",
   slabRate: "Tarif per kontainer per hari pada jenjang ini, sesuai Delivery Order Anda.",
+} as const;
+
+const TIPS_EN = {
+  startDate: "The date the container came off the vessel for demurrage, or the gate-out date from the terminal for detention.",
+  freeTime: "The number of days free of charge. The figure is printed on the carrier's Delivery Order.",
+  containers: "How many containers share the same date and free time. The cost is multiplied by this number.",
+  endDate: "The date the container is picked up or returned. Enter a planned date to estimate, or today's date to see where things stand right now.",
+  countStartDay:
+    "Some carriers count the discharge day itself as free time day one, some start counting the next day. Ask once, and note it down per carrier.",
+  slabFrom: "Counted from the first chargeable day, not from the discharge date. The first slab usually starts at day 1.",
+  slabTo: "The last chargeable day still billed at this rate. Enter 0 for the final slab that applies onward indefinitely.",
+  slabRate: "The rate per container per day on this slab, matching your Delivery Order.",
 } as const;
 
 interface SlabRow extends TariffSlab {
@@ -49,6 +62,8 @@ function todayLocal(): string {
 }
 
 export default function FreeTimeCalculator() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [freeTimeDays, setFreeTimeDays] = useState(7);
@@ -78,11 +93,15 @@ export default function FreeTimeCalculator() {
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-5">
           <DateField
-            label="Tanggal bongkar atau keluar terminal"
+            label={isEn ? "Discharge or gate-out date" : "Tanggal bongkar atau keluar terminal"}
             value={startDate}
             onChange={setStartDate}
-            tip={TIPS.startDate}
-            hint="Demurrage dihitung dari tanggal bongkar, detention dari tanggal keluar terminal."
+            tip={isEn ? TIPS_EN.startDate : TIPS.startDate}
+            hint={
+              isEn
+                ? "Demurrage is counted from the discharge date, detention from the terminal gate-out date."
+                : "Demurrage dihitung dari tanggal bongkar, detention dari tanggal keluar terminal."
+            }
           />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <NumberField
@@ -91,32 +110,48 @@ export default function FreeTimeCalculator() {
               onChange={setFreeTimeDays}
               min={0}
               step={1}
-              suffix="hari"
-              tip={TIPS.freeTime}
-              hint="Tertera di Delivery Order."
+              suffix={isEn ? "days" : "hari"}
+              tip={isEn ? TIPS_EN.freeTime : TIPS.freeTime}
+              hint={isEn ? "Printed on the Delivery Order." : "Tertera di Delivery Order."}
             />
-            <NumberField label="Jumlah kontainer" value={containers} onChange={setContainers} min={1} step={1} suffix="unit" tip={TIPS.containers} />
+            <NumberField
+              label={isEn ? "Number of containers" : "Jumlah kontainer"}
+              value={containers}
+              onChange={setContainers}
+              min={1}
+              step={1}
+              suffix={isEn ? "units" : "unit"}
+              tip={isEn ? TIPS_EN.containers : TIPS.containers}
+            />
           </div>
           <DateField
-            label="Tanggal pengambilan atau pengembalian"
+            label={isEn ? "Pickup or return date" : "Tanggal pengambilan atau pengembalian"}
             value={endDate}
             onChange={setEndDate}
-            tip={TIPS.endDate}
-            hint="Isi tanggal rencana untuk memperkirakan, atau tanggal hari ini untuk melihat posisi sekarang."
+            tip={isEn ? TIPS_EN.endDate : TIPS.endDate}
+            hint={
+              isEn
+                ? "Enter a planned date to estimate, or today's date to see where things stand right now."
+                : "Isi tanggal rencana untuk memperkirakan, atau tanggal hari ini untuk melihat posisi sekarang."
+            }
           />
           <ToggleField
-            label="Hari bongkar dihitung sebagai free time hari pertama"
+            label={isEn ? "Discharge day counts as free time day one" : "Hari bongkar dihitung sebagai free time hari pertama"}
             checked={countStartDay}
             onChange={setCountStartDay}
-            tip={TIPS.countStartDay}
-            hint="Berbeda antar pelayaran, dan selisihnya persis satu hari denda. Konfirmasikan sekali per pelayaran."
+            tip={isEn ? TIPS_EN.countStartDay : TIPS.countStartDay}
+            hint={
+              isEn
+                ? "Differs between carriers, and the gap is exactly one day of charges. Confirm once per carrier."
+                : "Berbeda antar pelayaran, dan selisihnya persis satu hari denda. Konfirmasikan sekali per pelayaran."
+            }
           />
         </div>
 
         <div className="nm-deboss rounded-2xl p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
             <span className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
-              Tarif berjenjang
+              {isEn ? "Tiered tariff" : "Tarif berjenjang"}
             </span>
             <button
               type="button"
@@ -130,13 +165,14 @@ export default function FreeTimeCalculator() {
               className="inline-flex min-h-[2.25rem] items-center gap-1.5 rounded-lg px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               <Plus className="h-3 w-3" aria-hidden="true" />
-              Jenjang
+              {isEn ? "Slab" : "Jenjang"}
             </button>
           </div>
 
           <p className="mb-4 text-[11px] leading-[1.6] text-slate-500">
-            Angka bawaan hanya berbentuk seperti tarif sungguhan; nominalnya bukan tarif siapa pun. Ganti dengan angka
-            dari Delivery Order Anda.
+            {isEn
+              ? "The default figures only look like a real tariff; the amounts aren't anyone's actual rate. Replace them with the numbers from your Delivery Order."
+              : "Angka bawaan hanya berbentuk seperti tarif sungguhan; nominalnya bukan tarif siapa pun. Ganti dengan angka dari Delivery Order Anda."}
           </p>
 
           <div className="flex flex-col gap-3">
@@ -144,53 +180,92 @@ export default function FreeTimeCalculator() {
               <div key={slab.id} className="nm-emboss-sm rounded-xl bg-white/40 p-3">
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <span className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">
-                    Jenjang {index + 1}
+                    {isEn ? "Slab" : "Jenjang"} {index + 1}
                   </span>
                   <button
                     type="button"
                     onClick={() => setSlabs((current) => current.filter((r) => r.id !== slab.id))}
                     disabled={slabs.length === 1}
                     className="relative rounded-lg p-2 text-slate-400 transition-colors after:absolute after:-inset-1 after:content-[''] hover:text-brand-orange disabled:cursor-not-allowed disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
-                    aria-label={`Hapus jenjang ${index + 1}`}
+                    aria-label={isEn ? `Remove slab ${index + 1}` : `Hapus jenjang ${index + 1}`}
                   >
                     <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
                   </button>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <NumberField label="Denda hari ke" value={slab.fromDay} onChange={(v) => updateSlab(slab.id, { fromDay: v })} min={1} step={1} tip={TIPS.slabFrom} />
                   <NumberField
-                    label="Sampai hari"
+                    label={isEn ? "Charged from day" : "Denda hari ke"}
+                    value={slab.fromDay}
+                    onChange={(v) => updateSlab(slab.id, { fromDay: v })}
+                    min={1}
+                    step={1}
+                    tip={isEn ? TIPS_EN.slabFrom : TIPS.slabFrom}
+                  />
+                  <NumberField
+                    label={isEn ? "Through day" : "Sampai hari"}
                     value={slab.toDay ?? 0}
                     onChange={(v) => updateSlab(slab.id, { toDay: v === 0 ? null : v })}
                     min={0}
                     step={1}
-                    tip={TIPS.slabTo}
+                    tip={isEn ? TIPS_EN.slabTo : TIPS.slabTo}
                   />
                   <div className="col-span-2">
-                    <NumberField label="Tarif per kontainer per hari" value={slab.ratePerDay} onChange={(v) => updateSlab(slab.id, { ratePerDay: v })} min={0} step={50000} suffix="Rp/hari" tip={TIPS.slabRate} />
+                    <NumberField
+                      label={isEn ? "Rate per container per day" : "Tarif per kontainer per hari"}
+                      value={slab.ratePerDay}
+                      onChange={(v) => updateSlab(slab.id, { ratePerDay: v })}
+                      min={0}
+                      step={50000}
+                      suffix={isEn ? "Rp/day" : "Rp/hari"}
+                      tip={isEn ? TIPS_EN.slabRate : TIPS.slabRate}
+                    />
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <p className="mt-3 text-[11px] leading-[1.5] text-slate-500">Isi 0 pada kolom &ldquo;sampai&rdquo; untuk jenjang terakhir yang berlaku seterusnya.</p>
+          <p className="mt-3 text-[11px] leading-[1.5] text-slate-500">
+            {isEn
+              ? 'Enter 0 in the "through" field for the final slab that applies onward indefinitely.'
+              : 'Isi 0 pada kolom "sampai" untuk jenjang terakhir yang berlaku seterusnya.'}
+          </p>
         </div>
       </div>
 
       {result && (
         <>
           <ResultGrid>
-            <ResultCard label="Hari bebas terakhir" value={formatLongDate(result.lastFreeDay)} hint="Tanggal terakhir tanpa denda" />
-            <ResultCard label="Denda mulai berjalan" value={formatLongDate(result.firstChargeableDay)} hint="Hari tertagih pertama" />
             <ResultCard
-              label={result.withinFreeTime ? "Sisa waktu" : "Hari tertagih"}
-              value={result.withinFreeTime ? `${formatNumber(result.daysRemaining, 0)} hari` : `${formatNumber(result.chargeableDays, 0)} hari`}
-              hint={result.withinFreeTime ? "Masih dalam free time" : "Melewati free time"}
+              label={isEn ? "Last free day" : "Hari bebas terakhir"}
+              value={formatLongDate(result.lastFreeDay, isEn)}
+              hint={isEn ? "The last date free of charges" : "Tanggal terakhir tanpa denda"}
             />
             <ResultCard
-              label="Estimasi biaya"
-              value={formatIDR(result.total)}
-              hint={containers > 1 ? `${formatIDR(result.totalPerContainer)} per kontainer` : "Menurut tarif di samping"}
+              label={isEn ? "Charges start" : "Denda mulai berjalan"}
+              value={formatLongDate(result.firstChargeableDay, isEn)}
+              hint={isEn ? "First chargeable day" : "Hari tertagih pertama"}
+            />
+            <ResultCard
+              label={result.withinFreeTime ? (isEn ? "Time remaining" : "Sisa waktu") : isEn ? "Chargeable days" : "Hari tertagih"}
+              value={
+                result.withinFreeTime
+                  ? `${formatNumber(result.daysRemaining, 0, isEn)} ${isEn ? "days" : "hari"}`
+                  : `${formatNumber(result.chargeableDays, 0, isEn)} ${isEn ? "days" : "hari"}`
+              }
+              hint={result.withinFreeTime ? (isEn ? "Still within free time" : "Masih dalam free time") : isEn ? "Past free time" : "Melewati free time"}
+            />
+            <ResultCard
+              label={isEn ? "Estimated cost" : "Estimasi biaya"}
+              value={formatIDR(result.total, isEn)}
+              hint={
+                containers > 1
+                  ? isEn
+                    ? `${formatIDR(result.totalPerContainer, isEn)} per container`
+                    : `${formatIDR(result.totalPerContainer)} per kontainer`
+                  : isEn
+                    ? "Per the tariff alongside"
+                    : "Menurut tarif di samping"
+              }
               emphasis
               tone={result.withinFreeTime ? "neutral" : "warning"}
             />
@@ -201,10 +276,19 @@ export default function FreeTimeCalculator() {
               <div className="flex items-start gap-4">
                 <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-teal" aria-hidden="true" />
                 <div>
-                  <p className="font-display text-sm font-bold text-slate-900">Masih di dalam free time</p>
+                  <p className="font-display text-sm font-bold text-slate-900">{isEn ? "Still within free time" : "Masih di dalam free time"}</p>
                   <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">
-                    Tersisa {formatNumber(result.daysRemaining, 0)} hari kalender sampai {formatLongDate(result.lastFreeDay)}.
-                    Ingat bahwa akhir pekan dan libur nasional ikut terhitung.
+                    {isEn ? (
+                      <>
+                        {formatNumber(result.daysRemaining, 0, isEn)} calendar days remain until {formatLongDate(result.lastFreeDay, true)}. Remember that
+                        weekends and national holidays are counted too.
+                      </>
+                    ) : (
+                      <>
+                        Tersisa {formatNumber(result.daysRemaining, 0, isEn)} hari kalender sampai {formatLongDate(result.lastFreeDay)}. Ingat bahwa akhir
+                        pekan dan libur nasional ikut terhitung.
+                      </>
+                    )}
                   </p>
                 </div>
               </div>
@@ -212,27 +296,27 @@ export default function FreeTimeCalculator() {
               <div className="flex items-start gap-4">
                 <CalendarClock className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-orange" aria-hidden="true" />
                 <div className="w-full">
-                  <p className="font-display text-sm font-bold text-slate-900">Rincian per jenjang</p>
+                  <p className="font-display text-sm font-bold text-slate-900">{isEn ? "Breakdown by slab" : "Rincian per jenjang"}</p>
                   <div className="mt-3 overflow-x-auto">
                   <table className="w-full min-w-[20rem] text-left text-[12px]">
                     <thead>
                       <tr className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-slate-500">
-                        <th scope="col" className="pb-2 pr-4 font-black">Jenjang</th>
-                        <th scope="col" className="pb-2 pr-4 font-black">Hari</th>
-                        <th scope="col" className="pb-2 pr-4 font-black">Tarif/hari</th>
-                        <th scope="col" className="pb-2 font-black">Subtotal</th>
+                        <th scope="col" className="pb-2 pr-4 font-black">{isEn ? "Slab" : "Jenjang"}</th>
+                        <th scope="col" className="pb-2 pr-4 font-black">{isEn ? "Days" : "Hari"}</th>
+                        <th scope="col" className="pb-2 pr-4 font-black">{isEn ? "Rate/day" : "Tarif/hari"}</th>
+                        <th scope="col" className="pb-2 font-black">{isEn ? "Subtotal" : "Subtotal"}</th>
                       </tr>
                     </thead>
                     <tbody className="text-slate-700">
                       {result.breakdown.map((charge, i) => (
                         <tr key={i} className="border-t border-slate-300/40">
                           <td className="py-2 pr-4 font-semibold">
-                            Hari {charge.slab.fromDay}
-                            {charge.slab.toDay === null ? " ke atas" : `-${charge.slab.toDay}`}
+                            {isEn ? "Day" : "Hari"} {charge.slab.fromDay}
+                            {charge.slab.toDay === null ? (isEn ? " and up" : " ke atas") : `-${charge.slab.toDay}`}
                           </td>
                           <td className="py-2 pr-4">{charge.days}</td>
-                          <td className="py-2 pr-4">{formatIDR(charge.slab.ratePerDay)}</td>
-                          <td className="py-2 font-bold text-slate-900">{formatIDR(charge.amount)}</td>
+                          <td className="py-2 pr-4">{formatIDR(charge.slab.ratePerDay, isEn)}</td>
+                          <td className="py-2 font-bold text-slate-900">{formatIDR(charge.amount, isEn)}</td>
                         </tr>
                       ))}
                     </tbody>

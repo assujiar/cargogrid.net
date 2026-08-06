@@ -112,7 +112,9 @@ export type RoutePattern = "pp-bermuatan" | "pp-kosong" | "sekali-jalan" | "manu
 export interface RoutePatternOption {
   id: RoutePattern;
   label: string;
+  labelEn: string;
   detail: string;
+  detailEn: string;
 }
 
 /**
@@ -133,26 +135,38 @@ export const ROUTE_PATTERNS: RoutePatternOption[] = [
   {
     id: "pp-kosong",
     label: "Pulang pergi, balik kosong",
+    labelEn: "Round trip, empty return",
     detail:
       "Berangkat bermuatan, kembali tanpa muatan. Pola paling umum, sekaligus yang paling mahal: separuh jarak tidak menghasilkan pendapatan tetapi tetap memakan solar, ban, dan waktu sopir.",
+    detailEn:
+      "Departs loaded, returns empty. The most common pattern, and also the most expensive: half the distance earns no revenue but still burns fuel, tyres, and driver time.",
   },
   {
     id: "pp-bermuatan",
     label: "Pulang pergi, dua arah bermuatan",
+    labelEn: "Round trip, loaded both ways",
     detail:
       "Ada muatan balik yang membayar. Jarak tempuhnya sama dengan pola balik kosong, tetapi seluruh jarak itu kini menghasilkan pendapatan, sehingga biaya per kilometer bermuatan turun mendekati separuhnya. Inilah yang membuat rit balik layak dikejar.",
+    detailEn:
+      "There's a paying return load. The distance is the same as the empty-return pattern, but now every kilometre earns revenue, so the cost per loaded kilometre drops to roughly half. This is what makes chasing a return load worthwhile.",
   },
   {
     id: "sekali-jalan",
     label: "Sekali jalan saja",
+    labelEn: "One way only",
     detail:
       "Kendaraan tidak kembali, atau perjalanan baliknya sudah dibebankan ke pekerjaan lain. Pastikan biaya baliknya benar-benar ditanggung pihak lain sebelum memilih ini.",
+    detailEn:
+      "The vehicle doesn't return, or the return trip is already billed to another job. Make sure the return cost is genuinely covered elsewhere before choosing this.",
   },
   {
     id: "manual",
     label: "Atur sendiri",
+    labelEn: "Set manually",
     detail:
       "Untuk rute dengan muatan balik sebagian, jarak posisi awal, atau pola singgah beberapa titik. Isi km bermuatan dan km kosong secara terpisah.",
+    detailEn:
+      "For routes with a partial return load, a positioning leg, or a multi-stop pattern. Enter loaded and empty kilometres separately.",
   },
 ];
 
@@ -379,7 +393,7 @@ function safeDivide(numerator: number, denominator: number): number {
   return Number.isFinite(result) ? result : 0;
 }
 
-export function calculateFleetCost(input: FleetCostInput): FleetCostResult {
+export function calculateFleetCost(input: FleetCostInput, isEn = false): FleetCostResult {
   const effectiveAnnualKm = input.plannedAnnualKm * input.availabilityFactor;
   const totalKmPerTrip = input.loadedKmPerTrip + input.emptyKmPerTrip;
 
@@ -442,12 +456,19 @@ export function calculateFleetCost(input: FleetCostInput): FleetCostResult {
         ? 0
         : safeDivide(safeDivide(totalCostPerTrip, 1 - input.targetGrossMargin), input.loadedKmPerTrip),
     emptyKmRatio: safeDivide(input.emptyKmPerTrip, totalKmPerTrip),
-    breakdown: [
-      { label: "Biaya tetap (penyusutan, cicilan, gaji, overhead)", amount: fixedShare },
-      { label: "Bahan bakar", amount: fuelCostPerTrip },
-      { label: "Ban, perawatan, dan pelumas", amount: runningShare },
-      { label: "Tol, penyeberangan, bongkar muat, uang jalan", amount: tripVariableCost },
-    ],
+    breakdown: isEn
+      ? [
+          { label: "Fixed costs (depreciation, financing, salaries, overhead)", amount: fixedShare },
+          { label: "Fuel", amount: fuelCostPerTrip },
+          { label: "Tyres, maintenance, and lubricants", amount: runningShare },
+          { label: "Toll, ferry, handling, crew allowance", amount: tripVariableCost },
+        ]
+      : [
+          { label: "Biaya tetap (penyusutan, cicilan, gaji, overhead)", amount: fixedShare },
+          { label: "Bahan bakar", amount: fuelCostPerTrip },
+          { label: "Ban, perawatan, dan pelumas", amount: runningShare },
+          { label: "Tol, penyeberangan, bongkar muat, uang jalan", amount: tripVariableCost },
+        ],
     impliedAnnualKm,
     utilisationGap: safeDivide(impliedAnnualKm - effectiveAnnualKm, effectiveAnnualKm),
   };

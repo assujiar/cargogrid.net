@@ -7,6 +7,7 @@ import { formatNumber, type LengthUnit } from "../../lib/logistics/volume";
 import { classLabel, loadableArchetypes, VEHICLE_CLASS_ORDER } from "../../content/reference/vehicles";
 import { ROAD_CLASSES } from "../../content/reference/regulations";
 import { NumberField, ResultCard, ResultGrid, SelectField, ToggleField, ToolPanel } from "./controls";
+import { useLanguage } from "../shared/LanguageProvider";
 
 const TIPS = {
   vehicle:
@@ -28,25 +29,45 @@ const TIPS = {
     "Aktif berarti kardus boleh direbahkan atau diputar agar lebih banyak yang muat. Matikan untuk barang yang tidak boleh dibalik.",
 } as const;
 
-const UNITS: { value: LengthUnit; label: string }[] = [
-  { value: "cm", label: "sentimeter (cm)" },
-  { value: "m", label: "meter (m)" },
-  { value: "mm", label: "milimeter (mm)" },
+const TIPS_EN = {
+  vehicle: "Choose the fleet class to use. The body size and weight limit below adjust immediately, and you can still edit them.",
+  roadClass:
+    "The road class of the narrowest segment on the route, since that's what actually limits you. If you don't know it, ask the local transport office or a driver who regularly runs that route.",
+  bodyLength: "The interior load space length, not the vehicle's overall length. Measure from the front wall to the rear door.",
+  bodyWidth: "The interior load space width, measured between the two side walls.",
+  bodyHeight: "The interior load space height, from the floor to the lowest point of the roof.",
+  payload: "The maximum load weight you're using as a limit. The exact figure: the JBI on the STNK minus the unit's tare weight after the body is fitted.",
+  cartonLength: "The outer length of the box. Measure the packaging, not the item inside it.",
+  cartonWidth: "The outer width of the box.",
+  cartonHeight: "The outer height of the box, including the pallet if the goods are palletized.",
+  cartonUnit: "The unit for the three carton dimensions. The truck's load space is always in meters, independent of this choice.",
+  cartonWeight: "The weight of one box as it comes off the scale, packaging included.",
+  quantity: "The total number of boxes being shipped. Used to work out how many truck units are needed.",
+  rotation: "On means boxes may be laid down or rotated to fit more in. Turn off for goods that must not be turned over.",
+} as const;
+
+const UNITS: { value: LengthUnit; label: string; labelEn: string }[] = [
+  { value: "cm", label: "sentimeter (cm)", labelEn: "centimeter (cm)" },
+  { value: "m", label: "meter (m)", labelEn: "meter (m)" },
+  { value: "mm", label: "milimeter (mm)", labelEn: "millimeter (mm)" },
 ];
 
 const FLEET = loadableArchetypes();
 
 /**
- * Options are grouped by vehicle class in the plain-Indonesian names people
- * actually use. The dataset's own keys stay English so results can be traced
- * back to the research they came from, but none of that vocabulary belongs in
- * front of a visitor, a dropdown reading "Semi-trailer Body" reads like a
- * leaked internal document rather than a tool.
+ * Options are grouped by vehicle class in the plain names people actually
+ * use -- plain Indonesian for the Indonesian UI, and the dataset's own
+ * `mainClass` (already English, e.g. "Semi-trailer Body") for the English
+ * one. A dropdown reading "Semi-trailer Body" in the middle of an Indonesian
+ * page reads like a leaked internal document rather than a tool; in English
+ * mode that same string is just the right label.
  */
-const GROUPED = VEHICLE_CLASS_ORDER.map((cls) => ({
-  label: classLabel(cls),
-  items: FLEET.filter((v) => v.mainClass === cls),
-})).filter((group) => group.items.length > 0);
+function groupFleet(isEn: boolean) {
+  return VEHICLE_CLASS_ORDER.map((cls) => ({
+    label: isEn ? cls : classLabel(cls),
+    items: FLEET.filter((v) => v.mainClass === cls),
+  })).filter((group) => group.items.length > 0);
+}
 
 const LEVEL_STYLE: Record<ComplianceLevel, { wrap: string; icon: React.ReactNode }> = {
   ok: { wrap: "nm-deboss", icon: <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-teal" aria-hidden="true" /> },
@@ -61,6 +82,9 @@ const LEVEL_STYLE: Record<ComplianceLevel, { wrap: string; icon: React.ReactNode
 };
 
 export default function TruckLoadCalculator() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+  const GROUPED = useMemo(() => groupFleet(isEn), [isEn]);
   const [vehicleId, setVehicleId] = useState(FLEET.find((v) => v.marketNames.startsWith("CDD /"))?.id || FLEET[0].id);
   const vehicle = FLEET.find((v) => v.id === vehicleId) || FLEET[0];
 
@@ -93,55 +117,87 @@ export default function TruckLoadCalculator() {
 
   const compliance = useMemo(
     () =>
-      checkCompliance({
-        vehicle,
-        roadClass,
-        loadedWeightKg: plan.loadedWeight,
-        payloadLimitKg: payloadKg,
-        bodyWidthM: body.width,
-      }),
-    [vehicle, roadClass, plan.loadedWeight, payloadKg, body.width],
+      checkCompliance(
+        {
+          vehicle,
+          roadClass,
+          loadedWeightKg: plan.loadedWeight,
+          payloadLimitKg: payloadKg,
+          bodyWidthM: body.width,
+        },
+        isEn,
+      ),
+    [vehicle, roadClass, plan.loadedWeight, payloadKg, body.width, isEn],
   );
 
-  const limitCopy = {
-    volume: {
-      title: "Ruang yang lebih dulu habis",
-      body: "Bak penuh sementara timbangan masih longgar. Yang menolong adalah kemasan yang lebih rapat atau bak yang lebih besar. Menambah unit hanya memindahkan udara.",
-    },
-    weight: {
-      title: "Berat yang lebih dulu mentok",
-      body: "Batas muat tercapai sementara bak masih lapang. Penataan ulang tidak akan menolong sama sekali; yang dibutuhkan unit tambahan atau pemecahan kiriman.",
-    },
-    both: {
-      title: "Ruang dan berat habis bersamaan",
-      body: "Kombinasi kardus dan armada ini sudah pas. Catat sebagai acuan untuk kiriman serupa.",
-    },
-    none: {
-      title: "Kardus tidak muat",
-      body: "Dengan arah yang diizinkan sekarang, satu kardus pun tidak masuk ke dalam bak. Periksa satuan yang dipakai, lalu coba izinkan kardus direbahkan.",
-    },
-  }[plan.limitedBy];
+  const limitCopy = (
+    isEn
+      ? {
+          volume: {
+            title: "Space runs out first",
+            body: "The body is full while the scale still has headroom. What helps is tighter packing or a bigger body. Adding units just moves air.",
+          },
+          weight: {
+            title: "Weight hits its limit first",
+            body: "The load limit is reached while the body still has room. Rearranging won't help at all; what's needed is an extra unit or splitting the shipment.",
+          },
+          both: {
+            title: "Space and weight run out together",
+            body: "This carton-and-fleet combination is already well matched. Note it down as a reference for similar shipments.",
+          },
+          none: {
+            title: "The carton doesn't fit",
+            body: "With the orientation currently allowed, not even one carton fits in the body. Check the units used, then try allowing the carton to be laid down.",
+          },
+        }
+      : {
+          volume: {
+            title: "Ruang yang lebih dulu habis",
+            body: "Bak penuh sementara timbangan masih longgar. Yang menolong adalah kemasan yang lebih rapat atau bak yang lebih besar. Menambah unit hanya memindahkan udara.",
+          },
+          weight: {
+            title: "Berat yang lebih dulu mentok",
+            body: "Batas muat tercapai sementara bak masih lapang. Penataan ulang tidak akan menolong sama sekali; yang dibutuhkan unit tambahan atau pemecahan kiriman.",
+          },
+          both: {
+            title: "Ruang dan berat habis bersamaan",
+            body: "Kombinasi kardus dan armada ini sudah pas. Catat sebagai acuan untuk kiriman serupa.",
+          },
+          none: {
+            title: "Kardus tidak muat",
+            body: "Dengan arah yang diizinkan sekarang, satu kardus pun tidak masuk ke dalam bak. Periksa satuan yang dipakai, lalu coba izinkan kardus direbahkan.",
+          },
+        }
+  )[plan.limitedBy];
 
   return (
     <ToolPanel>
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-5">
           <SelectField
-            label="Armada"
+            label={isEn ? "Fleet" : "Armada"}
             value={vehicleId}
             onChange={pickVehicle}
-            tip={TIPS.vehicle}
-            hint={`${vehicle.notes} Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min)} sampai ${formatNumber(vehicle.planningPayload.max)} ton${
-              vehicle.planningVolume
-                ? `, ruang muat ${formatNumber(vehicle.planningVolume.min)} sampai ${formatNumber(vehicle.planningVolume.max)} m³`
-                : ""
-            }.`}
+            tip={isEn ? TIPS_EN.vehicle : TIPS.vehicle}
+            hint={
+              isEn
+                ? `${vehicle.notesEn} This class's estimated capacity is ${formatNumber(vehicle.planningPayload.min)} to ${formatNumber(vehicle.planningPayload.max)} tonnes${
+                    vehicle.planningVolume
+                      ? `, load space ${formatNumber(vehicle.planningVolume.min)} to ${formatNumber(vehicle.planningVolume.max)} m³`
+                      : ""
+                  }.`
+                : `${vehicle.notes} Perkiraan kapasitas kelas ini ${formatNumber(vehicle.planningPayload.min)} sampai ${formatNumber(vehicle.planningPayload.max)} ton${
+                    vehicle.planningVolume
+                      ? `, ruang muat ${formatNumber(vehicle.planningVolume.min)} sampai ${formatNumber(vehicle.planningVolume.max)} m³`
+                      : ""
+                  }.`
+            }
           >
             {GROUPED.map((group) => (
               <optgroup key={group.label} label={group.label}>
                 {group.items.map((v) => (
                   <option key={v.id} value={v.id}>
-                    {v.marketNames} ({v.commercialType})
+                    {isEn ? `${v.marketNamesEn} (${v.commercialTypeEn})` : `${v.marketNames} (${v.commercialType})`}
                   </option>
                 ))}
               </optgroup>
@@ -149,76 +205,103 @@ export default function TruckLoadCalculator() {
           </SelectField>
 
           <SelectField
-            label="Kelas jalan pada rute"
+            label={isEn ? "Road class on the route" : "Kelas jalan pada rute"}
             value={roadClassCode}
             onChange={setRoadClassCode}
-            tip={TIPS.roadClass}
-            hint={roadClass.note}
+            tip={isEn ? TIPS_EN.roadClass : TIPS.roadClass}
+            hint={isEn ? roadClass.noteEn : roadClass.note}
           >
             {ROAD_CLASSES.map((r) => (
               <option key={r.code} value={r.code}>
-                {r.code}: lebar maks {r.maxWidthM} m, panjang maks {r.maxLengthM} m, MST {r.mstTon} ton
+                {isEn
+                  ? `${r.codeEn}: max width ${r.maxWidthM} m, max length ${r.maxLengthM} m, MST ${r.mstTon} t`
+                  : `${r.code}: lebar maks ${r.maxWidthM} m, panjang maks ${r.maxLengthM} m, MST ${r.mstTon} ton`}
               </option>
             ))}
           </SelectField>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <NumberField label="Panjang bak" value={body.length} onChange={(v) => setBody({ ...body, length: v })} min={0} step={0.1} suffix="m" tip={TIPS.bodyLength} />
-            <NumberField label="Lebar bak" value={body.width} onChange={(v) => setBody({ ...body, width: v })} min={0} step={0.1} suffix="m" tip={TIPS.bodyWidth} />
-            <NumberField label="Tinggi bak" value={body.height} onChange={(v) => setBody({ ...body, height: v })} min={0} step={0.1} suffix="m" tip={TIPS.bodyHeight} />
+            <NumberField label={isEn ? "Body length" : "Panjang bak"} value={body.length} onChange={(v) => setBody({ ...body, length: v })} min={0} step={0.1} suffix="m" tip={isEn ? TIPS_EN.bodyLength : TIPS.bodyLength} />
+            <NumberField label={isEn ? "Body width" : "Lebar bak"} value={body.width} onChange={(v) => setBody({ ...body, width: v })} min={0} step={0.1} suffix="m" tip={isEn ? TIPS_EN.bodyWidth : TIPS.bodyWidth} />
+            <NumberField label={isEn ? "Body height" : "Tinggi bak"} value={body.height} onChange={(v) => setBody({ ...body, height: v })} min={0} step={0.1} suffix="m" tip={isEn ? TIPS_EN.bodyHeight : TIPS.bodyHeight} />
           </div>
 
           <NumberField
-            label="Batas berat muatan"
+            label={isEn ? "Payload limit" : "Batas berat muatan"}
             value={payloadKg}
             onChange={setPayloadKg}
             min={0}
             step={100}
             suffix="kg"
-            tip={TIPS.payload}
-            hint="Angka pastinya adalah JBI pada dokumen kendaraan dikurangi berat kosong unit setelah karoseri terpasang."
+            tip={isEn ? TIPS_EN.payload : TIPS.payload}
+            hint={
+              isEn
+                ? "The exact figure is the JBI on the vehicle's documents minus the unit's tare weight after the body is fitted."
+                : "Angka pastinya adalah JBI pada dokumen kendaraan dikurangi berat kosong unit setelah karoseri terpasang."
+            }
           />
         </div>
 
         <div className="flex flex-col gap-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <NumberField label="Panjang kardus" suffix={carton.unit} value={carton.length} onChange={(v) => setCarton({ ...carton, length: v })} min={0} step={1} tip={TIPS.cartonLength} />
-            <NumberField label="Lebar kardus" suffix={carton.unit} value={carton.width} onChange={(v) => setCarton({ ...carton, width: v })} min={0} step={1} tip={TIPS.cartonWidth} />
-            <NumberField label="Tinggi kardus" suffix={carton.unit} value={carton.height} onChange={(v) => setCarton({ ...carton, height: v })} min={0} step={1} tip={TIPS.cartonHeight} />
+            <NumberField label={isEn ? "Carton length" : "Panjang kardus"} suffix={carton.unit} value={carton.length} onChange={(v) => setCarton({ ...carton, length: v })} min={0} step={1} tip={isEn ? TIPS_EN.cartonLength : TIPS.cartonLength} />
+            <NumberField label={isEn ? "Carton width" : "Lebar kardus"} suffix={carton.unit} value={carton.width} onChange={(v) => setCarton({ ...carton, width: v })} min={0} step={1} tip={isEn ? TIPS_EN.cartonWidth : TIPS.cartonWidth} />
+            <NumberField label={isEn ? "Carton height" : "Tinggi kardus"} suffix={carton.unit} value={carton.height} onChange={(v) => setCarton({ ...carton, height: v })} min={0} step={1} tip={isEn ? TIPS_EN.cartonHeight : TIPS.cartonHeight} />
             <SelectField
-              label="Satuan kardus"
+              label={isEn ? "Carton unit" : "Satuan kardus"}
               value={carton.unit}
               onChange={(v) => setCarton({ ...carton, unit: v as LengthUnit })}
-              tip={TIPS.cartonUnit}
+              tip={isEn ? TIPS_EN.cartonUnit : TIPS.cartonUnit}
             >
               {UNITS.map((u) => (
                 <option key={u.value} value={u.value}>
-                  {u.label}
+                  {isEn ? u.labelEn : u.label}
                 </option>
               ))}
             </SelectField>
-            <NumberField label="Berat per kardus" value={weightPerCarton} onChange={setWeightPerCarton} min={0} step={0.5} suffix="kg" tip={TIPS.cartonWeight} />
-            <NumberField label="Total kardus dikirim" value={desiredQuantity} onChange={setDesiredQuantity} min={0} step={10} suffix="kardus" tip={TIPS.quantity} />
+            <NumberField label={isEn ? "Weight per carton" : "Berat per kardus"} value={weightPerCarton} onChange={setWeightPerCarton} min={0} step={0.5} suffix="kg" tip={isEn ? TIPS_EN.cartonWeight : TIPS.cartonWeight} />
+            <NumberField label={isEn ? "Total cartons shipped" : "Total kardus dikirim"} value={desiredQuantity} onChange={setDesiredQuantity} min={0} step={10} suffix={isEn ? "pcs" : "kardus"} tip={isEn ? TIPS_EN.quantity : TIPS.quantity} />
           </div>
 
           <ToggleField
-            label="Kardus boleh direbahkan"
+            label={isEn ? "Cartons may be laid down" : "Kardus boleh direbahkan"}
             checked={allowRotation}
             onChange={setAllowRotation}
-            tip={TIPS.rotation}
-            hint="Matikan untuk barang bertanda this way up yang tidak boleh dibalik."
+            tip={isEn ? TIPS_EN.rotation : TIPS.rotation}
+            hint={isEn ? "Turn off for goods marked \"this way up\" that must not be turned over." : "Matikan untuk barang bertanda this way up yang tidak boleh dibalik."}
           />
         </div>
       </div>
 
       <ResultGrid>
-        <ResultCard label="Muat per unit" value={`${formatNumber(plan.maxCartons, 0)} kardus`} hint={`${plan.perLayer} per lapis × ${plan.layers} lapis`} emphasis />
-        <ResultCard label="Batas ruang" value={`${formatNumber(plan.fitByVolume, 0)} kardus`} hint={`Bak ${formatNumber(plan.bodyCbm, 1)} m³`} />
-        <ResultCard label="Batas berat" value={`${formatNumber(plan.fitByWeight, 0)} kardus`} hint={`Pada batas ${formatNumber(payloadKg)} kg`} />
         <ResultCard
-          label="Unit dibutuhkan"
-          value={plan.trucksNeeded ? `${formatNumber(plan.trucksNeeded, 0)} unit` : "Belum diisi"}
-          hint={plan.remainderCartons ? `${plan.remainderCartons} kardus di unit terakhir` : "Isi jumlah kiriman"}
+          label={isEn ? "Fits per unit" : "Muat per unit"}
+          value={`${formatNumber(plan.maxCartons, 0)} ${isEn ? "cartons" : "kardus"}`}
+          hint={isEn ? `${plan.perLayer} per layer × ${plan.layers} layers` : `${plan.perLayer} per lapis × ${plan.layers} lapis`}
+          emphasis
+        />
+        <ResultCard
+          label={isEn ? "Space limit" : "Batas ruang"}
+          value={`${formatNumber(plan.fitByVolume, 0)} ${isEn ? "cartons" : "kardus"}`}
+          hint={isEn ? `Body ${formatNumber(plan.bodyCbm, 1)} m³` : `Bak ${formatNumber(plan.bodyCbm, 1)} m³`}
+        />
+        <ResultCard
+          label={isEn ? "Weight limit" : "Batas berat"}
+          value={`${formatNumber(plan.fitByWeight, 0)} ${isEn ? "cartons" : "kardus"}`}
+          hint={isEn ? `At the limit of ${formatNumber(payloadKg)} kg` : `Pada batas ${formatNumber(payloadKg)} kg`}
+        />
+        <ResultCard
+          label={isEn ? "Units needed" : "Unit dibutuhkan"}
+          value={plan.trucksNeeded ? `${formatNumber(plan.trucksNeeded, 0)} ${isEn ? "units" : "unit"}` : isEn ? "Not filled in" : "Belum diisi"}
+          hint={
+            plan.remainderCartons
+              ? isEn
+                ? `${plan.remainderCartons} cartons in the last unit`
+                : `${plan.remainderCartons} kardus di unit terakhir`
+              : isEn
+                ? "Enter shipment quantity"
+                : "Isi jumlah kiriman"
+          }
           emphasis
         />
       </ResultGrid>
@@ -238,8 +321,8 @@ export default function TruckLoadCalculator() {
           <p className="mt-1.5 text-[13px] leading-[1.7] text-slate-600">{limitCopy.body}</p>
           {plan.limitedBy !== "none" && (
             <p className="mt-3 font-mono text-[11px] font-bold text-slate-500">
-              Pemakaian ruang {formatNumber(plan.volumeUtilisation * 100, 0)}% · pemakaian berat{" "}
-              {formatNumber(plan.weightUtilisation * 100, 0)}%
+              {isEn ? "Space utilisation" : "Pemakaian ruang"} {formatNumber(plan.volumeUtilisation * 100, 0)}% ·{" "}
+              {isEn ? "weight utilisation" : "pemakaian berat"} {formatNumber(plan.weightUtilisation * 100, 0)}%
             </p>
           )}
         </div>
@@ -250,7 +333,7 @@ export default function TruckLoadCalculator() {
           question that only becomes relevant once there is a plan to check. */}
       <section aria-labelledby="kepatuhan-panel" className="mt-8">
         <h3 id="kepatuhan-panel" className="mb-4 flex items-center gap-3 font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
-          Yang perlu diperiksa sebelum berangkat
+          {isEn ? "What to check before departure" : "Yang perlu diperiksa sebelum berangkat"}
           <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
         </h3>
         <div className="flex flex-col gap-3">

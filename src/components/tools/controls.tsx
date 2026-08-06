@@ -2,6 +2,7 @@
 
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { HelpCircle, X } from "lucide-react";
+import { useLanguage } from "../shared/LanguageProvider";
 
 /**
  * Form and result primitives shared by the four calculators.
@@ -34,6 +35,8 @@ import { HelpCircle, X } from "lucide-react";
  * be left stranded over the form.
  */
 function Tooltip({ text, label, panelId }: { text: string; label: string; panelId: string }) {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const [open, setOpen] = useState(false);
   const id = panelId;
   const wrapRef = useRef<HTMLSpanElement>(null);
@@ -63,7 +66,7 @@ function Tooltip({ text, label, panelId }: { text: string; label: string; panelI
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={open ? id : undefined}
-        aria-label={`Penjelasan kolom ${label}`}
+        aria-label={isEn ? `Explanation for ${label}` : `Penjelasan kolom ${label}`}
         className={`relative inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors after:absolute after:-inset-2 after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
           open ? "bg-brand-teal/15 text-brand-teal" : "text-slate-400 hover:bg-white/60 hover:text-brand-teal"
         }`}
@@ -85,7 +88,7 @@ function Tooltip({ text, label, panelId }: { text: string; label: string; panelI
             <button
               type="button"
               onClick={() => setOpen(false)}
-              aria-label="Tutup penjelasan"
+              aria-label={isEn ? "Close explanation" : "Tutup penjelasan"}
               className="relative -mr-1 -mt-1 rounded-lg p-2 text-slate-400 transition-colors after:absolute after:-inset-1 after:content-[''] hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
               <X className="h-3.5 w-3.5" aria-hidden="true" />

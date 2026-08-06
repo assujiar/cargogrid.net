@@ -96,6 +96,28 @@ function assertRegistryIntegrity(): void {
         throw new Error(`Tool ${tool.slug} links to unknown article slug: ${slug}`);
       }
     }
+
+    // TypeScript already forces `blocksEn`/`faqEn`/`searchIntentsEn` to exist;
+    // it cannot force them to be *complete*. A translation pass that drops the
+    // last three FAQ entries or a closing block still type-checks, and would
+    // otherwise only surface as an English reader hitting a shorter, quietly
+    // truncated page.
+    if (tool.faqEn.length !== tool.faq.length) {
+      throw new Error(`Tool ${tool.slug}: faqEn has ${tool.faqEn.length} entries, faq has ${tool.faq.length}`);
+    }
+    if (tool.searchIntentsEn.length !== tool.searchIntents.length) {
+      throw new Error(
+        `Tool ${tool.slug}: searchIntentsEn has ${tool.searchIntentsEn.length} entries, searchIntents has ${tool.searchIntents.length}`,
+      );
+    }
+    const h2CountId = tool.blocks.filter((b) => b.type === "h2").length;
+    const h2CountEn = tool.blocksEn.filter((b) => b.type === "h2").length;
+    if (h2CountId !== h2CountEn) {
+      throw new Error(`Tool ${tool.slug}: blocksEn has ${h2CountEn} h2 sections, blocks has ${h2CountId}`);
+    }
+    if (!!tool.sources !== !!tool.sourcesEn || (tool.sources?.length ?? 0) !== (tool.sourcesEn?.length ?? 0)) {
+      throw new Error(`Tool ${tool.slug}: sourcesEn does not mirror sources`);
+    }
   }
 
   for (const tool of registry) {

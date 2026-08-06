@@ -95,7 +95,7 @@ export default async function AlatDetailPage({ params }: { params: Promise<{ slu
             lookup table behind a form would be trading the traffic for the
             lead and getting neither. */}
         {tool.kind === "kalkulator" ? (
-          <ToolGate toolSlug={tool.slug} toolTitle={tool.title}>
+          <ToolGate toolSlug={tool.slug} toolTitle={tool.title} toolTitleEn={tool.titleEn}>
             <Instrument />
           </ToolGate>
         ) : (

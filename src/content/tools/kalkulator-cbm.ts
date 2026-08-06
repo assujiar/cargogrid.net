@@ -4,9 +4,12 @@ export const tool: Tool = {
   slug: "kalkulator-cbm",
   kind: "kalkulator",
   title: "Kalkulator CBM, Berat Volumetrik, dan Chargeable Weight",
+  titleEn: "CBM, Volumetric Weight, and Chargeable Weight Calculator",
   metaTitle: "Kalkulator CBM & Berat Volumetrik: Hitung Chargeable Weight | CargoGrid",
   description:
     "Berat aktual atau berat volumetrik yang menentukan tagihan kiriman Anda? Dari panjang, lebar, dan tinggi kardus, kalkulator ini menghitung CBM lalu menunjukkan mana yang lebih besar.",
+  descriptionEn:
+    "Does actual weight or volumetric weight determine your shipment's freight charge? From the length, width, and height of your cartons, this calculator computes CBM and then shows you which one is greater.",
   keywords: [
     "kalkulator CBM",
     "cara hitung CBM",
@@ -18,12 +21,21 @@ export const tool: Tool = {
   ],
   summary:
     "Masukkan panjang, lebar, tinggi, dan jumlah kardus. Kalkulator ini menghitung kubikasinya, mengubahnya menjadi berat volumetrik sesuai moda yang dipakai, lalu menunjukkan berat mana yang biasanya dipakai untuk menagih, berikut alasannya.",
+  summaryEn:
+    "Enter the length, width, height, and number of cartons. This calculator computes the cubic volume, converts it to volumetric weight for the mode you're using, then shows which weight is typically used for billing, and why.",
   searchIntents: [
     "Cara menghitung CBM dari ukuran kardus",
     "Rumus berat volumetrik untuk kargo udara",
     "1 CBM berapa kg untuk pengiriman laut LCL",
     "Kenapa tagihan memakai berat volumetrik, bukan berat timbangan",
     "Konversi CBM ke kilogram",
+  ],
+  searchIntentsEn: [
+    "How to calculate CBM from carton dimensions",
+    "Volumetric weight formula for air cargo",
+    "1 CBM equals how many kg for LCL sea freight",
+    "Why freight is billed on volumetric weight instead of actual weight",
+    "Converting CBM to kilograms",
   ],
   publishedAt: "2026-08-05",
   blocks: [
@@ -113,6 +125,93 @@ export const tool: Tool = {
       text: "Itu persoalan pencatatan, bukan persoalan aritmetika, dan tidak ada kalkulator yang bisa menyelesaikannya. Yang menyelesaikannya adalah satu tempat penyimpanan dimensi kiriman yang dipakai bersama oleh penawaran, operasional, dan penagihan.",
     },
   ],
+  blocksEn: [
+    {
+      type: "h2",
+      id: "rumus",
+      text: "The formula, and why the answer can vary",
+    },
+    {
+      type: "p",
+      text: "CBM is volume in cubic meters: **length x width x height**, all in meters. A carton measuring 100 x 50 x 40 centimeters is 1 x 0.5 x 0.4 meters, or 0.2 CBM. Nothing confusing here, and this isn't the part that sends people looking for a calculator.",
+    },
+    {
+      type: "p",
+      text: "The confusing part is the next step. That volume has to be converted to weight before it can be used for billing, and the conversion factor varies by mode. LCL sea freight equates 1 CBM to 1,000 kg. Air cargo uses a formula that looks completely different: length times width times height in centimeters, divided by 6,000, the divisor most commonly used (IATA-style), though not the only one applied in practice.",
+    },
+    {
+      type: "callout",
+      tone: "insight",
+      title: "Both are actually the same formula",
+      body: "One cubic meter is 1,000,000 cubic centimeters. Dividing by 6,000 is the same as multiplying by 166.67 kg per CBM. So the 6,000 divisor and the 1 CBM = 1,000 kg rule aren't two different systems; they express exactly the same thing, just with different conversion factors. Sea freight values volume six times more generously than air.",
+    },
+    {
+      type: "table",
+      caption: "Common volume-to-weight conversion factors by mode",
+      head: ["Mode", "Written as", "Equivalent to"],
+      rows: [
+        ["Sea LCL", "1 CBM = 1,000 kg", "1,000 kg per CBM"],
+        ["Air (IATA)", "L x W x H (cm) / 6,000", "166.67 kg per CBM"],
+        ["International courier", "L x W x H (cm) / 5,000", "200 kg per CBM"],
+        ["Domestic road", "Varies by operator", "Typically 250-333 kg per CBM"],
+      ],
+    },
+    {
+      type: "p",
+      text: "That 6,000 divisor isn't a universal standard either: some airlines and forwarders round dimensions or use a different divisor for certain services, so treat it as a starting point, not a certainty. The road figure has no single convention at all: the difference between 250 and 333 kg per CBM is 33 percent on the exact same carton. This calculator uses 250 as a starting point, but what actually binds you is the rate sheet or contract from the operator you're using.",
+    },
+    {
+      type: "h2",
+      id: "chargeable-weight",
+      text: "Chargeable weight: whichever of the two weights is greater",
+    },
+    {
+      type: "p",
+      text: "Once volumetric weight is calculated, billing uses whichever is greater: that weight or the actual scale weight. The logic isn't arbitrary: space on ships and aircraft is limited, and a light styrofoam carton still takes up room that could hold something else.",
+    },
+    {
+      type: "p",
+      text: "In practice, one density figure decides every shipment's fate. For air cargo that figure is 166.67 kg per CBM. Cargo denser than that is billed on actual weight; lighter cargo is billed on volume. The calculator above shows your cargo's density right next to that threshold, because once you know which side you're on, you know what needs fixing.",
+    },
+    {
+      type: "callout",
+      tone: "example",
+      title: "Example: when repacking pays off",
+      body: "Ten cartons, 100 x 50 x 40 cm each, holding goods weighing 15 kg each. That's 2 CBM in volume and 150 kg in weight. By air, the volumetric weight is 333 kg, more than double the actual weight, and that's what gets billed. Repacking the same contents into 80 x 45 x 35 cm cartons brings the volume down to 1.26 CBM and the billed weight down to 210 kg. The weight of the goods hasn't changed at all; what changed is how much air is being shipped along with them.",
+    },
+    {
+      type: "callout",
+      tone: "example",
+      title: "Another example: same shipment, different billed weight per mode",
+      body: "Take a 5 CBM shipment with an actual weight of 800 kg. By sea LCL, the volumetric weight is 5,000 kg, far above the actual weight, so that's what gets billed. By air (6,000 divisor), the volumetric weight is only 833 kg, edging out the actual weight by a small margin. By international courier (5,000 divisor), it rises further to 1,000 kg. By road, depending on the operator's rate card, it could be 1,250 to 1,665 kg. The physical shipment is identical from start to finish; only the conversion factor applied per mode changes. That's why rates across modes can't be compared directly on a per-kg basis. Calculate the billed weight for each mode first, and match the divisor this calculator uses against your operator's rate sheet.",
+    },
+    {
+      type: "h2",
+      id: "kesalahan-umum",
+      text: "The three most common mistakes",
+    },
+    {
+      type: "ol",
+      items: [
+        "**Summing chargeable weight line by line.** The carrier bills one shipment, not one carton. Dense cartons and light cartons within a single booking offset each other, so the actual-versus-volumetric comparison is done once on the total, not per line. Calculating per line and then adding them up produces a higher bill than what's actually owed. This is the most common spreadsheet mistake found in quotations.",
+        "**Using the goods' dimensions instead of the outer packaging's.** What gets measured is the outermost carton, including the pallet if the goods are palletized. A pallet adds roughly 15 centimeters of height that gets billed along with it.",
+        "**Mixing units.** Entering centimeter dimensions into a formula that expects meters produces a result off by a factor of a million, and oddly enough this mistake often slips through because the result is so obviously wrong that people correct it instinctively, until the day they don't.",
+      ],
+    },
+    {
+      type: "h2",
+      id: "setelah-angkanya-dapat",
+      text: "After you have the number, where it goes",
+    },
+    {
+      type: "p",
+      text: "Calculating CBM is a ten-second task. What takes time is what happens after: the number gets copied into a quotation, the quotation gets copied into a booking, the booking gets copied into a shipping instruction, and each copy is a fresh chance to get it wrong. When the volume booked differs from the volume loaded, the discrepancy only surfaces on the carrier's invoice weeks later, by which point nobody remembers which shipment it was.",
+    },
+    {
+      type: "p",
+      text: "That's a record-keeping problem, not an arithmetic problem, and no calculator can solve it. What solves it is a single source of shipment dimensions shared across quotation, operations, and billing.",
+    },
+  ],
   faq: [
     {
       q: "1 CBM berapa kg?",
@@ -133,6 +232,28 @@ export const tool: Tool = {
     {
       q: "Apakah palet ikut dihitung dalam CBM?",
       a: "Ya. Yang diukur adalah dimensi terluar kemasan sebagaimana diserahkan ke pengangkut. Bila barang dipaletkan, tinggi palet dan bagian yang menonjol ikut terhitung.",
+    },
+  ],
+  faqEn: [
+    {
+      q: "1 CBM equals how many kg?",
+      a: "It depends on the mode. LCL sea freight equates 1 CBM to 1,000 kg, air cargo generally to 166.67 kg (6,000 divisor, IATA-style), international courier to 200 kg (5,000 divisor), and domestic road transport generally 250 to 333 kg depending on the operator. These figures aren't physics conversions but billing conventions that can differ between operators; what's binding is always the official tariff from the carrier you're using.",
+    },
+    {
+      q: "What is the formula for calculating CBM?",
+      a: "Length x width x height, all three in meters, multiplied by the number of packages. If the dimensions are in centimeters, divide the result by 1,000,000. Example: a 100 x 50 x 40 cm carton is 0.2 CBM per carton.",
+    },
+    {
+      q: "What's the difference between volumetric weight and chargeable weight?",
+      a: "Volumetric weight is volume converted into a weight equivalent. Chargeable weight is what's actually used for billing, meaning whichever is greater between the volumetric weight and the actual scale weight.",
+    },
+    {
+      q: "Why is my bill using a weight far higher than the scale weight?",
+      a: "Because your cargo is lighter than that mode's density threshold, so it's billed based on the space it occupies. For air cargo, the commonly used threshold is 166.67 kg per cubic meter, depending on the divisor your operator applies. Goods below that density are typically billed on volume.",
+    },
+    {
+      q: "Is the pallet included in the CBM calculation?",
+      a: "Yes. What's measured is the outer dimensions of the packaging as handed over to the carrier. If the goods are palletized, the pallet's height and any protruding parts are included.",
     },
   ],
   relatedArticles: ["margin-per-job-forwarder", "alur-rfq-freight-forwarding", "rekonsiliasi-invoice-forwarder-terlambat"],

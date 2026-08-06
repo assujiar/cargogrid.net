@@ -1,11 +1,16 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Wrench } from "lucide-react";
 import { toolsByKind } from "../../content/tools";
 import type { Tool } from "../../content/tools/types";
 import { ACCENT_CLASSES, ToolBadge, ToolPattern, toolVisual } from "./toolVisuals";
+import { useLanguage } from "../shared/LanguageProvider";
 
 function ToolCard({ tool }: { tool: Tool }) {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const { accent } = toolVisual(tool.slug);
   const accentClasses = ACCENT_CLASSES[accent];
 
@@ -28,19 +33,19 @@ function ToolCard({ tool }: { tool: Tool }) {
           <span
             className={`rounded-full bg-white/70 px-2.5 py-1 font-mono text-[9px] font-black uppercase tracking-[0.12em] ${accentClasses.softText}`}
           >
-            {tool.kind === "kalkulator" ? "Kalkulator" : "Referensi"}
+            {tool.kind === "kalkulator" ? (isEn ? "Calculator" : "Kalkulator") : isEn ? "Reference" : "Referensi"}
           </span>
         </div>
 
         <h3
           className={`mt-5 font-display text-[17px] font-bold leading-snug tracking-tight text-slate-900 transition-colors duration-200 ${accentClasses.hoverText}`}
         >
-          {tool.title}
+          {isEn ? tool.titleEn : tool.title}
         </h3>
-        <p className="mt-3 text-[13px] leading-[1.75] text-slate-600">{tool.description}</p>
+        <p className="mt-3 text-[13px] leading-[1.75] text-slate-600">{isEn ? tool.descriptionEn : tool.description}</p>
 
         <ul className="mt-4 flex flex-col gap-1.5">
-          {tool.searchIntents.slice(0, 3).map((intent) => (
+          {(isEn ? tool.searchIntentsEn : tool.searchIntents).slice(0, 3).map((intent) => (
             <li key={intent} className="flex items-start gap-2 text-[12px] leading-[1.6] text-slate-500">
               <span aria-hidden="true" className={`mt-[6px] h-1 w-1 flex-shrink-0 rounded-full ${accentClasses.bar}`} />
               <span className="min-w-0">{intent}</span>
@@ -51,7 +56,7 @@ function ToolCard({ tool }: { tool: Tool }) {
         <span
           className={`mt-auto inline-flex items-center gap-1.5 pt-5 font-mono text-[11px] font-black uppercase tracking-[0.12em] ${accentClasses.softText}`}
         >
-          Buka
+          {isEn ? "Open" : "Buka"}
           <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
         </span>
 
@@ -86,6 +91,8 @@ function GroupHeading({
 }
 
 export default function ToolIndexView() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const calculators = toolsByKind("kalkulator");
   const references = toolsByKind("referensi");
 
@@ -94,26 +101,27 @@ export default function ToolIndexView() {
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <header className="max-w-3xl">
           <p className="mb-4 font-mono text-[11px] font-black uppercase tracking-[0.16em] text-brand-teal">
-            Alat &amp; Referensi
+            {isEn ? "Tools & Reference" : "Alat & Referensi"}
           </p>
           <h1 className="font-display text-3xl font-black leading-[1.15] tracking-tight text-slate-900 sm:text-[2.7rem]">
-            Alat kerja harian logistik
+            {isEn ? "Daily working tools for logistics" : "Alat kerja harian logistik"}
           </h1>
           <p className="mt-6 text-base leading-[1.8] text-slate-600 sm:text-lg">
-            Kalkulator dan tabel rujukan untuk pertanyaan yang muncul di tengah pekerjaan: berapa CBM-nya, muat berapa
-            di CDD, berapa biaya per kilometer armada sendiri, kapan free time habis, apa arti singkatan di dokumen
-            ini.
+            {isEn
+              ? "Calculators and reference tables for questions that come up mid-work: how many CBM, how much fits in a CDD, how much per kilometre your own fleet costs, when free time runs out, what an abbreviation in this document means."
+              : "Kalkulator dan tabel rujukan untuk pertanyaan yang muncul di tengah pekerjaan: berapa CBM-nya, muat berapa di CDD, berapa biaya per kilometer armada sendiri, kapan free time habis, apa arti singkatan di dokumen ini."}
           </p>
           <p className="mt-4 max-w-2xl text-[14px] leading-[1.8] text-slate-500">
-            Semuanya gratis. Kalkulator meminta data kontak sekali sebelum dipakai; tabel rujukan, penjelasan, dan
-            contoh perhitungan terbuka tanpa mengisi apa pun.
+            {isEn
+              ? "All of it is free. Calculators ask for contact details once before use; reference tables, explanations, and worked examples open without filling in anything."
+              : "Semuanya gratis. Kalkulator meminta data kontak sekali sebelum dipakai; tabel rujukan, penjelasan, dan contoh perhitungan terbuka tanpa mengisi apa pun."}
           </p>
         </header>
 
         <div className="mt-14 flex flex-col gap-14">
           <div>
             <GroupHeading icon={<Wrench className="h-4 w-4" aria-hidden="true" />} count={calculators.length}>
-              Kalkulator
+              {isEn ? "Calculators" : "Kalkulator"}
             </GroupHeading>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {calculators.map((tool) => (
@@ -124,7 +132,7 @@ export default function ToolIndexView() {
 
           <div>
             <GroupHeading icon={<BookOpen className="h-4 w-4" aria-hidden="true" />} count={references.length}>
-              Referensi
+              {isEn ? "Reference" : "Referensi"}
             </GroupHeading>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {references.map((tool) => (
@@ -137,17 +145,35 @@ export default function ToolIndexView() {
         <aside className="nm-emboss relative mt-16 overflow-hidden rounded-3xl bg-[#eef2f6]/70 p-7 sm:p-9">
           <ToolPattern kind="rings" accent="teal" className="opacity-70" />
           <div className="relative">
-            <p className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-brand-teal">Selanjutnya</p>
+            <p className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-brand-teal">
+              {isEn ? "Next" : "Selanjutnya"}
+            </p>
             <p className="mt-4 max-w-2xl text-[15px] leading-[1.8] text-slate-700">
-              Kalau alat di sini menjawab pertanyaan Anda, tulisan panjang di{" "}
-              <Link
-                href="/artikel"
-                className="font-bold text-brand-teal underline underline-offset-4 hover:text-brand-teal-hover"
-              >
-                Insight
-              </Link>{" "}
-              membahas persoalan yang ada di baliknya: ke mana margin bocor, kenapa POD telat pulang, dan apa yang
-              sebenarnya berubah ketika sebuah proses didigitalkan.
+              {isEn ? (
+                <>
+                  If the tools here answered your question, the long-form pieces on{" "}
+                  <Link
+                    href="/artikel"
+                    className="font-bold text-brand-teal underline underline-offset-4 hover:text-brand-teal-hover"
+                  >
+                    Insight
+                  </Link>{" "}
+                  cover the problem behind it: where the margin leaks, why the POD comes back late, and what actually
+                  changes when a process gets digitised.
+                </>
+              ) : (
+                <>
+                  Kalau alat di sini menjawab pertanyaan Anda, tulisan panjang di{" "}
+                  <Link
+                    href="/artikel"
+                    className="font-bold text-brand-teal underline underline-offset-4 hover:text-brand-teal-hover"
+                  >
+                    Insight
+                  </Link>{" "}
+                  membahas persoalan yang ada di baliknya: ke mana margin bocor, kenapa POD telat pulang, dan apa yang
+                  sebenarnya berubah ketika sebuah proses didigitalkan.
+                </>
+              )}
             </p>
           </div>
         </aside>

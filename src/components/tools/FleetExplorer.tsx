@@ -12,6 +12,7 @@ import {
   type VehicleArchetype,
 } from "../../content/reference/vehicles";
 import { formatNumber } from "../../lib/logistics/volume";
+import { useLanguage } from "../shared/LanguageProvider";
 
 /**
  * Card-based browser for the 61-archetype fleet taxonomy, replacing the
@@ -68,33 +69,43 @@ function SpecRow({ label, value }: { label: string; value: string }) {
  * vehicle -- so they wait behind the button rather than competing for
  * attention in every card.
  */
-function SpecList({ vehicle, compact = false }: { vehicle: VehicleArchetype; compact?: boolean }) {
+function SpecList({ vehicle, isEn, compact = false }: { vehicle: VehicleArchetype; isEn: boolean; compact?: boolean }) {
   return (
     <div className="nm-deboss-sm rounded-xl px-3.5 py-0.5">
-      {!compact && <SpecRow label="Konfigurasi" value={vehicle.axleConfig} />}
-      <SpecRow label="Gandar" value={vehicle.totalAxles} />
+      {!compact && <SpecRow label={isEn ? "Configuration" : "Konfigurasi"} value={vehicle.axleConfig} />}
+      <SpecRow label={isEn ? "Axles" : "Gandar"} value={vehicle.totalAxles} />
       <SpecRow
-        label="Perkiraan muatan"
+        label={isEn ? "Est. payload" : "Perkiraan muatan"}
         value={`${formatNumber(vehicle.planningPayload.min)}-${formatNumber(vehicle.planningPayload.max)} t`}
       />
-      {!compact && <SpecRow label="Gol. tol" value={vehicle.tollClass} />}
-      {!compact && <SpecRow label="Gol. kapal" value={vehicle.ferryClass} />}
+      {!compact && <SpecRow label={isEn ? "Toll class" : "Gol. tol"} value={vehicle.tollClass} />}
+      {!compact && <SpecRow label={isEn ? "Ferry class" : "Gol. kapal"} value={vehicle.ferryClass} />}
     </div>
   );
 }
 
-function VehicleCard({ vehicle, onOpenIllustration }: { vehicle: VehicleArchetype; onOpenIllustration: (v: VehicleArchetype) => void }) {
+function VehicleCard({
+  vehicle,
+  isEn,
+  onOpenIllustration,
+}: {
+  vehicle: VehicleArchetype;
+  isEn: boolean;
+  onOpenIllustration: (v: VehicleArchetype) => void;
+}) {
   const hasIllustration = illustrationSrc(vehicle.id) !== null;
 
   return (
     <div className="nm-emboss flex h-full flex-col gap-4 rounded-2xl bg-[#eef2f6]/60 p-5">
       <div>
         <p className="font-mono text-[9px] font-black uppercase tracking-[0.12em] text-brand-teal">{vehicle.legalCategory}</p>
-        <h3 className="mt-1.5 font-display text-[15px] font-bold leading-snug text-slate-900">{vehicle.marketNames}</h3>
-        <p className="mt-1 text-[12px] leading-[1.6] text-slate-500">{vehicle.commercialType}</p>
+        <h3 className="mt-1.5 font-display text-[15px] font-bold leading-snug text-slate-900">
+          {isEn ? vehicle.marketNamesEn : vehicle.marketNames}
+        </h3>
+        <p className="mt-1 text-[12px] leading-[1.6] text-slate-500">{isEn ? vehicle.commercialTypeEn : vehicle.commercialType}</p>
       </div>
 
-      <SpecList vehicle={vehicle} compact />
+      <SpecList vehicle={vehicle} isEn={isEn} compact />
 
       <button
         type="button"
@@ -106,7 +117,7 @@ function VehicleCard({ vehicle, onOpenIllustration }: { vehicle: VehicleArchetyp
         }`}
       >
         {hasIllustration ? <ImageIcon className="h-3.5 w-3.5" aria-hidden="true" /> : <ImageOff className="h-3.5 w-3.5" aria-hidden="true" />}
-        {hasIllustration ? "Lihat ilustrasi" : "Ilustrasi belum tersedia"}
+        {hasIllustration ? (isEn ? "View illustration" : "Lihat ilustrasi") : isEn ? "Illustration not available" : "Ilustrasi belum tersedia"}
       </button>
     </div>
   );
@@ -114,10 +125,12 @@ function VehicleCard({ vehicle, onOpenIllustration }: { vehicle: VehicleArchetyp
 
 function IllustrationDialog({
   vehicle,
+  isEn,
   isClosing,
   onClose,
 }: {
   vehicle: VehicleArchetype | null;
+  isEn: boolean;
   isClosing: boolean;
   onClose: () => void;
 }) {
@@ -148,16 +161,18 @@ function IllustrationDialog({
       >
         <div className="flex items-start justify-between gap-4 border-b border-white/50 p-5 sm:p-6">
           <div>
-            <p className="font-mono text-[9px] font-black uppercase tracking-[0.14em] text-brand-teal">{classLabel(vehicle.mainClass)}</p>
+            <p className="font-mono text-[9px] font-black uppercase tracking-[0.14em] text-brand-teal">
+              {isEn ? vehicle.mainClass : classLabel(vehicle.mainClass)}
+            </p>
             <h3 id="fleet-dialog-title" className="mt-1 font-display text-lg font-black text-slate-900 sm:text-xl">
-              {vehicle.marketNames}
+              {isEn ? vehicle.marketNamesEn : vehicle.marketNames}
             </h3>
-            <p className="mt-1 text-[12px] text-slate-500">{vehicle.commercialType}</p>
+            <p className="mt-1 text-[12px] text-slate-500">{isEn ? vehicle.commercialTypeEn : vehicle.commercialType}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Tutup"
+            aria-label={isEn ? "Close" : "Tutup"}
             className="flex-shrink-0 cursor-pointer rounded-full border-0 p-2 text-slate-400 transition-all hover:text-red-500 hover:shadow-[inset_4px_4px_10px_#cdd4db,inset_-4px_-4px_10px_#ffffff]"
           >
             <X className="h-5 w-5" aria-hidden="true" />
@@ -167,20 +182,28 @@ function IllustrationDialog({
         <div className="flex-1 overflow-y-auto p-5 sm:p-6">
           <div className="nm-deboss overflow-hidden rounded-2xl bg-white/60" style={{ position: "relative", width: "100%", aspectRatio: "4 / 3" }}>
             {src ? (
-              <Image src={src} alt={`Ilustrasi ${vehicle.marketNames}, ${vehicle.commercialType}`} fill sizes="(min-width: 640px) 640px, 100vw" style={{ objectFit: "contain" }} />
+              <Image
+                src={src}
+                alt={`${isEn ? "Illustration of" : "Ilustrasi"} ${isEn ? vehicle.marketNamesEn : vehicle.marketNames}, ${isEn ? vehicle.commercialTypeEn : vehicle.commercialType}`}
+                fill
+                sizes="(min-width: 640px) 640px, 100vw"
+                style={{ objectFit: "contain" }}
+              />
             ) : (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
                 <ImageOff className="h-8 w-8 text-slate-400" aria-hidden="true" />
-                <p className="max-w-xs text-sm text-slate-500">Ilustrasi kelas armada ini belum tersedia.</p>
+                <p className="max-w-xs text-sm text-slate-500">
+                  {isEn ? "This archetype's illustration isn't available yet." : "Ilustrasi kelas armada ini belum tersedia."}
+                </p>
               </div>
             )}
           </div>
 
           <div className="mt-5">
-            <SpecList vehicle={vehicle} />
+            <SpecList vehicle={vehicle} isEn={isEn} />
           </div>
 
-          <p className="mt-5 text-[13px] leading-[1.75] text-slate-600">{vehicle.notes}</p>
+          <p className="mt-5 text-[13px] leading-[1.75] text-slate-600">{isEn ? vehicle.notesEn : vehicle.notes}</p>
         </div>
       </div>
     </div>,
@@ -189,6 +212,8 @@ function IllustrationDialog({
 }
 
 export default function FleetExplorer() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const [activeClass, setActiveClass] = useState<string>("semua");
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleArchetype | null>(null);
   const [isClosing, setIsClosing] = useState(false);
@@ -231,7 +256,7 @@ export default function FleetExplorer() {
               activeClass === "semua" ? "nm-btn-accent" : "nm-btn text-slate-600"
             }`}
           >
-            Semua kelas ({VEHICLE_ARCHETYPES.length})
+            {isEn ? "All classes" : "Semua kelas"} ({VEHICLE_ARCHETYPES.length})
           </button>
           {VEHICLE_CLASS_ORDER.map((cls) => (
             <button
@@ -243,7 +268,7 @@ export default function FleetExplorer() {
                 activeClass === cls ? "nm-btn-accent" : "nm-btn text-slate-600"
               }`}
             >
-              {classLabel(cls)}
+              {isEn ? cls : classLabel(cls)}
             </button>
           ))}
         </div>
@@ -253,7 +278,7 @@ export default function FleetExplorer() {
         <div key={group.cls}>
           {activeClass === "semua" && (
             <h2 className="mb-5 flex items-center gap-3 font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
-              {classLabel(group.cls)}
+              {isEn ? group.cls : classLabel(group.cls)}
               <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
               <span className="text-slate-400">{group.items.length}</span>
             </h2>
@@ -264,13 +289,13 @@ export default function FleetExplorer() {
               needs. */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {group.items.map((vehicle) => (
-              <VehicleCard key={vehicle.id} vehicle={vehicle} onOpenIllustration={handleOpenIllustration} />
+              <VehicleCard key={vehicle.id} vehicle={vehicle} isEn={isEn} onOpenIllustration={handleOpenIllustration} />
             ))}
           </div>
         </div>
       ))}
 
-      <IllustrationDialog vehicle={selectedVehicle} isClosing={isClosing} onClose={handleCloseDialog} />
+      <IllustrationDialog vehicle={selectedVehicle} isEn={isEn} isClosing={isClosing} onClose={handleCloseDialog} />
     </div>
   );
 }

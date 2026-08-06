@@ -46,11 +46,13 @@ export interface Dimensions {
 export interface VolumetricMode {
   id: string;
   label: string;
+  labelEn: string;
   /** The `L x W x H (cm) / n` divisor, where the convention is written that way. */
   divisor: number | null;
   kgPerCbm: number;
   /** Shown under the result so nobody quotes a default as if it were a contract. */
   note: string;
+  noteEn: string;
 }
 
 /**
@@ -67,30 +69,41 @@ export const VOLUMETRIC_MODES: VolumetricMode[] = [
   {
     id: "laut-lcl",
     label: "Laut LCL (W/M)",
+    labelEn: "Sea LCL (W/M)",
     divisor: null,
     kgPerCbm: 1000,
     note: "Konvensi weight/measurement: 1 CBM disetarakan 1.000 kg, lalu yang lebih besar yang ditagih. Sebagian pelayaran memakai 1 CBM = 1 ton metrik dengan minimum 1 CBM per bill of lading.",
+    noteEn:
+      "The weight/measurement convention: 1 CBM is equated with 1,000 kg, and whichever is larger gets billed. Some carriers use 1 CBM = 1 metric ton with a minimum of 1 CBM per bill of lading.",
   },
   {
     id: "udara-iata",
     label: "Udara (IATA, /6000)",
+    labelEn: "Air (IATA, /6000)",
     divisor: 6000,
     kgPerCbm: 1_000_000 / 6000,
     note: "Standar IATA untuk kargo udara umum. Setara 166,67 kg per CBM.",
+    noteEn: "The IATA standard for general air cargo. Equivalent to 166.67 kg per CBM.",
   },
   {
     id: "express",
     label: "Kurir/Express (/5000)",
+    labelEn: "Courier/Express (/5000)",
     divisor: 5000,
     kgPerCbm: 1_000_000 / 5000,
     note: "Divisor yang lazim dipakai perusahaan kurir internasional. Setara 200 kg per CBM, lebih mahal untuk barang ringan dibanding divisor 6000.",
+    noteEn:
+      "The divisor commonly used by international courier companies. Equivalent to 200 kg per CBM, more expensive for light cargo than the /6000 divisor.",
   },
   {
     id: "darat",
     label: "Darat/domestik (perkiraan)",
+    labelEn: "Domestic road (estimate)",
     divisor: null,
     kgPerCbm: 250,
     note: "Angkutan darat domestik tidak punya konvensi tunggal. 250 kg/CBM hanya titik awal, banyak operator memakai 300 atau 333. Pastikan angkanya ke operator sebelum dipakai menghitung harga jual.",
+    noteEn:
+      "Domestic road transport has no single convention. 250 kg/CBM is just a starting point; many operators use 300 or 333. Confirm the figure with your operator before using it to price a sale.",
   },
 ];
 

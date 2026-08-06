@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
@@ -6,23 +8,38 @@ import { relatedTools } from "../../content/tools";
 import { getArticle } from "../../content/articles";
 import ArticleBody from "../articles/ArticleBody";
 import { ACCENT_CLASSES, ToolBadge, ToolPattern, toolVisual } from "./toolVisuals";
+import { useLanguage } from "../shared/LanguageProvider";
 
 /**
  * Frame shared by every tool page.
  *
- * A server component with a `children` slot for the instrument itself, which is
- * the only interactive part. The consequence is that everything a crawler needs
- *, the H1, the intent list, the explanation, the FAQ, the outbound links , 
- * arrives as server-rendered HTML, and the client bundle covers just the form.
- * That split is the whole point: these pages are built to be found, and a page
- * whose substance only appears after hydration is a page betting on the crawler
- * to run its JavaScript.
+ * Was a pure server component until the ID/EN toggle needed to reach it --
+ * that traded away rendering the H1, FAQ and sources straight to HTML with
+ * no hydration step first. The same trade the marketing sections upstream
+ * already made for the same reason, so this stays consistent with them
+ * rather than being the one bilingual surface still stuck in Indonesian.
+ * `tool` itself is still resolved server-side in app/alat/[slug]/page.tsx;
+ * only the rendering crosses the client boundary.
+ *
+ * Related articles keep their Indonesian titles even with EN selected --
+ * /artikel has no English edition at all, so there is nothing to switch to,
+ * and that gap is a decision for the article content, not something this
+ * component should paper over.
  */
 export default function ToolShell({ tool, children }: { tool: Tool; children: React.ReactNode }) {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   const related = relatedTools(tool);
   const articles = tool.relatedArticles.map(getArticle).filter((a) => a !== undefined);
   const visual = toolVisual(tool.slug);
   const accent = ACCENT_CLASSES[visual.accent];
+
+  const title = isEn ? tool.titleEn : tool.title;
+  const summary = isEn ? tool.summaryEn : tool.summary;
+  const searchIntents = isEn ? tool.searchIntentsEn : tool.searchIntents;
+  const blocks = isEn ? tool.blocksEn : tool.blocks;
+  const faq = isEn ? tool.faqEn : tool.faq;
+  const sources = isEn ? tool.sourcesEn : tool.sources;
 
   /**
    * Which side stays put while the other scrolls.
@@ -51,7 +68,7 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
             </li>
             <li>
               <Link href="/alat" className="inline-flex min-h-[2rem] items-center transition-colors hover:text-brand-teal">
-                Alat
+                {isEn ? "Tools" : "Alat"}
               </Link>
             </li>
           </ol>
@@ -63,13 +80,13 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
             <div className="flex items-center gap-4">
               <ToolBadge slug={tool.slug} size="lg" />
               <p className={`font-mono text-[11px] font-black uppercase tracking-[0.16em] ${accent.softText}`}>
-                {tool.kind === "kalkulator" ? "Kalkulator gratis" : "Referensi"}
+                {tool.kind === "kalkulator" ? (isEn ? "Free calculator" : "Kalkulator gratis") : isEn ? "Reference" : "Referensi"}
               </p>
             </div>
             <h1 className="mt-6 font-display text-[1.9rem] font-black leading-[1.15] tracking-tight text-slate-900 sm:text-[2.6rem]">
-              {tool.title}
+              {title}
             </h1>
-            <p className="mt-5 text-[15px] leading-[1.8] text-slate-600 sm:text-lg">{tool.summary}</p>
+            <p className="mt-5 text-[15px] leading-[1.8] text-slate-600 sm:text-lg">{summary}</p>
           </div>
         </header>
 
@@ -82,10 +99,10 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
             className="flex items-center gap-2 font-mono text-[10px] font-black uppercase tracking-[0.14em] text-slate-500"
           >
             <Search className="h-3 w-3" aria-hidden="true" />
-            Halaman ini menjawab
+            {isEn ? "This page answers" : "Halaman ini menjawab"}
           </h2>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-            {tool.searchIntents.map((intent) => (
+            {searchIntents.map((intent) => (
               <li key={intent} className="flex items-start gap-2 text-[13px] leading-[1.7] text-slate-700">
                 <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-teal" />
                 {intent}
@@ -106,20 +123,20 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
           </div>
 
           <div className={`lg:col-span-5 ${pinned === "narrative" ? "lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:pr-1" : ""}`}>
-            <ArticleBody blocks={tool.blocks} />
+            <ArticleBody blocks={blocks} />
           </div>
         </div>
 
-        {tool.faq.length > 0 && (
-          <section aria-labelledby="faq-heading" className="mt-16 max-w-3xl">
+        {faq.length > 0 && (
+          <section aria-labelledby="faq-heading" className="mt-16">
             <h2
               id="faq-heading"
               className="font-display text-2xl font-black tracking-tight text-slate-900 sm:text-3xl"
             >
-              Pertanyaan yang sering muncul
+              {isEn ? "Frequently asked questions" : "Pertanyaan yang sering muncul"}
             </h2>
-            <dl className="mt-8 flex flex-col gap-4">
-              {tool.faq.map((item) => (
+            <dl className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              {faq.map((item) => (
                 <div key={item.q} className="nm-emboss rounded-2xl bg-[#eef2f6]/60 p-6">
                   <dt className="font-display text-base font-bold leading-snug text-slate-900">{item.q}</dt>
                   <dd className="mt-3 text-[14px] leading-[1.8] text-slate-600">{item.a}</dd>
@@ -129,17 +146,17 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
           </section>
         )}
 
-        {tool.sources && tool.sources.length > 0 && (
+        {sources && sources.length > 0 && (
           <section aria-labelledby="sumber-heading" className="mt-16 max-w-3xl">
             <h2
               id="sumber-heading"
               className="mb-5 flex items-center gap-3 font-mono text-[11px] font-black uppercase tracking-[0.14em] text-slate-500"
             >
-              Dasar rujukan
+              {isEn ? "Sources" : "Dasar rujukan"}
               <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
             </h2>
             <dl className="flex flex-col gap-3">
-              {tool.sources.map((source) => (
+              {sources.map((source) => (
                 <div key={source.label} className="nm-deboss rounded-2xl p-5">
                   <dt className="font-display text-sm font-bold text-slate-900">{source.label}</dt>
                   <dd className="mt-1.5 text-[13px] leading-[1.75] text-slate-600">{source.detail}</dd>
@@ -155,7 +172,7 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
               id="lanjut-heading"
               className="mb-7 flex items-center gap-3 font-mono text-[11px] font-black uppercase tracking-[0.14em] text-slate-500"
             >
-              Lanjut ke
+              {isEn ? "Continue to" : "Lanjut ke"}
               <span aria-hidden="true" className="h-px flex-1 bg-slate-300/60" />
             </h2>
 
@@ -171,14 +188,14 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
                     <span
                       className={`font-mono text-[9px] font-black uppercase tracking-[0.14em] ${ACCENT_CLASSES[toolVisual(item.slug).accent].softText}`}
                     >
-                      {item.kind === "kalkulator" ? "Kalkulator" : "Referensi"}
+                      {item.kind === "kalkulator" ? (isEn ? "Calculator" : "Kalkulator") : isEn ? "Reference" : "Referensi"}
                     </span>
                   </span>
                   <span className="font-display text-[15px] font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-teal">
-                    {item.title}
+                    {isEn ? item.titleEn : item.title}
                   </span>
                   <span className="mt-auto pt-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] text-brand-teal">
-                    Buka
+                    {isEn ? "Open" : "Buka"}
                     <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
                   </span>
                 </Link>
@@ -191,13 +208,13 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
                   className="nm-emboss group flex h-full flex-col rounded-2xl bg-[#eef2f6]/60 p-5 transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
                 >
                   <span className="font-mono text-[9px] font-black uppercase tracking-[0.14em] text-slate-500">
-                    Artikel
+                    {isEn ? "Article" : "Artikel"}
                   </span>
                   <span className="mt-2 font-display text-[15px] font-bold leading-snug text-slate-900 transition-colors group-hover:text-brand-teal">
                     {item.title}
                   </span>
                   <span className="mt-auto pt-4 inline-flex items-center gap-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] text-brand-teal">
-                    Baca
+                    {isEn ? "Read" : "Baca"}
                     <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
                   </span>
                 </Link>
@@ -214,23 +231,23 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
         <aside className="nm-emboss mt-16 rounded-3xl bg-[#eef2f6]/70 p-7 sm:p-9">
           <p className="font-mono text-[10px] font-black uppercase tracking-[0.14em] text-brand-teal">CargoGrid OS</p>
           <p className="mt-4 max-w-2xl text-[15px] leading-[1.8] text-slate-700">
-            Alat di halaman ini menjawab satu kiriman. Kalau persoalannya adalah tiga puluh kiriman sekaligus, tenggat
-            yang tersebar di kepala beberapa orang, dan angka yang disalin ulang dari penawaran ke booking ke invoice,
-            yang dibutuhkan bukan kalkulator, melainkan satu tempat penyimpanan yang dipakai bersama.
+            {isEn
+              ? "The tool on this page answers one shipment. If the real problem is thirty shipments at once, deadlines scattered across several people's heads, and numbers re-typed from quote to booking to invoice, what's needed isn't a calculator, it's one shared system of record."
+              : "Alat di halaman ini menjawab satu kiriman. Kalau persoalannya adalah tiga puluh kiriman sekaligus, tenggat yang tersebar di kepala beberapa orang, dan angka yang disalin ulang dari penawaran ke booking ke invoice, yang dibutuhkan bukan kalkulator, melainkan satu tempat penyimpanan yang dipakai bersama."}
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="/solusi"
               className="nm-btn inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-xs font-extrabold text-slate-700 transition-colors hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal"
             >
-              Lihat sistem &amp; modul
+              {isEn ? "View system & modules" : "Lihat sistem & modul"}
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
             <Link
               href="/kontak"
               className="nm-btn-accent inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-xs font-extrabold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
-              Konsultasi gratis
+              {isEn ? "Free consultation" : "Konsultasi gratis"}
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
           </div>

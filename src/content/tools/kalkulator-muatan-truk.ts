@@ -4,9 +4,12 @@ export const tool: Tool = {
   slug: "kalkulator-muatan-truk",
   kind: "kalkulator",
   title: "Kalkulator Muatan Truk: Berapa Kardus Muat di CDD, Fuso, atau Tronton",
+  titleEn: "Truck Load Calculator: How Many Cartons Fit in a CDD, Fuso, or Tronton",
   metaTitle: "Kalkulator Muatan Truk: Hitung Kapasitas CDE, CDD, Fuso, Tronton | CargoGrid",
   description:
     "Sedang menentukan CDD atau Fuso untuk kiriman ini? Masukkan ukuran kardus, berat per kardus, dan jumlahnya, lalu kalkulator ini menyebutkan batas mana yang mengikat lebih dulu, ruang atau berat.",
+  descriptionEn:
+    "Deciding between a CDD or Fuso for this shipment? Enter the carton dimensions, weight per carton, and quantity, and this calculator tells you which limit binds first, space or weight.",
   keywords: [
     "kalkulator muatan truk",
     "kapasitas truk CDD",
@@ -17,12 +20,21 @@ export const tool: Tool = {
   ],
   summary:
     "Tiga hal membatasi setiap muatan: ruang di dalam bak, batas berat yang boleh dibawa, dan kelas jalan yang dilewati. Kalkulator ini menghitung ketiganya secara terpisah, menyebut mana yang lebih dulu mengikat, lalu memberi tahu berapa unit truk yang dibutuhkan untuk mengangkut seluruh kiriman.",
+  summaryEn:
+    "Three things limit every load: the space inside the cargo bed, the weight limit it is allowed to carry, and the road class it travels on. This calculator computes all three separately, states which one binds first, then tells you how many truck units the full shipment requires.",
   searchIntents: [
     "Berapa kardus muat di truk CDD",
     "Kapasitas kubikasi truk Fuso dan tronton",
     "Ukuran bak dalam truk CDE, CDD, dan wingbox",
     "Butuh berapa truk untuk mengirim sekian kardus",
     "Muatan penuh tapi berat masih di bawah batas, normalkah",
+  ],
+  searchIntentsEn: [
+    "How many cartons fit in a CDD truck",
+    "Cubic capacity of Fuso and Tronton trucks",
+    "Internal cargo bed dimensions of CDE, CDD, and wingbox trucks",
+    "How many trucks are needed to ship a given number of cartons",
+    "Load is full but weight is still under the limit, is that normal",
   ],
   publishedAt: "2026-08-05",
   blocks: [
@@ -123,6 +135,104 @@ export const tool: Tool = {
       body: "Kelebihan muatan memindahkan biaya dari ongkos angkut hari ini ke perawatan, denda, dan risiko kecelakaan bulan depan. Perpindahan itu tidak pernah tercatat sebagai satu keputusan, sehingga tidak pernah tampak sebagai satu biaya. Kalkulasi yang jujur di awal jauh lebih murah daripada kalkulasi ulang di jembatan timbang.",
     },
   ],
+  blocksEn: [
+    {
+      type: "h2",
+      id: "tiga-batas",
+      text: "Every load is limited by three things, and only one of them is felt",
+    },
+    {
+      type: "p",
+      text: "A truck stops taking on cargo for one of two reasons: the bed is full, or the weight has hit its ceiling. The two are rarely reached at the same time, and that is the root of nearly every argument on the loading dock. The warehouse crew sees a gap and is confident one more pallet will fit. The driver who will later face the weighbridge sees an entirely different problem.",
+    },
+    {
+      type: "p",
+      text: "That is why this calculator never returns a single \"fits this many\" figure. It returns two limits side by side and states which one binds, because that is the fact that actually drives the decision. A load constrained by space needs tighter packing or a larger bed. A load constrained by weight needs additional units, and no amount of clever stacking will change that.",
+    },
+    {
+      type: "p",
+      text: "The third limit has nothing to do with cartons or scales: the road class the route travels on. A Class III road restricts vehicle width to 2.1 meters, and a standard body of 2.4 to 2.5 meters cannot pass through it no matter what it carries. The first two limits answer how much fits; the third answers whether the load is allowed to move at all, and only the third one can stop a vehicle mid-route.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "The weight limit comes from the road, not the truck",
+      body: "The capacity listed on a vehicle's spec sheet is the manufacturer's design capability. What determines legality is JBI, the weight permitted for the road class the route travels on, and that figure can be lower. The same truck can legally carry one tonnage on one route and violate the limit on another.",
+    },
+    {
+      type: "h2",
+      id: "cara-menghitung",
+      text: "How the numbers are calculated",
+    },
+    {
+      type: "p",
+      text: "The space calculation is deliberately conservative. The calculator tries six carton orientations, and for each one computes how many fit lengthwise along the bed, how many fit across, and how many layers stack upward, rounds each result down, then takes the best arrangement.",
+    },
+    {
+      type: "p",
+      text: "An experienced loading crew will almost always beat this number, because they mix carton orientations and fill in the remaining gaps. That is deliberate. A calculator that assumes the smartest possible packing would produce a figure the warehouse floor cannot actually deliver, and by then that figure is already locked into the quote. It is better to promise slightly less and load more, than the other way around.",
+    },
+    {
+      type: "table",
+      caption: "What to do based on which limit binds",
+      head: ["Binding limit", "What it means", "What usually works"],
+      rows: [
+        [
+          "Space",
+          "Bed is full, scale still has headroom",
+          "Pack tighter, consider a taller body such as a wingbox, or review carton dimensions on the production side",
+        ],
+        [
+          "Weight",
+          "Scale is maxed out, bed still has room",
+          "Add a unit, or split the shipment. Repacking will not help at all",
+        ],
+        [
+          "Both at once",
+          "The carton-and-truck combination is well matched",
+          "Nothing needs to change. Record this combination as a reference for similar shipments",
+        ],
+      ],
+    },
+    {
+      type: "h2",
+      id: "kepatuhan",
+      text: "Checks before dispatch",
+    },
+    {
+      type: "p",
+      text: "Once the load plan is set, the calculator checks it against the road class you select and states what needs to be confirmed: whether the body width still clears, whether the vehicle length is still permitted, and the rough weight ceiling under the maximum axle load (MST) for that road class. The toll class and the ferry-crossing class for that fleet category are also shown, because both feed into route cost.",
+    },
+    {
+      type: "p",
+      text: "This tool does not decide whether a load is permitted. It does not know the STNK (vehicle registration) of the unit that will be used, does not know its unladen weight after bodywork, and does not know the route permit, so it states what needs to be checked and where the exact figures are found, rather than declaring something legal or illegal. The only thing it states flatly is what is simply impossible: a cargo space wider than the vehicle's width limit almost always means a typo or a unit mismatch.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "MST limits per axle, not total weight",
+      body: "A truck can pass the total weight limit and still violate the rule because the load is stacked toward the rear, so one axle carries more than its share. This means how cargo is arranged on the bed is not just a matter of tidiness, weight distribution along the bed determines whether the same vehicle with the exact same tonnage is legal or not.",
+    },
+    {
+      type: "h2",
+      id: "angka-spesifikasi",
+      text: "Why the spec figures here are ranges",
+    },
+    {
+      type: "p",
+      text: "Bed dimensions come from the body builder (karoseri), not from the chassis manufacturer. Two trucks with the exact same badge can differ in bed height by twenty centimeters, and twenty centimeters is one full carton layer. Weight capacity likewise depends on the vehicle's own unladen weight, which varies between bodies.",
+    },
+    {
+      type: "p",
+      text: "Every figure in this calculator can therefore be overridden. The prefilled values are a reasonable starting point for the Indonesian fleet; the correct figure is the one you measure yourself on the yard, once, and then reuse. Measuring your own fleet's beds is half a day of work whose payoff lasts for years.",
+    },
+    {
+      type: "callout",
+      tone: "insight",
+      title: "Overloading is a cost, not a saving",
+      body: "Overloading shifts cost from today's freight charge to next month's maintenance, fines, and accident risk. That shift is never recorded as a single decision, so it never shows up as a single cost. An honest calculation up front is far cheaper than a recalculation at the weighbridge.",
+    },
+  ],
   faq: [
     {
       q: "Berapa kubikasi truk CDD?",
@@ -149,10 +259,41 @@ export const tool: Tool = {
       a: "JBB adalah batas berat total menurut rancangan pabrikan kendaraan. JBI adalah batas yang diizinkan pada kelas jalan tertentu, dan bisa lebih rendah dari JBB. Yang menentukan pelanggaran di jembatan timbang adalah JBI.",
     },
   ],
+  faqEn: [
+    {
+      q: "What is the cubic capacity of a CDD truck?",
+      a: "A standard CDD bed measures roughly 4.5 x 2.0 x 2.0 meters, about 18 cubic meters, with an estimated payload of 3.5 to 5.5 tons. The long version extends the bed to about 5.8 meters, roughly 26 cubic meters, without adding weight capacity, so it suits light, high-volume goods and is wasted on dense cargo.",
+    },
+    {
+      q: "What is the capacity of a Tronton and a wingbox?",
+      a: "A three-axle Tronton with a long box body has a bed of about 8.5 x 2.4 x 2.5 meters, roughly 51 cubic meters, with an estimated payload of 10 to 16 tons. A two-axle wingbox is smaller, about 42 cubic meters with a payload of 5.5 to 9 tons. A wingbox on a trailer combination is much larger, about 76 cubic meters with a payload of 18 to 28 tons. Side walls that open fully make forklift loading considerably faster for palletized cargo.",
+    },
+    {
+      q: "Why is the bed already full while the weight is still well under capacity?",
+      a: "Because your cargo is light relative to its volume. This is normal for textiles, plastic packaging, foam, and boxed finished goods. What needs evaluating is packing density, not the choice of truck.",
+    },
+    {
+      q: "Can this calculator's result be used directly in a quote?",
+      a: "Yes, as a baseline, keeping in mind the figure is conservative. The space calculation uses a single uniform carton orientation, whereas loading crews usually mix orientations and fit in more. For recurring shipments, calibrate once against the actual loaded result and then use that figure going forward.",
+    },
+    {
+      q: "Why does the result change when I switch the road class?",
+      a: "Because road class sets the width, length, and maximum axle load limits for the route traveled, and these figures differ between classes. A Class I road permits a width of 2.5 meters, a length of 18 meters, and an MST of 10 tons; Class III restricts width to 2.1 meters, length to 9 meters, and MST to 8 tons. The vehicle itself does not change; the road it travels on does.",
+    },
+    {
+      q: "What is the difference between JBB and JBI?",
+      a: "JBB is the total weight limit per the vehicle manufacturer's design. JBI is the limit permitted on a given road class, and it can be lower than JBB. What determines a violation at the weighbridge is JBI.",
+    },
+  ],
   sources: [
     { label: "PP 55/2012", detail: "Batas lebar, panjang, dan tinggi kendaraan bermotor, serta konsep JBB dan JBI yang menentukan payload legal." },
     { label: "PP 79/2013 dan Permen PUPR 13/2024", detail: "Parameter kelas jalan dan muatan sumbu terberat yang dipakai pada pemeriksaan rute." },
     { label: "Kepmen PUPR 176/KPTS/M/2025 dan ketentuan penyeberangan ASDP", detail: "Penggolongan kendaraan di jalan tol dan di kapal penyeberangan." },
+  ],
+  sourcesEn: [
+    { label: "PP 55/2012", detail: "Width, length, and height limits for motor vehicles, and the JBB and JBI concepts that determine legal payload." },
+    { label: "PP 79/2013 dan Permen PUPR 13/2024", detail: "Road class parameters and maximum axle load (MST) used in the route check." },
+    { label: "Kepmen PUPR 176/KPTS/M/2025 dan ketentuan penyeberangan ASDP", detail: "Vehicle classification on toll roads and on ferry crossings." },
   ],
   relatedArticles: ["odol-timbangan-jembatan-muatan-lebih", "perawatan-armada-preventif-vs-reaktif", "lonjakan-musiman-kapasitas-peak-season"],
   relatedTools: ["jenis-truk-indonesia", "kalkulator-cbm", "ukuran-kontainer"],

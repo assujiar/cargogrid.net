@@ -41,27 +41,42 @@ export interface Tool {
   kind: ToolKind;
   /** H1 and card title. */
   title: string;
+  titleEn: string;
   /** SERP title, carrying the brand suffix the H1 does not need. */
   metaTitle: string;
   description: string;
+  /**
+   * `description` doubles as the hub card's body text, so it renders
+   * client-side and needs an English twin. `metaTitle` and `keywords` never
+   * do -- they only feed `generateMetadata`, which runs on the server before
+   * the language toggle exists, so the crawler-facing tags stay Indonesian
+   * regardless of what a visitor later picks. Translating them would be
+   * work with no reader on the other end.
+   */
+  descriptionEn: string;
   keywords: string[];
   /** Standfirst under the H1 and on the hub card. */
   summary: string;
+  summaryEn: string;
   /**
    * The literal phrasings this page is built to answer.
    *
-   * Rendered on-page under "Halaman ini menjawab", which is not an SEO trick , 
+   * Rendered on-page under "Halaman ini menjawab", which is not an SEO trick ,
    * it is the fastest way for someone who arrived from a search to confirm in
    * one glance that they are in the right place, before they scroll. That it
    * also states the page's topic in the words people actually use is a genuine
    * second benefit rather than the reason.
    */
   searchIntents: string[];
+  searchIntentsEn: string[];
   /** Prose below the instrument. Rendered through the article body renderer. */
   blocks: Block[];
+  blocksEn: Block[];
   faq: ToolFaq[];
+  faqEn: ToolFaq[];
   /** Dasar rujukan angka pada halaman ini, bila angkanya berasal dari luar. */
   sources?: ToolSource[];
+  sourcesEn?: ToolSource[];
   /** Slugs from the article registry. Validated at module load. */
   relatedArticles: string[];
   /** Slugs from this registry. Validated at module load. */

@@ -3,97 +3,71 @@ import type { Article } from "./types";
 export const article: Article = {
   slug: "lonjakan-musiman-kapasitas-peak-season",
   layout: "primer",
-  title:
-    "Kapasitas Peak Season yang Selalu Salah Tebak: Kenapa Buffer Tahun Lalu Menganggur, Musim Ini Malah Kurang",
-  metaTitle: "Kapasitas Peak Season: Newsvendor Problem dan Buffer",
+  format: "Data Breakdown",
+  title: "Menghitung Buffer Kapasitas Musim Puncak dari Data Lonjakan Historis",
+  metaTitle: "Cara Menghitung Buffer Kapasitas Musim Puncak",
   description:
-    "Kapasitas ekstra Harbolnas menganggur, giliran Lebaran malah kurang. Newsvendor problem menjelaskan cara menentukan buffer kapasitas yang pas dari data historis.",
+    "Cara menghitung buffer kapasitas musim puncak dari data historis: mengukur sebaran lonjakan, rasio kritis ongkos kekurangan-kelebihan, lead time vendor, dan titik impas kapasitas tetap vs fleksibel, lengkap contoh perhitungan yang bisa ditiru dengan data sendiri.",
   keywords: [
-    "perencanaan kapasitas peak season",
-    "manajemen kapasitas logistik lebaran",
-    "kapasitas armada harbolnas",
-    "newsvendor problem logistik",
+    "menghitung buffer kapasitas musim puncak",
+    "rasio kritis kapasitas logistik",
+    "sebaran lonjakan permintaan musiman",
     "kontrak kapasitas fleksibel subkontraktor",
-    "buffer kapasitas gudang musim puncak",
+    "kapasitas tetap vs fleksibel gudang",
   ],
   category: "komersial",
   publishedAt: "2026-07-07",
+  updatedAt: "2026-08-06",
   summary:
-    "Menjelang Lebaran, kapasitas armada dan gudang Anda kewalahan dan customer komplain keterlambatan, padahal lima bulan sebelumnya kapasitas ekstra untuk Harbolnas berakhir menganggur jadi biaya sia-sia. Newsvendor problem, prinsip klasik riset operasi soal berapa banyak kapasitas cadangan optimal disiapkan menghadapi permintaan tak pasti, menjelaskan kenapa dua kejadian berlawanan ini bisa terjadi berurutan. Tulisan ini membahas cara memakai data historis, kontrak kapasitas fleksibel, dan komunikasi lebih awal ke customer untuk menentukan buffer yang masuk akal.",
+    "Buffer kapasitas musim puncak bisa dihitung dari data, bukan ditebak dari perasaan. Tulisan ini membedah angkanya jadi lima komponen: sebaran lonjakan historis, rasio kritis ongkos kekurangan-kelebihan, lead time vendor, kapasitas tetap vs fleksibel, dan titik impas biayanya, lengkap dengan contoh perhitungan bergaya spreadsheet yang bisa langsung ditiru memakai data operasional sendiri.",
   takeaways: [
-    "Kapasitas cadangan musim puncak bersifat mudah rusak: begitu jendela waktunya lewat, kapasitas yang tak terpakai kehilangan nilainya seketika, sama seperti koran yang tak laku di sore hari.",
-    "Rasio kritis, yaitu perbandingan ongkos kekurangan kapasitas dengan ongkos kelebihan kapasitas, menentukan persentil data historis mana yang layak jadi target buffer, bukan rata-rata dan bukan skenario terburuk.",
-    "Data lonjakan lima musim terakhir sudah cukup membangun distribusi yang jauh lebih andal ketimbang menebak berdasar insting atau menambah persentase tetap tiap tahun.",
-    "Kontrak kapasitas fleksibel dengan biaya siaga jauh lebih murah dibanding sewa penuh, dan itu mengubah rasio kritis sehingga buffer yang ekonomis bisa dipasang lebih tinggi.",
+    "Rasio kritis (Cu ÷ (Cu + Co)) menentukan persentil data historis mana yang layak jadi target buffer, bukan rata-rata dan bukan skenario terburuk yang pernah tercatat.",
+    "Lima titik data musim puncak sudah cukup dipetakan lewat metode peringkat terdekat (nearest-rank), tanpa perlu software statistik khusus: cukup spreadsheet biasa.",
+    "Skema kapasitas siaga (bayar murah untuk menahan slot, tarif penuh hanya saat benar-benar ditarik) mengubah titik impas antara Cu dan Co, sehingga buffer yang ekonomis bisa dipasang di persentil lebih tinggi tanpa menambah ongkos kelebihan.",
+    "Metode yang sama berlaku untuk buffer tenaga kerja gudang, hanya satuannya berganti dari truk per hari menjadi tenaga kerja per shift.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Sepuluh hari menjelang Lebaran tahun ini, gudang fulfillment mitra Anda di Semarang penuh sesak. Truk yang biasanya datang jam tujuh pagi molor sampai sore, beberapa slot penjemputan bahkan kosong sama sekali. Volume harian yang normalnya 1.150 order melonjak ke 2.400 dalam kurang dari dua minggu. Tim dispatcher menelepon subkontraktor satu per satu mencari truk tambahan, tapi separuh dari mereka sudah terikat kontrak dengan pemain lain yang lebih dulu memesan dua bulan sebelumnya.",
+      text: "Buffer kapasitas musim puncak adalah angka yang bisa dihitung dari data, bukan ditebak dari perasaan “kayaknya perlu lebih banyak dari tahun lalu”. Masalahnya, angka itu jarang dipecah jadi komponen yang bisa dihitung satu per satu: seberapa besar sebaran lonjakan permintaan berdasarkan data historis, berapa rasio ongkos kekurangan kapasitas (shortage cost) dibanding ongkos kelebihannya (idle cost), berapa lama lead time vendor sebelum kapasitas harus dikunci, dan di titik mana kapasitas tetap sebaiknya berhenti lalu digantikan kapasitas fleksibel.",
     },
     {
       type: "p",
-      text: "Customer komplain keterlambatan datang beruntun sepanjang minggu itu. Yang bikin cerita ini pahit: lima bulan sebelumnya, menjelang Harbolnas 2025, tim yang sama sudah menyewa 15 truk ekstra selama tiga minggu, mengantisipasi lonjakan seperti dua musim sebelumnya yang biasa tembus 65–70% di atas rata-rata. Realisasinya cuma naik 48%. Truk sewaan nganggur di pool, sementara tagihan sewa harian tetap berjalan penuh: sekitar Rp172 juta dari komitmen Rp315 juta jadi biaya tanpa hasil.",
-    },
-    {
-      type: "p",
-      text: "Dua kejadian ini berlawanan arah persis, dan itu bukan kebetulan buruk semata. Keduanya lahir dari akar yang sama, yaitu tidak adanya angka jelas yang menjawab pertanyaan paling mendasar: seberapa besar kapasitas cadangan yang masuk akal disiapkan, padahal permintaan musim puncak tidak pernah bisa ditebak persis.",
+      text: "Tulisan ini membedah kelima angka itu satu per satu, dengan contoh perhitungan yang disusun menyerupai satu file spreadsheet supaya bisa langsung ditiru memakai data operasional sendiri.",
     },
     {
       type: "h2",
-      id: "soal-newsvendor",
-      text: "Newsvendor Problem: Nama Lama untuk Masalah yang Anda Hadapi Tiap Musim",
+      id: "lima-komponen-buffer",
+      text: "Lima Angka yang Membentuk Buffer Kapasitas",
     },
     {
-      type: "p",
-      text: "Riset operasi sudah memecahkan masalah ini sejak lama, jauh sebelum ada Harbolnas atau belanja online. Namanya **newsvendor problem**, diambil dari penjual koran yang tiap pagi memutuskan berapa eksemplar dipesan dari distributor, padahal jumlah pembeli hari itu belum diketahui. Pesan kurang, ia kehilangan penjualan. Pesan kelebihan, koran sisa sore sudah basi dan tidak laku dijual besok.",
-    },
-    {
-      type: "p",
-      text: "Kapasitas ekstra musim puncak punya sifat sama: mudah rusak. Truk sewaan yang nganggur hari Selasa tidak bisa disimpan untuk dipakai hari Kamis kalau lonjakannya baru datang hari itu. Tenaga kerja harian yang sudah dibayar untuk shift tambahan tidak bisa dikembalikan begitu jam kerjanya lewat tanpa ada barang untuk dikerjakan. Begitu jendela waktu itu lewat, nilainya hilang seketika.",
-    },
-    {
-      type: "p",
-      text: "Newsvendor problem mengajarkan bahwa kapasitas optimal ditentukan oleh perbandingan dua ongkos: ongkos kekurangan melawan ongkos kelebihan. Titik keseimbangannya disebut **rasio kritis**, dan angka itu menentukan persentil dari distribusi permintaan historis yang layak dijadikan target, bukan rata-rata, apalagi skenario terburuk yang pernah tercatat.",
-    },
-    {
-      type: "h2",
-      id: "dua-ongkos-yang-tarik-menarik",
-      text: "Dua Ongkos yang Selama Ini Jarang Dihitung Bersamaan",
-    },
-    {
-      type: "p",
-      text: "Rasio kritis kedengarannya abstrak sampai dipetakan ke angka yang dihadapi tim Anda tiap musim puncak.",
-    },
-    {
-      type: "ul",
+      type: "ol",
       items: [
-        "**Ongkos kekurangan (Cu).** Kapasitas kurang dari permintaan riil. Sebagian besar kasus cuma kena kredit SLA kecil sekitar Rp50.000 per order. Sebagian naik jadi biaya reroute darurat lewat kurir instan, 3–4 kali lipat tarif normal. Sebagian kecil lagi berisiko membuat customer besar pindah kontrak musim depan.",
-        "**Ongkos kelebihan (Co).** Kapasitas lebih besar dari yang terpakai. Sewa truk atau upah tenaga tambahan tetap dibayar penuh meski tidak ada barang untuk dikerjakan.",
+        "**Sebaran lonjakan historis**: seberapa jauh permintaan musim puncak biasa menyimpang dari hari biasa, dilihat dari beberapa musim terakhir, bukan cuma musim paling baru.",
+        "**Rasio kritis**: perbandingan ongkos kekurangan kapasitas (Cu) dengan ongkos kelebihan kapasitas (Co), yang menentukan persentil data historis mana yang layak jadi target service level.",
+        "**Lead time vendor**: berapa lama sebelum window musim puncak, kapasitas subkontraktor atau tenaga tambahan harus sudah dikunci.",
+        "**Alokasi kapasitas tetap vs fleksibel**: berapa besar buffer yang masuk akal disewa penuh, dan berapa besar yang lebih murah disiagakan lewat kontrak fleksibel.",
+        "**Titik impas biaya**: pada tingkat pemakaian berapa persen, skema sewa penuh justru lebih murah dibanding skema siaga, dan sebaliknya.",
       ],
-    },
-    {
-      type: "p",
-      text: "Dirata-ratakan tertimbang, ongkos kekurangan efektif di kasus Semarang berkisar Rp90.000 per order yang gagal dilayani sesuai janji. Satu truk yang nganggur sehari menanggung ongkos sewa penuh Rp900.000; dengan kapasitas 40 order per truk, ongkos kelebihan per unit jadi sekitar Rp22.500.",
     },
     {
       type: "callout",
       tone: "insight",
-      title: "Rasio Kritis dari Angka di Atas",
-      body: "Rasio kritis dihitung dari Cu dibagi (Cu ditambah Co): 90.000 ÷ (90.000 + 22.500) = 0,80. Target kapasitas seharusnya mengarah ke persentil ke-80 dari distribusi historis lonjakan. Begitu ongkos kelebihan berhasil diturunkan (misalnya lewat kontrak fleksibel yang dibahas nanti), target persentilnya ikut naik, karena menyiagakan kapasitas ekstra jadi lebih murah.",
+      title: "Tentang Angka-Angka di Bawah Ini",
+      body: "Semua nilai rupiah, persentase, dan jumlah truk pada contoh perhitungan berikut bersifat ilustratif untuk menunjukkan caranya, bukan catatan biaya atau volume satu perusahaan tertentu. Setiap tabel ditulis supaya barisnya bisa disalin langsung ke spreadsheet dan diisi ulang dengan data historis sendiri.",
     },
     {
       type: "h2",
-      id: "data-tiga-tahun-lonjakan",
-      text: "Membaca Lima Musim Puncak Terakhir, Bukan Cuma Satu",
+      id: "mengukur-sebaran-lonjakan",
+      text: "Komponen 1: Mengukur Sebaran Lonjakan dari Data Historis",
     },
     {
       type: "p",
-      text: "Satu musim puncak tidak pernah cukup jadi dasar keputusan. Lima musim terakhir, dari Lebaran 2024 sampai Lebaran 2026 yang baru lewat, sudah cukup melihat pola, alih-alih bergantung pada satu titik data yang gampang menyesatkan.",
+      text: "Satu musim puncak tidak cukup jadi dasar keputusan; satu titik data gampang menyesatkan. Contoh berikut memakai lima musim, dari Lebaran 2024 sampai Lebaran 2026, sekadar untuk menunjukkan cara membaca polanya.",
     },
     {
       type: "table",
-      caption: "Lonjakan lima musim puncak terakhir, di atas rata-rata harian",
+      caption: "Lonjakan lima musim puncak, di atas rata-rata harian (contoh ilustratif)",
       head: ["Musim", "Lonjakan di atas rata-rata"],
       rows: [
         ["Lebaran 2024", "+65%"],
@@ -105,153 +79,297 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Diurutkan dari yang paling kecil: 48%, 52%, 65%, 71%, 109%. Rata-rata sederhananya sekitar 69%. Tapi rasio kritis 0,80 menunjuk ke persentil ke-80, yaitu 71%, nilai terbesar keempat dari lima data yang ada.",
-    },
-    {
-      type: "p",
-      text: "Gabungan armada milik sendiri dan kontrak tetap sanggup menangani sampai 1.400 order per hari. Target buffer 71% di atas baseline 1.150 berarti kapasitas total sekitar 2.000 order per hari, tambahan 600 order di atas kapasitas inti, setara 15 truk ekstra, persis jumlah yang disewa penuh menjelang Harbolnas 2025.",
-    },
-    {
-      type: "p",
-      text: "Angka +109% dari Lebaran 2026 tetap tercatat, tapi memaksakan kapasitas tetap sebesar itu tiap musim berarti membayar ongkos kelebihan penuh di empat dari lima kejadian, hanya untuk menutup satu skenario ekstrem yang jarang berulang.",
-    },
-    {
-      type: "h2",
-      id: "tiga-cara-menentukan-buffer",
-      text: "Tiga Cara Menentukan Buffer, dan Kenapa Dua di Antaranya Gagal",
-    },
-    {
-      type: "p",
-      text: "Ada tiga cara menentukan buffer musim puncak, dan hanya satu yang benar-benar menghitung ongkos, bukan menebak.",
+      text: "Diurutkan naik: 48%, 52%, 65%, 71%, 109%. Dari lima titik ini bisa dihitung dua hal: seberapa besar rata-rata sebaran, dan seberapa lebar rentangnya.",
     },
     {
       type: "table",
-      caption: "Tiga cara menentukan buffer musim puncak",
-      head: ["Pendekatan", "Cara kerja", "Risiko"],
+      caption: "Menghitung sebaran dari lima titik data (formula bisa disalin ke spreadsheet)",
+      head: ["Ukuran", "Cara hitung", "Hasil"],
+      rows: [
+        ["Rata-rata (mean)", "(48+52+65+71+109) ÷ 5", "69%"],
+        ["Deviasi absolut rata-rata (MAD)", "rata-rata dari |nilai − 69%|", "≈17 poin persentase"],
+        [
+          "Simpangan baku populasi",
+          "akar dari rata-rata (nilai − 69%)², dihitung atas 5 musim yang tercatat",
+          "≈22 poin persentase",
+        ],
+        ["Rentang (range)", "nilai tertinggi − nilai terendah", "61 poin persentase (48%–109%)"],
+      ],
+    },
+    {
+      type: "p",
+      text: "Sebarannya lebar dan condong ke kanan: satu musim (Lebaran 2026, +109%) menarik rata-rata dan rentangnya jauh lebih tinggi dibanding empat musim lain yang mengelompok di kisaran 48–71%. Ini alasan kenapa aturan “tambah persentase tetap tiap tahun” gampang meleset: sebaran datanya tidak simetris, jadi angka tunggal apa pun akan kebesaran di sebagian besar musim atau kekecilan di musim yang melonjak tajam.",
+    },
+    {
+      type: "p",
+      text: "Yang dibutuhkan bukan rata-rata, tapi persentil tertentu dari sebaran itu, dan persentil yang tepat ditentukan oleh rasio kritis pada komponen berikutnya. Untuk kumpulan data sekecil ini, cara paling praktis menghitung persentil adalah metode **peringkat terdekat** (nearest-rank): urutkan data dari terkecil ke terbesar, lalu ambil elemen pada peringkat ⌈p × n⌉, dengan p target persentil dalam desimal dan n jumlah titik data.",
+    },
+    {
+      type: "table",
+      caption: "Contoh: menentukan persentil ke-80 dari 5 titik data",
+      head: ["Langkah", "Formula", "Hasil"],
+      rows: [
+        ["Urutkan data naik", "48%, 52%, 65%, 71%, 109%", "-"],
+        ["Hitung peringkat target", "⌈0,80 × 5⌉", "peringkat ke-4"],
+        ["Ambil nilai pada peringkat itu", "nilai ke-4 dari data terurut", "71%"],
+      ],
+    },
+    {
+      type: "h2",
+      id: "menghitung-rasio-kritis",
+      text: "Komponen 2: Menghitung Rasio Kritis dari Ongkos Kekurangan dan Kelebihan",
+    },
+    {
+      type: "p",
+      text: "Rumus rasio kritis ini berasal dari **newsvendor problem**, prinsip riset operasi lama soal menentukan jumlah stok atau kapasitas optimal menghadapi permintaan tak pasti. Yang dipakai di sini bukan ceritanya, cuma rumusnya: Cu ÷ (Cu + Co), dan rumus itu langsung bisa diisi dengan ongkos operasional apa pun yang relevan.",
+    },
+    {
+      type: "table",
+      caption: "Komponen ongkos kekurangan (Cu) dan kelebihan (Co): contoh perhitungan, angka disederhanakan untuk ilustrasi",
+      head: ["Komponen", "Definisi", "Nilai ilustratif"],
       rows: [
         [
-          "Insting tim lapangan",
-          "Menambah kapasitas berdasar perasaan “kayaknya perlu lebih banyak dari tahun lalu”",
-          "Naik-turun tergantung siapa yang memutuskan, tidak ada cara mengevaluasinya setelah musim lewat",
+          "Cu: kredit SLA",
+          "Kompensasi ke customer saat order gagal dilayani sesuai janji, skenario paling umum",
+          "≈Rp50.000/order",
         ],
         [
-          "Pukul rata +30% tiap tahun",
-          "Menambah persentase tetap tanpa melihat pola historis atau ongkos kekurangan-kelebihan",
-          "Kadang kebesaran, kadang kekecilan, karena lonjakan riil tidak pernah sama tiap musim",
+          "Cu: reroute darurat",
+          "Kurir instan pengganti saat kapasitas reguler penuh",
+          "3–4× tarif normal",
         ],
         [
-          "Persentil data historis + rasio kritis",
-          "Kumpulkan data lonjakan 2–3 tahun, hitung rasio kritis, arahkan buffer ke persentil yang sesuai",
-          "Butuh disiplin mencatat data tiap musim dan memperbarui estimasi ongkos",
+          "Cu: rata-rata tertimbang (dipakai sebagai Cu)",
+          "Gabungan kedua skenario kekurangan di atas, tertimbang frekuensi kejadian",
+          "≈Rp90.000/order",
+        ],
+        [
+          "Co: sewa truk nganggur",
+          "Tarif sewa harian dibayar penuh meski truk tidak beroperasi",
+          "Rp900.000/truk/hari",
+        ],
+        [
+          "Co: per order (dipakai sebagai Co)",
+          "Ongkos sewa truk dibagi kapasitas 40 order/truk",
+          "≈Rp22.500/order",
+        ],
+      ],
+    },
+    {
+      type: "table",
+      caption: "Rasio kritis dan target service level",
+      head: ["Sel", "Formula", "Nilai"],
+      rows: [
+        ["Cu (ongkos kekurangan/order)", "input", "Rp90.000"],
+        ["Co (ongkos kelebihan/order)", "input", "Rp22.500"],
+        ["Rasio kritis (CR)", "Cu ÷ (Cu + Co)", "90.000 ÷ 112.500 = 0,80"],
+        ["Target service level", "CR dikonversi ke persentil", "P80"],
+      ],
+    },
+    {
+      type: "p",
+      text: "Rasio kritis 0,80 mengarah ke persentil ke-80, yang pada data lima musim di atas sama dengan 71%, bukan rata-rata (69%) dan bukan skenario terburuk (109%). Begitu target service level dan angka lonjakannya diketahui, langkah berikutnya menerjemahkannya ke volume harian dan jumlah truk.",
+    },
+    {
+      type: "table",
+      caption: "Dari persentil ke jumlah truk tambahan",
+      head: ["Item", "Formula", "Nilai"],
+      rows: [
+        ["Baseline harian", "data historis", "1.150 order/hari"],
+        [
+          "Target buffer (P80)",
+          "baseline × (1 + 71%)",
+          "1.150 × 1,71 = 1.966,5 → dibulatkan ke 2.000 order/hari agar pas kelipatan 40 order/truk",
+        ],
+        ["Kapasitas inti (armada + kontrak tetap)", "kapasitas maksimum harian tanpa tambahan", "1.400 order/hari"],
+        ["Kapasitas tambahan dibutuhkan", "target buffer − kapasitas inti", "≈600 order/hari"],
+        ["Setara jumlah truk", "600 ÷ 40 order/truk", "15 truk"],
+      ],
+    },
+    {
+      type: "h2",
+      id: "lead-time-vendor",
+      text: "Komponen 3: Lead Time Vendor Menentukan Kapan Angka Ini Harus Dikunci",
+    },
+    {
+      type: "p",
+      text: "Angka buffer di atas hanya berguna kalau dikunci sebelum subkontraktor terikat komitmen dengan pemain lain. Begitu slot mereka sudah dipesan pihak lain yang lebih dulu bergerak, daya tawar untuk negosiasi kapasitas fleksibel hilang.",
+    },
+    {
+      type: "table",
+      caption: "Jendela waktu penguncian kapasitas (ilustratif, sesuaikan dengan siklus komitmen vendor sendiri)",
+      head: ["Waktu relatif terhadap window musim puncak", "Aktivitas"],
+      rows: [
+        ["H-8 minggu", "Kunci kontrak kapasitas fleksibel (biaya siaga) untuk buffer inti"],
+        ["H-6 minggu", "Informasikan kuota dan cutoff pemesanan ke customer volume besar"],
+        ["H-4 minggu", "Tinjau tren pemesanan awal, sesuaikan estimasi bila perlu"],
+        ["H-2 minggu", "Konfirmasi ulang jumlah truk siaga final ke subkontraktor"],
+        ["H-3 hari", "Batas terakhir revisi kapasitas ke customer prioritas bila lonjakan melebihi buffer"],
+      ],
+    },
+    {
+      type: "p",
+      text: "Delapan minggu bukan angka sembarang: itu kira-kira waktu yang dibutuhkan subkontraktor mengatur ulang komitmen dengan mitra lain tanpa harus membatalkan kontrak yang sudah berjalan. Mengunci lebih lambat dari itu biasanya berarti memilih dari sisa kapasitas yang tidak diambil pemain lain.",
+    },
+    {
+      type: "h2",
+      id: "kapasitas-tetap-vs-fleksibel",
+      text: "Komponen 4: Kapasitas Tetap vs Kapasitas Fleksibel",
+    },
+    {
+      type: "p",
+      text: "Menyewa penuh gap kapasitas antara kapasitas inti dan target buffer punya konsekuensi: begitu realisasi lonjakan datang di bawah target (seperti empat dari lima musim pada data di atas), sebagian besar sewa itu berakhir jadi biaya tanpa hasil. Kontrak kapasitas fleksibel mengubah struktur ongkos itu: biaya siaga kecil untuk menahan slot, tarif penuh hanya pada hari truk benar-benar ditarik ke lapangan.",
+    },
+    {
+      type: "table",
+      caption: "Sewa penuh vs skema siaga, 10 truk cadangan selama 20 hari window (contoh perhitungan, angka disederhanakan)",
+      head: ["Skema", "Formula", "Total ilustratif"],
+      rows: [
+        ["Sewa penuh", "10 truk × Rp900.000 × 20 hari", "Rp180.000.000, dibayar penuh apa pun realisasinya"],
+        ["Biaya siaga (tahan slot)", "10 truk × Rp150.000 × 20 hari", "Rp30.000.000"],
+        [
+          "Siaga + realisasi rendah (4 truk × 5 hari terpakai)",
+          "Rp30.000.000 + (4 × 5 × Rp900.000)",
+          "Rp30.000.000 + Rp18.000.000 = Rp48.000.000",
         ],
       ],
     },
     {
       type: "p",
-      text: "Pendekatan ketiga tidak bebas dari kesalahan. Bedanya, kesalahannya bisa dijelaskan angkanya dan diperbaiki musim berikutnya.",
+      text: "Pada skenario realisasi rendah di atas, skema siaga berakhir sekitar seperempat dari biaya sewa penuh, bukan karena kapasitasnya lebih sedikit, tapi karena ongkos kelebihan (Co) yang dibayar untuk hari-hari tidak terpakai jauh lebih kecil.",
     },
     {
       type: "h2",
-      id: "kontrak-kapasitas-fleksibel",
-      text: "Kontrak Kapasitas Fleksibel: Bayar Murah untuk Siaga, Bayar Penuh Kalau Dipakai",
+      id: "titik-impas-tetap-vs-fleksibel",
+      text: "Komponen 5: Titik Impas Antara Sewa Penuh dan Skema Siaga",
     },
     {
       type: "p",
-      text: "Gap antara buffer yang dikomit penuh (71%, sekitar 2.000 order/hari) dan skenario ekstrem (109%, sekitar 2.400 order/hari) sekitar 400 order per hari, setara 10 truk. Menyewa penuh kapasitas sebesar itu untuk skenario yang cuma terjadi sekali dalam lima kali jelas mahal. Di sinilah kontrak kapasitas fleksibel jadi masuk akal.",
+      text: "Skema siaga tidak selalu lebih murah. Pada tingkat pemakaian tertentu, membayar biaya siaga di atas tarif penuh justru melebihi biaya sewa penuh dari awal. Titik impas itu bisa dihitung dari angka yang sama dengan tabel sebelumnya.",
     },
     {
-      type: "p",
-      text: "Bentuknya sederhana: alih-alih menyewa truk penuh Rp900.000/hari untuk seluruh window, negosiasikan biaya siaga sekitar Rp150.000/truk/hari sebagai kompensasi subkontraktor menahan slotnya untuk Anda. Truk baru dikenakan tarif penuh pada hari ia benar-benar ditarik ke lapangan.",
-    },
-    {
-      type: "callout",
-      tone: "example",
-      title: "Skema Siaga untuk 10 Truk Cadangan",
-      body: "Bandingkan dua skema untuk 10 truk cadangan selama 20 hari window Harbolnas. Skema sewa penuh: 10 × Rp900.000 × 20 hari = Rp180 juta, dibayar penuh apa pun realisasinya. Skema siaga: 10 truk × Rp150.000 × 20 hari = Rp30 juta biaya siaga, ditambah tarif penuh hanya untuk truk-hari yang ditarik. Kalau realisasinya cuma 4 truk selama 5 hari puncak (20 truk-hari), totalnya Rp30 juta + Rp18 juta = Rp48 juta, sekitar seperempat dari skema sewa penuh.",
-    },
-    {
-      type: "p",
-      text: "Catatan lima musim di atas menjelaskan insiden Harbolnas 2025 lebih tepat: buffer 15 truk yang disewa saat itu sebetulnya sudah dekat rasio kritis yang benar. Yang keliru adalah bentuk komitmennya: seluruhnya disewa penuh, padahal skema siaga akan membuat realisasi rendah seperti itu jauh lebih murah ditanggung.",
-    },
-    {
-      type: "h2",
-      id: "prinsip-yang-sama-untuk-gudang",
-      text: "Prinsip yang Sama Berlaku untuk Tenaga Gudang",
-    },
-    {
-      type: "p",
-      text: "Gudang Semarang di awal cerita ini kewalahan karena dua sebab sekaligus: truk terlambat datang, dan tenaga picking-packing hariannya tidak ditambah cukup jauh-jauh hari.",
-    },
-    {
-      type: "p",
-      text: "Tenaga kerja harian menanggung ongkos yang sama: kalau kurang, order menumpuk dan molor; kalau lebih, upah harian tetap dibayar penuh meski jam kerja dihabiskan menunggu barang dari truk yang telat. Rasio kritis yang sama berlaku, hanya unitnya berubah dari truk per hari menjadi tenaga kerja per shift.",
-    },
-    {
-      type: "p",
-      text: "Bedanya, kapasitas tenaga kerja lebih gampang dilipat: agen penyalur bisa menyediakan tambahan dalam hitungan hari, jauh lebih cepat dibanding truk yang perlu dikoordinasikan lintas subkontraktor berminggu-minggu sebelumnya. Buffer inti gudang bisa dipasang dekat rata-rata historis, sementara ekstra untuk skenario ekstrem dipesan belakangan begitu tren mingguan mulai terlihat.",
-    },
-    {
-      type: "h2",
-      id: "komunikasi-kapasitas-ke-customer",
-      text: "Mengabari Customer Sebelum Mereka Bertanya Sendiri",
-    },
-    {
-      type: "p",
-      text: "Buffer yang dihitung cermat masih bisa kebobolan kalau customer tidak pernah diberi tahu batasnya. Kapasitas 2.000 order per hari yang dikunci untuk Harbolnas 2026 perlu sampai ke customer besar jauh-jauh hari, idealnya delapan minggu sebelum window puncak dimulai.",
-    },
-    {
-      type: "ul",
-      items: [
-        "**Tetapkan cutoff pemesanan.** Order yang masuk setelah H-14 sebelum window puncak otomatis masuk antrean prioritas kedua, dengan estimasi kirim yang sudah disesuaikan.",
-        "**Bagi kuota berdasarkan proporsi historis.** Customer dengan volume rutin 20% dari kapasitas Anda mendapat jaminan proporsi yang sama dari buffer, dikunci sejak awal agar tidak jadi rebutan.",
-        "**Perpanjang SLA khusus musim puncak.** SLA normal 1–2 hari diperpanjang jadi 2–4 hari selama window resmi, dikomunikasikan sebagai kebijakan tertulis sejak awal musim.",
-        "**Kabari revisi lebih awal.** Begitu ada indikasi lonjakan melebihi buffer, informasikan customer prioritas paling lambat tiga hari sebelum dampaknya terasa.",
+      type: "table",
+      caption: "Menghitung titik impas utilisasi (ilustratif, dari angka pada bagian sebelumnya)",
+      head: ["Sel", "Formula", "Nilai"],
+      rows: [
+        ["Total biaya sewa penuh (10 truk, 20 hari)", "10 × 20 × Rp900.000", "Rp180.000.000"],
+        ["Biaya siaga tetap", "10 × 20 × Rp150.000", "Rp30.000.000"],
+        ["Sisa anggaran untuk truk-hari terpakai", "Rp180.000.000 − Rp30.000.000", "Rp150.000.000"],
+        ["Truk-hari terpakai pada titik impas", "Rp150.000.000 ÷ Rp900.000", "≈166,7 truk-hari"],
+        ["Total truk-hari tersedia", "10 truk × 20 hari", "200 truk-hari"],
+        ["Utilisasi pada titik impas", "166,7 ÷ 200", "≈83%"],
       ],
     },
     {
       type: "p",
-      text: "Empat langkah ini tidak menambah satu unit kapasitas pun. Yang berubah cuma ekspektasi customer, dan ekspektasi realistis sejak awal jauh lebih murah dijaga ketimbang kepercayaan yang sudah terlanjur pecah.",
+      text: "Kalau realisasi pemakaian buffer historis biasanya di bawah 83% dari kapasitas cadangan, skema siaga lebih murah. Kalau catatan historisnya justru sering di atas angka itu (misalnya buffer yang dikunci nyaris selalu habis terpakai), sewa penuh mulai sepadan, dan biaya siaga tambahan cuma jadi lapisan ongkos ekstra yang tidak perlu.",
     },
     {
       type: "h2",
-      id: "menjadikan-proses-tahunan",
-      text: "Menjadikan Ini Proses Tahunan, Bukan Tebakan Ulang Tiap Musim",
+      id: "menerapkan-ke-tenaga-gudang",
+      text: "Metode yang Sama, Satuan Berbeda: Tenaga Kerja Gudang",
     },
     {
       type: "p",
-      text: "Tiga hal perlu diulang tiap tahun, idealnya delapan minggu sebelum window musim puncak berikutnya: masukkan data musim yang baru lewat ke distribusi historis, tinjau ulang estimasi Cu dan Co karena tarif bisa berubah, lalu hitung ulang rasio kritis beserta target persentilnya.",
+      text: "Rasio kritis yang sama berlaku untuk tenaga kerja gudang, hanya satuannya berganti.",
+    },
+    {
+      type: "table",
+      caption: "Memetakan variabel armada ke variabel tenaga kerja gudang",
+      head: ["Variabel armada", "Padanan tenaga kerja gudang"],
+      rows: [
+        ["Truk/hari", "Tenaga kerja/shift"],
+        ["Co = sewa truk nganggur dibayar penuh", "Co = upah harian dibayar penuh meski jam kerja dihabiskan menunggu barang"],
+        ["Cu = kredit SLA dan reroute darurat", "Cu = order menumpuk dan molor kirim"],
+        ["Lead time vendor ≈ 8 minggu", "Lead time agen penyalur tenaga kerja ≈ hitungan hari"],
+      ],
     },
     {
       type: "p",
-      text: "Pantau dua angka untuk menandai apakah proses ini berjalan benar. Pertama, service level yang tercapai dibanding persentil yang ditargetkan: kalau targetnya P80 tapi keterlambatan tetap tinggi, ongkos kekurangan kemungkinan dihitung terlalu rendah. Kedua, tingkat pemakaian buffer yang sudah dikomit: kalau truk siaga nyaris tidak pernah ditarik tiga musim berturut-turut, target persentilnya kemungkinan kelewat tinggi, dan sebagian komitmen bisa digeser ke skema siaga yang lebih murah.",
+      text: "Karena lead time-nya jauh lebih pendek, buffer inti tenaga gudang bisa dipasang dekat rata-rata historis, bukan P80, sementara tambahan untuk skenario ekstrem baru dipesan begitu tren mingguan mulai terlihat. Buffer armada, sebaliknya, harus dikunci lebih awal karena lead time-nya yang panjang tidak memberi ruang koreksi mendadak.",
     },
     {
-      type: "quote",
-      text: "Kapasitas yang menganggur kelihatan jelas di laporan biaya bulan berikutnya. Customer yang diam-diam pindah karena kecewa musim lalu tidak pernah muncul di laporan mana pun, sampai omzetnya ikut hilang.",
+      type: "h2",
+      id: "menerapkan-ke-data-sendiri",
+      text: "Template Kosong untuk Data Sendiri",
+    },
+    {
+      type: "p",
+      text: "Baris-baris berikut bisa disalin langsung ke spreadsheet kosong. Setiap baris menunjukkan apa yang perlu diisi, bukan hasil akhirnya, hasilnya baru muncul setelah data historis sendiri dimasukkan.",
+    },
+    {
+      type: "table",
+      caption: "Kerangka perhitungan yang bisa disalin ke spreadsheet sendiri",
+      head: ["Baris", "Yang perlu diisi"],
+      rows: [
+        [
+          "Lonjakan tiap musim (3–5 musim terakhir)",
+          "Persentase kenaikan volume harian dibanding rata-rata non-musiman, satu musim per baris",
+        ],
+        ["Rata-rata dan simpangan baku", "Dihitung otomatis dari baris di atas dengan fungsi AVERAGE dan STDEV.P"],
+        ["Cu per unit (order atau shipment)", "Jumlahkan komponen ongkos kekurangan yang relevan dengan kontrak dan SLA sendiri"],
+        ["Co per unit", "Ongkos sewa atau upah harian dibagi kapasitas per unit tenaga atau aset"],
+        ["Rasio kritis", "Cu ÷ (Cu + Co)"],
+        ["Target persentil", "Bulatkan rasio kritis ke desimal terdekat, sesuaikan dengan jumlah data (lihat metode peringkat terdekat)"],
+        ["Volume target", "Baseline harian × (1 + persentase pada target persentil)"],
+        ["Kapasitas tambahan dibutuhkan", "Volume target − kapasitas inti yang sudah tersedia"],
+      ],
+    },
+    {
+      type: "h2",
+      id: "memantau-akurasi",
+      text: "Dua Angka untuk Memantau Apakah Perhitungan Ini Masih Akurat",
+    },
+    {
+      type: "p",
+      text: "Perhitungan di atas bukan sekali hitung lalu selesai. Dua indikator berikut menandai apakah asumsi Cu, Co, dan target persentilnya masih sesuai kenyataan lapangan setelah satu musim berlalu.",
+    },
+    {
+      type: "table",
+      caption: "Dua indikator untuk dievaluasi setelah musim lewat",
+      head: ["Indikator", "Cara hitung", "Kalau meleset, artinya"],
+      rows: [
+        [
+          "Service level tercapai vs target",
+          "% order terlayani sesuai janji, dibandingkan target persentil",
+          "Kalau target P80 tapi keterlambatan tetap tinggi, Cu kemungkinan dihitung terlalu rendah",
+        ],
+        [
+          "Utilisasi buffer yang dikomit",
+          "Truk atau tenaga siaga yang benar-benar ditarik ÷ total yang dikomit",
+          "Kalau nyaris tidak pernah ditarik tiga musim berturut-turut, target persentil kemungkinan kelewat tinggi",
+        ],
+      ],
+    },
+    {
+      type: "p",
+      text: "Idealnya, dua angka ini ditinjau delapan minggu sebelum window musim puncak berikutnya: musim yang baru lewat ditambahkan ke tabel sebaran, Cu dan Co ditinjau ulang karena tarif bisa berubah, dan rasio kritis beserta target persentilnya dihitung ulang dari sana. Prosesnya sama tiap tahun; yang berbeda cuma satu baris data baru yang ditambahkan.",
     },
   ],
   faq: [
     {
-      q: "Berapa lama sebelum musim puncak, kontrak kapasitas fleksibel sebaiknya sudah dikunci?",
-      a: "Idealnya delapan minggu sebelum window musim puncak dimulai. Subkontraktor butuh waktu mengatur ulang komitmen dengan mitra lain, dan begitu mereka terikat kontrak dengan pemain lain yang lebih dulu booking, negosiasi Anda kehilangan daya tawar.",
+      q: "Kalau data historis cuma tersedia untuk satu atau dua musim, bagaimana cara menghitung rasio kritis dan persentilnya?",
+      a: "Rumus rasio kritisnya (Cu ÷ (Cu + Co)) tetap sama karena itu murni perbandingan ongkos, tidak bergantung jumlah data historis. Yang berubah adalah keandalan estimasi persentilnya: dengan satu atau dua titik data, metode peringkat terdekat tidak banyak berarti, jadi pertimbangkan melengkapi dengan benchmark dari platform e-commerce atau asosiasi logistik yang biasa mempublikasikan pola kenaikan volume musiman, lalu pasang buffer sedikit konservatif di tahun pertama sambil data milik sendiri terkumpul.",
     },
     {
-      q: "Apakah rumus rasio kritis yang sama berlaku untuk tenaga kerja gudang, bukan cuma armada?",
-      a: "Berlaku, prinsipnya sama persis. Yang berbeda cuma unit kapasitasnya: truk per hari jadi tenaga kerja per shift, dan ongkos kelebihannya jadi upah harian yang tetap dibayar meski jam kerja dihabiskan menunggu barang.",
-    },
-    {
-      q: "Bagaimana kalau perusahaan baru berjalan dan data historisnya cuma satu tahun?",
-      a: "Pakai data historis internal semampu yang tersedia, lengkapi dengan benchmark dari platform e-commerce atau asosiasi logistik yang biasa mempublikasikan pola kenaikan volume musiman. Pasang buffer sedikit konservatif di tahun pertama, lalu revisi begitu data milik sendiri terkumpul.",
-    },
-    {
-      q: "Apakah menargetkan service level setinggi mungkin, misalnya P95 ke atas, selalu pilihan paling aman?",
-      a: "Tidak selalu. Target service level ditentukan oleh rasio kritis, perbandingan ongkos kekurangan dengan ongkos kelebihan. Menaikkannya ke P95 tanpa menghitung ulang rasio itu sering berakhir jadi keputusan paling boros, meski kelihatannya paling aman di atas kertas.",
+      q: "Kenapa tidak langsung memakai angka lonjakan tertinggi yang pernah tercatat sebagai buffer, supaya paling aman?",
+      a: "Karena target service level ditentukan oleh rasio kritis, bukan oleh titik data paling ekstrem. Pada contoh perhitungan di atas, rasio kritisnya 0,80, mengarah ke P80 (71%), bukan P100 (109%). Memasang buffer setinggi skenario ekstrem berarti membayar ongkos kelebihan penuh di hampir semua musim lain, hanya untuk menutup satu kejadian yang jarang berulang, secara hitungan bukan pilihan paling murah, meski kelihatan paling aman di atas kertas.",
     },
   ],
+  cta: {
+    title: "Hitung Ongkos Kelebihan (Co) Truk Sendiri",
+    body: "Rasio kritis pada tulisan ini bergantung penuh pada angka Co yang akurat, bukan taksiran kasar Rp900.000/hari seperti pada contoh perhitungan di atas. Masukkan BBM, gaji sopir, perawatan, dan penyusutan armada ke kalkulator biaya operasional truk untuk mendapatkan angka Co sendiri sebelum menghitung ulang buffer musim puncak berikutnya.",
+    linkHref: "/alat/biaya-operasional-truk",
+    linkLabel: "Buka Kalkulator Biaya Operasional Truk",
+  },
+  byline: {
+    author: "Tim Editorial CargoGrid",
+    note: "Ditulis dari pola perhitungan kapasitas musim puncak yang lazim dipakai tim operasional freight forwarding dan gudang 3PL di Indonesia; angka pada contoh perhitungan bersifat ilustratif, bukan data satu perusahaan tertentu.",
+  },
   related: [
     "negosiasi-tarif-tahunan-kontrak-shipper",
     "manajemen-vendor-subkontraktor",
-    "slotting-tata-letak-gudang-produktivitas-picking",
+    "kpi-operasional-logistik",
   ],
-  relatedTools: ["kalkulator-muatan-truk", "jenis-truk-indonesia"],
+  relatedTools: ["biaya-operasional-truk", "kalkulator-muatan-truk"],
 };

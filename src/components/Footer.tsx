@@ -78,8 +78,8 @@ export default function Footer() {
             <Logo size="md" />
             <p className="text-xs text-slate-600 font-semibold leading-relaxed max-w-sm mt-2">
               {isEn
-                ? "CargoGrid is a logistics platform connecting customer requests, quotes, shipment operations, warehousing, delivery proof, billing, and reports into a single workspace."
-                : "CargoGrid adalah platform logistik yang menghubungkan permintaan customer, penawaran, operasional pengiriman, gudang, bukti kirim, tagihan, dan laporan dalam satu ruang kerja."}
+                ? "CargoGrid helps freight forwarders and 3PL providers run a shipment job, from quotation to billing, in one workspace."
+                : "CargoGrid membantu forwarder dan penyedia 3PL mengelola satu pekerjaan pengiriman, dari penawaran hingga tagihan, dalam satu ruang kerja."}
             </p>
           </div>
 
@@ -202,7 +202,7 @@ export default function Footer() {
               said at length. */}
           <div className="text-center sm:text-left">
             &copy; {new Date().getFullYear()} CargoGrid. All Rights Reserved
-            <span className="hidden sm:inline"> &bull; Configurable Logistics Platform.</span>
+            <span className="hidden sm:inline"> &bull; Freight, Warehouse &amp; Trucking Software.</span>
           </div>
           {/* Two layouts, because a separated inline row cannot wrap cleanly at
               phone widths. Whichever element the break lands on either strands

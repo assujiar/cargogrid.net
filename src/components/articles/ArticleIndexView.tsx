@@ -34,8 +34,10 @@ export default function ArticleIndexView() {
           </h1>
           <p className="mt-6 text-base leading-[1.8] text-slate-600 sm:text-lg">
             Tulisan teknis tentang hal yang jarang masuk brosur: ke mana margin bocor, kenapa POD telat pulang, dan apa
-            yang benar benar berubah ketika sebuah proses didigitalkan. Setiap tulisan berangkat dari prinsip yang bisa
-            diperiksa, lalu diuji pada kasus lapangan.
+            yang benar benar berubah ketika sebuah proses didigitalkan. Bentuknya sengaja tidak seragam: Catatan
+            Lapangan, Checklist Audit, Data Breakdown, Regulatory Explainer, Teardown Kasus, Tanya Jawab, sampai Opini,
+            karena tiap masalah logistik punya cara paling jujur untuk dibedah, bukan satu formula yang dipaksakan ke
+            semuanya.
           </p>
         </header>
 
@@ -79,7 +81,14 @@ export default function ArticleIndexView() {
                         </div>
 
                         <div className="flex flex-1 flex-col p-6">
-                          <div className="mb-3 flex items-center gap-3 font-mono text-[10px] font-bold text-slate-500">
+                          <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[10px] font-bold text-slate-500">
+                            {/* Genre tag, not another category label: the grid mixes
+                                Catatan Lapangan, Checklist Audit, Data Breakdown, and
+                                other formats, and the card should say so plainly rather
+                                than let every piece read as the same kind of writeup. */}
+                            <span className="rounded-full border border-slate-300/70 px-2.5 py-1 uppercase tracking-[0.08em]">
+                              {item.format}
+                            </span>
                             <span className="inline-flex items-center gap-1.5">
                               <Clock className="h-3 w-3" />
                               {readingMinutes(item)} menit

@@ -31,9 +31,53 @@ export interface ArticleFaq {
  */
 export type ArticleLayout = "feature" | "essay" | "brief" | "dossier" | "primer";
 
+/**
+ * Editorial genre — a second, independent axis from `layout`. `layout` picks the
+ * visual shell; `format` picks the writing shape (what the piece structurally
+ * does: walk a checklist, work through numbers, explain a regulation, answer
+ * recurring questions). Twenty-five pieces sharing one writing shape read as
+ * mass-produced no matter how the page around them looks, so every article
+ * declares this explicitly instead of defaulting to the same case-study essay.
+ */
+export type ArticleFormat =
+  | "Catatan Lapangan"
+  | "Checklist Audit"
+  | "Data Breakdown"
+  | "Regulatory Explainer"
+  | "Teardown Kasus"
+  | "Tanya Jawab"
+  | "Opini";
+
+/**
+ * Every article closes with its own next step instead of one CTA block shared
+ * verbatim by all 25 pieces. `linkHref` is intentionally a plain string rather
+ * than a union of route literals: it may point at a tool, another article, or
+ * `/kontak`, and validating it against the tool/article registries would
+ * recreate the same import-cycle problem `relatedTools` already documents.
+ */
+export interface ArticleCta {
+  title: string;
+  body: string;
+  linkHref: string;
+  linkLabel: string;
+}
+
+/**
+ * Visible attribution. `author` is constant sitewide (CargoGrid has no
+ * individual bylines to attach yet), `note` is the one per-article sentence
+ * that says where the piece's judgment actually comes from — never a filled-in
+ * template, since that would be the exact synthetic-authority problem this
+ * field exists to avoid.
+ */
+export interface ArticleByline {
+  author: string;
+  note: string;
+}
+
 export interface Article {
   slug: string;
   layout: ArticleLayout;
+  format: ArticleFormat;
   /** H1 and social title. */
   title: string;
   /** Browser/SERP title. Kept separate so it can carry the brand suffix without bloating the H1. */
@@ -50,6 +94,9 @@ export interface Article {
   blocks: Block[];
   /** Feeds the per-article FAQPage JSON-LD as well as an on-page section. */
   faq?: ArticleFaq[];
+  /** Closing next-step. Replaces the one identical "free audit" CTA every piece used to share. */
+  cta: ArticleCta;
+  byline: ArticleByline;
   /** Slugs of related pieces. Validated at module load — see index.ts. */
   related: string[];
   /**
@@ -112,6 +159,8 @@ export function countWords(article: Article): number {
   }
 
   for (const item of article.faq || []) parts.push(item.q, item.a);
+
+  parts.push(article.cta.title, article.cta.body, article.byline.note);
 
   return parts.join(" ").split(/\s+/).filter(Boolean).length;
 }

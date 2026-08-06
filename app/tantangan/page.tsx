@@ -5,7 +5,7 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/tantangan",
-  title: "Tantangan Operasional Logistik — Excel, WhatsApp & POD Terlambat | CargoGrid OS",
+  title: "Tantangan Operasional Logistik - Excel, WhatsApp & POD Terlambat | CargoGrid OS",
   description:
     "RFQ tercecer di WhatsApp, rate vendor manual di Excel, dan POD fisik yang telat menahan invoice berminggu-minggu. Lihat kebocoran operasional nyata dan bandingkan alur kerja lama vs. CargoGrid.",
   keywords: [

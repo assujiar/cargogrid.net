@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Kalkulator Biaya Operasional Truk: Cost per KM, per Rit, dan per Ton-KM",
   metaTitle: "Kalkulator Biaya Operasional Truk: Cost per KM & Harga Jual Minimum | CargoGrid",
   description:
-    "Hitung biaya sesungguhnya satu unit truk: biaya tetap, bahan bakar, ban, tol, dan uang jalan, sampai ketemu biaya per km bermuatan, biaya per ton-km, dan harga jual minimum sesuai margin yang dituju.",
+    "Tarif yang Anda tawarkan sudah menutup biaya sebenarnya, atau baru terasa aman di atas kertas? Kalkulator ini menyusun biaya tetap, bahan bakar, dan uang jalan armada Anda menjadi satu angka pembanding: biaya per kilometer bermuatan.",
   keywords: [
     "cost per km truk",
     "biaya operasional truk per km",
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "harga pokok jasa angkutan",
   ],
   summary:
-    "Menentukan tarif tanpa tahu biaya sendiri adalah menebak dengan langkah tambahan. Kalkulator ini menyusun seluruh pos biaya satu unit, dari penyusutan sampai uang jalan, lalu mengubahnya menjadi angka yang bisa dipakai menjawab penawaran: biaya per rit, per kilometer bermuatan, per ton-km, dan harga jual minimum.",
+    "Menentukan tarif tanpa tahu biaya sendiri adalah menebak dengan langkah tambahan. Kalkulator ini menyusun komponen biaya utama satu unit, dari penyusutan sampai uang jalan, lalu mengubahnya menjadi titik awal untuk menjawab penawaran: biaya per rit, per kilometer bermuatan, per ton-km, dan harga jual minimum. Komponen yang sifatnya situasional, seperti rit kosong di luar pola yang dipilih, hari tidak beroperasi, overhead kantor, dan risiko rute, tetap perlu ditambahkan sendiri sebelum angkanya dipakai sebagai dasar penawaran.",
   searchIntents: [
     "Cara menghitung biaya operasional truk per kilometer",
     "Menentukan tarif angkutan darat yang tidak rugi",
@@ -217,7 +217,13 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Alat ini menghitung satu unit pada satu pola rute. Ia tidak tahu unit mana yang sebenarnya berangkat kemarin, berapa muatannya, berapa lama menunggu di gudang, dan berapa tol yang benar-benar dibayar. Angka yang dimasukkan ke sini adalah rata-rata, dan rata-rata selalu menyembunyikan lane yang merugi di balik lane yang menguntungkan.",
+      text: "Alat ini menghitung satu unit pada satu pola rute, berdasarkan asumsi yang Anda masukkan sendiri, bukan biaya final yang sudah menyerap setiap kondisi lapangan. Ia tidak tahu unit mana yang sebenarnya berangkat kemarin, berapa muatannya, berapa lama menunggu di gudang, dan berapa tol yang benar-benar dibayar. Angka yang dimasukkan ke sini adalah rata-rata, dan rata-rata selalu menyembunyikan lane yang merugi di balik lane yang menguntungkan.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Sebelum angkanya dipakai sebagai dasar penawaran",
+      body: "Beberapa komponen biasanya belum sepenuhnya tertangkap di sini dan tetap perlu ditambahkan sendiri: kilometer kosong di luar pola rute yang dipilih, hari tidak beroperasi yang tidak tercermin di faktor ketersediaan, overhead kantor yang belum masuk sebagai biaya tetap, dan buffer risiko rute seperti cuaca, pungutan tidak resmi, atau kemacetan musiman. Perlakukan hasil kalkulator ini sebagai titik awal, bukan angka jadi yang langsung dikirim ke pelanggan.",
     },
     {
       type: "p",

@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Kamus Istilah Logistik Indonesia",
   metaTitle: "Kamus Istilah Logistik: Arti SPPB, NPE, VGM, THC, Demurrage | CargoGrid",
   description:
-    "Seratus lima puluh istilah dan singkatan logistik Indonesia dengan penjelasan operasionalnya: kepabeanan, pelayaran, pergudangan, angkutan darat dan armada, tarif, serta indikator kinerja.",
+    "Ketemu singkatan seperti SPPB atau VGM di dokumen dan tidak yakin artinya? Kamus ini menjelaskan seratus lima puluh istilah logistik Indonesia, sekaligus kenapa masing-masing penting di lapangan.",
   keywords: [
     "istilah logistik",
     "singkatan logistik indonesia",
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "glosarium logistik",
   ],
   summary:
-    "Staf baru bertemu empat puluh singkatan dalam minggu pertamanya, dan setiap satunya adalah hal yang dianggap sudah semestinya diketahui, dan justru karena itu tidak ada yang bertanya. Kamus ini menjelaskan apa artinya sekaligus kenapa itu penting.",
+    "Seratus lima puluh istilah logistik Indonesia, disusun per kategori dan bisa disaring lewat pencarian. Tiap entri menjelaskan bukan cuma kepanjangannya, tapi kenapa istilah itu mengubah keputusan operasional sehari-hari.",
   searchIntents: [
     "Arti SPPB, NPE, PIB, dan PEB",
     "Kepanjangan VGM, THC, LSS, dan BAF",
@@ -46,17 +46,17 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Istilah yang tertukar berujung pada biaya yang salah dibebankan. Demurrage dan detention dipakai bergantian dalam percakapan sehari-hari, padahal pemicunya berbeda dan tim yang bisa memperbaikinya pun berbeda. Begitu keduanya ditumpuk ke satu akun bernama biaya pelabuhan, jejak akar masalahnya hilang, dan yang hilang bersamanya adalah kemungkinan memperbaikinya.",
+      text: "Istilah yang tertukar bisa berujung pada biaya yang salah dibebankan. Demurrage dan detention dipakai bergantian dalam percakapan sehari-hari, padahal pemicunya berbeda dan tim yang bisa memperbaikinya pun berbeda. Begitu keduanya ditumpuk ke satu akun bernama biaya pelabuhan, jejak akar masalahnya gampang hilang, dan kemungkinan memperbaikinya ikut menyempit.",
     },
     {
       type: "p",
-      text: "Pola yang sama berulang di banyak tempat. JBB dan JBI terdengar mirip tetapi hanya satu yang menentukan pelanggaran di jembatan timbang. FIFO dan FEFO memberi hasil berbeda untuk barang bertanggal kedaluwarsa. Berat volumetrik dan chargeable weight bukan hal yang sama. Setiap pasangan itu adalah tempat uang berpindah tanpa ada yang memutuskannya.",
+      text: "Pola yang sama berulang di banyak tempat. JBB dan JBI terdengar mirip tetapi hanya satu yang menentukan pelanggaran di jembatan timbang. FIFO dan FEFO memberi hasil berbeda untuk barang bertanggal kedaluwarsa. Berat volumetrik dan chargeable weight bukan hal yang sama. Setiap pasangan itu berpotensi jadi tempat uang berpindah tanpa ada yang benar-benar memutuskannya.",
     },
   ],
   faq: [
     {
       q: "Apa itu SPPB dalam proses impor?",
-      a: "Surat Persetujuan Pengeluaran Barang, yaitu persetujuan yang memperbolehkan barang impor keluar dari kawasan pabean. Ini tonggak paling menentukan dalam perlombaan melawan free time, karena sebelum SPPB terbit truk sama sekali tidak boleh mengambil kontainer.",
+      a: "Surat Persetujuan Pengeluaran Barang, yaitu persetujuan yang memperbolehkan barang impor keluar dari kawasan pabean. Ini salah satu tonggak paling menentukan dalam perlombaan melawan free time, karena sebelum SPPB terbit truk sama sekali tidak boleh mengambil kontainer.",
     },
     {
       q: "Apa beda demurrage, detention, dan storage?",

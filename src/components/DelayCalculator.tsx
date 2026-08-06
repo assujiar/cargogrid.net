@@ -11,11 +11,12 @@ export default function DelayCalculator() {
   const [shipments, setShipments] = useState(1200);
   const [hoursWasted, setHoursWasted] = useState(4);
   const [laborRate, setLaborRate] = useState(50000);
+  const [recoveryRate, setRecoveryRate] = useState(65);
 
   const isEn = lang === 'en';
 
-  // Constants for estimation
-  const AVERAGE_INVOICE_VALUE = 3000000; // Rp 3.000.000 average shipment value
+  // Assumption for estimation purposes (not a measured/verified figure)
+  const ASSUMED_AVERAGE_INVOICE_VALUE = 3000000; // Rp 3.000.000 assumed average shipment value
 
   // Calculated variables
   const monthlyHoursWasted = shipments * hoursWasted;
@@ -23,10 +24,10 @@ export default function DelayCalculator() {
   const annualCostWasted = monthlyCostWasted * 12;
 
   // Capital frozen in DSO (Assuming average POD delay is 14 days)
-  const frozenCapital = shipments * AVERAGE_INVOICE_VALUE * (14 / 30);
+  const frozenCapital = shipments * ASSUMED_AVERAGE_INVOICE_VALUE * (14 / 30);
 
-  // CargoGrid savings (90% recovery of operational leakage)
-  const potentialSavings = annualCostWasted * 0.9;
+  // CargoGrid savings based on the user-adjustable recovery rate assumption (slider 4 below)
+  const potentialSavings = annualCostWasted * (recoveryRate / 100);
 
   // Helper to format currency to IDR
   const formatIDR = (num: number) => {
@@ -61,7 +62,7 @@ export default function DelayCalculator() {
               {isEn ? (
                 "How much of your profit margin and company cash flow is trapped due to slow paper POD circulation and manual re-keying? Calculate your leakage now."
               ) : (
-                "Berapa banyak profit margin dan arus kas perusahaan Anda yang tersangkut karena lambatnya sirkulasi bukti POD fisik dan input ganda? Hitung kebocorannya sekarang harian."
+                "Berapa banyak profit margin dan arus kas perusahaan Anda yang tersangkut karena lambatnya sirkulasi bukti POD fisik dan input ganda? Hitung kebocorannya sekarang."
               )}
             </p>
           </div>
@@ -160,6 +161,39 @@ export default function DelayCalculator() {
               </div>
             </div>
 
+            {/* Slider 4: Recovery rate assumption */}
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-between items-center font-mono text-xs">
+                <span className="text-slate-500 font-bold">{isEn ? "Assumed Recovery Rate:" : "Asumsi Tingkat Pemulihan:"}</span>
+                <span className="text-brand-teal font-black nm-deboss-sm px-3 py-1.5 rounded-xl bg-white/40">
+                  {recoveryRate}%
+                </span>
+              </div>
+              <input
+                type="range"
+                min="40"
+                max="90"
+                step="5"
+                id="recovery-rate"
+                name="recovery-rate"
+                aria-label={isEn ? "Assumed recovery rate" : "Asumsi tingkat pemulihan"}
+                value={recoveryRate}
+                onChange={(e) => setRecoveryRate(parseInt(e.target.value))}
+                className="w-full h-2.5 rounded-lg cursor-pointer accent-brand-teal border-0"
+              />
+              <div className="flex justify-between text-[10px] text-slate-500 font-mono font-bold">
+                <span>{isEn ? "40% (Conservative)" : "40% (Konservatif)"}</span>
+                <span>{isEn ? "90% (Aggressive)" : "90% (Agresif)"}</span>
+              </div>
+              <p className="text-[10px] text-slate-400 font-semibold leading-relaxed mt-1">
+                {isEn ? (
+                  "*This is your own assumption for how much of the leakage above CargoGrid could help you recover, adjust it up or down. It is not a guaranteed outcome."
+                ) : (
+                  "*Ini adalah asumsi Anda sendiri soal seberapa besar kebocoran di atas yang berpotensi dipulihkan dengan bantuan CargoGrid, sesuaikan sesuai keyakinan Anda. Bukan hasil yang dijamin."
+                )}
+              </p>
+            </div>
+
           </div>
 
           {/* Right Column: Visualized Financial Results (Slightly wider for asymmetric look) */}
@@ -219,6 +253,13 @@ export default function DelayCalculator() {
                     "Modal kerja aktif yang mandek di jalan yang seharusnya bisa segera ditagihkan jika dokumen bukti kirim POD diserahkan instan di hari yang sama."
                   )}
                 </p>
+                <p className="text-[10px] text-slate-400 font-semibold mt-1 leading-relaxed">
+                  {isEn ? (
+                    "*Estimated using an assumed average invoice value of Rp 3.000.000 per shipment for illustration, not a measured company average."
+                  ) : (
+                    "*Menggunakan asumsi nilai invoice rata-rata Rp 3.000.000 per pengiriman sebagai ilustrasi, bukan angka rata-rata terukur perusahaan."
+                  )}
+                </p>
               </motion.div>
             </div>
 
@@ -242,9 +283,9 @@ export default function DelayCalculator() {
                   </div>
                   <p className="text-[11px] text-slate-600 font-semibold mt-1.5 leading-relaxed">
                     {isEn ? (
-                      "CargoGrid recovers up to 90% of administrative overhead by eliminating redundant data entry and triggering automated invoice sequences upon ePOD submission."
+                      <>Estimate based on the {recoveryRate}% recovery assumption you selected above. CargoGrid helps eliminate redundant data entry and triggers automated invoice sequences upon ePOD submission &mdash; actual recovery varies by operation and is not guaranteed.</>
                     ) : (
-                      "CargoGrid memulihkan hingga 90% jam kerja administratif dengan mengalirkan data tanpa ketik ulang dan memicu penagihan invoice otomatis begitu ePOD terupload."
+                      <>Estimasi berdasarkan asumsi tingkat pemulihan {recoveryRate}% yang Anda pilih di atas. CargoGrid membantu mengalirkan data tanpa ketik ulang dan memicu penagihan invoice otomatis begitu ePOD terupload &mdash; hasil aktual bervariasi tergantung operasional dan tidak dijamin.</>
                     )}
                   </p>
                 </motion.div>

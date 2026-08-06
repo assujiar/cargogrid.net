@@ -6,7 +6,7 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/paket",
-  title: "Paket Harga CargoGrid OS — TrackPortal hingga Enterprise Custom",
+  title: "Paket Harga CargoGrid OS - TrackPortal hingga Enterprise Custom",
   description:
     "6 paket sistem logistik: TrackPortal, QuoteOps, Operations Pro, Warehouse WMS, ERP Suite, hingga Enterprise Custom. Bandingkan harga, fitur, dan add-on yang tersedia.",
   keywords: ["harga software logistik", "paket cargogrid", "biaya WMS", "biaya ERP logistik"],

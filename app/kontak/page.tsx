@@ -5,7 +5,7 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/kontak",
-  title: "Kontak & Audit Sistem Gratis — CargoGrid OS",
+  title: "Kontak & Audit Sistem Gratis - CargoGrid OS",
   description:
     "Daftarkan audit sistem logistik gratis senilai Rp 5.000.000, atau hubungi tim CargoGrid langsung via email dan WhatsApp untuk konsultasi implementasi.",
   keywords: ["kontak cargogrid", "audit sistem logistik gratis", "konsultasi software logistik", "demo cargogrid"],

@@ -8,7 +8,8 @@ import TruckLoadCalculator from "../../../src/components/tools/TruckLoadCalculat
 import FreeTimeCalculator from "../../../src/components/tools/FreeTimeCalculator";
 import FleetCostCalculator from "../../../src/components/tools/FleetCostCalculator";
 import GlossaryBrowser from "../../../src/components/tools/GlossaryBrowser";
-import { ContainerTable, IncotermsTable, RegulationsView, VehicleTable } from "../../../src/components/tools/ReferenceViews";
+import FleetExplorer from "../../../src/components/tools/FleetExplorer";
+import { ContainerTable, IncotermsTable, RegulationsView } from "../../../src/components/tools/ReferenceViews";
 import { tools, getTool } from "../../../src/content/tools";
 import { buildMetadata, nestedBreadcrumbJsonLd, toolJsonLd } from "../../../src/lib/seo";
 
@@ -33,7 +34,7 @@ const INSTRUMENTS: Record<string, React.ComponentType> = {
   "kalkulator-demurrage": FreeTimeCalculator,
   "biaya-operasional-truk": FleetCostCalculator,
   "ukuran-kontainer": ContainerTable,
-  "jenis-truk-indonesia": VehicleTable,
+  "jenis-truk-indonesia": FleetExplorer,
   "golongan-tol-penyeberangan": RegulationsView,
   "incoterms-2020": IncotermsTable,
   "kamus-logistik": GlossaryBrowser,

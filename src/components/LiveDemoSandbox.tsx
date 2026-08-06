@@ -127,11 +127,11 @@ export default function LiveDemoSandbox() {
                 <span className="w-3 h-3 rounded-full bg-emerald-400 block" />
               </div>
               <span className="text-slate-300">|</span>
-              <span className="text-brand-teal font-black uppercase tracking-wider text-[10px]">CargoGrid Live Core Workspace v4.5</span>
+              <span className="text-brand-teal font-black uppercase tracking-wider text-[10px]">CargoGrid Demo Workspace v4.5</span>
             </div>
             <div className="flex items-center gap-1 bg-slate-200/50 border border-slate-300/40 px-3 py-1 rounded-lg text-[9px] text-slate-600 font-black uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse mr-1" />
-              <span>Data Update: {isEn ? "ACTIVE" : "REAL-TIME"}</span>
+              <span>{isEn ? "Simulated Demo Data" : "Data Demo Simulasi"}</span>
             </div>
           </div>
 
@@ -346,7 +346,7 @@ export default function LiveDemoSandbox() {
 
                   {/* Real-time map timeline */}
                   <div className="md:col-span-6 nm-emboss bg-[#fbfbfb]/80 rounded-2xl p-6 flex flex-col justify-between min-h-[310px] border-0">
-                    <span className="font-mono text-[9px] text-slate-400 uppercase tracking-widest block font-black mb-3">{isEn ? "LIVE TRACKING TELEMETRY (DRIVER SYNC):" : "Live Dispatch Monitor (Driver App Sync):"}</span>
+                    <span className="font-mono text-[9px] text-slate-400 uppercase tracking-widest block font-black mb-3">{isEn ? "SIMULATED TRACKING TELEMETRY (DRIVER SYNC PREVIEW):" : "Simulasi Dispatch Monitor (Pratinjau Driver App Sync):"}</span>
 
                     {isDispatched ? (
                       <div className="space-y-4">
@@ -360,7 +360,7 @@ export default function LiveDemoSandbox() {
                             <p className="text-slate-400 text-[9px] uppercase font-mono font-black tracking-wider">{isEn ? "APP CONNECTED STATE:" : "STATUS DRIVER PORTAL:"}</p>
                             <p className="font-extrabold text-emerald-600 mt-0.5 flex items-center gap-1 justify-end">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                              <span>ON TRIP (LIVE)</span>
+                              <span>{isEn ? "ON TRIP (SIMULATED)" : "ON TRIP (SIMULASI)"}</span>
                             </p>
                           </div>
                         </div>

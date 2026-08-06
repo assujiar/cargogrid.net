@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Ukuran dan Kapasitas Kontainer: 20 ft, 40 ft, High Cube, Reefer",
   metaTitle: "Ukuran Kontainer 20 & 40 Feet: Dimensi, Kubikasi, Payload | CargoGrid",
   description:
-    "Tabel dimensi dalam, bukaan pintu, kubikasi, tare, dan payload untuk kontainer 20 ft, 40 ft, 40 HC, 45 HC, reefer, open top, dan flat rack, berikut catatan kapan masing-masing dipakai.",
+    "Berapa CBM dan payload maksimum kontainer 20 kaki dibanding 40 kaki? Delapan tipe kontainer yang beredar di rute Indonesia ada di tabel ini, lengkap dengan dimensi dalam dan batas beratnya.",
   keywords: [
     "ukuran kontainer 20 feet",
     "ukuran kontainer 40 feet",
@@ -33,7 +33,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Berat kosong kontainer berbeda beberapa ratus kilogram antar unit, bahkan untuk kotak dengan ukuran nominal yang sama. Artinya payload maksimum bukanlah sifat dari \"kontainer 20 kaki\" sama sekali, melainkan sifat dari unit tertentu, dan angkanya tercetak pada pelat CSC yang terpasang di daun pintu kanan.",
+      text: "Berat kosong kontainer berbeda beberapa ratus kilogram antar unit, bahkan untuk kotak dengan ukuran nominal yang sama, dan bukaan pintu maupun kubikasi ikut bergeser tergantung pabrikan serta usia unit. Artinya payload maksimum bukanlah sifat dari \"kontainer 20 kaki\" sama sekali, melainkan sifat dari unit tertentu, dan angkanya tercetak pada pelat CSC yang terpasang di daun pintu kanan. Angka-angka di tabel ini adalah acuan umum; untuk unit yang benar-benar akan dipakai, cocokkan dengan equipment interchange receipt atau spesifikasi resmi dari operator pelayaran maupun depo kontainernya sebelum merencanakan muatan final.",
     },
     {
       type: "callout",
@@ -48,7 +48,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Tidak ada yang pernah mencapai kapasitas nominal. Kardus tidak menyusun diri secara sempurna, palet menyisakan celah antar tapak, dan dunnage mengambil bagiannya sendiri. Menawarkan 33 CBM kepada pelanggan lalu hanya memuat 27 adalah cara rutin kehilangan uang pada konsolidasi LCL.",
+      text: "Hampir tidak ada muatan yang mencapai kapasitas nominal. Kardus tidak menyusun diri secara sempurna, palet menyisakan celah antar tapak, dan dunnage mengambil bagiannya sendiri. Menawarkan 33 CBM kepada pelanggan lalu hanya memuat 27 adalah cara rutin kehilangan uang pada konsolidasi LCL.",
     },
     {
       type: "p",
@@ -71,7 +71,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Kesalahan yang sebaliknya juga umum: memesan 40 kaki standar untuk barang ringan bervolume, padahal high cube memberi tambahan sekitar sembilan meter kubik tanpa tambahan berat sedikit pun. Yang perlu diperiksa pada high cube hanyalah tinggi totalnya, yang mencapai 2,90 meter, periksa jembatan, portal, dan pintu gudang tujuan sebelum membooking.",
+      text: "Kesalahan yang sebaliknya juga umum: memesan 40 kaki standar untuk barang ringan bervolume, padahal high cube memberi tambahan sekitar sembilan meter kubik tanpa tambahan berat sedikit pun. Yang perlu diperiksa pada high cube terutama tinggi totalnya, yang berkisar sekitar 2,90 meter tergantung unit, periksa jembatan, portal, dan pintu gudang tujuan sebelum membooking.",
     },
     {
       type: "h2",
@@ -80,7 +80,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Ruang dalam reefer jauh lebih kecil daripada kontainer kering dengan panjang yang sama, karena unit pendingin dan lapisan insulasi memakan tempat. Reefer 20 kaki hanya sekitar 28 CBM dibanding 33 CBM milik dry container. Menghitung kubikasi ekspor hasil laut memakai angka dry adalah kesalahan yang baru ketahuan saat stuffing.",
+      text: "Ruang dalam reefer jauh lebih kecil daripada kontainer kering dengan panjang yang sama, karena unit pendingin dan lapisan insulasi memakan tempat. Reefer 20 kaki hanya sekitar 28 CBM dibanding sekitar 33 CBM milik dry container. Menghitung kubikasi ekspor hasil laut memakai angka dry adalah kesalahan yang baru ketahuan saat stuffing.",
     },
     {
       type: "p",
@@ -94,7 +94,7 @@ export const tool: Tool = {
     },
     {
       q: "Berapa CBM yang muat dalam kontainer 40 ft?",
-      a: "Kapasitas nominalnya sekitar 67 meter kubik untuk tipe standar dan sekitar 76 meter kubik untuk high cube. Secara praktis, rencanakan sekitar 85 persen dari angka itu, kira-kira 57 dan 65 meter kubik, karena penyusunan kardus tidak pernah sempurna.",
+      a: "Kapasitas nominalnya sekitar 67 meter kubik untuk tipe standar dan sekitar 76 meter kubik untuk high cube. Secara praktis, rencanakan sekitar 85 persen dari angka itu, kira-kira 57 dan 65 meter kubik, karena penyusunan kardus nyaris tidak pernah sepadat itu.",
     },
     {
       q: "Berapa payload maksimum kontainer 20 ft?",
@@ -102,11 +102,11 @@ export const tool: Tool = {
     },
     {
       q: "Apa beda 40 ft standar dan 40 ft high cube?",
-      a: "High cube lebih tinggi sekitar 30 sentimeter, memberi tambahan sekitar sembilan meter kubik dengan batas berat yang praktis sama. Tinggi totalnya menjadi 2,90 meter, sehingga perlu dipastikan rute darat dan pintu gudang tujuan memungkinkan.",
+      a: "High cube lebih tinggi sekitar 30 sentimeter, memberi tambahan sekitar sembilan meter kubik dengan batas berat yang praktis sama. Tinggi totalnya menjadi sekitar 2,90 meter tergantung unit, sehingga perlu dipastikan rute darat dan pintu gudang tujuan memungkinkan.",
     },
     {
       q: "Kenapa kontainer reefer lebih kecil dari kontainer biasa?",
-      a: "Karena unit refrigerasi dan insulasi dinding memakan ruang dalam. Reefer 20 kaki hanya sekitar 28 meter kubik dibanding 33 meter kubik pada dry container dengan panjang luar yang sama.",
+      a: "Karena unit refrigerasi dan insulasi dinding memakan ruang dalam. Reefer 20 kaki hanya sekitar 28 meter kubik dibanding sekitar 33 meter kubik pada dry container dengan panjang luar yang sama.",
     },
   ],
   sources: [

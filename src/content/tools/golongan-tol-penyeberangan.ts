@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Golongan Tol, Golongan Penyeberangan, Kelas Jalan, dan Batas Dimensi",
   metaTitle: "Golongan Tol & Penyeberangan Truk: Kelas Jalan dan Batas Dimensi | CargoGrid",
   description:
-    "Golongan tol I sampai V menurut jumlah gandar, golongan penyeberangan I sampai IX menurut panjang kendaraan, kelas jalan berikut batas MST, serta batas dimensi dan konsep JBB/JBI.",
+    "Truk Anda golongan tol berapa, dan golongan penyeberangan berapa? Referensi ini menjelaskan kenapa jawabannya bisa berbeda, sebab dasar penggolongan keduanya memang tidak sama.",
   keywords: [
     "golongan tol truk",
     "golongan penyeberangan kendaraan",
@@ -53,7 +53,7 @@ export const tool: Tool = {
       type: "callout",
       tone: "warning",
       title: "Jumlah roda bukan jumlah gandar",
-      body: "CDD berroda enam tetapi bergandar dua, karena roda belakangnya ganda pada satu sumbu. Golongan tol menghitung gandar, bukan roda. Kekeliruan ini rutin membuat anggaran tol satu golongan lebih tinggi daripada yang sebenarnya dibayar.",
+      body: "CDD berroda enam tetapi bergandar dua, karena roda belakangnya ganda pada satu sumbu. Golongan tol menghitung gandar, bukan roda. Kekeliruan ini rutin membuat anggaran tol satu golongan lebih tinggi daripada yang sebenarnya dibayar. Yang menggolongkan di gerbang tol adalah konfigurasi gandar yang benar-benar terpasang pada kendaraan, bukan sebutan pasarnya seperti CDD atau tronton: dua truk dengan sebutan sama bisa digolongkan beda kalau sumbunya beda. Untuk unit yang konfigurasinya berada di dekat batas dua golongan, penilaian di lapangan bisa berbeda antar gerbang, jadi cocokkan dulu jumlah gandar dan data di STNK sebelum berasumsi soal golongannya.",
     },
     {
       type: "h2",
@@ -107,7 +107,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Ada perbedaan penting yang layak dinyatakan terang-terangan. Kendaraan yang dimodifikasi melampaui ketentuan atau dimuati melebihi batas adalah persoalan ketidakpatuhan, bukan pilihan kelas armada. Ia tidak pantas diperlakukan sebagai opsi yang lebih murah dalam perencanaan.",
+      text: "Kendaraan yang dimodifikasi melampaui ketentuan atau dimuati melebihi batas adalah persoalan ketidakpatuhan, bukan pilihan kelas armada. Ia tidak pantas diperlakukan sebagai opsi yang lebih murah dalam perencanaan.",
     },
     {
       type: "p",
@@ -117,11 +117,11 @@ export const tool: Tool = {
   faq: [
     {
       q: "Truk CDD masuk golongan tol berapa?",
-      a: "Umumnya Golongan II, karena bergandar dua. Roda belakangnya ganda pada satu sumbu, sehingga berroda enam tetapi tetap dua gandar. Golongan tol menghitung gandar, bukan roda.",
+      a: "Umumnya Golongan II, karena bergandar dua. Roda belakangnya ganda pada satu sumbu, sehingga berroda enam tetapi tetap dua gandar. Tapi golongan tol menghitung gandar yang benar-benar terpasang, bukan sebutan CDD-nya: untuk unit modifikasi atau varian sumbu tiga, cocokkan dulu jumlah gandar dan data STNK sebelum menetapkan golongannya, karena gerbang tol yang memutuskan berdasarkan konfigurasi di lokasi.",
     },
     {
       q: "Rangkaian tractor head dengan trailer 40 kaki masuk golongan apa?",
-      a: "Golongan tol V karena bergandar lima atau lebih, dan golongan penyeberangan IX karena panjang keseluruhannya di atas 16 meter. Dua penggolongan yang berbeda dasarnya, dan keduanya perlu masuk perhitungan biaya rute.",
+      a: "Golongan tol V karena bergandar lima atau lebih, dan golongan penyeberangan IX karena panjang keseluruhannya di atas 16 meter. Itu untuk konfigurasi umum; dua penggolongan ini punya dasar berbeda dan keduanya perlu masuk perhitungan biaya rute. Untuk rangkaian dengan jumlah gandar atau panjang yang mepet ke batas golongan, cek ulang di STNK karena penilaian di gerbang atau dermaga bisa berbeda antar petugas.",
     },
     {
       q: "Apa beda JBB dan JBI?",

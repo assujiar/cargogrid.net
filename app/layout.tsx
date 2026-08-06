@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "CargoGrid OS",
     locale: "id_ID",
-    images: [{ ...ogImage, alt: "CargoGrid OS — Sistem Operasi Logistik Enterprise Terintegrasi" }],
+    images: [{ ...ogImage, alt: "CargoGrid OS - Sistem Operasi Logistik Enterprise Terintegrasi" }],
   },
   twitter: {
     card: "summary_large_image",

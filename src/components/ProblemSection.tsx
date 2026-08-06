@@ -43,6 +43,13 @@ export default function ProblemSection() {
           </div>
         </div>
 
+        {/* Illustrative Data Disclaimer */}
+        <p className="text-xs sm:text-sm text-slate-500 font-semibold italic text-center max-w-3xl mx-auto mb-8">
+          {isEn
+            ? "Figures below are illustrative patterns compiled from common operational pain points across the logistics industry, not measurements from a specific study."
+            : "Angka-angka di bawah adalah pola ilustratif yang dirangkum dari titik masalah operasional umum di industri logistik, bukan hasil pengukuran dari studi tertentu."}
+        </p>
+
         {/* Problem Cards Grid - Perfectly Aligned, Elegant Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24 items-stretch" id="problem-cards-grid">
           {problemPoints.map((point, idx) => {
@@ -106,7 +113,7 @@ export default function ProblemSection() {
           <div className="nm-deboss bg-[#f5f8fc]/40 rounded-2xl p-5 w-full lg:max-w-xs flex flex-col gap-2 font-mono text-xs">
             <div className="text-slate-600 font-bold flex items-center gap-1.5 border-b border-slate-200 pb-2">
               <AlertTriangle className="w-4 h-4 text-brand-orange" />
-              <span>{isEn ? "POD Delay Domino Effect:" : "Efek Domino POD Telat:"}</span>
+              <span>{isEn ? "Typical POD Delay Domino Effect:" : "Efek Domino POD Telat (Tipikal):"}</span>
             </div>
             <div className="flex justify-between py-1">
               <span className="text-slate-500 font-semibold">{isEn ? "Slow POD" : "POD Lambat"}</span>
@@ -135,17 +142,17 @@ export default function ProblemSection() {
             <div className="flex items-center gap-2 mb-2">
               <Quote className="w-4 h-4 text-brand-teal" aria-hidden="true" />
               <span className="font-mono text-[10px] font-black tracking-widest text-brand-teal uppercase">
-                {isEn ? "Field Story" : "Cerita dari Lapangan"}
+                {isEn ? "Field Story (Illustrative Scenario)" : "Cerita dari Lapangan (Skenario Ilustratif)"}
               </span>
             </div>
             <p className="text-slate-700 text-sm font-semibold leading-relaxed">
               {isEn ? (
                 <>
-                  Take Pak Andi, an operations manager at a mid-sized forwarder. His team used to burn <strong className="text-slate-900 font-extrabold">3 hours a day</strong> just chasing down POD paperwork, cross-checking delivery status, and answering the same &ldquo;where&rsquo;s my shipment&rdquo; questions from customers. Once they switched to the e-POD flow, proof of receipt lands straight in the system the moment cargo is delivered — no more phone tag with drivers, no more digging through WhatsApp threads. His team now spends that reclaimed time moving the next shipment forward instead of chasing paper.
+                  Picture a typical case: Pak Andi, an operations manager at a mid-sized forwarder. His team might easily burn <strong className="text-slate-900 font-extrabold">3 hours a day</strong> just chasing down POD paperwork, cross-checking delivery status, and answering the same &ldquo;where&rsquo;s my shipment&rdquo; questions from customers. Once a team like his switches to the e-POD flow, proof of receipt lands straight in the system the moment cargo is delivered: no more phone tag with drivers, no more digging through WhatsApp threads. That reclaimed time can go toward moving the next shipment forward instead of chasing paper.
                 </>
               ) : (
                 <>
-                  Contohnya Pak Andi, manajer operasi di sebuah perusahaan forwarder skala menengah. Sebelumnya timnya bisa habis <strong className="text-slate-900 font-extrabold">3 jam sehari</strong> hanya untuk mengejar POD, mencocokkan status pengiriman, dan menjawab pertanyaan customer yang itu-itu saja soal posisi barang. Setelah alur e-POD dipakai, bukti terima langsung masuk ke sistem begitu barang sampai di tujuan — tidak perlu lagi telepon-teleponan dengan supir atau menggali riwayat chat WhatsApp. Waktu yang dulu terbuang itu sekarang dipakai timnya untuk fokus mengurus shipment berikutnya.
+                  Bayangkan skenario yang umum terjadi: Pak Andi, manajer operasi di sebuah perusahaan forwarder skala menengah. Timnya bisa saja menghabiskan <strong className="text-slate-900 font-extrabold">3 jam sehari</strong> hanya untuk mengejar POD, mencocokkan status pengiriman, dan menjawab pertanyaan customer yang itu-itu saja soal posisi barang. Setelah beralih ke alur e-POD, bukti terima langsung masuk ke sistem begitu barang sampai di tujuan: tidak perlu lagi telepon-teleponan dengan supir atau menggali riwayat chat WhatsApp. Waktu yang tadinya terbuang itu bisa dipakai tim untuk fokus mengurus shipment berikutnya.
                 </>
               )}
             </p>
@@ -293,7 +300,7 @@ export default function ProblemSection() {
               )}
 
               <div className="mt-auto pt-6 border-t border-slate-200 flex items-center gap-2 font-mono text-[10px] text-rose-600 font-extrabold uppercase">
-                <span>{isEn ? "Average Response: 12 - 24 hours" : "Rata-rata Respon: 12 - 24 jam"}</span>
+                <span>{isEn ? "Typical Response: 12 - 24 Hours" : "Respon Biasanya: 12 - 24 Jam"}</span>
               </div>
             </div>
 
@@ -383,7 +390,7 @@ export default function ProblemSection() {
               )}
 
               <div className="mt-auto pt-6 border-t border-slate-200 flex items-center justify-between text-xs font-mono">
-                <span className="text-brand-teal font-extrabold uppercase">{isEn ? "Average Response: < 5 Minutes" : "Rata-rata Respon: < 5 Menit"}</span>
+                <span className="text-brand-teal font-extrabold uppercase">{isEn ? "Typical Response: < 5 Minutes" : "Respon Biasanya: < 5 Menit"}</span>
                 <span className="text-emerald-600 nm-emboss-sm px-3 py-1 rounded-xl font-extrabold">{isEn ? "SMOOTH" : "LANCAR"}</span>
               </div>
             </div>

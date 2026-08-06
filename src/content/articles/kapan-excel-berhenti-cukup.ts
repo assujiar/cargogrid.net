@@ -3,31 +3,34 @@ import type { Article } from "./types";
 export const article: Article = {
   slug: "kapan-excel-berhenti-cukup",
   layout: "essay",
-  title: "Kapan Excel Berhenti Cukup untuk Operasional Logistik: Tanda-Tanda yang Sering Terlewat",
-  metaTitle: "Kapan Excel Sudah Tidak Cukup untuk Operasional Logistik",
+  format: "Catatan Lapangan",
+  title: "Excel Berhenti Membantu Bukan Karena Ukurannya, Tapi Karena Frekuensi Masalahnya",
+  metaTitle: "Kapan Excel Tidak Lagi Cukup untuk Operasional Logistik",
   description:
-    "Excel tetap alat yang sangat baik untuk operasional logistik, sampai ia mencapai satu titik balik: ongkos yang tadinya rendah berbalik arah dan malah membebani tim Anda. Berikut enam tanda konkret bahwa spreadsheet Anda sudah melewati titik itu, plus tiga tanda palsu yang sering dipakai untuk membenarkan pembelian sistem baru.",
+    "Excel tetap alat yang baik untuk operasional logistik sampai titik tertentu, dan titik itu ditentukan oleh frekuensi masalah, bukan ukuran filenya. Catatan lapangan ini merangkum pola-pola yang biasa terlihat berulang, plus lima frekuensi konkret yang bisa dihitung sendiri sebelum menelepon vendor mana pun.",
   keywords: [
     "excel untuk logistik",
     "kapan ganti sistem TMS",
     "spreadsheet operasional logistik",
+    "tanda perlu sistem logistik",
     "digitalisasi perusahaan logistik",
-    "sistem manajemen transportasi",
   ],
   category: "sistem",
   publishedAt: "2026-07-23",
+  updatedAt: "2026-08-06",
   summary:
-    "Nasihat 'tinggalkan Excel' nyaris selalu datang dari pihak yang punya kepentingan menjual penggantinya. Kenyataannya, Excel adalah alat yang sangat baik sampai satu titik tertentu, dan tulisan ini soal cara mengenali titik itu lewat tanda-tanda yang bisa diperiksa satu per satu, sesuatu yang jauh lebih berguna daripada sekadar firasat manajemen.",
+    "Nasihat 'tinggalkan Excel' nyaris selalu datang dari pihak yang berkepentingan menjual penggantinya, dan saya termasuk di dalamnya. Catatan ini bukan daftar tanda yang tinggal dicentang, melainkan pola-pola yang saya lihat berulang di lapangan, plus cara menghitung sendiri seberapa sering masalah itu benar-benar terjadi di tim Anda.",
   takeaways: [
-    "Titik patah Excel ditentukan oleh berapa banyak orang perlu melihat data yang sama pada waktu bersamaan, terlepas dari besar-kecilnya volume shipment yang Anda tangani.",
-    "Tanda paling jelas ada di depan mata: satu file yang cuma berani disentuh oleh orang yang membuatnya, sementara semua orang lain memakainya setiap hari.",
+    "Titik patah Excel ditentukan oleh berapa banyak orang perlu melihat data yang sama pada waktu bersamaan, bukan oleh besar-kecilnya volume shipment yang Anda tangani.",
+    "Tanda paling jelas biasanya ada di depan mata: satu file yang cuma berani disentuh oleh orang yang membuatnya, sementara semua orang lain memakainya setiap hari.",
     "Excel jarang gagal karena lambat. Ia gagal karena tak sanggup menjawab siapa mengubah data ini, kapan, dan atas alasan apa.",
+    "Menghitung frekuensi konflik versi, entri ulang manual, pengguna bersamaan, celah jejak audit, dan tingkat pengecualian jauh lebih berguna daripada menunggu firasat manajemen.",
     "Kalau akar masalahnya adalah proses yang belum disepakati bersama, sistem apa pun cuma akan mempercepat laju kekacauan yang sama.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Sebelum melangkah lebih jauh, saya ingin membela Excel dulu. Nasihat untuk meninggalkannya nyaris selalu datang dari pihak yang punya kepentingan menjual penggantinya, dan saya mengakui itu termasuk perusahaan seperti kami sendiri.",
+      text: "Saya sudah kehilangan hitungan berapa kali klien bertanya kapan waktunya berhenti pakai Excel, dan sebelum menjawab, saya biasanya membela Excel dulu. Nasihat untuk meninggalkannya nyaris selalu datang dari pihak yang punya kepentingan menjual penggantinya, dan saya mengakui itu termasuk perusahaan seperti kami sendiri.",
     },
     {
       type: "p",
@@ -35,7 +38,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Masalahnya cuma satu: Excel dibangun di atas asumsi diam-diam bahwa satu orang membuka satu file pada satu waktu. Selama asumsi itu masih berlaku, Excel unggul di segala lini. Begitu jumlah orang yang membuka file yang sama mulai bertambah, kekuatan itu berbalik arah dan berubah jadi beban.",
+      text: "Masalahnya cuma satu: Excel dibangun di atas asumsi diam-diam bahwa satu orang membuka satu file pada satu waktu. Selama asumsi itu masih berlaku, Excel unggul di hampir segala lini. Begitu jumlah orang yang membuka file yang sama mulai bertambah, kekuatan itu berbalik arah dan berubah jadi beban.",
     },
     {
       type: "h2",
@@ -48,7 +51,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Spreadsheet bekerja sangat baik selama jalur komunikasi itu masih sedikit. Kelemahannya muncul lewat sesuatu yang di dunia basis data disebut lost update: dua orang membuka data yang sama, lalu perubahan salah satunya menimpa perubahan yang lain tanpa ada yang sadar itu terjadi. Kombinasi dua hal inilah, jalur koordinasi yang melonjak dan risiko lost update, yang sebenarnya menentukan titik patah Excel: seberapa banyak orang perlu melihat kebenaran yang sama, bukan seberapa banyak baris di dalam filenya.",
+      text: "Spreadsheet bekerja sangat baik selama jalur komunikasi itu masih sedikit. Kelemahannya muncul lewat sesuatu yang di dunia basis data disebut lost update: dua orang membuka data yang sama, lalu perubahan salah satunya menimpa perubahan yang lain tanpa ada yang sadar itu terjadi. Kombinasi dua hal inilah, jalur koordinasi yang melonjak dan risiko lost update, yang menentukan titik patah Excel: seberapa banyak orang perlu melihat kebenaran yang sama, bukan seberapa banyak baris di dalam filenya.",
     },
     {
       type: "h2",
@@ -57,7 +60,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pertanyaan yang paling sering saya dengar dari klien kira-kira begini: \"Berapa shipment per bulan sebelum kami harus ganti sistem?\" Sayangnya pertanyaan itu tidak banyak membantu. Yang sebenarnya menentukan adalah berapa banyak orang harus mengakses data yang sama secara bersamaan, dan itu jarang berkorelasi rapi dengan jumlah shipment.",
+      text: "Pertanyaan yang paling sering saya dengar dari klien kira-kira begini: \"Berapa shipment per bulan sebelum kami harus ganti sistem?\" Pertanyaan itu jarang membantu. Yang menentukan adalah berapa banyak orang harus mengakses data yang sama secara bersamaan, dan itu jarang berkorelasi rapi dengan jumlah shipment.",
     },
     {
       type: "p",
@@ -66,29 +69,29 @@ export const article: Article = {
     {
       type: "callout",
       tone: "insight",
-      title: "Ukuran yang tepat: berapa orang butuh kebenaran yang sama",
-      body: "Hitung dulu berapa peran berbeda yang perlu melihat atau mengubah data job yang sama dalam satu hari kerja. Pada angka dua sampai tiga orang, spreadsheet bersama masih sehat-sehat saja. Begitu masuk ke angka lima ke atas, Anda sebenarnya sudah membayar biaya koordinasi yang jauh lebih besar daripada lisensi sistem semahal apa pun, hanya saja tagihannya datang dalam bentuk jam kerja yang hilang, bukan invoice.",
+      title: "Ukuran yang saya pakai: berapa orang butuh kebenaran yang sama",
+      body: "Hitung dulu berapa peran berbeda yang perlu melihat atau mengubah data job yang sama dalam satu hari kerja. Pada angka dua sampai tiga orang, spreadsheet bersama biasanya masih sehat-sehat saja. Begitu masuk ke angka lima ke atas, Anda kemungkinan besar sudah membayar biaya koordinasi yang jauh lebih besar daripada lisensi sistem semahal apa pun, hanya saja tagihannya datang dalam bentuk jam kerja yang hilang, bukan invoice.",
     },
     {
       type: "h2",
-      id: "enam-tanda-nyata",
-      text: "Enam tanda bahwa titik itu sudah lewat",
-    },
-    {
-      type: "h3",
-      text: "1. Ada file yang tidak berani disentuh siapa pun",
+      id: "pola-pola-berulang",
+      text: "Pola-pola yang saya lihat berulang di lapangan",
     },
     {
       type: "p",
-      text: "Setiap perusahaan yang cukup lama memakai spreadsheet akhirnya melahirkan satu file legendaris. Namanya biasanya sesuatu seperti \"MASTER FINAL revisi3 fix.xlsx\", penuh rumus bertingkat yang cuma dipahami orang yang menyusunnya dari awal. Semua orang memakainya setiap hari. Tidak ada yang berani mengubah strukturnya.",
-    },
-    {
-      type: "p",
-      text: "Pada titik ini, file itu bukan sekadar spreadsheet lagi. Ia sudah berubah jadi aplikasi tanpa dokumentasi, tanpa cadangan, dengan satu-satunya orang yang memahami isinya bisa saja resign kapan pun. Risikonya sudah naik kelas, dari sekadar urusan teknis menjadi ancaman bagi kelangsungan usaha.",
+      text: "Ini bukan daftar enam ciri yang harus dicentang satu-satu. Ini pola-pola yang menurut pengamatan saya cenderung muncul berbarengan begitu titik patah itu terlewati, dan begitu satu pola muncul, biasanya ada satu atau dua pola lain yang mengikuti tak lama sesudahnya.",
     },
     {
       type: "h3",
-      text: "2. Pertanyaan sederhana yang makan waktu lebih dari lima menit",
+      text: "File yang tidak berani disentuh siapa pun",
+    },
+    {
+      type: "p",
+      text: "Setiap perusahaan yang cukup lama memakai spreadsheet akhirnya melahirkan satu file legendaris. Namanya biasanya sesuatu seperti \"MASTER FINAL revisi3 fix.xlsx\", penuh rumus bertingkat yang cuma dipahami orang yang menyusunnya dari awal. Semua orang memakainya setiap hari, tapi tidak ada yang berani mengubah strukturnya. Pada titik ini, file itu bukan sekadar spreadsheet lagi. Ia sudah berubah jadi aplikasi tanpa dokumentasi dan tanpa cadangan, dengan satu-satunya orang yang memahami isinya bisa saja resign kapan pun.",
+    },
+    {
+      type: "h3",
+      text: "Pertanyaan sederhana yang makan waktu lama",
     },
     {
       type: "p",
@@ -96,56 +99,97 @@ export const article: Article = {
     },
     {
       type: "h3",
-      text: "3. Angka yang sama, tapi beda di dua tempat",
+      text: "Angka yang sama, beda di dua tempat",
     },
     {
       type: "p",
-      text: "Operasional mencatat ada 143 job bulan ini. Finance mencatat 138. Masing-masing punya filenya sendiri, dan masing-masing yakin angkanya yang benar. Rapat berikutnya pun habis untuk mencari selisih lima job itu, sementara keputusan yang sebenarnya perlu diambil malah tertunda.",
-    },
-    {
-      type: "p",
-      text: "Gejala inilah yang paling mahal harganya, sebab ia menggerogoti kepercayaan terhadap data secara keseluruhan. Setelah beberapa kali kejadian serupa, orang pelan-pelan berhenti memakai angka untuk mengambil keputusan dan kembali mengandalkan firasat, sesuatu yang jauh lebih sulit diaudit belakangan.",
+      text: "Operasional mencatat ada 143 job bulan ini. Finance mencatat 138. Masing-masing punya filenya sendiri, dan masing-masing yakin angkanya yang benar. Rapat berikutnya pun habis untuk mencari selisih lima job itu, sementara keputusan yang perlu diambil malah tertunda. Gejala inilah yang menurut saya paling mahal harganya, sebab ia menggerogoti kepercayaan orang terhadap data itu sendiri. Setelah beberapa kali kejadian serupa, orang pelan-pelan berhenti memakai angka untuk mengambil keputusan dan kembali mengandalkan firasat, sesuatu yang jauh lebih sulit diaudit belakangan.",
     },
     {
       type: "h3",
-      text: "4. Tidak ada yang bisa menjawab siapa mengubah apa",
+      text: "Tidak ada yang bisa menjawab siapa mengubah apa",
     },
     {
       type: "p",
-      text: "Harga di quotation berubah sendiri. Status job mundur tanpa penjelasan. Nomor kontainer terkoreksi diam-diam. Siapa yang mengubahnya, kapan, dan atas dasar apa? Di spreadsheet biasa, jawabannya nyaris selalu sama: tidak ada yang tahu, kecuali kebetulan ada yang menyimpan salinan versi lamanya.",
-    },
-    {
-      type: "p",
-      text: "Selama semuanya berjalan lancar, hilangnya jejak audit ini nyaris tak terasa. Ia baru terasa menyakitkan justru saat muncul sengketa dengan customer atau dugaan kecurangan internal, persis di momen Anda paling membutuhkan jawaban itu.",
+      text: "Harga di quotation berubah sendiri. Status job mundur tanpa penjelasan. Nomor kontainer terkoreksi diam-diam. Siapa yang mengubahnya, kapan, dan atas dasar apa? Di spreadsheet biasa, jawabannya nyaris selalu sama: tidak ada yang tahu, kecuali kebetulan ada yang menyimpan salinan versi lamanya. Selama semuanya berjalan lancar, hilangnya jejak audit ini nyaris tak terasa. Ia baru terasa menyakitkan justru saat muncul sengketa dengan customer atau dugaan kecurangan internal, persis di momen jawaban itu paling dibutuhkan.",
     },
     {
       type: "h3",
-      text: "5. Pekerjaan berhenti total kalau satu orang izin",
+      text: "Pekerjaan berhenti total kalau satu orang izin",
     },
     {
       type: "p",
-      text: "Kalau cuti seorang staf administrasi berarti tidak ada yang sanggup menerbitkan invoice minggu itu, yang sebenarnya terjadi adalah satu orang menyimpan seluruh proses itu di kepalanya sendiri. Begitu dia absen, prosesnya ikut absen. Spreadsheet membuat kerapuhan seperti ini bisa bertahan lama tanpa ketahuan, sebab di atas kertas semuanya tetap terlihat terdokumentasi rapi.",
+      text: "Kalau cuti seorang staf administrasi berarti tidak ada yang sanggup menerbitkan invoice minggu itu, yang terjadi adalah satu orang menyimpan proses itu sendirian di kepalanya. Begitu dia absen, prosesnya ikut absen. Spreadsheet membuat kerapuhan seperti ini bisa bertahan lama tanpa ketahuan, sebab di atas kertas semuanya tetap terlihat terdokumentasi rapi.",
     },
     {
       type: "h3",
-      text: "6. Customer menanyakan hal yang seharusnya bisa mereka lihat sendiri",
+      text: "Customer menanyakan hal yang mestinya bisa mereka lihat sendiri",
     },
     {
       type: "p",
-      text: "Tiap kali customer bertanya \"barang saya sudah sampai mana\", itu sebenarnya pekerjaan tambahan yang lahir karena data Anda tidak bisa dibagikan dengan aman. Spreadsheet tidak mengenal konsep \"customer ini cuma boleh melihat baris ini saja\". Satu-satunya cara berbagi adalah menyalin datanya, dan begitu disalin, data itu langsung kedaluwarsa.",
+      text: "Tiap kali customer bertanya \"barang saya sudah sampai mana\", itu pekerjaan tambahan yang lahir karena data Anda tidak bisa dibagikan dengan aman. Spreadsheet tidak mengenal konsep \"customer ini cuma boleh melihat baris ini saja\". Satu-satunya cara berbagi adalah menyalin datanya, dan begitu disalin, data itu langsung kedaluwarsa.",
     },
     {
       type: "h2",
-      id: "tiga-tanda-palsu",
-      text: "Tiga tanda palsu yang sering jadi alasan pembelian",
+      id: "alasan-yang-bukan-alasan",
+      text: "Alasan yang sering saya dengar, tapi jarang cukup berdiri sendiri",
     },
     {
-      type: "ul",
-      items: [
-        "**\"File-nya sudah berat dan lambat.\"** Ini soal teknis yang biasanya selesai dengan memecah file atau merapikan rumusnya, dan belum cukup jadi alasan untuk ganti sistem.",
-        "**\"Kompetitor sudah pakai sistem.\"** Bisa jadi benar, tapi bisa juga mereka baru saja membeli sesuatu yang ujung-ujungnya menganggur. Kabar itu sendiri tidak membuktikan apa-apa soal kebutuhan Anda.",
-        "**\"Kami mau kelihatan lebih profesional saat tender.\"** Alasan ini sah secara komersial, tapi sebaiknya dipisahkan dari alasan operasional. Kalau motivasinya memang ini, yang Anda perlukan mungkin cukup customer portal saja, tanpa harus mengganti seluruh sistem.",
+      type: "p",
+      text: "Alasan pertama yang paling sering muncul begini: \"File-nya sudah berat dan lambat.\" Ini murni soal teknis, dan biasanya selesai dengan memecah file atau merapikan rumusnya. Belum cukup jadi alasan untuk ganti sistem, sebab masalahnya bukan di titik patah yang saya jelaskan di atas, melainkan di kerapian filenya sendiri.",
+    },
+    {
+      type: "p",
+      text: "Ada juga alasan yang terdengar meyakinkan tapi sering kosong isinya: \"Kompetitor sudah pakai sistem.\" Bisa jadi benar, tapi bisa juga mereka baru saja membeli sesuatu yang ujung-ujungnya menganggur. Kabar itu sendiri tidak membuktikan apa-apa soal kebutuhan Anda.",
+    },
+    {
+      type: "p",
+      text: "Alasan ketiga biasanya muncul menjelang musim tender: \"Kami mau kelihatan lebih profesional di depan calon klien.\" Alasan ini sah secara komersial, tapi sebaiknya dipisahkan dari alasan operasional. Kalau motivasinya memang ini, yang Anda perlukan mungkin cukup customer portal saja, bukan mengganti sistem operasional dari nol.",
+    },
+    {
+      type: "h2",
+      id: "diagnostik-frekuensi",
+      text: "Lima frekuensi yang saya pakai untuk mengecek diri sendiri",
+    },
+    {
+      type: "p",
+      text: "Kalau pola-pola di atas terasa terlalu kualitatif untuk dijadikan keputusan, ada cara yang lebih konkret: hitung seberapa sering lima hal berikut terjadi dalam sebulan terakhir. Ambang di kolom terakhir bukan hasil riset formal, hanya ancang-ancang yang saya pakai sendiri saat berbicara dengan klien, jadi sesuaikan dengan konteks tim Anda.",
+    },
+    {
+      type: "table",
+      caption: "Lima frekuensi yang saya cek sebagai kebiasaan bulanan, bukan hitungan sekali jalan",
+      head: ["Yang dihitung", "Pertanyaan yang saya ajukan", "Kapan saya mulai curiga"],
+      rows: [
+        [
+          "Frekuensi konflik versi",
+          "Berapa kali sebulan dua orang mengedit file yang sama dan salah satu perubahan hilang tanpa ada yang sadar?",
+          "Lebih dari sekali seminggu, bukan lagi kejadian sial yang jarang terjadi",
+        ],
+        [
+          "Entri ulang manual",
+          "Berapa kali angka yang sama diketik ulang dari satu file ke file lain dalam satu siklus job?",
+          "Setiap kali data berpindah tangan lebih dari dua kali secara manual, peluang salah ketik ikut berlipat",
+        ],
+        [
+          "Pengguna bersamaan",
+          "Berapa orang membuka file kerja yang sama dalam rentang satu jam kerja yang sibuk?",
+          "Lima orang ke atas, sesuai ambang koordinasi yang saya sebut di bagian awal",
+        ],
+        [
+          "Celah jejak audit",
+          "Kalau customer atau auditor menanyakan siapa mengubah satu angka, berapa lama untuk menjawabnya dengan pasti?",
+          "Kalau jawabannya butuh menelusuri riwayat chat atau bertanya keliling ke tim, itu sudah celah",
+        ],
+        [
+          "Tingkat pengecualian",
+          "Dari semua job bulan ini, berapa persen yang ditangani di luar alur standar spreadsheet, dikoreksi belakangan, atau dikerjakan manual di luar filenya?",
+          "Kalau porsinya sudah lebih dari satu dari sepuluh job, kemungkinan besar templatenya sendiri yang keliru, bukan orang yang mengisinya",
+        ],
       ],
+    },
+    {
+      type: "p",
+      text: "Saya tidak mengklaim angka-angka ambang ini berlaku sama persis untuk semua jenis operasional logistik. Tujuannya cuma mengubah pertanyaan dari \"apakah sudah waktunya?\", yang gampang dijawab dengan firasat, jadi pertanyaan yang bisa dihitung dari catatan minggu lalu.",
     },
     {
       type: "h2",
@@ -154,7 +198,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Satu kondisi bisa membuat penggantian sistem nyaris pasti gagal: prosesnya sendiri belum pernah disepakati bersama.",
+      text: "Satu kondisi bisa membuat penggantian sistem gagal pada kebanyakan kasus: prosesnya sendiri belum pernah disepakati bersama.",
     },
     {
       type: "p",
@@ -162,11 +206,11 @@ export const article: Article = {
     },
     {
       type: "quote",
-      text: "Spreadsheet menyembunyikan ketidaksepakatan yang sebenarnya ada. Sistem baru justru membongkarnya keras-keras di minggu pertama.",
+      text: "Spreadsheet menyembunyikan ketidaksepakatan yang selama ini ada. Sistem baru justru membongkarnya keras-keras di minggu pertama.",
     },
     {
       type: "p",
-      text: "Inilah kenapa banyak implementasi kandas di bulan kedua, dengan kesimpulan gampang: \"sistemnya tidak cocok dengan proses kami\". Yang sebenarnya terjadi, proses tunggal itu memang belum pernah ada sejak awal, dan sistem barulah pihak pertama yang berani menuntut kejelasannya.",
+      text: "Inilah kenapa banyak implementasi kandas di bulan kedua, dengan kesimpulan gampang: \"sistemnya tidak cocok dengan proses kami\". Yang terjadi, proses tunggal itu memang belum pernah ada sejak awal, dan sistem barulah pihak pertama yang berani menuntut kejelasannya.",
     },
     {
       type: "callout",
@@ -181,7 +225,7 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Pilihannya sebenarnya lebih luas daripada sekadar bertahan di spreadsheet atau pindah total ke sistem penuh. Sebagian besar perusahaan justru meraih manfaat terbesar dengan memindahkan satu proses saja, biasanya proses yang paling banyak melibatkan pihak dari luar perusahaan.",
+      text: "Pilihannya lebih luas daripada sekadar bertahan di spreadsheet atau pindah total ke sistem penuh. Sebagian besar perusahaan justru meraih manfaat terbesar dengan memindahkan satu proses saja, biasanya proses yang paling banyak melibatkan pihak dari luar perusahaan.",
     },
     {
       type: "p",
@@ -194,22 +238,27 @@ export const article: Article = {
   ],
   faq: [
     {
-      q: "Apakah Google Sheets menyelesaikan masalah kolaborasi Excel?",
-      a: "Hanya sebagian. Ia menghilangkan drama 'file mana yang paling baru' dan menyediakan riwayat versi, yang sudah menjawab dua dari enam tanda tadi. Yang masih belum tersedia: hak akses per baris, validasi yang benar-benar mengikat, dan cara membagikan sebagian data ke pihak luar dengan aman. Untuk banyak perusahaan, pindah ke Sheets malah jadi langkah yang tepat sebelum memikirkan sistem sungguhan.",
+      q: "Apakah pindah ke Google Sheets saja sudah cukup?",
+      a: "Sebagian saja. Google Sheets menghilangkan drama 'file mana yang paling baru' dan menyediakan riwayat versi, yang menjawab satu-dua pola di atas. Yang masih belum ada: hak akses per baris, validasi yang benar-benar mengikat, dan cara aman membagikan sebagian data ke pihak luar. Untuk banyak tim, ini langkah antara yang masuk akal sebelum memikirkan sistem sungguhan.",
     },
     {
-      q: "Berapa lama biasanya migrasi dari spreadsheet ke sistem?",
-      a: "Memindahkan datanya sendiri biasanya cuma perkara hari, bukan minggu. Yang lambat adalah menyepakati proses dan membiasakan tim memakainya sehari-hari, dan itu tidak bisa dipercepat lewat teknis semata. Tetapkan tanggal berhenti untuk Excel sejak awal, umumkan ke semua orang, lalu pegang tanggal itu. Kalau dua sistem dibiarkan jalan berdampingan tanpa batas waktu, begitu pekerjaan menumpuk, orang akan selalu kembali ke cara lama yang sudah mereka kuasai luar kepala.",
+      q: "Tim saya menolak pindah dari Excel, bagaimana menghadapinya?",
+      a: "Saya biasanya dengarkan dulu keberatannya, sebab penolakan dari orang operasional sering benar secara teknis. Keluhan seperti \"sistem tidak bisa menangani kasus X\" biasanya menunjuk pengecualian nyata yang belum terakomodasi. Perlakukan itu sebagai daftar persyaratan yang masih perlu dilengkapi, bukan resistensi yang harus dipatahkan.",
     },
     {
-      q: "Apakah data historis di Excel perlu dipindahkan semua?",
-      a: "Biasanya tidak perlu, dan memaksakannya justru sering memperlambat proyek tanpa manfaat yang sepadan. Pindahkan data induk yang masih terpakai, seperti customer, vendor, dan tarif yang berlaku, plus transaksi yang masih berjalan. Arsip lama cukup disimpan apa adanya sebagai berkas rujukan. Toh jarang dibuka, dan begitu benar-benar dibuka, formatnya juga sudah tidak jadi soal.",
-    },
-    {
-      q: "Tim kami menolak pindah dari Excel. Bagaimana menghadapinya?",
-      a: "Dengarkan dulu isi keberatannya, sebab penolakan dari orang operasional sering kali benar secara teknis. Keluhan seperti 'sistem tidak bisa menangani kasus X' biasanya sedang menunjuk pengecualian nyata yang memang belum terakomodasi di sistem baru. Perlakukan itu sebagai daftar persyaratan yang masih perlu dilengkapi. Itu jauh lebih produktif daripada memperlakukannya sebagai resistensi yang harus dipatahkan.",
+      q: "Berapa lama biasanya migrasi dari spreadsheet ke sistem makan waktu?",
+      a: "Memindahkan datanya sendiri biasanya cuma perkara hari, bukan minggu. Yang lambat adalah menyepakati proses dan membiasakan tim memakainya sehari-hari. Saya sarankan menetapkan tanggal berhenti untuk Excel sejak awal dan memegangnya, sebab dua sistem yang dibiarkan berjalan berdampingan tanpa batas waktu biasanya berujung orang kembali ke cara lama begitu pekerjaan menumpuk.",
     },
   ],
+  cta: {
+    title: "Kalau titik itu sudah lewat, mulai dari satu proses dulu",
+    body: "Jangan langsung mengganti semuanya sekaligus. Bagian jalan tengah di atas menyarankan mulai dari proses yang paling banyak melibatkan pihak luar, seperti POD dan status job, lalu diuji lewat pilot singkat sebelum diperluas ke bagian lain. Berikut cara menjalankan pilot 30 hari untuk satu proses sebelum menelepon vendor mana pun.",
+    linkHref: "/artikel/memilih-software-logistik-pilot-30-hari",
+    linkLabel: "Baca cara menjalankan pilot 30 hari",
+  },
+  byline: {
+    author: "Tim Editorial CargoGrid",
+    note: "Ditulis dari percakapan berulang dengan tim operasional forwarder dan trucking yang sedang menimbang pindah dari spreadsheet ke sistem, bukan dari satu studi kasus tunggal.",
+  },
   related: ["memilih-software-logistik-pilot-30-hari", "grup-whatsapp-sistem-operasional-bayangan", "integrasi-erp-akuntansi-logistik"],
-  relatedTools: ["kalkulator-cbm", "kalkulator-muatan-truk"],
 };

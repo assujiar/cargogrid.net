@@ -8,7 +8,7 @@ const LiveDemoSandbox = dynamic(() => import("../../src/components/LiveDemoSandb
 
 export const metadata = buildMetadata({
   path: "/simulator-roi",
-  title: "Simulator ROI & Preview Produk — Hitung Kebocoran Biaya POD | CargoGrid OS",
+  title: "Simulator ROI & Preview Produk - Hitung Kebocoran Biaya POD | CargoGrid OS",
   description:
     "Hitung estimasi biaya tenaga kerja terbuang dan dana macet akibat POD lambat, lalu coba langsung simulasi RFQ, dispatch, tracking, dan billing CargoGrid OS.",
   keywords: [

@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Jenis Truk di Indonesia dan Kapasitasnya: 61 Kelas Armada dari Pickup sampai Trailer",
   metaTitle: "Jenis Truk & Kapasitas Muatan Indonesia: CDE, CDD, Fuso, Tronton | CargoGrid",
   description:
-    "Tabel ukuran bak, kubikasi, kapasitas berat, golongan tol, dan golongan penyeberangan untuk 61 kelas armada di Indonesia, dari pickup dan CDD sampai wingbox, trailer, lowbed, dan angkutan alat berat.",
+    "Truk apa yang cocok untuk muatan Anda, CDD, fuso, atau tronton? Referensi ini membandingkan ukuran bak dan kapasitas berat dari 61 kelas armada yang beroperasi di Indonesia, lengkap dengan ilustrasinya.",
   keywords: [
     "jenis truk di indonesia",
     "kapasitas truk CDD",
@@ -37,7 +37,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Tabel ini karena itu berguna untuk memilih kelas armada, bukan untuk merencanakan muatan sampai ke kardus terakhir. Untuk armada tetap, mengukur sendiri bak setiap unit adalah pekerjaan setengah hari yang manfaatnya bertahan bertahun-tahun.",
+      text: "Daftar di halaman ini adalah referensi praktis untuk menyortir kelas armada dengan cepat, bukan standar resmi dan bukan pengganti spesifikasi unit yang sebenarnya. Sebelum memesan satu unit tertentu, cocokkan dulu dimensi bak, JBI, dan foto kendaraannya dengan operator atau vendor karoseri terkait. Untuk armada tetap, mengukur sendiri bak setiap unit adalah pekerjaan setengah hari yang manfaatnya bertahan bertahun-tahun.",
     },
     {
       type: "callout",
@@ -52,7 +52,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Dua kolom terakhir pada setiap tabel sering menjadi alasan halaman ini dibuka, karena keduanya langsung masuk ke perhitungan biaya rute. Yang perlu diingat: keduanya memakai dasar yang berbeda. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
+      text: "Dua angka golongan pada tiap kelas armada biasanya yang paling menentukan saat menghitung biaya rute, karena keduanya langsung memengaruhi tarif tol dan tarif penyeberangan. Yang perlu diingat: keduanya memakai dasar yang berbeda. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
     },
     {
       type: "p",
@@ -69,7 +69,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Pola yang sama berulang di seluruh tabel, dan puncaknya pada trailer: satu unit 40 kaki punya ruang dua kali lipat 20 kaki tetapi tidak dua kali lipat kapasitas beratnya. Untuk muatan padat, dua unit 20 kaki kerap mengangkut tonase lebih banyak.",
+      text: "Pola yang sama berulang di seluruh daftar, dan puncaknya pada trailer: satu unit 40 kaki punya ruang dua kali lipat 20 kaki tetapi tidak dua kali lipat kapasitas beratnya. Untuk muatan padat, dua unit 20 kaki kerap mengangkut tonase lebih banyak.",
     },
     {
       type: "callout",
@@ -102,7 +102,7 @@ export const tool: Tool = {
         "Bagi berat dengan kubikasi untuk mendapat kepadatan muatan dalam kg per meter kubik.",
         "Muatan di bawah sekitar 250 kg per meter kubik akan menghabiskan ruang lebih dulu, jadi cari bak yang besar, bukan sumbu yang banyak.",
         "Muatan di atas sekitar 400 kg per meter kubik akan menghabiskan berat lebih dulu, jadi cari kapasitas berat, dan abaikan sisa ruang yang menganggur.",
-        "Periksa golongan tol dan golongan penyeberangan pada tabel. Keduanya masuk ke biaya rute, dan keduanya memakai dasar penggolongan yang berbeda.",
+        "Periksa golongan tol dan golongan penyeberangan pada tiap kelas armada. Keduanya masuk ke biaya rute, dan keduanya memakai dasar penggolongan yang berbeda.",
         "Periksa akses di lokasi bongkar sebelum memesan. Tronton yang tidak bisa masuk gang jauh lebih mahal daripada dua CDD yang bisa.",
       ],
     },
@@ -110,7 +110,7 @@ export const tool: Tool = {
   faq: [
     {
       q: "Kenapa tidak ada angka payload pasti untuk CDD atau tronton?",
-      a: "Karena keduanya sebutan pasar, bukan kategori hukum. Payload legal sebuah unit adalah JBI yang berlaku dikurangi berat kosongnya setelah karoseri terpasang, dan keduanya berbeda antar unit. Tabel yang memberi satu angka pasti untuk sebutan pasar sedang menjanjikan kepastian yang tidak dimilikinya.",
+      a: "Karena keduanya sebutan pasar, bukan kategori hukum. Payload legal sebuah unit adalah JBI yang berlaku dikurangi berat kosongnya setelah karoseri terpasang, dan keduanya berbeda antar unit. Referensi yang memberi satu angka pasti untuk sebutan pasar sedang menjanjikan kepastian yang tidak dimilikinya.",
     },
     {
       q: "Apa beda CDE dan CDD?",
@@ -129,8 +129,8 @@ export const tool: Tool = {
       a: "Yang perlu dicari adalah ruang, bukan kapasitas berat. CDE long, CDD long, dan wingbox memberi kubikasi jauh lebih besar tanpa kenaikan biaya yang sebanding, CDE long misalnya menawarkan sekitar 14 meter kubik berbanding 8 meter kubik pada CDE pendek, dengan perkiraan muatan yang praktis sama. Batas beratnya memang tidak akan tersentuh oleh barang seringan itu.",
     },
     {
-      q: "Apakah kapasitas pada tabel ini boleh dipakai sebagai batas muat?",
-      a: "Tidak. Angka pada tabel adalah kapasitas khas untuk memilih kelas armada. Batas yang mengikat secara hukum adalah JBI kendaraan pada rute yang dilalui, dan itu harus dibaca dari dokumen kendaraan serta ketentuan kelas jalan setempat.",
+      q: "Apakah kapasitas pada halaman ini boleh dipakai sebagai batas muat?",
+      a: "Tidak. Angka di halaman ini adalah kapasitas khas untuk memilih kelas armada. Batas yang mengikat secara hukum adalah JBI kendaraan pada rute yang dilalui, dan itu harus dibaca dari dokumen kendaraan serta ketentuan kelas jalan setempat.",
     },
   ],
   sources: [

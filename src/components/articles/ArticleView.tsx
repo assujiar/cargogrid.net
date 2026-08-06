@@ -37,6 +37,9 @@ export default function ArticleView({ article }: { article: Article }) {
       <span className={`rounded-full bg-slate-500/10 px-3.5 py-1.5 font-mono text-[10px] font-black uppercase tracking-[0.12em] ${accentText}`}>
         {ARTICLE_CATEGORIES[article.category]}
       </span>
+      <span className="rounded-full border border-slate-300/70 px-3.5 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-slate-500">
+        {article.format}
+      </span>
       <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-slate-500">
         <Clock className="h-3.5 w-3.5" />
         {minutes} menit baca
@@ -45,6 +48,12 @@ export default function ArticleView({ article }: { article: Article }) {
         {formatArticleDate(article.updatedAt || article.publishedAt)}
       </time>
     </div>
+  );
+
+  const byline = (
+    <p className="mt-4 text-[12.5px] font-medium leading-relaxed text-slate-500">
+      Ditulis oleh <span className="font-bold text-slate-700">{article.byline.author}</span>. {article.byline.note}
+    </p>
   );
 
   const headline = (
@@ -92,9 +101,15 @@ export default function ArticleView({ article }: { article: Article }) {
           <div className="mb-6">{meta}</div>
 
           {spec.hero === "panel" ? (
-            <div className="nm-emboss rounded-3xl bg-[#eef2f6]/50 p-7 sm:p-10">{headline}</div>
+            <div className="nm-emboss rounded-3xl bg-[#eef2f6]/50 p-7 sm:p-10">
+              {headline}
+              {byline}
+            </div>
           ) : (
-            headline
+            <>
+              {headline}
+              {byline}
+            </>
           )}
         </header>
 
@@ -195,17 +210,14 @@ export default function ArticleView({ article }: { article: Article }) {
 
         <aside className="nm-emboss mt-16 rounded-3xl bg-[#eef2f6]/50 p-8 text-center sm:p-10">
           <h2 className="font-display text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
-            Mau tahu angka ini di operasional Anda sendiri?
+            {article.cta.title}
           </h2>
-          <p className="mx-auto mt-3 max-w-lg text-[14.5px] leading-[1.75] text-slate-600">
-            Audit sistem logistik gratis. Kami bantu memetakan alur RFQ, dispatch, POD, dan penagihan Anda saat ini,
-            lalu menunjukkan di mana waktunya hilang.
-          </p>
+          <p className="mx-auto mt-3 max-w-lg text-[14.5px] leading-[1.75] text-slate-600">{article.cta.body}</p>
           <Link
-            href="/kontak"
+            href={article.cta.linkHref}
             className="nm-btn-accent mt-7 inline-flex items-center gap-2 rounded-full border-0 px-8 py-3.5 text-xs font-extrabold text-white transition-all"
           >
-            Ajukan Audit Gratis
+            {article.cta.linkLabel}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </aside>

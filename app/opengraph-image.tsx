@@ -11,7 +11,7 @@ import { siteUrl } from "../src/lib/seo";
 // Generated rather than shipped as a PNG so the wording stays editable in code
 // and cannot drift out of sync with the copy it advertises.
 
-export const alt = "CargoGrid OS — Sistem Operasi Logistik Enterprise Terintegrasi";
+export const alt = "CargoGrid OS - Sistem Operasi Logistik Enterprise Terintegrasi";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

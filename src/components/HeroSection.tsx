@@ -77,9 +77,9 @@ export default function HeroSection() {
             {/* Subheadline (Medium Slate - NO ITALIC) */}
             <p className="text-base sm:text-lg text-slate-600 font-semibold leading-relaxed max-w-2xl font-sans">
               {isEn ? (
-                <>Manage the full operational flow from customer requests, pricing quotes, fleet execution, to billing and business reporting in one connected platform. <span className="text-brand-orange font-extrabold">Stop wasting hours</span> on manual tasks in Excel and WhatsApp.</>
+                <>One job number carries the same data (quotation, work instruction, shipment status, POD, and billing) from the moment a customer request comes in until the invoice is settled. <span className="text-brand-orange font-extrabold">Teams stop hunting for which version is correct</span> across scattered Excel sheets and WhatsApp threads.</>
               ) : (
-                <>Kelola seluruh alur operasional mulai dari permintaan customer, penawaran harga, eksekusi armada, hingga tagihan dan laporan bisnis dalam satu platform terhubung. <span className="text-brand-orange font-extrabold">Hentikan pekerjaan manual</span> yang memakan waktu di Excel dan WhatsApp.</>
+                <>Satu nomor job membawa data yang sama (penawaran harga, instruksi kerja, status pengiriman, POD, hingga tagihan) mulai dari permintaan customer masuk sampai invoice terselesaikan. <span className="text-brand-orange font-extrabold">Tim tidak perlu lagi mencari versi data mana yang benar</span> di antara Excel dan WhatsApp yang tercecer.</>
               )}
             </p>
 
@@ -264,6 +264,13 @@ export default function HeroSection() {
               </div>
 
             </div>
+
+            {/* Demo Data Disclaimer - unobtrusive caption clarifying the panel above is illustrative */}
+            <p className="mt-3 text-[10px] font-mono text-slate-400 text-center lg:text-left">
+              {isEn
+                ? "Illustrative preview: sample data for demonstration, not a live feed of real customer activity."
+                : "Tampilan ilustratif: data contoh untuk demonstrasi, bukan feed langsung dari aktivitas customer nyata."}
+            </p>
 
           </div>
 

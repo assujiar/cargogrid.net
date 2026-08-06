@@ -2,11 +2,12 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "uang-jalan-kas-kecil-sopir",
-  layout: "brief",
-  title: "Uang Jalan dan Kas Kecil Sopir: Merancang Sistem Supaya Jujur Jadi Pilihan Termudah",
-  metaTitle: "Cara Mengelola Uang Jalan dan Kas Kecil Sopir Truk",
+  layout: "essay",
+  format: "Opini",
+  title: "Selisih Uang Jalan Sopir Bukan Soal Kejujuran, Tapi Kebijakan yang Belum Ditulis",
+  metaTitle: "Mengelola Uang Jalan dan Kas Kecil Sopir Truk Tanpa Memburu Setiap Struk",
   description:
-    "Sopir minta tambahan uang jalan karena struk hilang, admin pusing rekonsiliasi akhir bulan. Begini merancang sistem agar pelaporan jujur jadi pilihan termudah.",
+    "Opini Tim Editorial CargoGrid: selisih uang jalan sopir truk yang terus berulang tiap akhir bulan bukan pertama-tama soal kejujuran, melainkan kebijakan pengecualian yang belum ditulis. Ini posisi kami, lengkap data varians dan rancangan kebijakannya.",
   keywords: [
     "uang jalan sopir truk",
     "kas kecil operasional logistik",
@@ -17,60 +18,95 @@ export const article: Article = {
   ],
   category: "keuangan",
   publishedAt: "2026-07-25",
+  updatedAt: "2026-08-06",
   summary:
-    "Sopir menelepon minta tambahan uang jalan karena struk basah kena hujan atau nota BBM yang tak sempat diminta. Di kantor, selisih kecil itu menumpuk jadi kecurigaan berulang antara admin dan sopir. Akar soalnya ada di desain sistem: kantor tidak mungkin mengawasi tiap rupiah pengeluaran sopir di lapangan. Artikel ini membedah dua struktur uang jalan yang umum dipakai, insentif masing-masing, serta cara pencatatan digital dan ambang audit membuat pelaporan jujur jadi pilihan paling gampang.",
+    "Sebagian besar perusahaan membaca selisih uang jalan yang tak terjelaskan sebagai soal kejujuran sopir. Kami pikir itu keliru sasaran: akar masalahnya ada di kebijakan pengecualian yang tidak pernah ditulis jelas: kategori biaya mana yang memang tak akan pernah berstruk, ambang varians berapa yang layak ditinjau, dan siapa yang berwenang menyetujui pengecualian tanpa menunggu rapat. Tulisan ini posisi kami, lengkap dengan data varians, waktu rekonsiliasi, dan rancangan kebijakan yang kami rekomendasikan.",
   takeaways: [
-    "Struk yang hilang di jalan dan nota yang digelembungkan di kantor terlihat sama persis di atas kertas. Keduanya sama-sama selisih yang tidak terjelaskan, padahal penyebabnya bisa jauh berbeda.",
-    "Flat rate memindahkan risiko biaya ke sopir dan bisa mendorongnya memotong jalur atau istirahat; reimbursement penuh memindahkan risiko ke kantor dan membuka celah nota fiktif.",
-    "Bukti yang direkam persis saat kejadian, lewat foto berstempel waktu dan lokasi, menghapus alasan paling umum di balik selisih: struk yang keburu rusak atau hilang sebelum sempat disetorkan.",
-    "Memverifikasi setiap nota dengan ketat yang sama menghabiskan lebih banyak jam admin daripada nilai recehan yang diperiksa; ambang audit bertingkat berdasarkan penyimpangan dari rata-rata rute jauh lebih efisien.",
+    "Selisih uang jalan yang tak terjelaskan biasanya bukan soal kejujuran sopir, melainkan kebijakan pengecualian yang tidak pernah ditulis: kategori biaya mana yang memang tak akan pernah berstruk, dan siapa yang berwenang menyetujui pengecualian.",
+    "Biaya tanpa struk jatuh ke tiga kategori dengan akar penyebab berbeda: retribusi informal yang memang tak pernah menerbitkan bukti, kertas yang rusak di jalan, dan nota yang sengaja tak diminta. Hanya kategori terakhir yang benar-benar butuh pemeriksaan.",
+    "Dua angka yang layak dipantau: rasio selisih tak terjelaskan terhadap total uang jalan yang cair tiap bulan, dan lama waktu rekonsiliasi di akhir bulan. Keduanya jauh lebih jujur dibanding kesan subjektif admin soal sopir mana yang terlihat mencurigakan.",
+    "Memverifikasi tiap struk dengan ketat yang sama menghabiskan lebih banyak jam admin daripada nilai yang dipertaruhkan; ambang audit bertingkat berbasis varians dari rata-rata rute jauh lebih efisien, dan itu yang seharusnya jadi kebijakan tertulis, bukan pengetahuan tak resmi di kepala satu orang.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Jam sepuluh malam, seorang sopir Fuso dari Semarang menuju Jakarta menelepon admin operasional minta tambahan uang jalan Rp250.000. Struk tolnya basah kena hujan hingga tak terbaca, dan nota BBM di SPBU Pejagan tak sempat ia minta karena antrean kasir mengular. Nominalnya kecil, tapi telepon semacam ini rutin datang dua-tiga kali seminggu, dengan alasan serupa: struk hilang, EDC error, atau warung yang memang tak pernah memberi nota.",
+      text: "Selisih uang jalan yang terus muncul tiap akhir bulan itu, menurut kami, bukan pertama-tama soal kejujuran sopir. Kebanyakan perusahaan trucking dan forwarding menanganinya seolah begitu: memanggil sopir satu per satu, meminta penjelasan struk yang hilang, kadang mengancam potongan gaji. Reaksinya bisa dipahami, tapi menurut kami keliru sasaran, dan justru menghabiskan jam kerja admin untuk hal yang salah.",
     },
     {
       type: "p",
-      text: "Di kantor, pola ini berujung sama tiap akhir bulan. Admin mencocokkan total uang jalan yang keluar dengan bukti yang terkumpul, dan selisihnya nyaris tidak pernah nol: sebagian wajar (parkir liar memang tidak berkuitansi), sebagian lagi tidak terjelaskan sama sekali. Dari situ muncul kecurigaan dua arah: kantor curiga sopir menyimpan sisa uang, sopir curiga kantor sengaja mempersulit klaim.",
-    },
-    {
-      type: "p",
-      text: "Kecurigaan ini jarang selesai lewat teguran atau pelatihan kejujuran. Akar masalahnya ada di struktur pengawasan itu sendiri.",
+      text: "Posisi kami: sebagian besar selisih yang tidak terjelaskan di laporan uang jalan bukan berasal dari niat menyembunyikan uang, melainkan dari kebijakan yang tidak pernah ditulis dengan jelas: kategori biaya mana yang memang tidak akan pernah punya struk, ambang nominal berapa yang layak dipertanyakan, dan siapa yang berwenang menyetujui pengecualian tanpa menunggu rapat. Begitu kebijakan ini ditulis dan diukur, selisihnya biasanya menyusut jauh lebih cepat daripada hasil menaikkan pengawasan atas sopir.",
     },
     {
       type: "h2",
-      id: "problem-keagenan",
-      text: "Akar masalahnya: problem keagenan yang tak bisa diawasi tiap rupiah",
+      id: "bukan-soal-kejujuran",
+      text: "Kenapa kami pikir ini bukan soal kejujuran",
     },
     {
       type: "p",
-      text: "Dalam teori ekonomi kelembagaan, situasi ini punya nama: **principal-agent problem**, dirumuskan formal oleh Michael Jensen dan William Meckling pada 1976. Perusahaan adalah principal yang mendelegasikan tugas ke sopir sebagai agent, dan tugas itu melibatkan pengeluaran uang di lapangan yang tak mungkin diawasi rupiah demi rupiah dari kantor.",
+      text: "Contoh yang paling sering kami dengar: sopir menelepon admin operasional tengah malam minta tambahan uang jalan karena struk tol basah kena hujan hingga tak terbaca, atau nota BBM tak sempat diminta karena antrean kasir mengular. Pola ini rutin, bukan kejadian sekali dua kali dalam setahun, dan alasan yang muncul nyaris selalu sama: struk hilang, EDC error, atau warung yang memang tak pernah memberi nota.",
     },
     {
       type: "p",
-      text: "Persoalan ini punya dua bentuk. Sebelum uang dikeluarkan, kantor tak pernah tahu pasti ongkos wajar suatu perjalanan: parkir di titik bongkar itu Rp15.000 atau sebenarnya cuma Rp5.000? Ekonom menyebut ini **adverse selection**, informasi timpang sebelum transaksi. Setelah uang dikeluarkan, kantor juga tak tahu persis untuk apa saja uang itu dipakai. Ini **moral hazard**, tindakan tersembunyi setelah kesepakatan dibuat.",
+      text: "Masalahnya, struk yang hilang kena hujan dan struk yang sengaja tidak diminta supaya sisanya bisa disimpan terlihat sama persis di atas kertas. Kantor yang menyamakan keduanya lalu menaikkan kecurigaan ke semua laporan sebenarnya sedang menghukum kejadian di luar kendali siapa pun dengan beban yang sama seperti kejadian yang memang perlu ditelusuri. Berapa proporsi laporan yang benar-benar disengaja itu bukan pertanyaan yang bisa dijawab dari selisih struk saja, dan mengejar jawabannya lewat rasa curiga cuma membuang waktu.",
     },
     {
       type: "p",
-      text: "Gejala kedua bentuk asimetri ini identik: struk yang tidak lengkap. Sopir yang benar-benar kehilangan struk kena hujan terlihat sama persis dengan sopir yang sengaja tidak meminta struk supaya sisa uangnya bisa dikantongi. Menaruh akuntan di kursi penumpang tiap truk jelas tidak realistis. Yang bisa diubah adalah desain sistemnya.",
+      text: "Ekonom punya nama untuk pola ini, dan kami pikir istilahnya membantu meletakkan soalnya di tempat yang tepat: **principal-agent problem**, dirumuskan formal oleh Michael Jensen dan William Meckling pada 1976. Sebelum uang keluar, kantor tak pernah tahu pasti ongkos wajar suatu perjalanan: ini **adverse selection**. Setelah uang keluar, kantor juga tak tahu persis untuk apa saja uang itu dipakai: ini **moral hazard**. Keduanya soal informasi yang timpang, bukan soal watak. Menaruh akuntan di kursi penumpang tiap truk jelas tidak realistis, jadi yang bisa diubah cuma desain sistemnya.",
+    },
+    {
+      type: "quote",
+      text: "Sistem yang baik tidak bertanya apakah sopirnya jujur. Sistem yang baik bertanya apakah kebijakan pengecualiannya sudah ditulis.",
     },
     {
       type: "h2",
-      id: "dua-pilihan-struktur",
-      text: "Dua pilihan struktur uang jalan, dan insentif yang masing-masing dibawanya",
+      id: "kategori-biaya-tanpa-struk",
+      text: "Tiga kategori biaya tanpa struk, dan kenapa perlakuannya harus beda",
     },
     {
       type: "p",
-      text: "Ada dua desain dasar uang jalan yang dipakai kebanyakan trucking dan forwarding di Indonesia, dan keduanya membawa insentif yang bertolak belakang. **Flat rate per rute**: sopir menerima nominal tetap untuk rute tertentu, berapa pun yang ia habiskan, tanpa perlu bukti. **Reimbursement penuh**: sopir menombok dulu, lalu kantor menggantinya persis sesuai struk yang diserahkan.",
-    },
-    {
-      type: "p",
-      text: "Keduanya memindahkan risiko ke pihak berbeda. Flat rate menaruh risiko biaya di pundak sopir: hemat jadi haknya, membengkak ia yang menombok. Reimbursement menaruh risiko itu sepenuhnya di pundak kantor.",
+      text: "Kalau dipilah, biaya tanpa struk yang biasa memicu telepon tengah malam itu sebenarnya jatuh ke tiga kategori dengan akar penyebab berbeda, dan menyamaratakan ketiganya adalah kesalahan paling umum yang kami lihat di lapangan.",
     },
     {
       type: "table",
-      caption: "Dua struktur dasar uang jalan dan konsekuensi masing-masing",
+      caption: "Tiga kategori biaya tanpa struk dan perlakuan yang menurut kami tepat",
+      head: ["Kategori", "Contoh", "Akar penyebab", "Perlakuan yang tepat"],
+      rows: [
+        [
+          "Retribusi dan keamanan informal",
+          "Parkir liar di titik bongkar, uang keamanan portal atau preman jalan",
+          "Tidak pernah ada struk resmi untuk ditagih, apa pun yang sopir lakukan",
+          "Ambang nominal bebas bukti; cukup foto lokasi dan catatan singkat",
+        ],
+        [
+          "Bukti fisik rusak atau hilang",
+          "Struk tol basah kena hujan, nota BBM tak sempat diminta saat antre panjang",
+          "Kejadian di luar kendali sopir saat itu, bukan kelalaian yang disengaja",
+          "Foto struk bertimestamp direkam saat kejadian, sebelum kertasnya sempat rusak",
+        ],
+        [
+          "Nota yang tidak diminta atau digelembungkan",
+          "Nota kosong dari warung langganan, nominal ditulis lebih besar dari yang dibayar",
+          "Reimbursement penuh tanpa verifikasi menghapus dorongan berhemat",
+          "Ambang audit berbasis varians dari rata-rata rute, ditinjau kalau menyimpang signifikan",
+        ],
+      ],
+    },
+    {
+      type: "p",
+      text: "Kategori pertama dan kedua bukan soal disiplin sopir sama sekali: itu soal struktur biaya di jalan yang memang tidak pernah menerbitkan bukti resmi, atau kertas yang rusak sebelum sempat disetorkan. Baru kategori ketiga yang benar-benar butuh mekanisme pemeriksaan, dan itu pun menurut kami lebih efektif diselesaikan lewat ambang varians daripada lewat rasa curiga yang disebar rata ke semua laporan.",
+    },
+    {
+      type: "h2",
+      id: "dua-skema-dan-risikonya",
+      text: "Dua skema uang jalan, dan risiko yang masing-masing bawa",
+    },
+    {
+      type: "p",
+      text: "Pilihan skema uang jalan menentukan kategori mana yang paling sering muncul. Ada dua desain dasar yang dipakai kebanyakan trucking dan forwarding di Indonesia: **flat rate per rute**, sopir menerima nominal tetap untuk rute tertentu berapa pun yang ia habiskan, tanpa perlu bukti; dan **reimbursement penuh**, sopir menombok dulu, lalu kantor menggantinya persis sesuai struk yang diserahkan. Keduanya memindahkan risiko biaya ke pihak berbeda, dan kalau dijalankan tanpa batas yang jelas, keduanya menciptakan celah yang berbeda pula.",
+    },
+    {
+      type: "table",
+      caption: "Dua struktur dasar uang jalan, dan siapa menanggung risikonya",
       head: ["Dimensi", "Flat rate per rute", "Reimbursement penuh"],
       rows: [
         ["Siapa menanggung risiko biaya membengkak", "Sopir", "Perusahaan"],
@@ -81,83 +117,50 @@ export const article: Article = {
       ],
     },
     {
-      type: "h2",
-      id: "risiko-flat-rate",
-      text: "Risiko yang jarang dihitung dalam skema flat rate",
+      type: "p",
+      text: "Flat rate mendorong sopir berhemat karena sisa uang jadi haknya, tapi cara berhemat itu tidak selalu sejalan dengan kepentingan perusahaan: ada yang memilih jalur non-tol demi menyimpan selisih tol, ada yang memangkas istirahat, ada yang parkir di bahu jalan terlarang daripada membayar parkir resmi. Kalau kondisi berubah di luar dugaan (macet parah, tarif tol naik mendadak, jalan ditutup), sopir menanggung sendiri selisihnya, dan itu yang biasanya berujung telepon minta tambahan.",
     },
     {
       type: "p",
-      text: "Di atas kertas, flat rate terlihat rapi karena sopir otomatis terdorong berhemat: sisa uang jalan jadi miliknya. Masalahnya, cara berhemat itu tidak selalu sejalan dengan kepentingan perusahaan: ada yang memilih jalur non-tol yang lebih jauh demi menyimpan selisih uang tol, ada yang memangkas istirahat atau melewatkan makan supaya cepat selesai, ada pula yang nekat parkir di bahu jalan terlarang daripada membayar parkir resmi.",
-    },
-    {
-      type: "p",
-      text: "Sebaliknya, ketika kondisi berubah di luar dugaan (macet parah, tarif tol naik mendadak, jalan ditutup), sopir menanggung sendiri selisihnya. Selisih kecil, ia diam menyimpan kekecewaan. Selisih besar, ia menelepon minta tambahan, persis seperti adegan di awal tadi. Flat rate tanpa ruang pengecualian pada akhirnya menciptakan kembali celah yang tadinya ingin dihindari.",
+      text: "Reimbursement penuh punya masalah kebalikannya: karena semua diganti sesuai struk, tidak ada dorongan berhemat, dan celah nota fiktif jadi mungkin muncul. Skema ini juga membebani arus kas sopir sendiri: ia menombok dulu, menunggu verifikasi, kadang berhari-hari, sebelum diganti. Untuk perjalanan jauh yang mahal, sopir bisa kehabisan uang sebelum reimbursement cair, lalu menelepon minta talangan. Skema yang niatnya menjamin sopir tak pernah rugi, pada praktiknya bisa membuatnya jadi pihak paling dulu kehabisan uang.",
     },
     {
       type: "h2",
-      id: "risiko-reimbursement",
-      text: "Risiko yang jarang dihitung dalam skema reimbursement penuh",
+      id: "angka-yang-benar-benar-penting",
+      text: "Dua angka yang menurut kami sebenarnya layak dipantau",
     },
     {
       type: "p",
-      text: "Reimbursement penuh punya masalah kebalikannya: karena semua biaya diganti sesuai struk, sopir tidak punya alasan berhemat. Kenapa pilih warung murah kalau warung mahal juga diganti penuh? Celah ini membuka ruang nota fiktif: nota kosong dari warung langganan, atau nominal yang ditulis lebih besar dari yang sebenarnya dibayar.",
-    },
-    {
-      type: "p",
-      text: "Skema ini juga membebani arus kas sopir: ia menombok dulu, menunggu verifikasi, baru diganti, kadang berhari-hari. Untuk perjalanan jauh yang mahal, sopir bergaji pas-pasan bisa kehabisan uang sebelum reimbursement cair, lalu menelepon minta talangan. Reimbursement yang niatnya menjamin sopir tak pernah rugi, pada praktiknya justru membuatnya jadi pihak paling dulu kehabisan uang.",
-    },
-    {
-      type: "h2",
-      id: "kenapa-curiga-tidak-menyelesaikan",
-      text: "Kenapa rasa curiga tidak pernah menyelesaikan persoalan ini",
-    },
-    {
-      type: "p",
-      text: "Reaksi paling umum saat selisih bulanan terus berulang adalah menaikkan kecurigaan: sopir dipanggil, diminta menjelaskan satu per satu, kadang diancam potongan gaji. Reaksi ini bisa dimengerti, tapi jarang bertahan karena mengobati gejala tanpa menyentuh sebabnya. Sopir yang jujur ikut terkena getahnya, merasa tak dipercaya padahal ia sendiri korban struk rusak kena hujan.",
-    },
-    {
-      type: "p",
-      text: "Yang benar-benar mengubah keadaan adalah merancang sistem sehingga melapor jujur jadi pilihan paling gampang, lebih gampang daripada menyembunyikan. Dalam desain mekanisme insentif, prinsip ini disebut **incentive-compatible**: sistem berhasil bukan karena semua orangnya baik, melainkan karena jalur jujur kebetulan juga jalur paling sedikit hambatan.",
-    },
-    {
-      type: "quote",
-      text: "Anda tidak sedang mengejar sopir yang jujur. Anda sedang merancang sistem yang membuat kejujuran jadi pilihan paling gampang diambil.",
-    },
-    {
-      type: "h2",
-      id: "pencatatan-digital",
-      text: "Pencatatan digital yang menutup celah paling umum",
-    },
-    {
-      type: "p",
-      text: "Celah paling sering muncul dari cara paling kuno: struk kertas yang gampang basah, luntur, terselip, atau kelupaan diminta. Solusi paling praktis: ubah bentuk buktinya dari kertas jadi foto, direkam otomatis lewat aplikasi di ponsel sopir yang sama dipakai untuk update status pengiriman.",
-    },
-    {
-      type: "p",
-      text: "Setiap kali sopir mengeluarkan uang, ia cukup memotret struk atau lokasi kejadian lewat aplikasi: timestamp dan titik GPS otomatis menempel. Struk yang basah kena hujan pun sudah tersimpan fotonya di server sebelum kertasnya sempat luntur. Untuk pengeluaran yang tak pernah dapat nota resmi (retribusi liar, uang keamanan parkir), foto lokasi dan catatan singkat sudah cukup jadi bukti.",
-    },
-    {
-      type: "p",
-      text: "Waktu pencatatannya yang membuat pendekatan ini bertahan: bukti direkam persis saat kejadian, tidak perlu diingat-ingat dan dikumpulkan lagi di akhir perjalanan. Begitu jeda itu hilang, alasan paling umum (“struknya hilang”) kehilangan tempat untuk muncul.",
+      text: "Kalau kami harus pilih dua angka untuk menilai apakah desain uang jalan sebuah armada sudah benar, kami akan pilih ini: rasio selisih yang tidak terjelaskan terhadap total uang jalan yang cair tiap bulan, dan lama waktu rekonsiliasi di akhir bulan. Bukan jumlah telepon minta tambahan, dan bukan pula kesan subjektif admin soal sopir mana yang terlihat mencurigakan.",
     },
     {
       type: "callout",
-      tone: "insight",
-      title: "Tidak perlu sistem canggih untuk mulai",
-      body: "Fiturnya sederhana: kamera yang otomatis menempelkan timestamp dan lokasi, tersimpan begitu difoto, tanpa menunggu sopir kembali ke kantor. Bisa dimulai dari modul kecil pada aplikasi driver yang sudah dipakai, jauh sebelum perlu proyek TMS penuh.",
+      tone: "example",
+      title: "Ilustrasi sebelum-sesudah, satu armada 40 truk",
+      body: "Angka berikut disederhanakan untuk ilustrasi, bukan catatan satu perusahaan tertentu, tapi besarannya konsisten dengan yang biasa dilaporkan. Sebelum redesain, uang jalan yang cair sebulan sekitar Rp1,2 miliar, dengan selisih tak terjelaskan rata-rata 4% (sekitar Rp48 juta), dan admin menghabiskan tiga hari kerja penuh tiap akhir bulan untuk rekonsiliasi manual. Setelah pindah ke skema campuran, pencatatan foto bertimestamp, dan ambang audit bertingkat, selisih turun ke bawah 1%, dan waktu rekonsiliasi turun jadi kurang dari satu hari kerja.",
+    },
+    {
+      type: "p",
+      text: "Rasio di atas 3% dan waktu rekonsiliasi yang masih menyita berhari-hari adalah tanda paling jelas, menurut kami, bahwa desain kebijakannya belum selesai, bukan tanda bahwa sopirnya perlu diawasi lebih ketat. Dua angka ini juga jauh lebih mudah dilacak dari waktu ke waktu dibanding mencoba menilai watak orang per orang.",
     },
     {
       type: "h2",
-      id: "ambang-audit",
-      text: "Ambang batas: kapan sesuatu layak diperiksa lebih lanjut",
+      id: "kebijakan-pengecualian",
+      text: "Kebijakan pengecualian yang menurut kami seharusnya ditulis",
     },
     {
       type: "p",
-      text: "Begitu pencatatan sudah digital, memverifikasi tiap nota satu per satu jadi pekerjaan berlebihan: bisa ratusan transaksi per minggu untuk armada sedang. Cara yang lebih efisien: tetapkan garis dasar historis per rute, lalu periksa hanya klaim yang menyimpang jauh dari garis itu.",
+      text: "Berikut kebijakan pengecualian yang kami pikir seharusnya ditulis dan dibagikan ke semua sopir dan admin, bukan disimpan sebagai pengetahuan tak tertulis di kepala satu manajer keuangan:",
     },
     {
-      type: "p",
-      text: "Hitung rata-rata dan rentang wajar uang jalan tiap rute dari data tiga bulan terakhir. Rute Semarang–Jakarta misalnya rata-rata Rp1.850.000 dengan rentang wajar Rp1.700.000–Rp2.000.000. Klaim di dalam rentang ini lolos otomatis tanpa ditelaah manusia; klaim yang menyimpang lebih dari 20% ditandai sistem untuk ditinjau admin.",
+      type: "ol",
+      items: [
+        "**Ambang nominal bebas bukti.** Di bawah nominal ini (misalnya Rp20.000, disesuaikan dengan kondisi masing-masing armada), retribusi dan uang keamanan informal tidak wajib disertai struk resmi: foto lokasi dan catatan singkat sudah cukup.",
+        "**Klasifikasi biaya per kategori.** Biaya yang polanya stabil (makan, retribusi kecil, parkir rutin) masuk flat rate; biaya besar yang berubah-ubah di luar kendali sopir (BBM, tol, darurat seperti ban pecah) masuk reimbursement berbukti foto.",
+        "**Ambang varians untuk tinjauan.** Klaim dalam rentang wajar rata-rata rute, dihitung dari data tiga bulan terakhir, lolos tanpa ditelaah manusia; penyimpangan besar ditahan untuk konfirmasi, bukan setiap klaim diperiksa satu per satu.",
+        "**Jalur eskalasi yang jelas.** Penyimpangan berulang pada sopir atau rute yang sama, tiga bulan berturut-turut, naik ke supervisor operasional, bukan ditangani berulang-ulang di level admin keuangan yang sama.",
+        "**Jadwal peninjauan nominal flat rate.** Ditinjau ulang tiap kali tarif tol atau harga BBM berubah signifikan, memakai angka di sekitar median atau persentil ke-60 dari data aktual, supaya tidak terlalu rendah dan memancing sopir mencari jalan pintas.",
+      ],
     },
     {
       type: "table",
@@ -172,49 +175,37 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Memverifikasi nota Rp5.000 sama beratnya dengan memverifikasi nota Rp500.000, padahal nilai yang dipertaruhkan jauh berbeda. Kantor yang memperlakukan semua nominal setara biasanya menghabiskan lebih banyak jam admin mengejar recehan, sementara penyimpangan besar yang sungguhan merugikan malah luput di antara ratusan nota kecil.",
-    },
-    {
-      type: "h2",
-      id: "skema-campuran",
-      text: "Skema campuran yang paling banyak dipakai perusahaan yang sudah matang",
-    },
-    {
-      type: "p",
-      text: "Perusahaan yang sudah melewati fase saling curiga ini jarang memilih salah satu skema secara mutlak. Yang lebih umum: kombinasi flat rate untuk biaya yang polanya stabil (makan, retribusi kecil, parkir rutin), dan reimbursement berbukti digital untuk biaya besar yang berubah-ubah (BBM, tol, biaya darurat seperti ban pecah atau derek).",
-    },
-    {
-      type: "p",
-      text: "Kombinasi ini menaruh tiap jenis biaya di tangan pihak yang paling mampu mengendalikannya. Sopir paling tahu cara berhemat untuk makan dan parkir hariannya sendiri, cocok untuk flat rate. Tarif tol dan harga BBM ditentukan negara dan pasar. Sopir sama sekali tak bisa mengendalikannya, sehingga reimbursement lebih adil untuk keduanya.",
+      text: "Tabel ini bukan resep baku yang harus ditiru persis, tapi contoh konkret prinsip ambang bertingkat: klaim yang mendekati normal tidak perlu disentuh manusia sama sekali, dan tenaga admin dipakai hanya untuk penyimpangan yang benar-benar berarti nilainya.",
     },
     {
       type: "callout",
-      tone: "example",
-      title: "Ilustrasi sebelum dan sesudah, satu armada 40 truk",
-      body: "Sebelum redesain, uang jalan yang cair sebulan sekitar Rp1,2 miliar, dengan selisih tak terjelaskan rata-rata 4% (sekitar Rp48 juta), dan admin menghabiskan tiga hari kerja penuh tiap akhir bulan untuk rekonsiliasi manual. Setelah pindah ke skema campuran plus pencatatan digital dan ambang audit bertingkat, selisih turun ke bawah 1%, dan waktu rekonsiliasi turun jadi kurang dari satu hari kerja. Angka ini ilustratif, tapi besarannya konsisten dengan yang biasa dilaporkan.",
+      tone: "insight",
+      title: "Kebijakan ini baru bisa jalan kalau buktinya real-time",
+      body: "Ambang varians dan jalur eskalasi di atas cuma berguna kalau bukti pengeluaran direkam persis saat kejadian, bukan dikumpulkan lagi di akhir perjalanan. Fiturnya tidak perlu rumit: kamera yang otomatis menempelkan timestamp dan lokasi, tersimpan begitu difoto lewat aplikasi yang sama dipakai sopir untuk update status pengiriman. Bisa dimulai dari modul kecil pada aplikasi driver yang sudah dipakai, jauh sebelum perlu proyek TMS penuh.",
+    },
+    {
+      type: "h2",
+      id: "posisi-kami",
+      text: "Posisi kami, singkatnya",
     },
     {
       type: "p",
-      text: "Dua angka layak dipantau sebelum memutuskan skema mana yang cocok: rasio selisih tak terjelaskan terhadap total uang jalan yang cair tiap bulan, dan frekuensi telepon minta tambahan di tengah perjalanan per minggu. Kalau rasio pertama masih di atas 3% dan telepon tambahan masih rutin, itu tanda desainnya belum selesai.",
+      text: "Memverifikasi setiap struk dengan ketat yang sama itu, menurut kami, kebijakan yang salah alamat, bukan kebijakan yang ketat. Ongkos memeriksa nota Rp5.000 sama besarnya dengan memeriksa nota Rp500.000, padahal nilai yang dipertaruhkan jauh berbeda, dan jam admin yang habis mengejar recehan itu jam yang tidak dipakai untuk menangkap penyimpangan besar yang sungguhan merugikan.",
+    },
+    {
+      type: "p",
+      text: "Kami juga tidak sedang bilang bahwa kecurigaan pada laporan uang jalan itu sepenuhnya keliru: kategori ketiga yang kami sebut di atas memang nyata, dan ambang varians dirancang justru untuk menangkapnya. Yang kami tolak adalah caranya: menaikkan pengawasan atas semua laporan untuk masalah yang sebenarnya cuma butuh kebijakan tertulis dan ambang yang jelas. Kalau rasio selisih di armada Anda masih di atas 3% dan admin masih menghabiskan berhari-hari tiap akhir bulan untuk rekonsiliasi, itu menurut kami bukan tanda perlu pengawasan yang lebih ketat. Itu tanda kebijakannya belum ditulis.",
     },
   ],
-  faq: [
-    {
-      q: "Apakah flat rate berarti sopir bebas memakai sisa uang jalan untuk keperluan pribadi?",
-      a: "Selama nominalnya ditetapkan realistis berdasarkan data historis, sisa uang yang tak terpakai memang sah jadi hak sopir. Itu justru insentif yang membuat skema ini bekerja. Masalah muncul kalau nominalnya terlalu rendah sejak awal, sehingga sopir terpaksa memotong biaya penting seperti istirahat atau jalur resmi.",
-    },
-    {
-      q: "Berapa nominal flat rate yang wajar untuk satu rute?",
-      a: "Ambil data pengeluaran aktual rute itu dari tiga sampai enam bulan terakhir, lalu pakai angka di sekitar median atau persentil ke-60 supaya tak gampang terdistorsi perjalanan yang ekstrem. Tinjau ulang tiap kali tarif tol atau harga BBM berubah signifikan. Nominal yang dibiarkan tetap bertahun-tahun perlahan memancing sopir mencari jalan pintas.",
-    },
-    {
-      q: "Bagaimana kalau sopir tetap tidak bisa mendapat bukti untuk pengeluaran kecil, meski sudah pakai aplikasi?",
-      a: "Tetapkan ambang nominal di bawah mana bukti sama sekali tak diwajibkan, misalnya di bawah Rp20.000 untuk retribusi atau uang keamanan informal. Di atas ambang itu, foto lokasi dan catatan singkat sudah cukup, tanpa perlu kuitansi resmi. Mewajibkan bukti formal untuk pengeluaran yang memang tak punya bukti formal hanya mengundang sopir memalsukan sesuatu yang sebenarnya bisa diakui apa adanya.",
-    },
-    {
-      q: "Perlu investasi sistem yang besar untuk menjalankan pencatatan digital ini?",
-      a: "Tidak. Fitur intinya cuma dua: kamera yang otomatis menempelkan timestamp dan lokasi, tersimpan begitu difoto tanpa menunggu sopir kembali ke kantor. Bisa ditambahkan sebagai modul kecil pada aplikasi driver yang sudah ada, jauh sebelum perlu sistem TMS penuh.",
-    },
-  ],
+  cta: {
+    title: "Kebijakan sudah ditulis, sekarang soal apakah sopir benar-benar memakai aplikasinya",
+    body: "Ambang varians dan kategori biaya di atas cuma jalan kalau bukti pengeluaran direkam lewat aplikasi driver, bukan dijanjikan di atas kertas. Kalau langkah berikutnya di kantor Anda adalah membuat sopir benar-benar memotret struk lewat aplikasi, bukan menuliskannya di buku catatan seperti biasa, baca dulu apa yang biasanya membuat adopsi aplikasi driver berhasil atau gagal.",
+    linkHref: "/artikel/adopsi-aplikasi-driver",
+    linkLabel: "Baca strategi adopsi aplikasi driver",
+  },
+  byline: {
+    author: "Tim Editorial CargoGrid",
+    note: "Posisi dalam tulisan ini disusun dari pola rekonsiliasi uang jalan dan kas kecil yang berulang kami amati lintas operator trucking dan forwarding, bukan dari satu kasus atau klaim akademis tunggal.",
+  },
   related: ["rekonsiliasi-invoice-forwarder-terlambat", "margin-per-job-forwarder", "adopsi-aplikasi-driver"],
 };

@@ -4,7 +4,7 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/artikel",
-  title: "Artikel & Wawasan Operasional Logistik — CargoGrid OS",
+  title: "Artikel & Wawasan Operasional Logistik - CargoGrid OS",
   description:
     "Tulisan teknis tentang operasional logistik Indonesia: biaya POD kertas, rekonsiliasi invoice forwarder, demurrage, margin per job, WMS 3PL, dan pemilihan sistem.",
   keywords: [

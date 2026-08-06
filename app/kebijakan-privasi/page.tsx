@@ -5,7 +5,7 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/kebijakan-privasi",
-  title: "Kebijakan Privasi — CargoGrid OS",
+  title: "Kebijakan Privasi - CargoGrid OS",
   description:
     "Bagaimana CargoGrid mengumpulkan, menggunakan, dan melindungi data kontak bisnis, data inquiry operasional, serta analitik website Anda, sesuai UU PDP dan standar GDPR.",
 });

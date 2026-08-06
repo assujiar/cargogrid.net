@@ -5,7 +5,7 @@ import { buildMetadata, breadcrumbJsonLd } from "../../src/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/syarat-ketentuan",
-  title: "Syarat & Ketentuan — CargoGrid OS",
+  title: "Syarat & Ketentuan - CargoGrid OS",
   description:
     "Ketentuan penggunaan situs, permintaan demo/audit, tanggung jawab keakuratan data, hak kekayaan intelektual, dan batasan tanggung jawab CargoGrid OS.",
 });

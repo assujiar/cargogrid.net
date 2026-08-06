@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Kalkulator Muatan Truk: Berapa Kardus Muat di CDD, Fuso, atau Tronton",
   metaTitle: "Kalkulator Muatan Truk: Hitung Kapasitas CDE, CDD, Fuso, Tronton | CargoGrid",
   description:
-    "Masukkan ukuran kardus dan pilih jenis truk. Hitung berapa yang muat secara ruang, berapa yang boleh menurut batas berat, mana dari keduanya yang lebih dulu membatasi, dan apakah muatan itu masih boleh melewati kelas jalan pada rute Anda.",
+    "Sedang menentukan CDD atau Fuso untuk kiriman ini? Masukkan ukuran kardus, berat per kardus, dan jumlahnya, lalu kalkulator ini menyebutkan batas mana yang mengikat lebih dulu, ruang atau berat.",
   keywords: [
     "kalkulator muatan truk",
     "kapasitas truk CDD",
@@ -95,7 +95,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Nadanya sengaja tidak menghakimi. Alat ini tidak tahu STNK unit yang akan dipakai, tidak tahu berat kosongnya setelah karoseri, dan tidak tahu izin rutenya, jadi ia menyebutkan apa yang perlu diperiksa dan di mana angka pastinya berada, alih-alih menyatakan sesuatu sah atau tidak sah. Satu-satunya hal yang dinyatakan tegas adalah yang memang tidak mungkin: ruang muat yang lebih lebar daripada batas lebar kendaraan hampir selalu berarti salah ketik atau salah satuan.",
+      text: "Alat ini tidak memutuskan boleh-tidaknya sebuah muatan. Ia tidak tahu STNK unit yang akan dipakai, tidak tahu berat kosongnya setelah karoseri, dan tidak tahu izin rutenya, jadi ia menyebutkan apa yang perlu diperiksa dan di mana angka pastinya berada, alih-alih menyatakan sesuatu sah atau tidak sah. Satu-satunya hal yang dinyatakan tegas adalah yang memang tidak mungkin: ruang muat yang lebih lebar daripada batas lebar kendaraan hampir selalu berarti salah ketik atau salah satuan.",
     },
     {
       type: "callout",
@@ -114,7 +114,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Karena itu semua angka pada kalkulator ini bisa ditimpa. Prefill-nya adalah titik awal yang wajar untuk armada Indonesia; angka yang benar adalah yang diukur sendiri di halaman, sekali, lalu dipakai berulang. Mengukur bak armada tetap Anda adalah pekerjaan setengah hari yang manfaatnya bertahan bertahun-tahun.",
+      text: "Semua angka pada kalkulator ini karena itu bisa ditimpa. Prefill-nya adalah titik awal yang wajar untuk armada Indonesia; angka yang benar adalah yang diukur sendiri di halaman, sekali, lalu dipakai berulang. Mengukur bak armada tetap Anda adalah pekerjaan setengah hari yang manfaatnya bertahan bertahun-tahun.",
     },
     {
       type: "callout",

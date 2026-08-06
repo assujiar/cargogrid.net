@@ -159,9 +159,9 @@ export default function LeadCaptureForm() {
             </h1>
             <p className="text-slate-600 text-sm font-semibold leading-relaxed">
               {isEn ? (
-                <>Get a comprehensive operational workflow review from <strong className="text-slate-800 font-bold">request to payment</strong> (valued at Rp 5,000,000) for free with CargoGrid's logistics consultants.</>
+                <>A free 45-minute session reviews your operational workflow from <strong className="text-slate-800 font-bold">request to payment</strong>. Bring a sample RFQ, job sheet, or your current POD process, and you'll come away with a one-page written summary covering duplicate-work points, data risks, and the modules relevant to your operation.</>
               ) : (
-                <>Dapatkan analisis komprehensif alur kerja dari <strong className="text-slate-800 font-bold">RFQ hingga Billing</strong> gratis senilai Rp 5.000.000 bersama Konsultan Logistik Senior CargoGrid.</>
+                <>Sesi konsultasi 45 menit untuk meninjau alur kerja Anda dari <strong className="text-slate-800 font-bold">RFQ hingga Billing</strong>, gratis. Siapkan contoh RFQ, job sheet, atau alur POD Anda saat ini, dan Anda akan menerima ringkasan tertulis satu halaman berisi titik kerja duplikat, risiko data, dan modul yang relevan.</>
               )}
             </p>
 
@@ -173,8 +173,8 @@ export default function LeadCaptureForm() {
                 </div>
                 <span>
                   {isEn
-                    ? "Efficiency review: we identify workflow steps that slow operations and profitability."
-                    : "Pemetaan efisiensi: Kami bantu identifikasi tahapan yang memperlambat arus kerja dan profitabilitas."}
+                    ? "A written list of the workflow steps causing duplicate data entry and eating into your margin, ready to share with your team."
+                    : "Daftar tertulis tahapan kerja yang menyebabkan duplikasi input dan berdampak ke margin, siap dibagikan ke tim Anda."}
                 </span>
               </div>
               <div className="flex items-start gap-3.5 text-xs text-slate-600 font-semibold">
@@ -183,8 +183,8 @@ export default function LeadCaptureForm() {
                 </div>
                 <span>
                   {isEn
-                    ? "WMS Readiness Assessment: Evaluate your physical warehouse rack and bin layouts."
-                    : "Checklist Kesiapan WMS: Evaluasi tata letak rack/bin pergudangan Anda."}
+                    ? "Notes evaluating your warehouse rack and bin layout, based on what you walk us through during the session."
+                    : "Catatan evaluasi tata letak rack/bin gudang Anda, berdasarkan penjelasan Anda saat sesi berlangsung."}
                 </span>
               </div>
               <div className="flex items-start gap-3.5 text-xs text-slate-600 font-semibold">
@@ -193,8 +193,8 @@ export default function LeadCaptureForm() {
                 </div>
                 <span>
                   {isEn
-                    ? "Branded Portal Preview: Interactive mockup tracking portal built with your logo."
-                    : "Demo Branded Tracking: Mockup halaman pelacakan khusus berlogo brand Anda."}
+                    ? "A mockup tracking-portal page carrying your company logo: a visual example, not a live system."
+                    : "Mockup halaman pelacakan berlogo perusahaan Anda: contoh visual, bukan sistem yang sudah live."}
                 </span>
               </div>
             </div>
@@ -210,8 +210,8 @@ export default function LeadCaptureForm() {
 
             <p className="text-[11px] text-slate-500 font-semibold leading-relaxed">
               {isEn
-                ? "The audit and demo are non-binding — no commercial agreement until you and our team sign a formal SLA."
-                : "Audit dan demo ini tidak mengikat kontrak apa pun — belum ada perjanjian komersial sampai Anda dan tim kami menandatangani SLA resmi."}
+                ? "The audit and demo are non-binding: no commercial agreement until you and our team sign a formal SLA."
+                : "Audit dan demo ini tidak mengikat kontrak apa pun, belum ada perjanjian komersial sampai Anda dan tim kami menandatangani SLA resmi."}
             </p>
           </div>
 

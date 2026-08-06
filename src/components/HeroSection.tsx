@@ -56,15 +56,6 @@ export default function HeroSection() {
             id="hero-left-col"
           >
             
-            {/* Status Tag */}
-            <div
-              className="inline-flex items-center gap-2.5 self-start px-4 py-2 rounded-full nm-emboss-sm text-brand-teal text-xs font-extrabold uppercase tracking-widest cursor-default transition-transform duration-200 hover:scale-[1.02] will-change-transform"
-              id="hero-status-tag"
-            >
-              <span className="w-2.5 h-2.5 rounded-full nm-led-teal"></span>
-              <span>{isEn ? "Logistics Integration: Request to Payment" : "Integrasi Logistik: Permintaan ke Pembayaran"}</span>
-            </div>
-
             {/* Main Headline (Editorial / Magazine Style - NO ITALIC) */}
             <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-slate-900">
               {isEn ? (

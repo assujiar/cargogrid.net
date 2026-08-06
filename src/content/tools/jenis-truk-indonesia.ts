@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Jenis Truk di Indonesia dan Kapasitasnya: 61 Kelas Armada dari Pickup sampai Trailer",
   metaTitle: "Jenis Truk & Kapasitas Muatan Indonesia: CDE, CDD, Fuso, Tronton | CargoGrid",
   description:
-    "Tabel ukuran bak, kubikasi, kapasitas berat, golongan tol, dan golongan penyeberangan untuk 61 kelas armada di Indonesia, dari pickup dan CDD sampai wingbox, trailer, lowbed, dan angkutan alat berat.",
+    "Truk apa yang cocok untuk muatan Anda, CDD, fuso, atau tronton? Tabel ini membandingkan ukuran bak dan kapasitas berat dari 61 kelas armada yang beroperasi di Indonesia.",
   keywords: [
     "jenis truk di indonesia",
     "kapasitas truk CDD",
@@ -37,7 +37,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Tabel ini karena itu berguna untuk memilih kelas armada, bukan untuk merencanakan muatan sampai ke kardus terakhir. Untuk armada tetap, mengukur sendiri bak setiap unit adalah pekerjaan setengah hari yang manfaatnya bertahan bertahun-tahun.",
+      text: "Tabel di halaman ini adalah referensi praktis untuk menyortir kelas armada dengan cepat, bukan standar resmi dan bukan pengganti spesifikasi unit yang sebenarnya. Sebelum memesan satu unit tertentu, cocokkan dulu dimensi bak, JBI, dan foto kendaraannya dengan operator atau vendor karoseri terkait. Untuk armada tetap, mengukur sendiri bak setiap unit adalah pekerjaan setengah hari yang manfaatnya bertahan bertahun-tahun.",
     },
     {
       type: "callout",
@@ -52,7 +52,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Dua kolom terakhir pada setiap tabel sering menjadi alasan halaman ini dibuka, karena keduanya langsung masuk ke perhitungan biaya rute. Yang perlu diingat: keduanya memakai dasar yang berbeda. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
+      text: "Dua kolom terakhir pada setiap tabel biasanya yang paling menentukan saat menghitung biaya rute, karena keduanya langsung memengaruhi tarif tol dan tarif penyeberangan. Yang perlu diingat: keduanya memakai dasar yang berbeda. Golongan tol mengikuti jumlah gandar, golongan penyeberangan mengikuti panjang keseluruhan kendaraan.",
     },
     {
       type: "p",

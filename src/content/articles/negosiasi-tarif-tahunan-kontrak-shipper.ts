@@ -2,128 +2,89 @@ import type { Article } from "./types";
 
 export const article: Article = {
   slug: "negosiasi-tarif-tahunan-kontrak-shipper",
-  layout: "essay",
-  title:
-    "Negosiasi Tarif Tahunan dengan Shipper Besar: Kenapa Harga Termurah di Tender Sering Berujung Putus Kontrak",
-  metaTitle: "Negosiasi Tarif Tahunan Kontrak Shipper: Panduan Rate Review",
+  layout: "primer",
+  format: "Tanya Jawab",
+  title: "Pertanyaan yang Paling Sering Muncul Menjelang Rate Review Tahunan dengan Shipper Besar",
+  metaTitle: "Tanya Jawab Negosiasi Tarif Tahunan dengan Shipper Besar",
   description:
-    "Musim rate review tahunan selalu membawa kartu yang sama: kompetitor lebih murah. Kenali anchoring bias, winner's curse, dan klausul penyesuaian tarif otomatis.",
+    "Tujuh pertanyaan yang paling sering diajukan tim komersial trucking dan forwarding menjelang rate review tahunan: cara menghitung biaya riil per lane, menulis formula indeksasi BBM dan upah, sampai kapan komitmen volume dan klausul review layak masuk kontrak.",
   keywords: [
     "negosiasi tarif tahunan logistik",
     "rate review kontrak shipper",
-    "winner's curse tender logistik",
-    "klausul fuel surcharge kontrak trucking",
+    "fuel surcharge kontrak trucking",
+    "komitmen volume kontrak trucking",
     "biaya riil per lane trucking",
-    "kontrak tarif tahunan forwarder",
+    "review trigger kontrak trucking",
   ],
   category: "komersial",
   publishedAt: "2026-07-14",
+  updatedAt: "2026-08-06",
   summary:
-    "Setiap awal tahun, tim procurement shipper besar membuka rate review dengan kartu yang sama: kompetitor menawarkan harga lebih murah. Tulisan ini membedah dua mekanisme di balik kartu itu (anchoring bias dan winner's curse dalam tender kompetitif), lalu menunjukkan cara membedakan diskon strategis dari jangkar tanpa dasar, menyiapkan data biaya riil per lane, dan merancang klausul penyesuaian tarif otomatis supaya negosiasi tidak dimulai dari nol setiap tahun.",
+    "Menjelang musim rate review, pertanyaan yang masuk ke tim komersial trucking dan forwarding ternyata berulang dari tahun ke tahun: berapa biaya riil kami, bagaimana menulis formula BBM dan tol, kapan komitmen volume layak dicantumkan, dan apa yang terjadi kalau tender dimenangkan dengan harga yang salah hitung. Tulisan ini menjawabnya langsung, satu per satu.",
   takeaways: [
-    "Angka pembanding yang disebut procurement bekerja sebagai jangkar psikologis, efektif dipakai meski angkanya sendiri tidak pernah diverifikasi.",
-    "Pemenang tender dengan harga termurah sering salah menghitung biayanya sendiri, dan itu biasanya berujung layanan menurun atau kontrak putus sepihak di tengah jalan.",
-    "Diskon strategis dan jangkar tanpa dasar bisa dibedakan dari ada tidaknya perubahan struktur biaya nyata: volume naik, tenor lebih panjang, termin pembayaran yang tidak memburuk.",
-    "Klausul indeksasi BBM otomatis memindahkan sebagian besar rate review dari ruang rapat tahunan ke rumus bulanan, sehingga negosiasi ulang total tak perlu terjadi tiap Januari.",
+    "Rate review yang efektif dimulai dari biaya riil per lane yang dihitung sendiri, bukan dari menanggapi angka pembanding yang disebut procurement.",
+    "BBM dan upah minimum adalah dua komponen yang paling mudah diindeksasi otomatis lewat formula, karena keduanya punya patokan resmi yang bisa diverifikasi kedua pihak.",
+    "Komitmen volume, biaya tol, dan waktu tunggu di gudang customer punya jawaban yang berbeda-beda tergantung karakter rute, bukan satu aturan yang berlaku rata untuk semua lane.",
+    "Harga termurah di tender kompetitif kadang berasal dari hitungan biaya yang keliru, bukan efisiensi operasi yang benar-benar lebih baik — pola yang dikenal sebagai winner's curse.",
   ],
   blocks: [
     {
       type: "p",
-      text: "Setiap Januari, ritual yang sama berulang di banyak forwarder dan perusahaan trucking yang melayani shipper besar. Tim procurement memanggil rapat rate review tahunan, dan dalam sepuluh menit pertama muncul kalimat yang sudah bisa ditebak: “Vendor lain menawarkan Rp7.100.000 per truk untuk rute Cikarang–Surabaya, punya Bapak/Ibu masih Rp8.400.000.” Tidak peduli seberapa baik performa setahun terakhir, angka itu tetap jadi pembuka rapat.",
+      text: "Setiap musim rate review tahunan, tim komersial trucking dan freight forwarding yang bekerja dengan CargoGrid OS menghadapi pertanyaan yang, dari tahun ke tahun, ternyata itu-itu juga. Bukan pertanyaan teoretis, tapi pertanyaan yang harus dijawab sebelum masuk ruang rapat: berapa biaya riil kami, bagaimana menulis formula BBM supaya tidak diperdebatkan ulang tiap tahun, dan apa yang terjadi kalau tender dimenangkan dengan harga yang ternyata salah hitung.",
     },
     {
       type: "p",
-      text: "Yang menarik, procurement jarang menyebut nama vendor pembandingnya, apalagi spesifikasi truk atau volume komitmennya. Yang disebut cuma angka. Dan angka itu, seberapa pun tidak terverifikasi, sudah cukup mengubah arah seluruh negosiasi sejak kalimat pertama diucapkan.",
-    },
-    {
-      type: "h2",
-      id: "musim-rate-review",
-      text: "Ritual Januari, dan kenapa kartu yang sama selalu keluar duluan",
-    },
-    {
-      type: "p",
-      text: "Rate review tahunan sebenarnya mekanisme yang masuk akal: harga vendor perlu ditinjau ulang seiring perubahan biaya BBM, upah minimum, dan kondisi pasar. Masalahnya, di banyak perusahaan, momentum ini dipakai sebagai ajang tahunan menekan harga, terlepas dari ada tidaknya alasan struktural di baliknya. Kartu yang dimainkan nyaris selalu sama: menyebut ada penawaran lebih murah dari kompetitor, tanpa perlu membuktikannya.",
-    },
-    {
-      type: "p",
-      text: "Kartu ini ampuh bukan karena isinya pasti benar. KPI procurement umumnya diukur dari cost saving tahunan, sehingga setiap rupiah yang berhasil ditawar turun langsung tercatat sebagai pencapaian mereka, terlepas dari nasib layanan sesudahnya. Insentif inilah yang membuat kartu “kompetitor lebih murah” terus dimainkan setiap tahun, apa pun hasil negosiasi tahun sebelumnya.",
-    },
-    {
-      type: "h2",
-      id: "jangkar-yang-selalu-menang",
-      text: "Jangkar yang menentukan sebelum tawar-menawar dimulai",
-    },
-    {
-      type: "p",
-      text: "Dalam riset psikologi pengambilan keputusan, angka pertama yang disebut dalam sebuah negosiasi punya pengaruh tidak proporsional terhadap hasil akhirnya, sekalipun angka itu sembarangan atau tidak relevan. Fenomena ini disebut anchoring bias: begitu sebuah angka disebut, seluruh pembicaraan berikutnya bergerak mengelilingi angka tersebut, meski angka itu sendiri belum tentu mencerminkan biaya yang sebenarnya berlaku.",
-    },
-    {
-      type: "p",
-      text: "Begitu procurement menyebut Rp7.100.000, forwarder yang tidak siap mulai berpikir dalam kerangka “seberapa dekat saya bisa mendekati angka itu”. Pertanyaan yang seharusnya diajukan justru berbeda: berapa biaya riil melayani rute ini, dan berapa margin yang dibutuhkan supaya operasi tetap sehat. Begitu kerangka berpikir bergeser ke angka orang lain, yang tersisa untuk dinegosiasikan cuma besar kecilnya konsesi, padahal pertanyaan paling mendasar (apakah harga awal itu masuk akal sama sekali) sudah keburu terlewati.",
+      text: "Kumpulan di bawah ini bukan wawancara dengan satu klien atau satu forwarder tertentu. Ini pertanyaan yang paling sering kami dengar dari tim komersial yang sedang menyiapkan rate review, disusun berdasarkan pola yang berulang, dan dijawab langsung tanpa berputar-putar.",
     },
     {
       type: "callout",
       tone: "insight",
-      title: "Jangkar tidak perlu benar untuk bekerja",
-      body: "Angka pembanding yang disebut procurement tidak harus terverifikasi supaya efektif. Ia cuma perlu diucapkan lebih dulu, ke pihak yang belum menyiapkan angkanya sendiri. Penawar paling efektif terhadap jangkar adalah jangkar tandingan: biaya riil Anda sendiri, dibawa ke ruang rapat sebelum procurement sempat membuka pembicaraan.",
+      title: "Dua istilah yang sering nyelip di balik pertanyaan-pertanyaan ini",
+      body: "Anchoring bias menjelaskan kenapa angka pembanding yang disebut lebih dulu oleh procurement, meski tidak terverifikasi, tetap menyeret arah negosiasi berikutnya. Winner's curse menjelaskan kenapa harga termurah di tender kompetitif kadang berasal dari hitungan biaya yang keliru, bukan operasi yang benar-benar lebih efisien. Dua istilah ini berguna untuk mengenali polanya, tapi jawaban paling praktis tetap sama di hampir semua pertanyaan berikut: bawa angka biaya riil Anda sendiri ke ruang rapat.",
     },
     {
       type: "h2",
-      id: "kutukan-pemenang-dalam-tender",
-      text: "Kutukan pemenang: kenapa harga termurah sering datang dari hitungan yang keliru",
+      id: "sebelum-rapat",
+      text: "Sebelum Rapat Dimulai",
+    },
+    {
+      type: "h3",
+      text: "Berapa biaya riil kami per lane, bukan rata-rata seluruh armada?",
     },
     {
       type: "p",
-      text: "Ada satu fakta yang jarang disadari procurement sendiri: dalam tender kompetitif dengan banyak peserta, penawar dengan harga termurah cenderung bukan yang paling efisien operasinya. Fenomena ini dikenal sebagai winner's curse, pertama kali dipelajari lewat lelang hak pengeboran minyak lepas pantai pada 1970-an, dan sejak itu terbukti berlaku di hampir semua tender bernilai estimasi.",
+      text: "Ini pertanyaan pertama yang harus dijawab sebelum menanggapi apa pun dari procurement. Struktur biaya rute Cikarang–Surabaya dan Cikarang–Bandung bisa berbeda jauh meski berangkat dari gudang yang sama, sehingga angka rata-rata perusahaan hampir tidak berguna sebagai alat tawar. Komponen yang perlu dihitung ulang tiap kuartal, per lane:",
     },
     {
-      type: "p",
-      text: "Logikanya begini. Kalau lima forwarder menaksir biaya riil satu rute, taksiran mereka tersebar di sekitar angka biaya sesungguhnya: sebagian terlalu tinggi, sebagian terlalu rendah, karena asumsi masing-masing soal harga BBM dan rasio truk kosong saat kembali berbeda. Semakin banyak peserta, semakin besar peluang salah satu menaksir jauh di bawah biaya sesungguhnya, bukan karena operasinya lebih murah, tapi karena hitungannya sendiri keliru. Penawar dengan taksiran paling rendah itulah yang menang.",
-    },
-    {
-      type: "table",
-      caption: "Ilustrasi: tender rute Cikarang–Surabaya, empat penawar",
-      head: ["Peserta tender", "Tarif ditawarkan / truk", "Biaya riil (dihitung ulang bulan ke-3)", "Margin sesungguhnya"],
-      rows: [
-        ["Anda (incumbent)", "Rp8.400.000", "Rp7.150.000", "+Rp1.250.000"],
-        ["Peserta B", "Rp7.600.000", "Rp7.300.000", "+Rp300.000"],
-        ["Peserta C (vendor yang disebut procurement)", "Rp7.100.000", "Rp7.400.000", "-Rp300.000"],
-        ["Peserta D", "Rp7.900.000", "Rp7.050.000", "+Rp850.000"],
+      type: "ul",
+      items: [
+        "**BBM riil, bukan asumsi tahun lalu.** Harga solar industri bisa berubah signifikan dalam setahun.",
+        "**Rasio truk kosong saat kembali (backhaul).** Rute dengan muatan balik kosong menanggung biaya BBM dan tol penuh, meski cuma dibayar sekali jalan.",
+        "**Waktu tunggu di gudang customer.** Truk yang mengantre berjam-jam kehilangan kapasitas yang seharusnya dipakai untuk rit berikutnya — dibahas lebih detail di pertanyaan lain di bawah.",
+        "**Upah sopir dan uang jalan**, termasuk lembur kalau rute itu sering molor dari estimasi normal.",
+        "**Asuransi dan depresiasi armada**, terutama untuk rute dengan riwayat klaim tinggi.",
+        "**Biaya modal dari termin pembayaran.** Termin 60 hari menanggung biaya modal lebih nyata dibanding termin 30 hari, meski tarif nominalnya sama.",
       ],
     },
     {
       type: "p",
-      text: "Peserta C, vendor yang tadi disebut procurement sebagai pembanding, tercatat sebagai penawar termurah. Tiga bulan kemudian, setelah biaya BBM riil dan rasio truk kosong dihitung ulang, tarif itu justru merugi Rp300.000 per truk, angka yang baru terlihat setelah kontrak berjalan.",
+      text: "Setelah komponen ini terkumpul per lane, Anda tahu batas bawah yang tidak boleh dilewati, berapa pun angka pembanding yang disebut procurement nanti.",
     },
     {
-      type: "quote",
-      text: "Tender yang dimenangkan dengan harga termurah kadang hanya memenangkan hak untuk lebih dulu merasakan kerugian yang seharusnya sudah terlihat sejak awal.",
-    },
-    {
-      type: "h2",
-      id: "yang-terjadi-setelah-menang",
-      text: "Yang terjadi setelah tender dimenangkan dengan harga yang salah hitung",
+      type: "h3",
+      text: "Procurement bilang ada vendor lain yang menawarkan harga jauh lebih murah. Apa yang harus kami lakukan?",
     },
     {
       type: "p",
-      text: "Kerugian yang ditanggung pemenang tender semacam ini jarang berhenti di dirinya sendiri. Dua jalan keluar biasa ditempuh begitu selisihnya terasa, dan keduanya sama-sama merugikan shipper yang tadinya merasa menang karena berhasil menekan harga.",
+      text: "Jangan menanggapi angka itu sebelum memintanya lebih spesifik: rute persis, spesifikasi kendaraan, dan volume komitmen dari vendor pembanding. Procurement jarang menyebut detail itu di awal, dan tanpa detail, angka itu cuma jangkar, bukan data yang bisa dibandingkan secara adil. Kalau setelah diminta detailnya angka itu tetap jauh di bawah biaya riil Anda untuk lane dan spesifikasi yang sama, ada dua kemungkinan: vendor itu punya keunggulan struktural yang nyata (backhaul yang lebih terisi, volume jauh lebih besar), atau vendor itu salah menghitung biayanya sendiri dan akan bermasalah beberapa bulan ke depan.",
+    },
+    {
+      type: "h3",
+      text: "Bagaimana kami membedakan permintaan diskon yang masuk akal dari sekadar tekanan harga tahunan?",
     },
     {
       type: "p",
-      text: "Jalan pertama, vendor diam-diam menurunkan kualitas layanan untuk menutup selisih margin. Armada makin tua karena peremajaan ditunda. Waktu tunggu di gudang customer memanjang karena truk terbaik dialihkan ke rute lain yang lebih menguntungkan. Klaim kerusakan naik karena penanganan muatan jadi seadanya. Semua ini terjadi perlahan, baru terasa beberapa bulan kemudian, ketika membatalkan kontrak sudah mengganggu jadwal distribusi.",
-    },
-    {
-      type: "p",
-      text: "Jalan kedua, vendor mengajukan kenaikan tarif sepihak di tengah kontrak, atau memutus kontrak begitu saja karena tidak sanggup menanggung kerugian lebih lama. Bagi shipper, ini berarti mencari vendor pengganti mendadak, di tengah siklus distribusi yang berjalan, dengan daya tawar jauh lebih lemah dibanding setahun sebelumnya. Biaya transisi ini (pencarian vendor baru, adaptasi rute, potensi stockout) hampir selalu lebih besar daripada Rp1.300.000 per truk yang tadinya berhasil ditekan procurement.",
-    },
-    {
-      type: "h2",
-      id: "diskon-strategis-vs-jebakan-harga",
-      text: "Membedakan diskon yang masuk akal dari jangkar yang dipaksakan",
-    },
-    {
-      type: "p",
-      text: "Ini tidak berarti setiap permintaan penurunan harga harus ditolak. Ada situasi ketika harga memang pantas turun, dan menolaknya sama kelirunya dengan menurutinya tanpa berpikir. Yang menentukan sah atau tidaknya penurunan itu adalah ada tidaknya perubahan struktur biaya yang menyertainya: volume yang naik, tenor yang lebih panjang, atau rute backhaul yang terisi.",
+      text: "Yang membedakan bukan besar kecilnya angka yang diminta, tapi ada tidaknya perubahan struktur biaya nyata yang menyertainya: volume yang naik, tenor yang lebih panjang, atau rute backhaul yang terisi.",
     },
     {
       type: "table",
@@ -139,96 +100,142 @@ export const article: Article = {
     },
     {
       type: "p",
-      text: "Kalau sebagian besar baris di kolom kanan itu cocok dengan permintaan di depan Anda, yang sedang dihadapi adalah jangkar tanpa dasar, dikemas sebagai tawaran bisnis.",
+      text: "Kalau sebagian besar jawaban Anda jatuh di kolom kanan, permintaan itu jangkar tanpa dasar yang dikemas sebagai tawaran bisnis, bukan diskon yang masuk akal untuk disetujui.",
     },
     {
       type: "h2",
-      id: "data-biaya-riil-per-lane",
-      text: "Data yang perlu dibawa ke ruang rapat, sebelum ruang rapat itu dimulai",
+      id: "komponen-tarif-dasar",
+      text: "Soal Komponen Tarif Dasar",
+    },
+    {
+      type: "h3",
+      text: "Bagaimana sebaiknya indeksasi BBM (fuel index) ditulis dalam kontrak, supaya tidak diperdebatkan ulang tiap tahun?",
     },
     {
       type: "p",
-      text: "Argumen soal kualitas layanan sulit dipakai melawan jangkar semacam ini, sebab kualitas sulit diringkas jadi satu angka yang bisa dibandingkan langsung dengan Rp7.100.000 milik kompetitor tadi. Alat tawar yang jauh lebih kuat adalah biaya riil Anda sendiri, dipecah per lane, siap sebelum rapat dimulai.",
-    },
-    {
-      type: "p",
-      text: "Angkanya perlu dipecah per lane, alih-alih dirata-ratakan se-perusahaan, sebab struktur biaya rute Cikarang–Surabaya dan Cikarang–Bandung bisa sama sekali berbeda meski berangkat dari gudang yang sama. Komponen yang perlu dihitung ulang tiap kuartal:",
-    },
-    {
-      type: "ul",
-      items: [
-        "**BBM riil, bukan asumsi tahun lalu.** Harga solar industri bisa berubah signifikan dalam setahun.",
-        "**Rasio truk kosong saat kembali (backhaul).** Rute dengan muatan balik kosong menanggung biaya BBM dan tol penuh, meski cuma dibayar sekali jalan.",
-        "**Waktu tunggu di gudang customer.** Truk yang mengantre berjam-jam kehilangan kapasitas yang seharusnya dipakai untuk rit berikutnya.",
-        "**Upah sopir dan uang jalan**, termasuk lembur kalau rute itu sering molor dari estimasi normal.",
-        "**Asuransi dan depresiasi armada**, terutama untuk rute dengan riwayat klaim tinggi.",
-        "**Biaya modal dari termin pembayaran.** Termin 60 hari menanggung biaya modal lebih nyata dibanding termin 30 hari, sekalipun tarif nominalnya identik.",
-      ],
-    },
-    {
-      type: "p",
-      text: "Setelah komponen ini terkumpul per lane, Anda tahu persis batas bawah yang tidak boleh dilewati kapan pun procurement menyebut angka pembanding. Jangkar mereka jadi kalah kuat begitu Anda membawa jangkar sendiri yang berbasis data nyata.",
-    },
-    {
-      type: "h2",
-      id: "klausul-penyesuaian-tarif-otomatis",
-      text: "Klausul yang membuat rate review tahun depan tidak dimulai dari nol",
-    },
-    {
-      type: "p",
-      text: "Salah satu penyebab rate review terasa seperti perang tahunan adalah seluruh tarif dinegosiasikan ulang dari nol tiap Januari, termasuk komponen yang sebenarnya bisa disesuaikan otomatis lewat rumus. BBM adalah kandidat paling jelas untuk ini.",
+      text: "Tetapkan dulu porsi BBM dari tarif dasar, lalu ikat porsi itu ke indeks harga solar industri yang dipublikasikan tiap bulan, dengan band toleransi (misalnya ±5%) sebelum penyesuaian berjalan otomatis.",
     },
     {
       type: "callout",
       tone: "example",
-      title: "Formula fuel surcharge yang bisa langsung dipakai",
-      body: "Tetapkan porsi BBM dari tarif dasar (misalnya 35% dari Rp8.400.000, atau Rp2.940.000), lalu ikat ke indeks harga solar industri yang dipublikasikan tiap bulan. Solar naik 12%? Fuel surcharge otomatis: 12% × 35% × Rp8.400.000 = Rp352.800, tarif baru jadi Rp8.752.800 tanpa rapat ulang. Formula ini berlaku dua arah, dan itu memperkuat kredibilitasnya di mata procurement.",
+      title: "Contoh perhitungan berikut, angka disederhanakan",
+      body: "Misalkan porsi BBM ditetapkan 35% dari tarif dasar Rp8.400.000, atau Rp2.940.000. Solar naik 12%? Fuel surcharge: 12% × 35% × Rp8.400.000 = Rp352.800, tarif baru jadi Rp8.752.800, tanpa rapat ulang. Formula yang sama berlaku dua arah, turun saat solar turun, dan itulah yang membuatnya kredibel di mata procurement, bukan cuma alat vendor untuk menaikkan harga.",
+    },
+    {
+      type: "h3",
+      text: "Apakah biaya tol perlu masuk ke formula tarif, atau tetap direimburse terpisah dari tarif dasar?",
     },
     {
       type: "p",
-      text: "Prinsip yang sama berlaku untuk upah minimum dan tarif tol, yang berubah lewat pengumuman resmi pemerintah tiap tahun. Sepakati band toleransi, misalnya ±5%, di mana penyesuaian berjalan otomatis mengikuti indeks. Rate review tahunan pun menyusut jadi diskusi komponen non-indeksasi saja (margin dasar dan lingkup layanan), sementara komponen yang sudah terindeks berjalan sendiri.",
+      text: "Untuk rute dengan jalur tol yang tetap dan golongan kendaraan yang jelas, biaya tol bisa dihitung di muka dan dimasukkan ke tarif dasar, karena angkanya cukup stabil untuk diproyeksikan. Untuk rute yang jalurnya bisa berubah, misalnya ada rute alternatif saat macet atau melibatkan penyeberangan yang golongannya tidak selalu sama untuk kendaraan yang sama, reimbursement terpisah berdasarkan struk lebih adil untuk kedua pihak, karena tarif dasar tidak perlu menanggung asumsi jalur yang mungkin tidak terjadi. Golongan tol dan golongan penyeberangan juga layak diverifikasi ulang tiap kali ada perubahan armada, bukan dianggap tetap dari tahun ke tahun.",
+    },
+    {
+      type: "h3",
+      text: "Bagaimana kenaikan upah minimum sopir (UMP/UMK) sebaiknya diperlakukan dalam kontrak?",
+    },
+    {
+      type: "p",
+      text: "Upah minimum regional berubah lewat keputusan resmi pemerintah tiap tahun, sehingga ini komponen yang paling mudah diindeksasi karena patokannya sudah publik dan tidak perlu diperdebatkan lagi. Cara yang umum dipakai: sepakati porsi upah dari tarif dasar, lalu sesuaikan otomatis sebesar persentase kenaikan UMP/UMK di wilayah asal sopir, berlaku sejak tanggal keputusan itu resmi diumumkan, bukan menunggu rate review berikutnya.",
+    },
+    {
+      type: "h3",
+      text: "Apakah waktu tunggu (waiting time) di gudang customer bisa dihitung sebagai komponen biaya formal, bukan cuma keluhan operasional?",
+    },
+    {
+      type: "p",
+      text: "Bisa, dan idealnya memang begitu. Logikanya mirip demurrage dan detention di pelabuhan: tetapkan jam bebas tunggu, misalnya dua jam sejak truk lapor tiba, lalu kenakan tarif per jam untuk kelebihannya. Tanpa klausul ini, truk yang mengantre berjam-jam menanggung sendiri biaya kapasitas yang hilang, padahal keterlambatan itu terjadi di sisi customer, bukan di sisi vendor.",
     },
     {
       type: "h2",
-      id: "menyiapkan-rate-review-tahun-depan",
-      text: "Menyiapkan rate review tahun depan, mulai dari sekarang",
+      id: "struktur-kontrak-dan-volume",
+      text: "Soal Struktur Kontrak dan Komitmen Volume",
+    },
+    {
+      type: "h3",
+      text: "Apakah komitmen volume harus dicantumkan tertulis, dan apa untungnya bagi kami sebagai vendor?",
     },
     {
       type: "p",
-      text: "Persiapan rate review yang efektif dimulai berbulan-bulan sebelum undangan rapat masuk ke kalender, jauh sebelum procurement sempat menyusun kartu tawarnya.",
+      text: "Idealnya iya. Diskon yang diminta atas dasar “volume akan naik” cuma punya nilai tawar kalau angka volumenya tertulis sebagai komitmen minimum, lengkap dengan konsekuensi kalau volume aktual jatuh jauh di bawahnya. Tanpa itu, harga diturunkan berdasarkan janji yang tidak mengikat siapa pun selain vendor sendiri.",
     },
     {
-      type: "ol",
+      type: "h3",
+      text: "Apa saja yang wajar dijadikan pemicu review tarif di luar jadwal tahunan (review trigger)?",
+    },
+    {
+      type: "ul",
       items: [
-        "Hitung ulang biaya riil per lane tiap kuartal. Jangan tunggu mendadak menjelang rate review, sebab musimnya akan datang lebih cepat dari perkiraan.",
-        "Minta procurement menyebutkan rute, spesifikasi kendaraan, dan volume komitmen dari angka pembanding, sebelum menanggapi angka itu sama sekali.",
-        "Ajukan klausul indeksasi BBM sejak draft kontrak pertama, sebelum negosiasi dimulai. Jangan menunggu jadi konsesi last-minute.",
-        "Tetapkan margin minimum per lane sebelum masuk ruang rapat, dan latih tim komersial berhenti tepat di angka itu, alih-alih terus mengalah demi satu akun.",
+        "**Harga BBM keluar dari band yang disepakati** (di luar ±5%, misalnya), bukan sekadar naik turun kecil yang sudah tertutup indeksasi rutin.",
+        "**Revisi UMP/UMK di wilayah asal sopir**, terutama kalau kenaikannya di luar perkiraan saat kontrak diteken.",
+        "**Perubahan rute atau tujuan yang signifikan**, karena struktur biaya lane baru belum tentu sama dengan lane lama yang jadi dasar tarif.",
+        "**Volume aktual menyimpang jauh dari komitmen**, ke arah mana pun, karena rasio biaya tetap per rit ikut berubah.",
+        "**Regulasi baru yang mengubah biaya operasional secara langsung**, misalnya penegakan aturan muatan lebih (ODOL) yang mengubah kapasitas angkut efektif per truk.",
+      ],
+    },
+    {
+      type: "h3",
+      text: "Berapa tahun tenor kontrak yang paling masuk akal untuk rate ini?",
+    },
+    {
+      type: "p",
+      text: "Tidak ada angka tunggal yang berlaku untuk semua kasus, tapi pola yang umum: tenor satu tahun cenderung memicu negosiasi ulang total tiap Januari, sementara tenor dua sampai tiga tahun dengan klausul indeksasi berjalan memberi kedua pihak kepastian yang lebih panjang, dan rate review tahunan menyusut jadi diskusi komponen non-indeksasi saja.",
+    },
+    {
+      type: "h3",
+      text: "Bagaimana kalau shipper tidak bersedia menandatangani kontrak multi-tahun?",
+    },
+    {
+      type: "p",
+      text: "Itu tidak menghilangkan gunanya klausul indeksasi. Sisipkan klausul penyesuaian otomatis untuk BBM dan upah minimum sekalipun kontraknya cuma satu tahun. Mekanisme penyesuaian itulah yang menentukan seberapa banyak yang perlu dinegosiasikan ulang tiap Januari, bukan panjang kontraknya.",
+    },
+    {
+      type: "h3",
+      text: "Kalau tender kompetitif dimenangkan dengan harga yang jauh di bawah hitungan kami sendiri, apa yang biasanya terjadi pada vendor pemenangnya?",
+    },
+    {
+      type: "p",
+      text: "Dalam tender dengan banyak peserta, taksiran biaya masing-masing tersebar di sekitar angka biaya sesungguhnya: sebagian terlalu tinggi, sebagian terlalu rendah. Penawar dengan taksiran paling rendah yang menang, dan taksiran paling rendah itu tidak selalu datang dari operasi paling efisien — kadang cuma dari hitungan yang keliru. Berikut ilustrasi yang disederhanakan untuk menunjukkan polanya, bukan catatan satu tender tertentu:",
+    },
+    {
+      type: "table",
+      caption: "Ilustrasi: tender rute Cikarang–Surabaya, empat penawar",
+      head: ["Peserta tender", "Tarif ditawarkan / truk", "Biaya riil (dihitung ulang bulan ke-3)", "Margin sesungguhnya"],
+      rows: [
+        ["Anda (incumbent)", "Rp8.400.000", "Rp7.150.000", "+Rp1.250.000"],
+        ["Peserta B", "Rp7.600.000", "Rp7.300.000", "+Rp300.000"],
+        ["Peserta C (vendor yang disebut procurement)", "Rp7.100.000", "Rp7.400.000", "-Rp300.000"],
+        ["Peserta D", "Rp7.900.000", "Rp7.050.000", "+Rp850.000"],
       ],
     },
     {
       type: "p",
-      text: "Musim rate review akan selalu kembali tahun depan. Yang menentukan hasilnya adalah siapa yang masuk ruang rapat dengan angka sendiri di tangan, dan siapa yang masih bereaksi terhadap angka orang lain yang belum tentu benar.",
+      text: "Peserta C, penawar termurah dalam ilustrasi ini, ternyata merugi Rp300.000 per truk setelah biaya riil dihitung ulang tiga bulan kemudian.",
+    },
+    {
+      type: "quote",
+      text: "Tender yang dimenangkan dengan harga termurah kadang hanya memenangkan hak untuk lebih dulu merasakan kerugian yang seharusnya sudah terlihat sejak awal.",
+    },
+    {
+      type: "callout",
+      tone: "warning",
+      title: "Dua jalan yang biasanya ditempuh vendor yang salah hitung",
+      body: "Jalan pertama, kualitas layanan turun perlahan: armada tidak diremajakan, truk terbaik dialihkan ke rute lain yang lebih menguntungkan, klaim kerusakan naik. Jalan kedua, vendor mengajukan kenaikan tarif sepihak di tengah kontrak, atau memutus kontrak begitu saja. Bagi shipper, biaya mencari vendor pengganti mendadak di tengah siklus distribusi hampir selalu lebih besar daripada selisih harga yang tadinya berhasil ditekan.",
+    },
+    {
+      type: "p",
+      text: "Rate review akan selalu datang lagi tahun depan. Yang berubah dari tahun ke tahun adalah siapa yang masuk ruang rapat dengan angka biaya sendiri di tangan, dan siapa yang masih menanggapi angka orang lain yang belum tentu benar.",
     },
   ],
-  faq: [
-    {
-      q: "Bagaimana kalau shipper mengancam pindah ke vendor yang menawarkan harga jauh lebih rendah?",
-      a: "Minta detail konkret lebih dulu: rute persis, spesifikasi kendaraan, dan volume komitmen, sebelum menanggapi apa pun. Kalau angka itu jauh di bawah biaya riil Anda untuk lane dan spesifikasi yang sama, bisa jadi Anda sedang melihat calon korban winner's curse berikutnya. Ini layak disampaikan langsung ke procurement, lengkap dengan data biaya riil sebagai pembanding.",
-    },
-    {
-      q: "Berapa margin minimum yang wajar dipertahankan saat negosiasi tarif tahunan?",
-      a: "Struktur biaya tiap lane berbeda, sehingga mengikuti rata-rata industri begitu saja jarang aman. Hitung dulu biaya riil per lane, termasuk biaya modal dari termin pembayaran, lalu tetapkan margin minimum dari angka itu sendiri, bukan dari patokan luar yang belum tentu mencerminkan rute Anda.",
-    },
-    {
-      q: "Apakah klausul fuel surcharge otomatis akan ditolak shipper karena dianggap merugikan mereka?",
-      a: "Jarang, kalau formulanya transparan dan berlaku dua arah: naik saat BBM naik, turun saat BBM turun. Klausul ini justru mengurangi friksi tahunan yang dirasakan kedua pihak, karena porsi BBM tidak perlu diperdebatkan ulang tiap kali harga solar berubah. Pastikan indeksnya mengacu ke sumber resmi yang bisa diverifikasi kedua pihak, misalnya publikasi harga solar industri bulanan.",
-    },
-    {
-      q: "Bagaimana kalau shipper tidak bersedia menandatangani kontrak multi-tahun?",
-      a: "Itu tidak menghilangkan gunanya klausul indeksasi. Sisipkan klausul penyesuaian tarif otomatis itu sekalipun kontraknya cuma satu tahun. Mekanisme penyesuaian itulah yang menentukan apakah perang harga berulang tiap Januari, terlepas dari panjang kontraknya.",
-    },
-  ],
+  cta: {
+    title: "Hitung Biaya Riil Per Rit Sebelum Rapat Berikutnya",
+    body: "Sebelum musim rate review datang lagi, susun angka cost per KM, per rit, dan per ton-KM untuk lane-lane utama Anda, termasuk BBM riil dan komponen waktu tunggu, supaya jawaban atas pertanyaan pertama di atas sudah siap sebelum procurement membuka rapat.",
+    linkHref: "/alat/biaya-operasional-truk",
+    linkLabel: "Buka Kalkulator Biaya Operasional Truk",
+  },
+  byline: {
+    author: "Tim Editorial CargoGrid",
+    note: "Kumpulan pertanyaan ini disusun dari pola yang berulang di sesi persiapan rate review tim komersial trucking dan freight forwarding yang mengelola data biaya per lane di CargoGrid OS.",
+  },
   related: ["alur-rfq-freight-forwarding", "margin-per-job-forwarder", "manajemen-vendor-subkontraktor"],
-  relatedTools: ["kalkulator-cbm", "incoterms-2020"],
+  relatedTools: ["biaya-operasional-truk", "golongan-tol-penyeberangan"],
 };

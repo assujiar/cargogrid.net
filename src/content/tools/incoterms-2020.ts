@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Incoterms 2020: Sebelas Aturan, Titik Risiko, dan Kesalahan yang Paling Mahal",
   metaTitle: "Incoterms 2020 Lengkap: EXW, FOB, CIF, DAP, DDP | CargoGrid",
   description:
-    "Tabel lengkap sebelas aturan Incoterms 2020: di mana risiko berpindah, sampai mana biaya penjual, siapa mengurus kepabeanan, dan siapa wajib berasuransi.",
+    "FOB atau CIF, di titik mana risiko sebenarnya berpindah ke pembeli? Bukan soal siapa bayar apa — sebelas aturan Incoterms 2020 di sini disusun berdasarkan titik pindah risikonya.",
   keywords: [
     "incoterms 2020",
     "perbedaan FOB dan CIF",
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "incoterms untuk kontainer",
   ],
   summary:
-    "Kebanyakan ringkasan Incoterms menjawab siapa membayar apa. Hampir tidak ada sengketa yang benar-benar soal itu. Sengketa terjadi soal di mana risiko berpindah, titik yang sering berada di tempat berbeda dari titik biaya.",
+    "Titik yang menentukan dalam Incoterms bukan siapa membayar, melainkan di mana risiko berpindah, dan titik itu sering berada di tempat berbeda dari titik biaya berhenti.",
   searchIntents: [
     "Arti FOB, CIF, CFR, EXW, DAP, DDP",
     "Perbedaan FOB dan CIF",
@@ -33,7 +33,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Ini satu-satunya hal yang benar-benar perlu dikuasai dari Incoterms, dan justru yang paling sering hilang dari ringkasan. Pada CFR dan CIF, penjual membayar ongkos angkut sampai pelabuhan tujuan, tetapi risiko sudah berpindah ke pembeli sejak pelabuhan muat. Kontainer yang rusak di tengah laut adalah kerugian pembeli, atas pengiriman yang masih dibayar penjual.",
+      text: "Pada CFR dan CIF, penjual membayar ongkos angkut sampai pelabuhan tujuan, tetapi risiko sudah berpindah ke pembeli sejak pelabuhan muat. Kontainer yang rusak di tengah laut jadi kerugian pembeli, meski ongkos pengirimannya masih dibayar penjual. Perbedaan dua titik inilah yang paling sering luput dibaca dalam kontrak.",
     },
     {
       type: "callout",
@@ -82,7 +82,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Praktik yang lazim kemudian adalah penjual tetap mengurusnya \"sebagai bantuan\", di luar kontrak, tanpa kejelasan siapa menanggung bila ada yang keliru. FCA memberikan pembagian tanggung jawab yang sama tanpa fiksi tersebut, dan hampir selalu merupakan pilihan yang lebih tepat untuk ekspor.",
+      text: "Yang biasanya terjadi di lapangan: penjual tetap mengurus ekspornya sendiri \"sebagai bantuan\", di luar kontrak, sehingga tidak ada kejelasan siapa menanggung bila ada dokumen yang keliru. Ganjalan ini hilang di bawah FCA, karena ekspor memang tetap jadi kewajiban penjual sejak awal, tanpa perlu fiksi administratif.",
     },
   ],
   faq: [

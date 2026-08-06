@@ -90,9 +90,9 @@ export default function ModulesSection() {
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
               {isEn ? (
-                "Each module works synchronously within a single database. You are free to choose and activate modules that best fit your daily logistics company operations."
+                "All modules share one database, so quotation, stock, and invoice data never need to be entered twice. Activate the layer you need most first — commercial, operations, warehouse, or finance."
               ) : (
-                "Setiap modul bekerja sinkron di dalam satu database tunggal. Anda bebas memilih dan mengaktifkan modul yang sesuai dengan kebutuhan operasional perusahaan logistik Anda."
+                "Semua modul berbagi satu database yang sama, jadi data quotation, stok, hingga invoice tidak perlu dimasukkan dua kali. Aktifkan dulu fase yang paling Anda butuhkan — komersial, operasional, gudang, atau keuangan."
               )}
             </p>
           </div>

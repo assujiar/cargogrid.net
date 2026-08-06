@@ -34,8 +34,8 @@ export const problemPoints = [
     desc: "Kertas bukti tanda terima (POD) terselip atau lambat diserahkan supir, menunda pembuatan invoice dan memperpanjang DSO.",
     descEn: "Paper Proof of Delivery (POD) gets misplaced or submitted late by drivers, delaying invoice generation and prolonging DSO.",
     metric: "25+ hari",
-    metricLabel: "Rata-rata DSO",
-    metricLabelEn: "Average Days Sales Outstanding (DSO)",
+    metricLabel: "DSO Tipikal",
+    metricLabelEn: "Typical Days Sales Outstanding (DSO)",
   },
 ];
 
@@ -196,8 +196,8 @@ export const icpList: IcpItem[] = [
     personaRoleEn: "Director / Owner",
     personaFocus: "Win-rate, Profit Margin, & Customer Experience",
     personaFocusEn: "Win-rate, Profit Margin, & Customer Experience",
-    personaQuote: "Dulu kami butuh 24 jam untuk merespon RFQ luar negeri. Dengan CargoGrid, Sales kami bisa mengirimkan quote profesional dalam 10 menit dengan margin aman terkunci.",
-    personaQuoteEn: "We used to need 24 hours to respond to overseas RFQs. With CargoGrid, our sales team can send professional quotes in 10 minutes with locked safe margins.",
+    personaQuote: "Target saya: RFQ luar negeri yang biasanya butuh 24 jam untuk direspon, bisa dipangkas jadi sekitar 10 menit lewat CargoGrid — dengan margin quote yang tetap aman terkunci.",
+    personaQuoteEn: "My target: cutting overseas RFQ response time from around 24 hours down to about 10 minutes with CargoGrid — while keeping quote margins safely locked in.",
   },
   {
     id: "3pl",
@@ -224,8 +224,8 @@ export const icpList: IcpItem[] = [
     personaRoleEn: "Warehouse Director",
     personaFocus: "Stock Accuracy, Space Utilization, & Fast Billing",
     personaFocusEn: "Stock Accuracy, Space Utilization, & Fast Billing",
-    personaQuote: "Akurasi stok gudang kami meroket jadi 99.8%. Customer kami tidak lagi menelpon untuk minta laporan mingguan, mereka tinggal login ke CargoGrid portal sendiri.",
-    personaQuoteEn: "Our warehouse stock accuracy skyrocketed to 99.8%. Our customers no longer call us to request weekly reports—they just log into their CargoGrid portal.",
+    personaQuote: "Yang saya kejar: akurasi stok gudang mendekati 99.8%, dan customer tidak perlu lagi menelpon minta laporan mingguan karena mereka bisa login sendiri ke portal CargoGrid.",
+    personaQuoteEn: "What I'm aiming for: warehouse stock accuracy near 99.8%, and customers who no longer need to call for weekly reports because they can log into the CargoGrid portal themselves.",
   },
   {
     id: "trucking",
@@ -252,8 +252,8 @@ export const icpList: IcpItem[] = [
     personaRoleEn: "Head of Operations",
     personaFocus: "On-Time Delivery, Fleet Control, & Cashflow (DSO)",
     personaFocusEn: "On-Time Delivery, Fleet Control, & Cashflow (DSO)",
-    personaQuote: "Kami berhasil memotong waktu tunggu POD dari 14 hari menjadi instan di hari yang sama. Arus kas (cashflow) perusahaan jadi jauh lebih sehat.",
-    personaQuoteEn: "We successfully cut POD turnaround time from 14 days to instant same-day submission. Our company cashflow is much healthier.",
+    personaQuote: "Targetnya: memangkas waktu tunggu POD dari 14 hari jadi instan di hari yang sama, supaya arus kas (cashflow) perusahaan jauh lebih sehat.",
+    personaQuoteEn: "The goal: cutting POD turnaround time from 14 days down to instant same-day submission, so company cashflow stays much healthier.",
   },
   {
     id: "inhouse",
@@ -280,8 +280,8 @@ export const icpList: IcpItem[] = [
     personaRoleEn: "Supply Chain Manager",
     personaFocus: "Cost Savings, Vendor Accountability, & Audit Transparency",
     personaFocusEn: "Cost Savings, Vendor Accountability, & Audit Transparency",
-    personaQuote: "Kami menghemat biaya logistik hingga 18% berkat visibilitas tarif vendor dan penalti SLA otomatis yang dihitung objektif oleh CargoGrid.",
-    personaQuoteEn: "We saved up to 18% in logistics costs thanks to clear vendor rate visibility and automated SLA penalties calculated objectively by CargoGrid.",
+    personaQuote: "Yang saya incar: penghematan biaya logistik hingga sekitar 18% lewat visibilitas tarif vendor dan penalti SLA otomatis yang dihitung objektif oleh CargoGrid.",
+    personaQuoteEn: "What I'm targeting: logistics cost savings of up to around 18%, through clear vendor rate visibility and automated SLA penalties calculated objectively by CargoGrid.",
   },
 ];
 
@@ -664,8 +664,8 @@ export const faqList: FaqItem[] = [
     id: "faq2",
     question: "Apakah kami bisa berlangganan modul tracking dan portal customer saja?",
     questionEn: "Can we subscribe to just the tracking and customer portal modules?",
-    answer: "Tentu saja! Paket TrackPortal didesain khusus bagi perusahaan logistik yang ingin cepat memiliki website pelacakan berlogo brand sendiri serta akses portal download POD tanpa harus mengganti seluruh sistem internalnya. Anda bisa menginput data tracking manual atau mengunggahnya via Excel, lalu mengaktifkan modul lainnya secara bertahap seiring perkembangan kebutuhan bisnis Anda.",
-    answerEn: "Absolutely! The TrackPortal package is specially designed for logistics companies wanting to quickly publish a branded tracking website and enable self-service POD downloads without altering their entire internal system. You can input shipment milestones manually or upload them via Excel, and upgrade to more modules as your company grows.",
+    answer: "Bisa. Paket TrackPortal didesain khusus bagi perusahaan logistik yang ingin cepat memiliki website pelacakan berlogo brand sendiri serta akses portal download POD tanpa harus mengganti seluruh sistem internalnya. Anda bisa menginput data tracking manual atau mengunggahnya via Excel, lalu mengaktifkan modul lainnya secara bertahap seiring perkembangan kebutuhan bisnis Anda.",
+    answerEn: "Yes. The TrackPortal package is specially designed for logistics companies wanting to quickly publish a branded tracking website and enable self-service POD downloads without altering their entire internal system. You can input shipment milestones manually or upload them via Excel, and add more modules over time as your business needs grow.",
   },
   {
     id: "faq3",

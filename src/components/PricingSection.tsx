@@ -67,8 +67,8 @@ export default function PricingSection() {
           <div className="lg:col-span-5 lg:border-l lg:border-slate-300 lg:pl-8">
             <p className="text-slate-600 text-sm sm:text-base font-semibold leading-relaxed font-sans">
               {isEn
-                ? "Select the package that best fits your company scale, from essential tracking visibility to a complete daily operations platform. Tap any card to see the full feature list, implementation notes, and add-ons."
-                : "Pilih paket sistem yang paling sesuai dengan skala dan tantangan bisnis Anda saat ini, mulai dari pelacakan dasar hingga platform operasional harian yang lengkap. Klik kartu mana pun untuk melihat fitur lengkap, catatan implementasi, dan add-on."}
+                ? "Select the package that best fits your company scale, from essential tracking visibility to a complete daily operations platform. Tap any card to see its full feature list, package limitations, implementation notes, and add-ons before you decide."
+                : "Pilih paket sistem yang paling sesuai dengan skala dan tantangan bisnis Anda saat ini, mulai dari pelacakan dasar hingga platform operasional harian yang lengkap. Klik kartu mana pun untuk melihat fitur lengkap, batasan paket, catatan implementasi, dan add-on sebelum memutuskan."}
             </p>
           </div>
         </div>

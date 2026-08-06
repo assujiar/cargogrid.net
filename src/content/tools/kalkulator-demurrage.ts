@@ -6,7 +6,7 @@ export const tool: Tool = {
   title: "Kalkulator Free Time, Demurrage, dan Detention",
   metaTitle: "Kalkulator Demurrage & Free Time Kontainer: Hitung Tanggal Jatuh Tempo | CargoGrid",
   description:
-    "Masukkan tanggal bongkar dan jumlah free time. Dapatkan tanggal terakhir bebas denda, jumlah hari yang tertagih, dan estimasi biayanya menurut tarif berjenjang milik Anda sendiri.",
+    "Kontainer ini masih berapa hari sebelum kena denda? Kalkulator ini menjawabnya dari tanggal bongkar dan jumlah free time di Delivery Order Anda, sampai ke tanggal terakhir bebas biaya.",
   keywords: [
     "kalkulator demurrage",
     "cara hitung demurrage kontainer",
@@ -16,7 +16,7 @@ export const tool: Tool = {
     "tanggal jatuh tempo free time",
   ],
   summary:
-    "Denda kontainer bukan kejutan. Tanggal jatuh temponya sudah bisa dihitung pada hari kontainer turun dari kapal. Kalkulator ini melakukannya dalam sepuluh detik, lengkap dengan tarif berjenjang, sehingga perhitungannya terjadi saat masih bisa mengubah keputusan.",
+    "Denda kontainer jarang perlu jadi kejutan. Tanggal jatuh temponya sudah bisa diperkirakan sejak hari kontainer turun dari kapal, dengan catatan pelayaran Anda memang menghitung free time dari tanggal bongkar itu dan bukan dari titik lain. Kalkulator ini melakukannya dalam sepuluh detik, lengkap dengan tarif berjenjang, sehingga perhitungannya terjadi saat masih bisa mengubah keputusan.",
   searchIntents: [
     "Cara menghitung demurrage kontainer",
     "Kapan free time kontainer habis",
@@ -77,11 +77,15 @@ export const tool: Tool = {
     {
       type: "h2",
       id: "dua-konvensi",
-      text: "Dua konvensi yang perlu dipastikan ke pelayaran",
+      text: "Yang diasumsikan kalkulator ini, dan yang perlu dipastikan ke pelayaran",
     },
     {
       type: "p",
-      text: "Kalkulator ini menanyakan dua hal yang biasanya diasumsikan orang, padahal keduanya berbeda antar pelayaran dan masing-masing bernilai satu hari denda penuh.",
+      text: "Kalkulator ini menghitung dari tanggal bongkar — hari kontainer turun dari kapal — sebagai titik mula free time. Itu konvensi paling umum dipakai di pelabuhan Indonesia, tapi bukan satu-satunya: sebagian pelayaran atau terminal menghitung mulai dari tanggal kontainer dinyatakan tersedia diambil, sebagian lain dari tanggal gate-out, dan sebagian menggabungkan free time demurrage dengan detention jadi satu pool hari alih-alih memisahkannya seperti pada tabel di atas. Kalau kontrak Anda memakai titik mula atau konvensi yang berbeda, sesuaikan tanggal yang dimasukkan ke kalkulator, jangan asumsikan tanggal bongkar selalu berlaku.",
+    },
+    {
+      type: "p",
+      text: "Di luar titik mula itu, kalkulator ini juga menanyakan dua hal lain yang biasanya diasumsikan orang begitu saja, padahal keduanya berbeda antar pelayaran dan masing-masing bernilai satu hari denda penuh.",
     },
     {
       type: "ol",
@@ -92,7 +96,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Kedua jawabannya ada di Delivery Order dan di kontrak dengan pelayaran. Menanyakannya sekali, lalu mencatatnya per pelayaran, menghilangkan seluruh kelas kejutan ini secara permanen.",
+      text: "Ketiga jawaban itu ada di Delivery Order dan di kontrak dengan pelayaran. Menanyakannya sekali, lalu mencatatnya per pelayaran, menghilangkan sebagian besar kelas kejutan ini. Tapi kalau hasil kalkulator ini pernah berbeda dari yang tertulis di invoice, invoice dan kontrak pelayaranlah yang berlaku — angka di halaman ini adalah estimasi untuk perencanaan internal, bukan dokumen penagihan resmi.",
     },
     {
       type: "h2",
@@ -105,7 +109,7 @@ export const tool: Tool = {
     },
     {
       type: "p",
-      text: "Angka jenjang bawaan pada kalkulator ini hanya berbentuk seperti tarif sungguhan; nominalnya sengaja bukan tarif siapa pun. Ganti dengan angka dari Delivery Order Anda sendiri sebelum hasilnya dipakai untuk apa pun yang serius.",
+      text: "Angka jenjang bawaan pada kalkulator ini hanya contoh ilustrasi, bukan tarif carrier tertentu. Ganti dengan angka dari Delivery Order Anda sendiri sebelum hasilnya dipakai untuk apa pun yang serius.",
     },
     {
       type: "h2",
@@ -124,7 +128,7 @@ export const tool: Tool = {
   faq: [
     {
       q: "Bagaimana cara menghitung demurrage kontainer?",
-      a: "Ambil tanggal bongkar kontainer, tambahkan jumlah hari free time dari Delivery Order, dan Anda mendapat hari bebas terakhir. Setiap hari kalender setelah itu sampai kontainer diambil adalah hari tertagih, dikalikan tarif jenjang yang berlaku pada hari tersebut.",
+      a: "Ambil tanggal bongkar kontainer sebagai titik mula default, tambahkan jumlah hari free time dari Delivery Order, dan Anda mendapat perkiraan hari bebas terakhir — konfirmasi dulu apakah pelayaran Anda memang menghitung dari tanggal bongkar, karena sebagian menghitung dari titik lain. Setiap hari kalender setelah itu sampai kontainer diambil adalah hari yang berpotensi tertagih, dikalikan tarif jenjang yang berlaku pada hari tersebut. Hasilnya estimasi untuk perencanaan; invoice resmi dari pelayaran tetap jadi acuan akhir.",
     },
     {
       q: "Apakah hari Sabtu, Minggu, dan libur nasional ikut memakan free time?",

@@ -24,9 +24,21 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
   const visual = toolVisual(tool.slug);
   const accent = ACCENT_CLASSES[visual.accent];
 
+  /**
+   * Which side stays put while the other scrolls.
+   *
+   * A calculator is short and its prose is long, so pinning the instrument
+   * keeps the inputs reachable while you read what the number means. A
+   * reference page is the reverse -- 61 vehicle cards against a few
+   * paragraphs -- so there the prose is pinned and the data scrolls past
+   * it. Either way the point is the same: stop making people scroll back up
+   * to remember what they were looking at.
+   */
+  const pinned = tool.kind === "kalkulator" ? "instrument" : "narrative";
+
   return (
     <article className="relative py-12 sm:py-16">
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex flex-wrap items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">
             <li>
@@ -82,11 +94,20 @@ export default function ToolShell({ tool, children }: { tool: Tool; children: Re
           </ul>
         </section>
 
-        {/* The instrument. */}
-        <div className="mt-10">{children}</div>
+        {/* Instrument and prose, side by side from `lg` up.
+            Below that the grid collapses and they stack in source order, so
+            a phone still gets the tool first and the explanation after it.
+            The pinned column is capped at the viewport and scrolls within
+            itself; without the cap, anything taller than the screen would
+            have its bottom permanently out of reach. */}
+        <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-8">
+          <div className={`lg:col-span-7 ${pinned === "instrument" ? "lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:pr-1" : ""}`}>
+            {children}
+          </div>
 
-        <div className="mt-16 max-w-3xl">
-          <ArticleBody blocks={tool.blocks} />
+          <div className={`lg:col-span-5 ${pinned === "narrative" ? "lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:pr-1" : ""}`}>
+            <ArticleBody blocks={tool.blocks} />
+          </div>
         </div>
 
         {tool.faq.length > 0 && (

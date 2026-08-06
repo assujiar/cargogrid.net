@@ -2,13 +2,6 @@ import React from "react";
 import { CONTAINER_SPECS, payloadKg, practicalCbm } from "../../content/reference/containers";
 import { INCOTERMS, INCOTERMS_2020_CHANGES } from "../../content/reference/incoterms";
 import {
-  archetypesByClass,
-  cargoVolume,
-  classLabel,
-  VEHICLE_CLASS_ORDER,
-  type VehicleArchetype,
-} from "../../content/reference/vehicles";
-import {
   BODY_CAPACITY_LOGIC,
   DIMENSION_RULES,
   FERRY_CLASSES,
@@ -119,84 +112,6 @@ export function ContainerTable() {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function VehicleRow({ vehicle }: { vehicle: VehicleArchetype }) {
-  const volume = cargoVolume(vehicle);
-  return (
-    <tr className="border-b border-slate-300/30 last:border-0">
-      <th scope="row" className={`${TD} font-display font-bold text-slate-900`}>
-        {vehicle.marketNames}
-        <span className="mt-0.5 block font-sans text-[11px] font-normal text-slate-500">{vehicle.commercialType}</span>
-      </th>
-      <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
-        {vehicle.axleConfig}
-        <span className="mt-0.5 block text-slate-500">{vehicle.totalAxles} gandar</span>
-      </td>
-      <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>
-        {vehicle.cargo ? `${vehicle.cargo.length} × ${vehicle.cargo.width} × ${vehicle.cargo.height}` : <span className="text-slate-400">Tidak berbentuk ruang</span>}
-      </td>
-      <td className={`${TD} whitespace-nowrap`}>
-        {vehicle.planningVolume ? (
-          <>
-            <span className="font-semibold">
-              {formatNumber(vehicle.planningVolume.min)} sampai {formatNumber(vehicle.planningVolume.max)} m³
-            </span>
-            {volume && <span className="mt-0.5 block font-mono text-[10px] text-slate-500">bak {formatNumber(volume, 1)} m³</span>}
-          </>
-        ) : (
-          <span className="text-slate-400">, </span>
-        )}
-      </td>
-      <td className={`${TD} whitespace-nowrap font-semibold text-slate-900`}>
-        {formatNumber(vehicle.planningPayload.min)} sampai {formatNumber(vehicle.planningPayload.max)} t
-      </td>
-      <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>{vehicle.tollClass}</td>
-      <td className={`${TD} whitespace-nowrap font-mono text-[11px]`}>{vehicle.ferryClass}</td>
-      <td className={`${TD} min-w-[220px] text-[12px] leading-[1.7]`}>{vehicle.notes}</td>
-    </tr>
-  );
-}
-
-export function VehicleTable() {
-  return (
-    <div className="flex flex-col gap-12">
-      {VEHICLE_CLASS_ORDER.map((cls) => {
-        const items = archetypesByClass(cls);
-        if (items.length === 0) return null;
-        return (
-          <div key={cls}>
-            <SectionHeading>
-              {classLabel(cls)}
-              <span className="text-slate-400">{items.length}</span>
-            </SectionHeading>
-            <TableWrap
-              minWidth={980}
-              caption="Ukuran bak berasal dari karoseri, bukan pabrik sasis, sehingga dua unit dengan lambang sama bisa berbeda. Rentang di sini adalah perkiraan perencanaan, bukan rating legal, yang mengikat adalah JBI pada dokumen kendaraan dikurangi berat kosongnya setelah karoseri terpasang."
-            >
-              <thead>
-                <tr className="border-b border-slate-300/50">
-                  <th scope="col" className={TH}>Sebutan pasar</th>
-                  <th scope="col" className={TH}>Konfigurasi</th>
-                  <th scope="col" className={TH}>Ruang muat (m)</th>
-                  <th scope="col" className={TH}>Perkiraan volume</th>
-                  <th scope="col" className={TH}>Perkiraan muatan</th>
-                  <th scope="col" className={TH}>Gol. tol</th>
-                  <th scope="col" className={TH}>Gol. kapal</th>
-                  <th scope="col" className={TH}>Catatan</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((vehicle) => (
-                  <VehicleRow key={vehicle.id} vehicle={vehicle} />
-                ))}
-              </tbody>
-            </TableWrap>
-          </div>
-        );
-      })}
     </div>
   );
 }

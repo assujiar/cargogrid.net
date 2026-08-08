@@ -19,6 +19,71 @@ View your app in AI Studio: https://ai.studio/apps/c154037a-e8bc-46f4-8946-30eee
 3. Run the app:
    `npm run dev`
 
+## Email blasting (admin portal → "Email Blasting")
+
+Marketing campaigns sent over the same SMTP mailbox as the transactional mail,
+throttled to a fixed number of messages per hour.
+
+**How a send actually works.** Pressing send does not send anything. It calls
+`queue_email_campaign()`, which writes one row per recipient with its own
+`scheduled_for`, spread at the campaign's rate — 25/hour means one message every
+2m24s, not 25 at the top of the hour. A worker then drains whatever is due.
+That indirection is what makes the throttle hold across restarts and redeploys,
+and what lets a campaign be paused, resumed or cancelled mid-flight. Closing the
+browser does not stop a running campaign.
+
+The rate limit is enforced in `claim_due_email_recipients()` against rows
+actually sent in the last 60 minutes, so calling the dispatcher more often
+cannot make it send faster — it only shortens how long a due message waits.
+
+**Setup**
+
+1. Run `supabase_email_marketing_migration.sql` once in the Supabase SQL Editor
+   (after `supabase_migration.sql` and `supabase_admin_access.sql`).
+2. Mint a dispatcher key and register it:
+
+   ```bash
+   openssl rand -hex 32
+   ```
+   ```sql
+   SELECT public.register_email_worker_key('<the string>', 'vercel-cron');
+   ```
+3. Put the same string in Vercel as `EMAIL_WORKER_SECRET`, then redeploy.
+4. Point a scheduler at `POST /api/email/dispatch` with
+   `Authorization: Bearer <EMAIL_WORKER_SECRET>`. Any one of these is enough:
+   - **Supabase pg_cron** — no plan limits, runs every 5 minutes. The commented
+     block at the end of the migration file sets it up.
+   - **Vercel Cron** — already declared in `vercel.json`, authenticated with
+     Vercel's own `CRON_SECRET`. Note the Hobby plan runs cron only *once a day*.
+   - Any external pinger (cron-job.org, GitHub Actions).
+
+   Running more than one is harmless: the database enforces the rate, and an
+   advisory lock makes overlapping runs a no-op for the loser.
+
+   Without a scheduler nothing breaks — campaigns just advance only when an
+   admin presses "Kirim Batch Sekarang".
+
+**Deliverability.** Every message carries a plain-text alternative,
+`List-Unsubscribe` with one-click POST, and a footer unsubscribe link. Hard
+bounces and opt-outs go to `email_suppressions`, which is checked at queue time,
+so a re-imported CSV cannot resurrect an address that already said no. The
+composer's "Cek Spam" button scores the draft and looks up the sending domain's
+SPF, DKIM and DMARC records — those three matter more than every content rule
+combined.
+
+**Reading the tracker honestly.** Open rate under-reports: Gmail and Apple Mail
+Privacy Protection strip or proxy the pixel, and proxy prefetches record opens
+nobody performed. Clicks are the reliable metric. Bounce figures cover
+rejections during the SMTP conversation; a mailbox that accepts and bounces
+asynchronously is only counted if a DSN is forwarded to `POST /api/email/bounce`
+(same bearer secret as the dispatcher).
+
+**Testing.**
+
+```bash
+npm run test:email   # rendering, merge-tag escaping, spam scoring, CSV import
+```
+
 ## Analytics & visitor tracking
 
 GA4 and Google Tag Manager are wired to Google Consent Mode v2. Both are opt-in

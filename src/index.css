@@ -371,3 +371,42 @@ body {
     opacity: 1;
   }
 }
+
+/* -----------------------------------------------------------------------------
+   Campaign body editor (src/components/admin/RichEmailEditor.tsx)
+   -----------------------------------------------------------------------------
+   The editable surface is a contentEditable, so the browser writes bare <h1>,
+   <p>, <ul> and <blockquote> into it with no classes to hook Tailwind onto.
+   These rules give it typography close to how the sent email actually renders,
+   which is the whole point of editing in place rather than in a textarea.
+   Scoped to .cg-email-editor so nothing here reaches the rest of the portal. */
+.cg-email-editor h1 { font-size: 26px; font-weight: 800; margin: 0 0 12px; color: #2d3b4a; line-height: 1.25; }
+.cg-email-editor h2 { font-size: 21px; font-weight: 700; margin: 0 0 10px; color: #2d3b4a; line-height: 1.3; }
+.cg-email-editor h3 { font-size: 17px; font-weight: 700; margin: 0 0 8px;  color: #2d3b4a; line-height: 1.4; }
+.cg-email-editor p { margin: 0 0 14px; }
+.cg-email-editor ul,
+.cg-email-editor ol { margin: 0 0 14px; padding-left: 24px; }
+.cg-email-editor ul { list-style: disc; }
+.cg-email-editor ol { list-style: decimal; }
+.cg-email-editor li { margin-bottom: 6px; }
+.cg-email-editor a { color: #006d80; text-decoration: underline; }
+.cg-email-editor blockquote {
+  margin: 0 0 14px;
+  padding: 12px 18px;
+  border-left: 4px solid #006d80;
+  background: #f0f4f8;
+  border-radius: 8px;
+  font-style: italic;
+  color: #4a5c6e;
+}
+.cg-email-editor img { max-width: 100%; height: auto; }
+.cg-email-editor table { border-collapse: collapse; }
+.cg-email-editor strong, .cg-email-editor b { font-weight: 700; }
+
+/* Placeholder for the empty state — :empty only matches when the browser has
+   not yet inserted its own <br>, so a freshly cleared editor still shows it. */
+.cg-email-editor:empty::before {
+  content: "Tulis isi email di sini, atau sisipkan blok siap pakai dari tombol Blok…";
+  color: #94a3b8;
+  font-style: italic;
+}

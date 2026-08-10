@@ -20,7 +20,7 @@ import { Modal } from "./EmailContactsPanel";
 import {
   listCampaigns, getCampaign, saveCampaign, deleteCampaign, countAudience, queueCampaign,
   setCampaignState, listGroups, listAllTags, listTemplates, listRecipients, runDispatchNow,
-  sendTestEmail, runSpamCheck, getSmtpStatus,
+  sendTestEmail, runSpamCheck, getSmtpStatus, getGlobalRate, setGlobalRate,
 } from "../../lib/email/marketingClient";
 import { describeSpamScore } from "../../lib/email/spamCheck";
 import type {
@@ -76,6 +76,7 @@ export default function EmailCampaignsPanel() {
   const [editing, setEditing] = useState<Partial<EmailCampaign> | null>(null);
   const [viewing, setViewing] = useState<EmailCampaignOverview | null>(null);
   const [dispatching, setDispatching] = useState(false);
+  const [globalRate, setGlobalRateState] = useState<number>(25);
 
   const flash = useCallback((kind: "ok" | "error", text: string) => {
     setNotice({ kind, text });
@@ -84,11 +85,14 @@ export default function EmailCampaignsPanel() {
 
   const reload = useCallback(async () => {
     try {
-      const [c, g, t, tpl] = await Promise.all([listCampaigns(), listGroups(), listAllTags(), listTemplates()]);
+      const [c, g, t, tpl, rate] = await Promise.all([
+        listCampaigns(), listGroups(), listAllTags(), listTemplates(), getGlobalRate(),
+      ]);
       setCampaigns(c);
       setGroups(g);
       setTags(t);
       setTemplates(tpl);
+      setGlobalRateState(rate);
     } catch (error) {
       flash("error", (error as Error).message);
     } finally {
@@ -190,6 +194,57 @@ export default function EmailCampaignsPanel() {
           </button>
         </div>
       </div>
+
+      {/* The account-wide ceiling. Surfaced here rather than buried in settings
+          because it is the number that actually governs throughput once more
+          than one campaign is live, and it is not obvious from any single
+          campaign's own rate. */}
+      <div className={`${card} p-4 flex flex-wrap items-center justify-between gap-3`}>
+        <div className="flex items-center gap-2.5">
+          <Gauge className="w-4 h-4 text-brand-teal flex-shrink-0" />
+          <div>
+            <span className="block text-[11px] font-black text-slate-800">
+              Plafon pengiriman seluruh akun: {globalRate} email/jam
+            </span>
+            <span className="block text-[10px] text-slate-500 font-semibold leading-relaxed">
+              Semua kampanye aktif berbagi angka ini karena keluar lewat satu mailbox yang sama.
+              Batas per-kampanye hanya sub-limit di bawahnya.
+            </span>
+          </div>
+        </div>
+        <label className="flex items-center gap-2">
+          <span className="text-[9px] text-slate-400 font-black font-mono uppercase tracking-wider">Ubah</span>
+          <input
+            type="number" min={1} max={1000} defaultValue={globalRate} key={globalRate}
+            aria-label="Plafon pengiriman seluruh akun per jam"
+            onBlur={(e) => {
+              const value = Number(e.target.value);
+              if (!value || value === globalRate) return;
+              void setGlobalRate(value)
+                .then(() => { setGlobalRateState(value); flash("ok", `Plafon akun diubah ke ${value} email/jam.`); })
+                .catch((err) => flash("error", (err as Error).message));
+            }}
+            className="w-20 nm-input bg-white rounded-lg px-2.5 py-1.5 text-xs font-bold text-slate-700 focus:outline-none focus:ring-1 focus:ring-brand-teal"
+          />
+        </label>
+      </div>
+
+      {(() => {
+        const active = campaigns.filter((c) => c.status === "sending" || c.status === "scheduled");
+        const combined = active.reduce((sum, c) => sum + c.rate_per_hour, 0);
+        if (active.length < 2 || combined <= globalRate) return null;
+        return (
+          <div className="p-3.5 rounded-xl bg-amber-500/5 border border-amber-500/20 flex gap-2.5">
+            <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+            <p className="text-[11px] font-bold text-amber-700 leading-relaxed">
+              {active.length} kampanye aktif/terjadwal dengan total {combined} email/jam, di atas plafon akun{" "}
+              {globalRate}/jam. Tidak ada yang rusak — plafon tetap ditegakkan, jadi kampanye akan saling
+              menunggu dan yang paling lama tertunda dikirim lebih dulu. Naikkan plafon hanya jika penyedia
+              SMTP Anda memang sanggup.
+            </p>
+          </div>
+        );
+      })()}
 
       {loading && (
         <div className={`${card} p-10 text-center text-xs font-bold text-slate-400`}>

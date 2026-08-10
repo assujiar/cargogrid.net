@@ -36,6 +36,14 @@ The rate limit is enforced in `claim_due_email_recipients()` against rows
 actually sent in the last 60 minutes, so calling the dispatcher more often
 cannot make it send faster — it only shortens how long a due message waits.
 
+**Two limits, not one.** `rate_per_hour` belongs to a campaign; eight campaigns
+at 20/hour that overlap would put 160 messages an hour through one authenticated
+mailbox, which is how a shared-mailbox provider decides to throttle or suspend
+the account — taking the transactional mail down with it. So there is also an
+account-wide ceiling in `email_settings.global_rate_per_hour` (default 25) that
+the sum has to fit under. It is editable at the top of the campaigns screen.
+When campaigns compete for it, the most overdue message wins.
+
 **Setup**
 
 1. Run `supabase_email_marketing_migration.sql` once in the Supabase SQL Editor

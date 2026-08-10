@@ -26,6 +26,7 @@
 import { renderCampaignEmail, buildBulkHeaders } from "../src/lib/email/render";
 import { checkSpamContent } from "../src/lib/email/spamCheck";
 import { parseCsv, guessMapping, mapRows, toCsv } from "../src/lib/email/csv";
+import { parseDsn } from "../src/lib/email/dsn";
 
 let failures = 0;
 
@@ -154,6 +155,75 @@ check(
 const exported = toCsv([{ email: "a@b.co", name: 'Budi "Bos"', tags: ["x", "y"] }]);
 check("export quotes a value containing quotes", exported.includes('"Budi ""Bos"""'), exported);
 check("export flattens array columns", exported.includes("x|y"), exported);
+
+// -----------------------------------------------------------------------------
+console.log("\nBounce (DSN) parsing");
+// -----------------------------------------------------------------------------
+// The consequence of a wrong answer here is asymmetric: a missed bounce costs a
+// data point, a false one silently suppresses a real customer from every future
+// mailing. So the parser is expected to stay silent when unsure, and these
+// cases pin that behaviour down.
+
+const rfc3464 = [
+  "From: Mail Delivery System <MAILER-DAEMON@relay.mailchannels.net>",
+  "Subject: Undelivered Mail Returned to Sender",
+  "Content-Type: multipart/report; report-type=delivery-status",
+  "",
+  "Reporting-MTA: dns; relay.mailchannels.net",
+  "",
+  "Final-Recipient: rfc822; budi@ptmaju.co.id",
+  "Action: failed",
+  "Status: 5.1.1",
+  "Diagnostic-Code: smtp; 550 5.1.1 <budi@ptmaju.co.id>: Recipient address rejected: User unknown",
+  "",
+].join("\n");
+
+const hard = parseDsn(rfc3464);
+check("RFC 3464 DSN yields the failed recipient", hard.length === 1 && hard[0].email === "budi@ptmaju.co.id", JSON.stringify(hard));
+check("a 5.x.x status is classified hard", hard[0]?.type === "hard", hard[0]?.type);
+check("the diagnostic code is kept", (hard[0]?.detail || "").includes("User unknown"));
+check("the daemon's own address is not treated as the recipient", !hard.some((v) => /mailer-daemon/i.test(v.email)));
+
+const full = rfc3464
+  .replace("Status: 5.1.1", "Status: 5.2.2")
+  .replace("User unknown", "Mailbox full");
+check(
+  "5.2.2 (mailbox full) is soft despite the 5.x class",
+  parseDsn(full)[0]?.type === "soft",
+  parseDsn(full)[0]?.type,
+);
+
+const deferred = rfc3464.replace("Action: failed", "Action: delayed").replace("Status: 5.1.1", "Status: 4.4.1");
+check("a delayed warning is not recorded as a bounce", parseDsn(deferred).length === 0);
+
+const prose = [
+  "Subject: Delivery Status Notification (Failure)",
+  "",
+  "Address not found. Your message wasn't delivered to andi@contohmati.co.id",
+  "because the address couldn't be found, or is unable to receive mail.",
+  "",
+].join("\n");
+const proseResult = parseDsn(prose);
+check("a prose bounce still yields the address", proseResult.length === 1 && proseResult[0].email === "andi@contohmati.co.id", JSON.stringify(proseResult));
+check("a prose 'address not found' is hard", proseResult[0]?.type === "hard");
+
+check("an ordinary reply quoting an address is not a bounce", parseDsn([
+  "Subject: Re: Penawaran CargoGrid",
+  "",
+  "Halo, tolong kirim detailnya ke rekan saya <rekan@perusahaan.co.id>. Terima kasih.",
+].join("\n")).length === 0);
+
+check("a bounce with no usable verdict is skipped rather than guessed", parseDsn([
+  "Subject: Undelivered Mail Returned to Sender",
+  "",
+  "Something went wrong with <someone@example.co.id>.",
+].join("\n")).length === 0);
+
+check("our own address is never suppressed", !parseDsn([
+  "Subject: Undelivered Mail Returned to Sender",
+  "",
+  "The message from <service@cargogrid.net> to <nyata@klien.co.id> failed: user unknown",
+].join("\n")).some((v) => /cargogrid\.net$/.test(v.email)));
 
 console.log(failures === 0 ? "\nAll email pipeline checks passed.\n" : `\n${failures} check(s) failed.\n`);
 process.exit(failures === 0 ? 0 : 1);

@@ -478,6 +478,23 @@ export async function runSpamCheck(payload: {
   return authedJson("/api/email/spam-check", { method: "POST", body: JSON.stringify(payload) });
 }
 
+/**
+ * DNS-checks every subscribed contact's domain. With `apply` false it only
+ * reports; with `apply` true it also cancels their queued sends, marks the
+ * contacts cleaned, and suppresses the addresses.
+ */
+export async function verifyContactDomains(apply: boolean): Promise<{
+  applied: boolean;
+  checkedDomains: number;
+  deadDomains: string[];
+  affectedContacts: number;
+}> {
+  return authedJson("/api/email/verify-domains", {
+    method: "POST",
+    body: JSON.stringify({ apply }),
+  });
+}
+
 export async function getSmtpStatus(): Promise<{
   configured: boolean;
   reachable: boolean;

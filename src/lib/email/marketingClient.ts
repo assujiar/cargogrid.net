@@ -337,14 +337,50 @@ export async function setCampaignState(campaignId: string, action: "pause" | "re
   return data as { action: string; pending: number };
 }
 
-export async function listRecipients(campaignId: string, status?: string): Promise<EmailRecipient[]> {
+/**
+ * Recipient filters, as the campaign detail screen offers them.
+ *
+ * Two different things share one control. `queued`/`sent`/`bounced`/… are the
+ * delivery status column; `opened`/`clicked`/`unsubscribed` are engagement, and
+ * are not statuses at all — a recipient who opened the mail still has
+ * status='sent'. Collapsing both into one filter is what lets the stat cards
+ * above the list act as filters, which is how anyone actually reads that screen:
+ * see a number, want the names behind it.
+ */
+export type RecipientFilter =
+  | "all"
+  | "queued" | "sending" | "sent" | "failed" | "bounced" | "cancelled"
+  | "opened" | "clicked" | "unsubscribed";
+
+export async function listRecipients(
+  campaignId: string,
+  filter: RecipientFilter = "all",
+): Promise<EmailRecipient[]> {
   let query = supabase
     .from("email_campaign_recipients")
     .select("*")
     .eq("campaign_id", campaignId)
-    .order("send_order")
     .limit(1000);
-  if (status && status !== "all") query = query.eq("status", status);
+
+  switch (filter) {
+    case "opened":
+      // Most recently opened first: on an engagement view the useful ordering
+      // is "who just read it", not the position they held in the send queue.
+      query = query.gt("open_count", 0).order("first_opened_at", { ascending: false });
+      break;
+    case "clicked":
+      query = query.gt("click_count", 0).order("first_clicked_at", { ascending: false });
+      break;
+    case "unsubscribed":
+      query = query.not("unsubscribed_at", "is", null).order("unsubscribed_at", { ascending: false });
+      break;
+    case "all":
+      query = query.order("send_order");
+      break;
+    default:
+      query = query.eq("status", filter).order("send_order");
+  }
+
   return unwrap(await query) as EmailRecipient[];
 }
 

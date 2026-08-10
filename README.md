@@ -44,6 +44,19 @@ account-wide ceiling in `email_settings.global_rate_per_hour` (default 25) that
 the sum has to fit under. It is editable at the top of the campaigns screen.
 When campaigns compete for it, the most overdue message wins.
 
+**Overdue campaigns still trickle.** Once a campaign falls behind — paused, or
+the dispatcher was down — every remaining `scheduled_for` is in the past and all
+of them are due at once, leaving only the hourly cap to hold the pace. That
+would send a whole hour's worth in twenty seconds and then idle, which is the
+burst the spacing existed to prevent. So the claim also enforces a floor on the
+gap since the campaign's own last send. Catch-up is still possible; a burst is
+not.
+
+That floor is why the scheduler runs **every minute**, not every five: at
+20/hour a message comes due every 180s, and a 5-minute tick would hand out one
+slot per tick and quietly cap the campaign at 12/hour. A run with nothing due
+returns immediately.
+
 **Setup**
 
 1. Run `supabase_email_marketing_migration.sql` once in the Supabase SQL Editor

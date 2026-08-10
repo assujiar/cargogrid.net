@@ -948,22 +948,46 @@ BEGIN
   RETURN QUERY
   WITH sending AS (
     SELECT c.id,
+           3600.0 / c.rate_per_hour AS spacing_secs,
            GREATEST(0, c.rate_per_hour - (
              SELECT count(*) FROM public.email_campaign_recipients r2
               WHERE r2.campaign_id = c.id AND r2.sent_at > NOW() - INTERVAL '1 hour'
-           ))::INTEGER AS allowance
+           ))::INTEGER AS hourly_allowance,
+           -- Seconds since this campaign last put a message on the wire. NULL
+           -- (never sent) is treated as "long enough", so a fresh campaign
+           -- starts immediately rather than waiting out one interval.
+           COALESCE(EXTRACT(EPOCH FROM (NOW() - (
+             SELECT max(r3.sent_at) FROM public.email_campaign_recipients r3
+              WHERE r3.campaign_id = c.id AND r3.sent_at IS NOT NULL
+           ))), 1e9) AS since_last_secs
       FROM public.email_campaigns c
      WHERE c.status = 'sending'
+  ), paced AS (
+    -- scheduled_for spaces recipients at 3600/rate seconds, and that is what
+    -- makes a campaign leave as a drip. But once a campaign falls behind — it
+    -- was paused, or the dispatcher was broken — every remaining slot is in the
+    -- past, all of them are due at once, and only the hourly allowance is left
+    -- holding the pace. That degenerates into "send the whole hour's worth in
+    -- twenty seconds, then idle for fifty minutes", which is the exact shape
+    -- the spacing existed to avoid. So the gap since the campaign's own last
+    -- send is a floor too. Catch-up is still possible (a long gap earns several
+    -- slots at once) but it can never collapse into a burst.
+    SELECT s.id,
+           LEAST(
+             s.hourly_allowance,
+             GREATEST(0, floor(s.since_last_secs / s.spacing_secs))::INTEGER
+           ) AS allowance
+      FROM sending s
   ), candidates AS (
     SELECT r.id AS rid,
            r.scheduled_for,
            row_number() OVER (PARTITION BY r.campaign_id ORDER BY r.scheduled_for, r.send_order) AS rn,
-           s.allowance
+           p.allowance
       FROM public.email_campaign_recipients r
-      JOIN sending s ON s.id = r.campaign_id
+      JOIN paced p ON p.id = r.campaign_id
      WHERE r.status = 'queued'
        AND r.scheduled_for <= NOW()
-       AND s.allowance > 0
+       AND p.allowance > 0
   ), picked AS (
     -- Ordered by how overdue each message is, so when several campaigns compete
     -- for the same global allowance the one that has waited longest wins rather
@@ -1470,7 +1494,7 @@ GRANT SELECT ON public.email_campaign_overview TO authenticated;
 --
 --   SELECT cron.schedule(
 --     'cargogrid-email-dispatch',
---     '*/5 * * * *',
+--     '* * * * *',
 --     $cron$
 --       SELECT net.http_post(
 --         url     := 'https://www.cargogrid.net/api/email/dispatch',
@@ -1487,9 +1511,12 @@ GRANT SELECT ON public.email_campaign_overview TO authenticated;
 --     $cron$
 --   );
 --
--- A 5-minute schedule does not send faster than 25/hour — the rate limit lives
--- in claim_due_email_recipients(), so a tighter schedule only shortens how long
--- a due message waits before going out.
+-- Running every minute does not send faster than the configured rate: the
+-- limits live in claim_due_email_recipients(). The schedule only needs to be
+-- fine-grained enough for the spacing floor to bite — at 20/hour a message is
+-- due every 180s, and a 5-minute tick would hand out one slot per tick and
+-- quietly cap the campaign at 12/hour instead of 20. A run with nothing due
+-- returns immediately.
 --
 -- To stop it:  SELECT cron.unschedule('cargogrid-email-dispatch');
 -- To inspect:  SELECT * FROM cron.job_run_details ORDER BY start_time DESC LIMIT 20;

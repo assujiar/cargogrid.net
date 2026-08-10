@@ -380,6 +380,29 @@ export async function topClickedLinks(campaignId: string): Promise<Array<{ url: 
     .sort((a, b) => b.clicks - a.clicks);
 }
 
+/**
+ * The account-wide hourly ceiling.
+ *
+ * Distinct from a campaign's own rate: several campaigns running at once all
+ * draw on this one number, because they all leave through the same mailbox.
+ */
+export async function getGlobalRate(): Promise<number> {
+  const row = unwrap(
+    await supabase.from("email_settings").select("global_rate_per_hour").limit(1).maybeSingle(),
+  ) as { global_rate_per_hour: number } | null;
+  return row?.global_rate_per_hour ?? 25;
+}
+
+export async function setGlobalRate(value: number): Promise<void> {
+  unwrap(
+    await supabase
+      .from("email_settings")
+      .update({ global_rate_per_hour: value, updated_at: new Date().toISOString() })
+      .eq("id", true)
+      .select("global_rate_per_hour"),
+  );
+}
+
 export async function listSuppressions(): Promise<Array<{ email: string; reason: string; detail: string | null; created_at: string }>> {
   return unwrap(
     await supabase.from("email_suppressions").select("*").order("created_at", { ascending: false }).limit(500),

@@ -325,6 +325,31 @@ CREATE TABLE IF NOT EXISTS public.email_worker_keys (
 
 
 -- -----------------------------------------------------------------------------
+-- 1.10 Account-wide settings
+-- -----------------------------------------------------------------------------
+-- rate_per_hour is a property of a *campaign*, so eight campaigns at 20/hour
+-- that happen to overlap put 160 messages an hour through one authenticated
+-- mailbox. Every campaign is individually within its limit and the mailbox is
+-- nowhere near within its own — and a shared-mailbox provider answers that by
+-- throttling or suspending the account, which takes the transactional mail down
+-- with it.
+--
+-- This is the ceiling the sum has to fit under. The per-campaign rate keeps its
+-- job: a sub-limit, and the thing that decides what order messages go out in.
+--
+-- Single-row table: the CHECK plus the primary key makes a second row
+-- impossible, so "the settings" is never ambiguous.
+CREATE TABLE IF NOT EXISTS public.email_settings (
+  id                   BOOLEAN PRIMARY KEY DEFAULT TRUE CHECK (id),
+  global_rate_per_hour INTEGER NOT NULL DEFAULT 25 CHECK (global_rate_per_hour BETWEEN 1 AND 1000),
+  updated_at           TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+INSERT INTO public.email_settings (id, global_rate_per_hour)
+VALUES (TRUE, 25) ON CONFLICT (id) DO NOTHING;
+
+
+-- -----------------------------------------------------------------------------
 -- 1.9 updated_at triggers (reuses the function from supabase_migration.sql)
 -- -----------------------------------------------------------------------------
 DROP TRIGGER IF EXISTS set_timestamp ON public.email_contacts;
@@ -360,6 +385,7 @@ ALTER TABLE public.email_campaigns            ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_campaign_recipients  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_events               ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_suppressions         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.email_settings             ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.email_worker_keys          ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Admin: email contacts"    ON public.email_contacts;
@@ -392,6 +418,10 @@ CREATE POLICY "Admin: email events" ON public.email_events
 
 DROP POLICY IF EXISTS "Admin: email suppressions" ON public.email_suppressions;
 CREATE POLICY "Admin: email suppressions" ON public.email_suppressions
+  FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
+
+DROP POLICY IF EXISTS "Admin: email settings" ON public.email_settings;
+CREATE POLICY "Admin: email settings" ON public.email_settings
   FOR ALL TO authenticated USING (public.is_admin()) WITH CHECK (public.is_admin());
 
 -- email_worker_keys gets RLS with NO policy at all: not even an admin session
@@ -862,8 +892,8 @@ REVOKE ALL ON FUNCTION public.register_email_worker_key(TEXT, TEXT) FROM PUBLIC,
 --   * Claims older than 15 minutes are returned to the queue, so a worker that
 --     dies mid-send does not strand its batch forever.
 --
--- The hourly allowance is computed from rows actually sent in the last 60
--- minutes, not from a counter. That is the version that stays correct across a
+-- Both allowances are computed from rows actually sent in the last 60 minutes
+-- rather than from a counter. That is the version that stays correct across a
 -- redeploy, a manual re-run, or a campaign that was paused and resumed.
 CREATE OR REPLACE FUNCTION public.claim_due_email_recipients(
   p_secret TEXT,
@@ -883,6 +913,8 @@ LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = public
 AS $$
+DECLARE
+  v_global INTEGER;
 BEGIN
   IF NOT public.email_worker_ok(p_secret) THEN
     RAISE EXCEPTION 'not authorised';
@@ -900,26 +932,70 @@ BEGIN
      SET status = 'sending', started_at = COALESCE(started_at, NOW()), updated_at = NOW()
    WHERE status = 'scheduled' AND scheduled_at <= NOW();
 
+  -- What the mailbox as a whole has left this hour, counted across every
+  -- campaign rather than per campaign. See email_settings for why.
+  SELECT GREATEST(0,
+           COALESCE((SELECT s.global_rate_per_hour FROM public.email_settings s LIMIT 1), 25)
+           - (SELECT count(*) FROM public.email_campaign_recipients r
+               WHERE r.sent_at > NOW() - INTERVAL '1 hour')
+         )::INTEGER
+    INTO v_global;
+
+  IF v_global <= 0 THEN
+    RETURN;
+  END IF;
+
   RETURN QUERY
   WITH sending AS (
     SELECT c.id,
+           3600.0 / c.rate_per_hour AS spacing_secs,
            GREATEST(0, c.rate_per_hour - (
              SELECT count(*) FROM public.email_campaign_recipients r2
               WHERE r2.campaign_id = c.id AND r2.sent_at > NOW() - INTERVAL '1 hour'
-           ))::INTEGER AS allowance
+           ))::INTEGER AS hourly_allowance,
+           -- Seconds since this campaign last put a message on the wire. NULL
+           -- (never sent) is treated as "long enough", so a fresh campaign
+           -- starts immediately rather than waiting out one interval.
+           COALESCE(EXTRACT(EPOCH FROM (NOW() - (
+             SELECT max(r3.sent_at) FROM public.email_campaign_recipients r3
+              WHERE r3.campaign_id = c.id AND r3.sent_at IS NOT NULL
+           ))), 1e9) AS since_last_secs
       FROM public.email_campaigns c
      WHERE c.status = 'sending'
+  ), paced AS (
+    -- scheduled_for spaces recipients at 3600/rate seconds, and that is what
+    -- makes a campaign leave as a drip. But once a campaign falls behind — it
+    -- was paused, or the dispatcher was broken — every remaining slot is in the
+    -- past, all of them are due at once, and only the hourly allowance is left
+    -- holding the pace. That degenerates into "send the whole hour's worth in
+    -- twenty seconds, then idle for fifty minutes", which is the exact shape
+    -- the spacing existed to avoid. So the gap since the campaign's own last
+    -- send is a floor too. Catch-up is still possible (a long gap earns several
+    -- slots at once) but it can never collapse into a burst.
+    SELECT s.id,
+           LEAST(
+             s.hourly_allowance,
+             GREATEST(0, floor(s.since_last_secs / s.spacing_secs))::INTEGER
+           ) AS allowance
+      FROM sending s
   ), candidates AS (
     SELECT r.id AS rid,
+           r.scheduled_for,
            row_number() OVER (PARTITION BY r.campaign_id ORDER BY r.scheduled_for, r.send_order) AS rn,
-           s.allowance
+           p.allowance
       FROM public.email_campaign_recipients r
-      JOIN sending s ON s.id = r.campaign_id
+      JOIN paced p ON p.id = r.campaign_id
      WHERE r.status = 'queued'
        AND r.scheduled_for <= NOW()
-       AND s.allowance > 0
+       AND p.allowance > 0
   ), picked AS (
-    SELECT rid FROM candidates WHERE rn <= allowance ORDER BY rid LIMIT GREATEST(p_limit, 1)
+    -- Ordered by how overdue each message is, so when several campaigns compete
+    -- for the same global allowance the one that has waited longest wins rather
+    -- than whichever happens to sort first by id.
+    SELECT c.rid FROM candidates c
+     WHERE c.rn <= c.allowance
+     ORDER BY c.scheduled_for
+     LIMIT LEAST(GREATEST(p_limit, 1), v_global)
   )
   UPDATE public.email_campaign_recipients r
      SET status = 'sending', claimed_at = NOW(), attempts = r.attempts + 1
@@ -930,7 +1006,15 @@ BEGIN
 END;
 $$;
 
-REVOKE ALL ON FUNCTION public.claim_due_email_recipients(TEXT, INTEGER) FROM PUBLIC, anon, authenticated;
+-- Reachable by anon on purpose, like the tracking RPCs above it.
+--
+-- The dispatcher talks to PostgREST with the publishable key, so it arrives as
+-- `anon`. Revoking EXECUTE from anon does not harden this function — the secret
+-- checked on the first line is the authentication, and it is 256 bits — it just
+-- makes the function unreachable by the only caller it has. That mistake is
+-- what stopped every scheduled campaign the first time this shipped.
+REVOKE ALL ON FUNCTION public.claim_due_email_recipients(TEXT, INTEGER) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.claim_due_email_recipients(TEXT, INTEGER) TO anon, authenticated;
 
 
 -- -----------------------------------------------------------------------------
@@ -970,7 +1054,8 @@ BEGIN
 END;
 $$;
 
-REVOKE ALL ON FUNCTION public.get_email_campaigns_for_dispatch(TEXT, UUID[]) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.get_email_campaigns_for_dispatch(TEXT, UUID[]) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.get_email_campaigns_for_dispatch(TEXT, UUID[]) TO anon, authenticated;
 
 
 -- -----------------------------------------------------------------------------
@@ -1079,7 +1164,8 @@ BEGIN
 END;
 $$;
 
-REVOKE ALL ON FUNCTION public.report_email_dispatch(TEXT, JSONB) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.report_email_dispatch(TEXT, JSONB) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.report_email_dispatch(TEXT, JSONB) TO anon, authenticated;
 
 
 -- -----------------------------------------------------------------------------
@@ -1140,7 +1226,8 @@ BEGIN
 END;
 $$;
 
-REVOKE ALL ON FUNCTION public.record_email_bounce(TEXT, TEXT, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.record_email_bounce(TEXT, TEXT, TEXT, TEXT) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.record_email_bounce(TEXT, TEXT, TEXT, TEXT) TO anon, authenticated;
 
 
 -- =============================================================================
@@ -1407,7 +1494,7 @@ GRANT SELECT ON public.email_campaign_overview TO authenticated;
 --
 --   SELECT cron.schedule(
 --     'cargogrid-email-dispatch',
---     '*/5 * * * *',
+--     '* * * * *',
 --     $cron$
 --       SELECT net.http_post(
 --         url     := 'https://www.cargogrid.net/api/email/dispatch',
@@ -1424,9 +1511,12 @@ GRANT SELECT ON public.email_campaign_overview TO authenticated;
 --     $cron$
 --   );
 --
--- A 5-minute schedule does not send faster than 25/hour — the rate limit lives
--- in claim_due_email_recipients(), so a tighter schedule only shortens how long
--- a due message waits before going out.
+-- Running every minute does not send faster than the configured rate: the
+-- limits live in claim_due_email_recipients(). The schedule only needs to be
+-- fine-grained enough for the spacing floor to bite — at 20/hour a message is
+-- due every 180s, and a 5-minute tick would hand out one slot per tick and
+-- quietly cap the campaign at 12/hour instead of 20. A run with nothing due
+-- returns immediately.
 --
 -- To stop it:  SELECT cron.unschedule('cargogrid-email-dispatch');
 -- To inspect:  SELECT * FROM cron.job_run_details ORDER BY start_time DESC LIMIT 20;

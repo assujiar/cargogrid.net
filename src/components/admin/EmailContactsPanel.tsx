@@ -12,12 +12,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Users, Search, Upload, Download, Plus, Trash2, Tag, FolderPlus, X, Check,
-  Ban, RotateCcw, AlertTriangle, Database, ChevronRight, Mail, Loader2,
+  Ban, RotateCcw, AlertTriangle, Database, ChevronRight, Mail, Loader2, ShieldCheck,
 } from "lucide-react";
 import {
   listContacts, listGroups, listAllTags, saveGroup, deleteGroup, addToGroup, removeFromGroup,
   importContacts, importFromLeads, upsertContact, deleteContacts, setContactStatus,
-  listSuppressions, removeSuppression, countContactsByStatus,
+  listSuppressions, removeSuppression, countContactsByStatus, verifyContactDomains,
 } from "../../lib/email/marketingClient";
 import { parseCsv, guessMapping, mapRows, toCsv, IMPORT_FIELDS, type ImportFieldKey } from "../../lib/email/csv";
 import type { EmailContact, EmailGroup } from "../../lib/email/types";
@@ -115,6 +115,37 @@ export default function EmailContactsPanel() {
     }
   };
 
+  /**
+   * Two passes on purpose: report first, then ask. A DNS hiccup that briefly
+   * makes 300 domains look dead should cost a confusing dialog, not a list.
+   */
+  const verifyDomains = async () => {
+    setBusy("verify");
+    try {
+      const report = await verifyContactDomains(false);
+      if (report.affectedContacts === 0) {
+        flash("ok", `${report.checkedDomains} domain diperiksa — semuanya bisa menerima email.`);
+        return;
+      }
+      const proceed = confirm(
+        `${report.deadDomains.length} dari ${report.checkedDomains} domain tidak punya MX maupun A record, ` +
+        `sehingga ${report.affectedContacts} kontak dijamin bounce jika dikirimi.\n\n` +
+        `Contoh: ${report.deadDomains.slice(0, 8).join(", ")}${report.deadDomains.length > 8 ? ", …" : ""}\n\n` +
+        `Bersihkan sekarang? Antrean mereka dibatalkan, kontaknya ditandai "cleaned", dan alamatnya ` +
+        `masuk daftar blokir agar tidak hidup lagi lewat import ulang.`,
+      );
+      if (!proceed) return;
+
+      const applied = await verifyContactDomains(true);
+      flash("ok", `${applied.affectedContacts} kontak di ${applied.deadDomains.length} domain mati telah dibersihkan.`);
+      await reload();
+    } catch (error) {
+      flash("error", (error as Error).message);
+    } finally {
+      setBusy("");
+    }
+  };
+
   const exportCsv = () => {
     const rows = contacts.map((c) => ({
       email: c.email, name: c.name, company: c.company, phone: c.phone,
@@ -184,6 +215,12 @@ export default function EmailContactsPanel() {
             <button type="button" onClick={() => setEditContact({ email: "", lang: "id", tags: [] })}
               className="flex items-center gap-1.5 px-3.5 py-2 text-[11px] font-bold rounded-xl border-0 cursor-pointer bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all">
               <Plus className="w-3.5 h-3.5" /> Kontak Baru
+            </button>
+            <button type="button" onClick={() => void verifyDomains()} disabled={busy === "verify"}
+              title="Cek DNS setiap domain kontak dan buang alamat yang pasti gagal terkirim"
+              className="flex items-center gap-1.5 px-3.5 py-2 text-[11px] font-bold rounded-xl border-0 cursor-pointer bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all disabled:opacity-40">
+              {busy === "verify" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ShieldCheck className="w-3.5 h-3.5" />}
+              Verifikasi Domain
             </button>
             <button type="button" onClick={exportCsv} disabled={contacts.length === 0}
               className="flex items-center gap-1.5 px-3.5 py-2 text-[11px] font-bold rounded-xl border-0 cursor-pointer bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all disabled:opacity-40">

@@ -92,12 +92,34 @@ composer's "Cek Spam" button scores the draft and looks up the sending domain's
 SPF, DKIM and DMARC records — those three matter more than every content rule
 combined.
 
+**List hygiene comes before deliverability.** A fifth of a scraped B2B list is
+typically at domains that no longer exist, and every message to one is a
+guaranteed hard bounce — the fastest way there is to lose a sending reputation.
+"Verifikasi Domain" on the contacts screen (`POST /api/email/verify-domains`)
+DNS-checks every contact's domain and, on confirmation, cancels their queued
+sends, marks them cleaned and suppresses the addresses. It reports first and
+only cleans when asked, so a DNS blip costs a confusing dialog rather than a
+list. It cannot detect a dead mailbox at a live domain — only a real bounce
+reveals those.
+
+**Bounces arrive by mail, not by SMTP.** The send path only sees rejections
+that happen during the conversation. A relay that accepts a message and then
+finds the mailbox missing sends a DSN back to the return-path, so
+`POST /api/email/poll-bounces` reads the sending mailbox over IMAP, parses the
+DSNs (`src/lib/email/dsn.ts`) and records them. It falls back to the SMTP
+credentials, so for most providers no extra configuration is needed. Without it
+the bounce rate reads 0% while the list quietly rots. Providers that can POST
+bounce webhooks can target `POST /api/email/bounce` instead — same bearer
+secret.
+
+The DSN parser errs toward silence: a missed bounce costs a data point, a false
+one silently suppresses a real customer from every future mailing. Machine
+readable RFC 3464 reports are parsed exactly; prose bounces are only read when
+the message both looks like a bounce and states a conclusive reason.
+
 **Reading the tracker honestly.** Open rate under-reports: Gmail and Apple Mail
 Privacy Protection strip or proxy the pixel, and proxy prefetches record opens
-nobody performed. Clicks are the reliable metric. Bounce figures cover
-rejections during the SMTP conversation; a mailbox that accepts and bounces
-asynchronously is only counted if a DSN is forwarded to `POST /api/email/bounce`
-(same bearer secret as the dispatcher).
+nobody performed. Clicks are the reliable metric.
 
 **Testing.**
 

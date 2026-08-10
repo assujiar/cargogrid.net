@@ -21,6 +21,7 @@ import {
   listCampaigns, getCampaign, saveCampaign, deleteCampaign, countAudience, queueCampaign,
   setCampaignState, listGroups, listAllTags, listTemplates, listRecipients, runDispatchNow,
   sendTestEmail, runSpamCheck, getSmtpStatus, getGlobalRate, setGlobalRate,
+  type RecipientFilter,
 } from "../../lib/email/marketingClient";
 import { describeSpamScore } from "../../lib/email/spamCheck";
 import type {
@@ -40,6 +41,34 @@ const STATUS_STYLES: Record<string, string> = {
 const STATUS_LABELS: Record<string, string> = {
   draft: "Draf", scheduled: "Terjadwal", sending: "Mengirim", paused: "Dijeda",
   sent: "Selesai", cancelled: "Dibatalkan", failed: "Gagal",
+};
+
+/** Heading over the recipient list, which changes with what is being shown. */
+const FILTER_LABELS: Record<RecipientFilter, string> = {
+  all: "Antrean per Batch",
+  queued: "Menunggu Antrean",
+  sending: "Sedang Dikirim",
+  sent: "Sudah Terkirim",
+  failed: "Gagal Terkirim",
+  bounced: "Bounce",
+  cancelled: "Dibatalkan",
+  opened: "Penerima yang Membuka",
+  clicked: "Penerima yang Mengklik",
+  unsubscribed: "Berhenti Berlangganan",
+};
+
+/** Short form, for the dropdown and the active-filter chip. */
+const FILTER_CHIPS: Record<RecipientFilter, string> = {
+  all: "Semua",
+  queued: "Antre",
+  sending: "Dikirim",
+  sent: "Terkirim",
+  failed: "Gagal",
+  bounced: "Bounce",
+  cancelled: "Dibatalkan",
+  opened: "Dibuka",
+  clicked: "Diklik",
+  unsubscribed: "Berhenti",
 };
 
 const EMPTY_CAMPAIGN: Partial<EmailCampaign> = {
@@ -1004,7 +1033,7 @@ function CampaignDetail({
   onFlash: (kind: "ok" | "error", text: string) => void;
 }) {
   const [recipients, setRecipients] = useState<EmailRecipient[]>([]);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState<RecipientFilter>("all");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -1015,7 +1044,18 @@ function CampaignDetail({
       .finally(() => setLoading(false));
   }, [campaign.id, filter, onFlash]);
 
+  /** Clicking the card already selected clears the filter rather than doing nothing. */
+  const toggleFilter = (next: RecipientFilter) =>
+    setFilter((current) => (current === next ? "all" : next));
+
+  const isEngagement = filter === "opened" || filter === "clicked" || filter === "unsubscribed";
+
   const batches = useMemo(() => {
+    // Engagement views are one flat list, already ordered by when the thing
+    // happened. Splitting them by send batch would sort them back into queue
+    // order and bury the ordering that matters.
+    if (isEngagement) return recipients.length ? [[0, recipients] as [number, EmailRecipient[]]] : [];
+
     const grouped = new Map<number, EmailRecipient[]>();
     recipients.forEach((r) => {
       const list = grouped.get(r.batch_index) || [];
@@ -1023,7 +1063,7 @@ function CampaignDetail({
       grouped.set(r.batch_index, list);
     });
     return Array.from(grouped.entries()).sort((a, b) => a[0] - b[0]);
-  }, [recipients]);
+  }, [isEngagement, recipients]);
 
   const card = "nm-emboss bg-white rounded-2xl border-0";
 
@@ -1044,58 +1084,98 @@ function CampaignDetail({
         <p className="text-[11px] text-slate-500 font-semibold mt-1">{campaign.subject}</p>
       </div>
 
+      {/* Each card filters the list below it. Seeing a number and wanting the
+          names behind it is the whole reason anyone opens this screen. */}
       <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-3">
-        {[
-          { label: "PENERIMA", value: campaign.total_recipients, tone: "text-slate-900" },
-          { label: "TERKIRIM", value: campaign.sent_count, tone: "text-emerald-600" },
-          { label: "ANTRE", value: campaign.pending_count, tone: "text-amber-600" },
-          { label: "DIBUKA", value: `${campaign.opened_count} (${campaign.open_rate ?? 0}%)`, tone: "text-brand-teal" },
-          { label: "DIKLIK", value: `${campaign.clicked_count} (${campaign.click_rate ?? 0}%)`, tone: "text-brand-teal" },
-          { label: "BOUNCE", value: `${campaign.bounced_count} (${campaign.bounce_rate ?? 0}%)`, tone: "text-red-600" },
-          { label: "BERHENTI", value: campaign.unsubscribed_count, tone: "text-slate-500" },
-        ].map((stat) => (
-          <div key={stat.label} className={`${card} p-4`}>
-            <span className="font-mono text-[9px] font-black text-slate-400 tracking-wider block">{stat.label}</span>
-            <span className={`text-lg font-black block mt-0.5 ${stat.tone}`}>{stat.value}</span>
-          </div>
-        ))}
+        {([
+          { label: "PENERIMA", value: campaign.total_recipients, tone: "text-slate-900", filter: "all" },
+          { label: "TERKIRIM", value: campaign.sent_count, tone: "text-emerald-600", filter: "sent" },
+          { label: "ANTRE", value: campaign.pending_count, tone: "text-amber-600", filter: "queued" },
+          { label: "DIBUKA", value: `${campaign.opened_count} (${campaign.open_rate ?? 0}%)`, tone: "text-brand-teal", filter: "opened" },
+          { label: "DIKLIK", value: `${campaign.clicked_count} (${campaign.click_rate ?? 0}%)`, tone: "text-brand-teal", filter: "clicked" },
+          { label: "BOUNCE", value: `${campaign.bounced_count} (${campaign.bounce_rate ?? 0}%)`, tone: "text-red-600", filter: "bounced" },
+          { label: "BERHENTI", value: campaign.unsubscribed_count, tone: "text-slate-500", filter: "unsubscribed" },
+        ] as const).map((stat) => {
+          const active = filter === stat.filter;
+          return (
+            <button
+              key={stat.label}
+              type="button"
+              aria-pressed={active}
+              title={active ? "Klik lagi untuk tampilkan semua" : `Tampilkan hanya penerima: ${stat.label.toLowerCase()}`}
+              onClick={() => toggleFilter(stat.filter)}
+              className={`${card} p-4 text-left cursor-pointer transition-all hover:-translate-y-0.5 ${
+                active ? "ring-2 ring-brand-teal" : ""
+              }`}
+            >
+              <span className="font-mono text-[9px] font-black text-slate-400 tracking-wider block">{stat.label}</span>
+              <span className={`text-lg font-black block mt-0.5 ${stat.tone}`}>{stat.value}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className={`${card} overflow-hidden`}>
         <div className="p-4 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100">
-          <h4 className="font-display font-black text-sm text-slate-800">
-            Antrean per Batch ({recipients.length})
-          </h4>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Filter status penerima"
+          <div className="flex items-center gap-2 flex-wrap">
+            <h4 className="font-display font-black text-sm text-slate-800">
+              {FILTER_LABELS[filter]} ({recipients.length})
+            </h4>
+            {filter !== "all" && (
+              <button type="button" onClick={() => setFilter("all")}
+                className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full border-0 cursor-pointer bg-brand-teal/10 text-brand-teal hover:bg-brand-teal/20 transition-all">
+                {FILTER_CHIPS[filter]} <XCircle className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+          <select value={filter} onChange={(e) => setFilter(e.target.value as RecipientFilter)}
+            aria-label="Filter penerima"
             className="nm-input bg-slate-50 rounded-lg px-3 py-1.5 text-[11px] font-bold text-slate-700 cursor-pointer focus:outline-none">
-            {[["all", "Semua"], ["queued", "Antre"], ["sent", "Terkirim"], ["bounced", "Bounce"], ["failed", "Gagal"], ["cancelled", "Dibatalkan"]]
-              .map(([value, text]) => <option key={value} value={value}>{text}</option>)}
+            <optgroup label="Status pengiriman">
+              {(["all", "queued", "sent", "bounced", "failed", "cancelled"] as const).map((value) => (
+                <option key={value} value={value}>{FILTER_CHIPS[value]}</option>
+              ))}
+            </optgroup>
+            <optgroup label="Interaksi penerima">
+              {(["opened", "clicked", "unsubscribed"] as const).map((value) => (
+                <option key={value} value={value}>{FILTER_CHIPS[value]}</option>
+              ))}
+            </optgroup>
           </select>
         </div>
 
         {loading && (
           <p className="p-8 text-center text-xs font-bold text-slate-400">
-            <Loader2 className="w-4 h-4 animate-spin inline mr-2" /> Memuat antrean…
+            <Loader2 className="w-4 h-4 animate-spin inline mr-2" /> Memuat penerima…
           </p>
         )}
 
         {!loading && recipients.length === 0 && (
-          <p className="p-8 text-center text-xs font-bold text-slate-400">Tidak ada penerima dengan status ini.</p>
+          <p className="p-8 text-center text-xs font-bold text-slate-400">
+            {filter === "all"
+              ? "Belum ada penerima pada kampanye ini."
+              : `Belum ada penerima yang cocok: ${FILTER_CHIPS[filter].toLowerCase()}.`}
+          </p>
         )}
 
         <div className="max-h-[520px] overflow-y-auto">
           {batches.map(([index, list]) => (
             <div key={index}>
-              <div className="px-4 py-2 bg-slate-50 border-y border-slate-100 flex items-center justify-between sticky top-0 z-10">
-                <span className="text-[10px] font-black font-mono uppercase tracking-wider text-slate-500">
-                  Batch {index + 1} · {list.length} email
-                </span>
-                <span className="text-[10px] font-mono text-slate-400">
-                  {new Date(list[0].scheduled_for).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
-                  {" → "}
-                  {new Date(list[list.length - 1].scheduled_for).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
-                </span>
-              </div>
+              {/* Batch headers only make sense while the list is the send queue.
+                  Filtered by engagement, the queue position is not what the
+                  reader is looking at. */}
+              {!isEngagement && (
+                <div className="px-4 py-2 bg-slate-50 border-y border-slate-100 flex items-center justify-between sticky top-0 z-10">
+                  <span className="text-[10px] font-black font-mono uppercase tracking-wider text-slate-500">
+                    Batch {index + 1} · {list.length} email
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {new Date(list[0].scheduled_for).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
+                    {" → "}
+                    {new Date(list[list.length - 1].scheduled_for).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
+                  </span>
+                </div>
+              )}
               <table className="w-full text-left">
                 <tbody>
                   {list.map((r) => (
@@ -1113,10 +1193,10 @@ function CampaignDetail({
                             : "bg-slate-100 text-slate-500"
                         }`}>{r.status}</span>
                       </td>
-                      <td className="px-4 py-2 text-[10px] font-mono text-slate-400">
-                        {r.sent_at
-                          ? new Date(r.sent_at).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })
-                          : new Date(r.scheduled_for).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })}
+                      <td className="px-4 py-2 text-[10px] font-mono text-slate-400 whitespace-nowrap">
+                        {/* Under an engagement filter the interesting timestamp
+                            is when they engaged, not when we sent. */}
+                        {timestampFor(r, filter)}
                       </td>
                       <td className="px-4 py-2 text-[10px] font-mono">
                         {r.open_count > 0 && <span className="text-brand-teal mr-2" title="Dibuka">👁 {r.open_count}</span>}
@@ -1133,7 +1213,27 @@ function CampaignDetail({
             </div>
           ))}
         </div>
+
+        {filter === "opened" && recipients.length > 0 && (
+          <p className="p-3 text-[10px] font-semibold text-slate-500 bg-slate-50 border-t border-slate-100 leading-relaxed">
+            Daftar ini adalah batas bawah, bukan angka pasti. Gmail dan Apple Mail memblokir atau mem-proksi
+            pixel pelacak, sehingga sebagian pembaca tidak pernah tercatat — sebaliknya, proxy yang melakukan
+            prefetch bisa memunculkan nama yang sebenarnya belum membaca. Daftar &ldquo;diklik&rdquo; jauh lebih dapat dipercaya.
+          </p>
+        )}
       </div>
     </div>
   );
+}
+
+/** Which timestamp a row should show, given what the list is filtered to. */
+function timestampFor(r: EmailRecipient, filter: RecipientFilter): string {
+  const stamp =
+    filter === "opened" ? r.first_opened_at
+      : filter === "clicked" ? r.first_clicked_at
+      : filter === "unsubscribed" ? r.unsubscribed_at
+      : r.sent_at || r.scheduled_for;
+
+  if (!stamp) return "—";
+  return new Date(stamp).toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" });
 }

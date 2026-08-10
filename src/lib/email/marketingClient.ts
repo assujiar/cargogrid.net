@@ -61,7 +61,26 @@ export async function listContacts(options?: {
   tag?: string;
   limit?: number;
 }): Promise<EmailContact[]> {
-  let query = supabase.from("email_contacts").select("*").order("created_at", { ascending: false });
+  // Every filter has to be expressed in the query, never applied to the result.
+  // Filtering a page of rows in the browser silently intersects the filter with
+  // "whatever happened to be in the first N" — which is how the group filter
+  // used to return nothing at all for any group whose members were imported
+  // early enough to fall outside the page.
+  //
+  // !inner turns the membership table into a join rather than an embed, so the
+  // limit applies to contacts that are actually in the group.
+  //
+  // The two selects are written as separate literals because supabase-js parses
+  // the select string at the type level; a string built at runtime resolves to
+  // ParserError and the call stops typechecking.
+  let query = options?.groupId
+    ? supabase
+        .from("email_contacts")
+        .select("*, email_group_members!inner(group_id)")
+        .eq("email_group_members.group_id", options.groupId)
+    : supabase.from("email_contacts").select("*");
+
+  query = query.order("created_at", { ascending: false }) as typeof query;
 
   if (options?.status && options.status !== "all") query = query.eq("status", options.status);
   if (options?.tag) query = query.contains("tags", [options.tag]);
@@ -71,34 +90,44 @@ export async function listContacts(options?: {
   }
   query = query.limit(options?.limit ?? 500);
 
-  const contacts = unwrap(await query) as EmailContact[];
-  if (!options?.groupId) return contacts;
+  const rows = unwrap(await query) as Array<EmailContact & { email_group_members?: unknown }>;
 
-  // Filtering by group after the fact rather than as a join: PostgREST can only
-  // express this as an embedded resource filter, which changes the shape of
-  // every row for the sake of one optional filter.
-  const memberIds = new Set(
-    (unwrap(
-      await supabase.from("email_group_members").select("contact_id").eq("group_id", options.groupId),
-    ) as Array<{ contact_id: string }>).map((m) => m.contact_id),
-  );
-  return contacts.filter((c) => memberIds.has(c.id));
+  // Drop the join artefact so callers get a plain contact either way.
+  return rows.map(({ email_group_members: _ignored, ...contact }) => contact as EmailContact);
 }
 
+/**
+ * Head-only count per status.
+ *
+ * Six cheap COUNT queries rather than fetching every row and tallying it in the
+ * browser: the tally version is capped by PostgREST's row ceiling, so it starts
+ * under-reporting the moment the list outgrows one page — and a stat card that
+ * quietly stops counting is worse than one that is missing.
+ */
 export async function countContactsByStatus(): Promise<Record<string, number>> {
-  const rows = unwrap(await supabase.from("email_contacts").select("status")) as Array<{ status: string }>;
-  return rows.reduce<Record<string, number>>((acc, row) => {
-    acc[row.status] = (acc[row.status] || 0) + 1;
-    acc.total = (acc.total || 0) + 1;
-    return acc;
-  }, {});
+  const statuses = ["subscribed", "unsubscribed", "bounced", "complained", "cleaned"] as const;
+
+  const [total, ...counts] = await Promise.all([
+    supabase.from("email_contacts").select("*", { count: "exact", head: true }),
+    ...statuses.map((status) =>
+      supabase.from("email_contacts").select("*", { count: "exact", head: true }).eq("status", status),
+    ),
+  ]);
+
+  const result: Record<string, number> = { total: total.count ?? 0 };
+  statuses.forEach((status, index) => {
+    result[status] = counts[index]?.count ?? 0;
+  });
+  return result;
 }
 
 export async function listAllTags(): Promise<string[]> {
-  const rows = unwrap(await supabase.from("email_contacts").select("tags")) as Array<{ tags: string[] }>;
-  const tags = new Set<string>();
-  rows.forEach((row) => (row.tags || []).forEach((tag) => tag && tags.add(tag)));
-  return Array.from(tags).sort();
+  // Distinct tags are computed in the database for the same reason as the
+  // counts above: derived from a fetched page, the tag list silently loses
+  // whichever tags only exist on older contacts.
+  const { data, error } = await supabase.rpc("list_email_contact_tags");
+  if (error) throw new Error(error.message);
+  return ((data || []) as Array<{ tag: string }>).map((row) => row.tag);
 }
 
 export async function upsertContact(contact: Partial<EmailContact> & { email: string }): Promise<EmailContact> {
@@ -166,16 +195,20 @@ export async function listGroups(): Promise<EmailGroup[]> {
     await supabase.from("email_groups").select("*").order("name"),
   ) as EmailGroup[];
 
-  const members = unwrap(
-    await supabase.from("email_group_members").select("group_id"),
-  ) as Array<{ group_id: string }>;
+  // One head-count per group rather than fetching every membership row and
+  // tallying it here. The tally version is bounded by PostgREST's row ceiling,
+  // so past that point group sizes quietly start reading low — and these
+  // numbers are what an operator sizes a campaign's audience against.
+  const counts = await Promise.all(
+    groups.map((g) =>
+      supabase
+        .from("email_group_members")
+        .select("*", { count: "exact", head: true })
+        .eq("group_id", g.id),
+    ),
+  );
 
-  const counts = members.reduce<Record<string, number>>((acc, m) => {
-    acc[m.group_id] = (acc[m.group_id] || 0) + 1;
-    return acc;
-  }, {});
-
-  return groups.map((g) => ({ ...g, member_count: counts[g.id] || 0 }));
+  return groups.map((g, index) => ({ ...g, member_count: counts[index]?.count ?? 0 }));
 }
 
 export async function saveGroup(group: Partial<EmailGroup> & { name: string }): Promise<EmailGroup> {
